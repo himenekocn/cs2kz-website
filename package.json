@@ -5,13 +5,20 @@
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
+    "fmt": "prettier . --write",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@nuxt/ui": "^2.14.2",
     "nuxt": "^3.10.3",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0"
+  },
+  "devDependencies": {
+    "@nuxtjs/i18n": "^8.1.1",
+    "@nuxtjs/tailwindcss": "^6.11.4",
+    "prettier": "3.2.5"
   }
 }
