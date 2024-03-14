@@ -1,10 +1,12 @@
-<script lang="ts" setup>
-const { locale } = useI18n()
-</script>
+<script lang="ts" setup></script>
 
 <template>
-  <div class="main">
-    <NuxtPage />
+  <div class="main bg-gray-900">
+    <nuxt-loading-indicator />
+
+    <the-header />
+
+    <nuxt-page />
   </div>
 </template>
 
