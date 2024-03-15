@@ -37,25 +37,6 @@ const navigation = [
   },
 ]
 
-const items = [
-  [
-    {
-      label: "English",
-      click: () => {
-        setLocale("en")
-      },
-    },
-  ],
-  [
-    {
-      label: "中文",
-      click: () => {
-        setLocale("zh")
-      },
-    },
-  ],
-]
-
 // replace style preset
 const uiButton = {
   font: "font-semibold",
