@@ -8,7 +8,11 @@
     "fmt": "prettier . --write",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "*": "prettier . --write"
   },
   "dependencies": {
     "@nuxt/ui": "^2.14.2",
@@ -20,6 +24,8 @@
     "@nuxt/fonts": "^0.3.0",
     "@nuxtjs/i18n": "^8.1.1",
     "@nuxtjs/tailwindcss": "^6.11.4",
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.2",
     "prettier": "3.2.5"
   }
 }
