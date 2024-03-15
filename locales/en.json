@@ -1,5 +1,9 @@
 {
-  "app": {
-    "hello": "hello!"
+  "nav": {
+    "recent": "Recent",
+    "maps": "Maps",
+    "profile": "Profile",
+    "servers": "Servers",
+    "jumpstats": "Jumpstats"
   }
 }

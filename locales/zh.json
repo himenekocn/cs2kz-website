@@ -1,5 +1,9 @@
 {
-  "app": {
-    "hello": "你好！"
+  "nav": {
+    "recent": "最新",
+    "maps": "地图",
+    "profile": "个人数据",
+    "servers": "服务器",
+    "jumpstats": "跳跃数据"
   }
 }

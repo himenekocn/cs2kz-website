@@ -1,32 +1,66 @@
 <script setup lang="ts">
+const { locale, locales, setLocale } = useI18n()
+
+const availableLocales = computed(() => {
+  return locales.value
+    .filter((i) => i.code !== locale.value)
+    .map((locale) => [
+      {
+        label: locale.name,
+        click: () => {
+          setLocale(locale.code)
+        },
+      },
+    ])
+})
+
 const navigation = [
   {
-    title: "Recent",
+    localePath: "nav.recent",
     path: "/recent",
   },
   {
-    title: "Maps",
+    localePath: "nav.maps",
     path: "/maps",
   },
   {
-    title: "Profile",
+    localePath: "nav.profile",
     path: "/profile",
   },
   {
-    title: "Servers",
+    localePath: "nav.servers",
     path: "servers",
   },
   {
-    title: "JumpStats",
+    localePath: "nav.jumpstats",
     path: "/jumpstats",
   },
+]
+
+const items = [
+  [
+    {
+      label: "English",
+      click: () => {
+        setLocale("en")
+      },
+    },
+  ],
+  [
+    {
+      label: "中文",
+      click: () => {
+        setLocale("zh")
+      },
+    },
+  ],
 ]
 
 // replace style preset
 const uiButton = {
   font: "font-semibold",
   color: {
-    gray: { ghost: "text-gray-50 hover:text-gray-50 hover:bg-primary/40" },
+    gray: { ghost: "text-gray-50 hover:bg-primary/40" },
   },
 }
 const activeClassButton = "bg-primary bg-opacity-30"
@@ -43,23 +77,41 @@ const activeClassButton = "bg-primary bg-opacity-30"
         </nuxt-link>
       </div>
 
-      <!-- nav -->
+      <!-- navigation -->
       <nav class="hidden lg:flex justify-center">
         <ol class="text-[1.125rem] flex gap-4 leading-5">
-          <li v-for="item in navigation" :key="item.title">
+          <li v-for="item in navigation" :key="item.path">
             <UButton
               size="md"
               variant="ghost"
               color="gray"
               :to="item.path"
-              :ui="{ size: { md: 'text-base' }, ...uiButton }"
+              :ui="{
+                size: { md: locale === 'en' ? 'text-base' : 'text-sm' },
+                ...uiButton,
+              }"
               :active-class="activeClassButton"
             >
-              {{ item.title }}
+              {{ $t(item.localePath) }}
             </UButton>
           </li>
         </ol>
       </nav>
+
+      <div class="flex gap-2 justify-end items-center">
+        <!-- switch locale -->
+        <UDropdown :items="availableLocales">
+          <IconLocales />
+        </UDropdown>
+
+        <!-- steam -->
+        <UButton
+          variant="ghost"
+          :ui="{ variant: { ghost: 'hover:bg-primary/40' } }"
+        >
+          <IconSteam />
+        </UButton>
+      </div>
     </header>
   </div>
 </template>

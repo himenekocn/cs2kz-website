@@ -1,7 +1,7 @@
 <script lang="ts" setup></script>
 
 <template>
-  <div class="main bg-gray-900">
+  <div class="dark main bg-gray-900">
     <nuxt-loading-indicator />
 
     <the-header />
