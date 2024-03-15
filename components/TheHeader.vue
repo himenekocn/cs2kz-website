@@ -49,7 +49,7 @@ const activeClassButton = "bg-primary bg-opacity-30"
 <template>
   <div class="h-16 border-b border-gray-800">
     <header
-      class="h-full xl:max-w-7xl md:px-6 mx-auto grid grid-cols-3 items-center bg-gray-900/60 backdrop-blur-sm"
+      class="h-full xl:max-w-7xl md:px-6 mx-auto grid grid-cols-3 items-center bg-gray-900/60"
     >
       <!-- logo -->
       <div class="flex items-center">
