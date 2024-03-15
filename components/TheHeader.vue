@@ -38,7 +38,7 @@ const activeClassButton = "bg-primary bg-opacity-30"
     >
       <!-- logo -->
       <div class="flex items-center">
-        <nuxt-link>
+        <nuxt-link to="/">
           <app-logo />
         </nuxt-link>
       </div>
