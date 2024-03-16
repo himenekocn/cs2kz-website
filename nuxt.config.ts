@@ -5,6 +5,15 @@ export default defineNuxtConfig({
       title: "CS2 KZ",
     },
   },
+  runtimeConfig: {
+    public: {
+      apiBase: "",
+    },
+  },
+  devServer: {
+    host: "127.0.0.1",
+    port: 80,
+  },
   devtools: { enabled: true },
   modules: ["@nuxt/ui", "@nuxtjs/i18n", "@nuxt/fonts"],
   colorMode: {
