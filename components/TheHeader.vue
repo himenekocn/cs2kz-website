@@ -17,6 +17,8 @@ const availableLocales = computed(() => {
     ])
 })
 
+const openNavigation = ref(false)
+
 const options = [
   [
     {
@@ -50,13 +52,12 @@ const navigation = [
 ]
 
 // replace style preset
-const uiButton = {
+const navButton = {
   font: "font-semibold",
-  color: {
-    gray: { ghost: "text-gray-50 hover:bg-primary/40" },
-  },
+  color: { gray: { ghost: "dark:hover:bg-primary/40" } },
 }
-const activeClassButton = "bg-primary bg-opacity-30"
+const activeNavButton = "bg-primary bg-opacity-30"
+const uiIcon = { variant: { ghost: "hover:bg-primary/40" } }
 
 function signin() {
   const url = `${config.public.apiBase}/auth/login?return_to=${location.origin}`
@@ -73,7 +74,7 @@ function signout() {
 <template>
   <div class="h-16 border-b border-gray-800">
     <header
-      class="h-full xl:max-w-7xl md:px-6 mx-auto grid grid-cols-3 items-center bg-gray-900"
+      class="h-full xl:max-w-7xl md:px-6 mx-auto grid grid-cols-2 lg:grid-cols-3 items-center bg-gray-900"
     >
       <!-- logo -->
       <div class="flex items-center">
@@ -91,11 +92,8 @@ function signout() {
               variant="ghost"
               color="gray"
               :to="item.path"
-              :ui="{
-                size: { md: locale === 'en' ? 'text-base' : 'text-sm' },
-                ...uiButton,
-              }"
-              :active-class="activeClassButton"
+              :ui="navButton"
+              :active-class="activeNavButton"
             >
               {{ $t(item.localePath) }}
             </UButton>
@@ -105,10 +103,7 @@ function signout() {
 
       <div class="flex gap-2 justify-end items-center">
         <!-- switch locale -->
-        <UButton
-          variant="ghost"
-          :ui="{ variant: { ghost: 'hover:bg-primary/40' } }"
-        >
+        <UButton variant="ghost" :ui="uiIcon">
           <UDropdown
             :items="availableLocales"
             :ui="{ width: 'w-32' }"
@@ -118,12 +113,19 @@ function signout() {
           </UDropdown>
         </UButton>
 
-        <!-- login -->
         <UButton
-          v-if="player"
+          @click="openNavigation = true"
+          square
+          size="md"
           variant="ghost"
-          :ui="{ variant: { ghost: 'hover:bg-primary/40' } }"
+          :ui="uiIcon"
+          class="lg:hidden"
         >
+          <IconBars />
+        </UButton>
+
+        <!-- login -->
+        <UButton v-if="player" variant="ghost" :ui="uiIcon">
           <UDropdown
             :items="options"
             :ui="{ width: 'w-32' }"
@@ -136,15 +138,11 @@ function signout() {
           </UDropdown>
         </UButton>
 
-        <UButton
-          v-else
-          variant="ghost"
-          @click="signin"
-          :ui="{ variant: { ghost: 'hover:bg-primary/40' } }"
-        >
+        <UButton v-else variant="ghost" @click="signin" :ui="uiIcon">
           <IconSteam />
         </UButton>
       </div>
     </header>
+    <NavModal v-model="openNavigation" :navigation="navigation" />
   </div>
 </template>

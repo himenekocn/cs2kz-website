@@ -44,10 +44,13 @@ export default defineNuxtConfig({
     },
   },
   fonts: {
-    provider: "fontshare",
+    providers: {
+      google: false,
+    },
+    priority: ["bunny", "fontshare"],
     defaults: {
       weights: [400, 500, 600, 700, 800, 900],
-      styles: ["normal", "italic"],
+      styles: ["normal"],
     },
   },
   ssr: false,

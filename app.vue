@@ -19,6 +19,6 @@ player.value = kzPlayer.value || null
 
 <style>
 .main {
-  font-family: Gambetta, sans-serif;
+  font-family: Noto-Serif-SC, sans-serif;
 }
 </style>
