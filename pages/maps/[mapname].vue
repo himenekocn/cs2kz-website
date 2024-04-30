@@ -1,5 +1,5 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div>please login</div>
+  <div>a map</div>
 </template>

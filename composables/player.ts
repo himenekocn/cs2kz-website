@@ -2,8 +2,8 @@ import type { Player } from "~/types/player"
 
 export const usePlayer = () =>
   useState<Player | null>("player", () => ({
-    steamId: "",
-    steamId64: "",
+    steam_id: "",
+    steam_id64: "",
     username: "",
     realname: "",
     country: "",

@@ -12,12 +12,14 @@
     "prepare": "husky"
   },
   "lint-staged": {
-    "*": "prettier . --write",
+    "**/*.{js,ts,vue}": "prettier --write",
     "**/*.{js,mjs,cjs,jsx,ts,mts,cts,tsx,vue,astro,svelte}": "oxlint"
   },
   "dependencies": {
     "@headlessui/vue": "^1.7.19",
     "@nuxt/ui": "^2.14.2",
+    "@vueuse/core": "^10.9.0",
+    "date-fns": "^3.6.0",
     "nuxt": "^3.10.3",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0"

@@ -12,9 +12,9 @@ export default defineNuxtConfig({
   },
   devServer: {
     host: "127.0.0.1",
-    port: 80,
+    port: 5173,
   },
-  devtools: { enabled: true },
+  devtools: { enabled: false },
   modules: ["@nuxt/ui", "@nuxtjs/i18n", "@nuxt/fonts"],
   colorMode: {
     classSuffix: "",

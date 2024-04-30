@@ -1,6 +1,6 @@
 export interface Player {
-  steamId: string
-  steamId64: string
+  steam_id: string
+  steam_id64: string
   username: string
   realname: string
   country: string

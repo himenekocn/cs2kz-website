@@ -1,4 +1,4 @@
 <script setup lang="ts"></script>
 <template>
-  <div></div>
+  <div>a player's profile</div>
 </template>

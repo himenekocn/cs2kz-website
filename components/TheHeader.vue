@@ -30,8 +30,8 @@ const options = [
 
 const navigation = [
   {
-    localePath: "nav.recent",
-    path: "/recent",
+    localePath: "nav.records",
+    path: "/records",
   },
   {
     localePath: "nav.maps",
