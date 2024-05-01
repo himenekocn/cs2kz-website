@@ -1,18 +1,10 @@
 import type { Record, RecordQuery } from "~/types/record"
 
 export function useRecords() {
-  const records = ref<Record[]>([])
+  const records = ref<Record[] | undefined>([])
 
   const getRecords = async () => {
-    try {
-      records.value = await fetchRecords(toRaw(query))
-    } catch (error: any) {
-      throw createError({
-        statusCode: 500,
-        statusMessage: toErrorMsg(error),
-        fatal: true,
-      })
-    }
+    records.value = await $api("/records", { query: validQuery(query) })
   }
 
   const query = reactive<RecordQuery>({
