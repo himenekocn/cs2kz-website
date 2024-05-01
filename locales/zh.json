@@ -1,9 +1,41 @@
 {
+  "common": {
+    "mode": {
+      "ckz": "经典",
+      "vnl": "官匹"
+    },
+    "style": {
+      "normal": "正常",
+      "autobhop": "自动连跳",
+      "lowgrav": "低重力"
+    },
+    "teleports": {
+      "standard": "标准",
+      "pro": "裸跳"
+    }
+  },
   "nav": {
     "records": "记录",
     "maps": "地图",
     "profile": "个人数据",
     "servers": "服务器",
     "jumpstats": "跳跃数据"
+  },
+  "records": {
+    "query": {
+      "course": "关卡",
+      "player": "玩家",
+      "server": "服务器"
+    },
+    "title": {
+      "map": "地图",
+      "course": "关卡",
+      "tier": "难度",
+      "player": "玩家",
+      "time": "计时",
+      "server": "服务器",
+      "teleports": "读点",
+      "date": "日期"
+    }
   }
 }

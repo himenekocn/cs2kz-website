@@ -37,7 +37,7 @@ defineProps<{
       {{ record.player.name }}
     </NuxtLink>
 
-    <p class="flex justify-center items-center">
+    <p class="flex justify-center items-center text-slate-300">
       {{ formatTime(record.time) }}
     </p>
 

@@ -1,9 +1,41 @@
 {
+  "common": {
+    "mode": {
+      "ckz": "CKZ",
+      "vnl": "VNL"
+    },
+    "style": {
+      "normal": "Normal",
+      "autobhop": "Auto Bhop",
+      "lowgrav": "Low Gravity"
+    },
+    "teleports": {
+      "standard": "Standard",
+      "pro": "Pro"
+    }
+  },
   "nav": {
     "records": "Records",
     "maps": "Maps",
     "profile": "Profile",
     "servers": "Servers",
     "jumpstats": "Jumpstats"
+  },
+  "records": {
+    "query": {
+      "course": "Course",
+      "player": "Player",
+      "server": "Server"
+    },
+    "title": {
+      "map": "Map",
+      "course": "Course",
+      "tier": "Tier",
+      "player": "Player",
+      "time": "Time",
+      "server": "Server",
+      "teleports": "Teleports",
+      "date": "Date"
+    }
   }
 }
