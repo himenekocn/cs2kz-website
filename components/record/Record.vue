@@ -14,7 +14,7 @@ defineProps<{
   >
     <NuxtLink
       :to="`/maps/${record.map.name}`"
-      class="col-span-1 flex justify-center items-center text-slate-400 text-lg"
+      class="col-span-1 flex justify-center items-center text-slate-300 text-lg hover:text-slate-200 hover:scale-105"
     >
       {{ record.map.name }}
     </NuxtLink>
@@ -32,7 +32,7 @@ defineProps<{
 
     <NuxtLink
       :to="`/profile/${record.player.steam_id}`"
-      class="col-span-2 flex justify-center items-center text-cyan-600"
+      class="col-span-2 flex justify-center items-center text-cyan-600 hover:text-cyan-400 hover:scale-105"
     >
       {{ record.player.name }}
     </NuxtLink>
