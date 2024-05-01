@@ -3,25 +3,9 @@ import type { RecordQuery } from "~/types/record"
 
 const query = defineModel<RecordQuery>("query", { required: true })
 
-// TODO: style definitions
-const styles = [
-  {
-    value: "normal",
-    name: "Normal",
-  },
-  {
-    value: "auto_bhop",
-    name: "Auto Bhop",
-  },
-  {
-    value: "low_grav",
-    name: "Low Gravity",
-  },
-]
-// const isWr = ref(true)
-
 const uiTabs = { wrapper: "relative space-y-0" }
 
+// const isWr = ref(true)
 // watch(isWr, (isWr) => {
 //   query.value.points = isWr ? 1000 : undefined
 // })
@@ -53,7 +37,7 @@ function onTypeChange(index: number) {
     />
 
     <div class="col-span-3 flex items-center flex-wrap justify-end gap-4">
-      <!-- TODO: points param -->
+      <!-- TODO: wr filter -->
       <!-- <UCheckbox v-model="isWr" label="WRs" /> -->
 
       <UTabs
@@ -84,6 +68,7 @@ function onTypeChange(index: number) {
         </template>
       </UInput>
 
+      <!-- TODO: style definitions -->
       <USelectMenu
         v-model="query.style"
         :options="[
