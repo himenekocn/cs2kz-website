@@ -8,7 +8,7 @@ player.value = kzPlayer.value || null
 </script>
 
 <template>
-  <div class="dark main bg-gray-900">
+  <div class="app dark bg-gray-900">
     <NuxtLoadingIndicator />
 
     <TheHeader />
@@ -20,7 +20,7 @@ player.value = kzPlayer.value || null
 </template>
 
 <style>
-.main {
-  font-family: Noto-Serif-SC, sans-serif;
+.app {
+  font-family: "Akshar";
 }
 </style>

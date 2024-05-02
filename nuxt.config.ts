@@ -1,4 +1,3 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   app: {
     head: {
@@ -44,12 +43,9 @@ export default defineNuxtConfig({
     },
   },
   fonts: {
-    providers: {
-      google: false,
-    },
-    priority: ["bunny", "fontshare"],
+    provider: "bunny",
     defaults: {
-      weights: [400, 500, 600, 700, 800, 900],
+      weights: [400, 500, 600, 700, 800],
       styles: ["normal"],
     },
   },
