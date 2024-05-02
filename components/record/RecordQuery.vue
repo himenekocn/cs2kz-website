@@ -2,8 +2,10 @@
 import type { RecordQuery } from "~/types/record"
 
 const query = defineModel<RecordQuery>("query", { required: true })
+const currentPage = defineModel<number>("currentPage", { required: true })
 
 const uiTabs = { wrapper: "relative space-y-0" }
+const uiIcon = { variant: { ghost: "hover:bg-gray-600/40" } }
 
 // const isWr = ref(true)
 // watch(isWr, (isWr) => {
@@ -17,71 +19,101 @@ function onModeChange(index: number) {
 function onTypeChange(index: number) {
   query.value.teleports = index === 0 ? undefined : false
 }
+
+function prevPage() {
+  if (currentPage.value > 1) {
+    currentPage.value--
+    query.value.offset -= query.value.limit
+  }
+}
+
+function nextPage() {
+  currentPage.value++
+  query.value.offset += query.value.limit
+}
 </script>
 
 <template>
-  <div
-    class="p-4 grid grid-cols-1 lg:grid-cols-4 gap-4 lg:gap-8 border border-gray-700 rounded-md"
-  >
-    <UTabs
-      :items="[
-        { label: $t('common.mode.ckz') },
-        { label: $t('common.mode.vnl') },
-      ]"
-      :ui="{
-        list: { width: 'w-48', tab: { size: 'text-lg', padding: 'px-0' } },
-        ...uiTabs,
-      }"
-      :default-index="0"
-      @change="onModeChange"
-    />
-
-    <div class="col-span-3 flex items-center flex-wrap justify-end gap-4">
-      <!-- TODO: wr filter -->
-      <!-- <UCheckbox v-model="isWr" label="WRs" /> -->
-
+  <div>
+    <div
+      class="p-4 grid grid-cols-1 lg:grid-cols-4 gap-4 lg:gap-8 border border-gray-700 rounded-md"
+    >
       <UTabs
         :items="[
-          { label: $t('common.teleports.standard') },
-          { label: $t('common.teleports.pro') },
+          { label: $t('common.mode.ckz') },
+          { label: $t('common.mode.vnl') },
         ]"
-        :ui="uiTabs"
+        :ui="{
+          list: { width: 'w-48', tab: { size: 'text-lg', padding: 'px-0' } },
+          ...uiTabs,
+        }"
         :default-index="0"
-        @change="onTypeChange"
+        @change="onModeChange"
       />
+      <div class="col-span-3 flex items-center flex-wrap justify-end gap-4">
+        <!-- TODO: wr filter -->
+        <!-- <UCheckbox v-model="isWr" label="WRs" /> -->
+        <UTabs
+          :items="[
+            { label: $t('common.teleports.standard') },
+            { label: $t('common.teleports.pro') },
+          ]"
+          :ui="uiTabs"
+          :default-index="0"
+          @change="onTypeChange"
+        />
+        <UInput
+          v-model="query.course"
+          :placeholder="$t('records.query.course')"
+        >
+          <template #trailing>
+            <IconMap />
+          </template>
+        </UInput>
+        <UInput
+          v-model="query.player"
+          :placeholder="$t('records.query.player')"
+        >
+          <template #trailing>
+            <IconPlayer />
+          </template>
+        </UInput>
+        <UInput
+          v-model="query.server"
+          :placeholder="$t('records.query.server')"
+        >
+          <template #trailing>
+            <IconServer />
+          </template>
+        </UInput>
+        <!-- TODO: style definitions -->
+        <USelectMenu
+          v-model="query.style"
+          :options="[
+            { name: $t('common.style.normal'), value: 'normal' },
+            { name: $t('common.style.autobhop'), value: 'auto_bhop' },
+            { name: $t('common.style.lowgrav'), value: 'low_grav' },
+          ]"
+          placeholder="Style"
+          value-attribute="value"
+          option-attribute="name"
+        />
+        <!-- TODO: date picker -->
+      </div>
+    </div>
 
-      <UInput v-model="query.course" :placeholder="$t('records.query.course')">
-        <template #trailing>
-          <IconMap />
-        </template>
-      </UInput>
+    <div
+      class="w-max mx-auto mt-8 flex items-center justify-center gap-6 px-4 py-1 border border-gray-700 rounded-md text-gray-300"
+    >
+      <UButton variant="ghost" :ui="uiIcon" @click="prevPage">
+        <IconLeft />
+      </UButton>
 
-      <UInput v-model="query.player" :placeholder="$t('records.query.player')">
-        <template #trailing>
-          <IconPlayer />
-        </template>
-      </UInput>
+      <p>{{ `Page ${currentPage}` }}</p>
 
-      <UInput v-model="query.server" :placeholder="$t('records.query.server')">
-        <template #trailing>
-          <IconServer />
-        </template>
-      </UInput>
-
-      <!-- TODO: style definitions -->
-      <USelectMenu
-        v-model="query.style"
-        :options="[
-          { name: $t('common.style.normal'), value: 'normal' },
-          { name: $t('common.style.autobhop'), value: 'auto_bhop' },
-          { name: $t('common.style.lowgrav'), value: 'low_grav' },
-        ]"
-        placeholder="Style"
-        value-attribute="value"
-        option-attribute="name"
-      />
-
-      <!-- TODO: date picker -->
+      <UButton variant="ghost" :ui="uiIcon" @click="nextPage">
+        <IconRight />
+      </UButton>
     </div>
   </div>
 </template>

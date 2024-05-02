@@ -3,7 +3,6 @@ import type { Record } from "~/types/record"
 
 defineProps<{
   record: Record
-  teleports?: boolean
 }>()
 </script>
 

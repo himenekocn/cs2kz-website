@@ -50,6 +50,6 @@ export interface RecordQuery {
   style: Style
   after?: string
   before?: string
-  limit?: number
-  offset?: number
+  limit: number
+  offset: number
 }

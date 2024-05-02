@@ -1,14 +1,14 @@
 <script setup lang="ts">
-const { query, records, getRecords } = useRecords()
+const { query, currentPage, records, getRecords } = useRecords()
 
 getRecords()
 </script>
 <template>
   <Main>
     <section>
-      <RecordQuery v-model:query="query" />
+      <RecordQuery v-model:query="query" v-model:current-page="currentPage" />
 
-      <RecordTable :records="records" :teleports="query.teleports" />
+      <RecordTable :records="records" />
     </section>
   </Main>
 </template>

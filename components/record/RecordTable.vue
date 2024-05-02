@@ -3,13 +3,12 @@ import type { Record } from "~/types/record"
 
 defineProps<{
   records?: Record[]
-  teleports?: boolean
 }>()
 </script>
 
 <template>
   <div
-    class="mt-10 grid grid-cols-12 text-center p-2 border border-gray-700 rounded-t-md text-gray-300 font-semibold"
+    class="mt-8 grid grid-cols-12 text-center p-2 border border-gray-700 rounded-t-md text-gray-300 font-semibold"
   >
     <p class="col-span-1">{{ $t("records.title.map") }}</p>
     <p class="col-span-2">{{ $t("records.title.course") }}</p>
@@ -25,7 +24,6 @@ defineProps<{
     v-for="record in records"
     :record="record"
     :key="record.id"
-    :teleports="teleports"
   />
   <div
     v-else
