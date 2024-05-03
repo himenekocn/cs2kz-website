@@ -1,12 +1,14 @@
 <script setup lang="ts">
-const { query, currentPage, records, getRecords } = useRecords()
+const { query, total, records, getRecords } = useRecords()
 
 getRecords()
 </script>
 <template>
   <Main>
     <section>
-      <RecordQuery v-model:query="query" v-model:current-page="currentPage" />
+      <RecordQuery v-model:query="query" />
+
+      <RecordPagination :total="total" :query="query" />
 
       <RecordTable :records="records" />
     </section>

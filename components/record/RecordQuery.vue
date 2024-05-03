@@ -2,10 +2,8 @@
 import type { RecordQuery } from "~/types/record"
 
 const query = defineModel<RecordQuery>("query", { required: true })
-const currentPage = defineModel<number>("currentPage", { required: true })
 
 const uiTabs = { wrapper: "relative space-y-0" }
-const uiIcon = { variant: { ghost: "hover:bg-gray-600/40" } }
 
 // const isWr = ref(true)
 // watch(isWr, (isWr) => {
@@ -18,18 +16,6 @@ function onModeChange(index: number) {
 
 function onTypeChange(index: number) {
   query.value.teleports = index === 0 ? undefined : false
-}
-
-function prevPage() {
-  if (currentPage.value > 1) {
-    currentPage.value--
-    query.value.offset -= query.value.limit
-  }
-}
-
-function nextPage() {
-  currentPage.value++
-  query.value.offset += query.value.limit
 }
 </script>
 
@@ -44,7 +30,7 @@ function nextPage() {
           { label: $t('common.mode.vnl') },
         ]"
         :ui="{
-          list: { width: 'w-48', tab: { size: 'text-lg', padding: 'px-0' } },
+          list: { width: 'w-48', tab: { size: 'text-xl', padding: 'px-0' } },
           ...uiTabs,
         }"
         :default-index="0"
@@ -100,20 +86,6 @@ function nextPage() {
         />
         <!-- TODO: date picker -->
       </div>
-    </div>
-
-    <div
-      class="w-max mx-auto mt-8 flex items-center justify-center gap-6 px-4 py-1 border border-gray-700 rounded-md text-gray-300"
-    >
-      <UButton variant="ghost" :ui="uiIcon" @click="prevPage">
-        <IconLeft />
-      </UButton>
-
-      <p>{{ `Page ${currentPage}` }}</p>
-
-      <UButton variant="ghost" :ui="uiIcon" @click="nextPage">
-        <IconRight />
-      </UButton>
     </div>
   </div>
 </template>

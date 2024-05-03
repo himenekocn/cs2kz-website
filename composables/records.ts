@@ -1,9 +1,9 @@
-import type { Record, RecordQuery } from "~/types/record"
+import type { Record, RecordData, RecordQuery } from "~/types/record"
 
 export function useRecords() {
-  const records = ref<Record[] | undefined>([])
+  const records = ref<Record[]>([])
 
-  const currentPage = ref(1)
+  const total = ref(0)
 
   const query = reactive<RecordQuery>({
     mode: "classic",
@@ -22,13 +22,21 @@ export function useRecords() {
   })
 
   async function getRecords() {
-    records.value = await $api("/records", { query: validQuery(query) })
+    const data: RecordData | undefined = await $api("/records", {
+      query: validQuery(query),
+    })
+    if (data) {
+      records.value = data.results
+      total.value = data.total
+    } else {
+      records.value = []
+    }
   }
 
   return {
     query,
     records,
-    currentPage,
+    total,
     getRecords,
   }
 }

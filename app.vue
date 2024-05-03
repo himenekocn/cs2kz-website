@@ -21,6 +21,6 @@ player.value = kzPlayer.value || null
 
 <style>
 .app {
-  font-family: "Akshar";
+  font-family: "Akshar", sans-serif;
 }
 </style>

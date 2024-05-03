@@ -2,7 +2,7 @@
 import type { Record } from "~/types/record"
 
 defineProps<{
-  records?: Record[]
+  records: Record[]
 }>()
 </script>
 
@@ -20,7 +20,7 @@ defineProps<{
     <p class="col-span-2">{{ $t("records.title.date") }}</p>
   </div>
   <Record
-    v-if="records"
+    v-if="records.length > 0"
     v-for="record in records"
     :record="record"
     :key="record.id"

@@ -53,7 +53,7 @@ const navigation = [
 
 // replace style preset
 const navButton = {
-  font: "font-semibold",
+  font: "font-medium",
   color: { gray: { ghost: "dark:hover:bg-primary/40" } },
 }
 const activeNavButton = "bg-primary bg-opacity-30"
@@ -72,7 +72,7 @@ function signout() {
 }
 </script>
 <template>
-  <div class="h-16 border-b border-gray-800">
+  <div class="h-16 border-b border-gray-700">
     <header
       class="h-full xl:max-w-7xl md:px-6 mx-auto grid grid-cols-2 lg:grid-cols-3 items-center bg-gray-900"
     >

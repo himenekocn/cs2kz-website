@@ -13,7 +13,7 @@ defineProps<{
   >
     <NuxtLink
       :to="`/maps/${record.map.name}`"
-      class="col-span-1 flex justify-center items-center text-slate-300 text-lg hover:text-slate-200 hover:scale-105"
+      class="col-span-1 flex justify-center items-center text-slate-300 font-medium text-lg hover:text-slate-200 hover:scale-105"
     >
       {{ record.map.name }}
     </NuxtLink>

@@ -40,6 +40,11 @@ export interface Record {
   created_on: string
 }
 
+export interface RecordData {
+  total: number
+  results: Record[]
+}
+
 // without mode
 export interface RecordQuery {
   mode: Mode
