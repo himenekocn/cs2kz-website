@@ -52,9 +52,35 @@ function lastPage() {
 
 <template>
   <div
-    class="w-max mx-auto mt-8 flex items-center justify-center gap-4 px-4 py-2 border border-gray-700 rounded-md text-gray-300"
+    class="lg:w-max lg:mx-auto mt-8 flex items-center justify-center flex-wrap gap-4 px-4 py-2 border border-gray-700 rounded-md text-gray-300"
   >
-    <div class="pr-4 flex items-center border-r border-gray-700">
+    <div class="flex items-center gap-1">
+      <UButton variant="ghost" color="gray" :ui="uiButton" @click="firstPage">
+        First
+      </UButton>
+      <UButton
+        :disabled="currentPage === 1"
+        variant="ghost"
+        :ui="uiButton"
+        @click="prevPage"
+      >
+        <IconLeft />
+      </UButton>
+      <p>{{ `Showing ${start} - ${end} of ${total}` }}</p>
+      <UButton
+        :disabled="currentPage === totalPages"
+        variant="ghost"
+        :ui="uiButton"
+        @click="nextPage"
+      >
+        <IconRight />
+      </UButton>
+      <UButton variant="ghost" color="gray" :ui="uiButton" @click="lastPage">
+        Last
+      </UButton>
+    </div>
+
+    <div class="hidden lg:flex items-center pl-4 border-l border-gray-700">
       <USelectMenu
         v-model="query.limit"
         :options="[10, 20, 30, 50, 100]"
@@ -62,33 +88,5 @@ function lastPage() {
       />
       <span class="pl-2">/ page</span>
     </div>
-
-    <UButton variant="ghost" color="gray" :ui="uiButton" @click="firstPage">
-      First
-    </UButton>
-
-    <UButton
-      :disabled="currentPage === 1"
-      variant="ghost"
-      :ui="uiButton"
-      @click="prevPage"
-    >
-      <IconLeft />
-    </UButton>
-
-    <p>{{ `Showing ${start} - ${end} of ${total} records` }}</p>
-
-    <UButton
-      :disabled="currentPage === totalPages"
-      variant="ghost"
-      :ui="uiButton"
-      @click="nextPage"
-    >
-      <IconRight />
-    </UButton>
-
-    <UButton variant="ghost" color="gray" :ui="uiButton" @click="lastPage">
-      Last
-    </UButton>
   </div>
 </template>

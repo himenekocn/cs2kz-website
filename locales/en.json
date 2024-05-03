@@ -37,5 +37,12 @@
       "teleports": "TPs",
       "date": "Date"
     }
+  },
+  "servers": {
+    "query": {
+      "name": "Name",
+      "ip_address": "IP",
+      "owned_by": "Owner"
+    }
   }
 }

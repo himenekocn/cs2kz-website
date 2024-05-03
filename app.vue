@@ -13,9 +13,7 @@ player.value = kzPlayer.value || null
 
     <TheHeader />
 
-    <div class="px-4 container mx-auto">
-      <NuxtPage />
-    </div>
+    <NuxtPage />
   </div>
 </template>
 

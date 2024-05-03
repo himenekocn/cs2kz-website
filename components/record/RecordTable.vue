@@ -7,28 +7,81 @@ defineProps<{
 </script>
 
 <template>
-  <div
-    class="mt-8 grid grid-cols-12 text-center p-2 border border-gray-700 rounded-t-md text-gray-300 font-semibold"
+  <table
+    class="w-full mt-8 bg-gray-900 border border-gray-700 text-center text-gray-300"
   >
-    <p class="col-span-1">{{ $t("records.title.map") }}</p>
-    <p class="col-span-2">{{ $t("records.title.course") }}</p>
-    <p>{{ $t("records.title.tier") }}</p>
-    <p class="col-span-2">{{ $t("records.title.player") }}</p>
-    <p>{{ $t("records.title.time") }}</p>
-    <p class="col-span-2">{{ $t("records.title.server") }}</p>
-    <p>{{ $t("records.title.teleports") }}</p>
-    <p class="col-span-2">{{ $t("records.title.date") }}</p>
-  </div>
-  <Record
-    v-if="records.length > 0"
-    v-for="record in records"
-    :record="record"
-    :key="record.id"
-  />
-  <div
-    v-else
-    class="py-2 text-center text-lg font-semibold text-gray-300 border-b border-x border-gray-700"
-  >
-    No Data
-  </div>
+    <thead>
+      <tr>
+        <th class="py-1">{{ $t("records.title.map") }}</th>
+        <th class="py-1">{{ $t("records.title.course") }}</th>
+        <th class="py-1">{{ $t("records.title.tier") }}</th>
+        <th class="py-1">{{ $t("records.title.player") }}</th>
+        <th class="py-1">{{ $t("records.title.time") }}</th>
+        <th class="py-1">{{ $t("records.title.server") }}</th>
+        <th class="py-1">{{ $t("records.title.teleports") }}</th>
+        <th class="py-1">{{ $t("records.title.date") }}</th>
+      </tr>
+    </thead>
+
+    <tbody v-if="records.length > 0">
+      <tr
+        v-for="record in records"
+        :record="record"
+        :key="record.id"
+        class="border border-gray-700 text-gray-400 hover:bg-gray-800"
+      >
+        <td
+          :class="record.teleports === 0 ? 'from-blue-400' : 'from-yellow-400'"
+          class="py-2 transition ease-in-out bg-gradient-to-r to-[5%]"
+        >
+          <NuxtLink
+            :to="`/maps/${record.map.name}`"
+            class="text-slate-300 font-medium text-lg hover:text-slate-200"
+          >
+            {{ record.map.name }}
+          </NuxtLink>
+        </td>
+
+        <td class="py-2">
+          {{ record.course.name }}
+        </td>
+
+        <td
+          :style="{ color: getTierColor(record.course.tier) }"
+          class="py-2 text-lg font-medium"
+        >
+          {{ getNumTier(record.course.tier) }}
+        </td>
+
+        <td>
+          <NuxtLink
+            :to="`/profile/${record.player.steam_id}`"
+            class="py-2 text-cyan-600 hover:text-cyan-400"
+          >
+            {{ record.player.name }}
+          </NuxtLink>
+        </td>
+
+        <td class="py-2 text-slate-300">
+          {{ formatTime(record.time) }}
+        </td>
+
+        <td class="py-2 italic">
+          {{ record.server.name }}
+        </td>
+
+        <td class="py-2">
+          {{ record.teleports }}
+        </td>
+
+        <td class="py-2">
+          {{ toLocal(record.created_on) }}
+        </td>
+      </tr>
+    </tbody>
+
+    <tbody v-else>
+      No Data
+    </tbody>
+  </table>
 </template>

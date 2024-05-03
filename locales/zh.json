@@ -37,5 +37,12 @@
       "teleports": "读点",
       "date": "日期"
     }
+  },
+  "servers": {
+    "query": {
+      "name": "Name",
+      "ip_address": "IP",
+      "owned_by": "Owner"
+    }
   }
 }

@@ -5,12 +5,10 @@ getRecords()
 </script>
 <template>
   <Main>
-    <section>
-      <RecordQuery v-model:query="query" />
+    <RecordQuery v-model:query="query" />
 
-      <RecordPagination :total="total" :query="query" />
+    <RecordPagination :total="total" :query="query" />
 
-      <RecordTable :records="records" />
-    </section>
+    <RecordTable :records="records" />
   </Main>
 </template>
