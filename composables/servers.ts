@@ -49,7 +49,7 @@ export function useServers() {
 
         servers.value = serverData.results.map((s, index) => ({
           ...s,
-          info: infoData[index] ?? null,
+          info: infoData[index],
         }))
       } catch (error) {
         console.log(error)

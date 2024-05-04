@@ -12,20 +12,26 @@ export default defineEventHandler(async (event) => {
     const server = new Server({
       ip,
       port,
-      timeout: 3000,
+      timeout: 2000,
     })
 
     promises.push(server.getInfo())
   }
 
-  const info = await Promise.all(promises)
+  const results = await Promise.allSettled(promises)
 
-  console.log(info)
+  console.log(results)
 
-  return info.map((i) => ({
-    name: i.name,
-    map: i.map,
-    players: i.players,
-    ping: i.ping,
-  }))
+  return results.map((result) => {
+    if (result.status === "fulfilled") {
+      return {
+        name: result.value.name,
+        map: result.value.map,
+        players: result.value.players,
+        ping: result.value.ping,
+      }
+    } else {
+      return null
+    }
+  })
 })

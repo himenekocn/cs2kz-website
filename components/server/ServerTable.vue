@@ -67,7 +67,8 @@ function connect(ip: string) {
           </td>
 
           <td class="py-2 px-2 lg:px-0 whitespace-nowrap">
-            {{ server.info?.ping }}
+            <span v-if="server.info">{{ server.info.ping }}</span>
+            <IconNoConnection v-else class="inline" />
           </td>
         </tr>
       </tbody>

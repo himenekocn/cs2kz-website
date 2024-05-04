@@ -22,13 +22,18 @@ export function useRecords() {
   })
 
   async function getRecords() {
-    const data: RecordData | undefined = await $api("/records", {
-      query: validQuery(query),
-    })
-    if (data) {
-      records.value = data.results
-      total.value = data.total
-    } else {
+    try {
+      const data: RecordData | undefined = await $api("/records", {
+        query: validQuery(query),
+      })
+
+      if (data) {
+        records.value = data.results
+        total.value = data.total
+      } else {
+        records.value = null
+      }
+    } catch (error) {
       records.value = null
     }
   }
