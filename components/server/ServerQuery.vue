@@ -2,6 +2,17 @@
 import type { ServerQuery } from "~/types/server"
 
 const query = defineModel<ServerQuery>("query", { required: true })
+
+const uiReset = {
+  padding: { sm: "p-1" },
+  variant: { outline: "dark:hover:bg-gray-700" },
+}
+
+function resetFilter() {
+  query.value.name = ""
+  query.value.ip_address = ""
+  query.value.owned_by = ""
+}
 </script>
 
 <template>
@@ -29,5 +40,9 @@ const query = defineModel<ServerQuery>("query", { required: true })
         <IconServer />
       </template>
     </UInput>
+
+    <UButton variant="outline" color="gray" :ui="uiReset" @click="resetFilter">
+      <IconReset />
+    </UButton>
   </div>
 </template>

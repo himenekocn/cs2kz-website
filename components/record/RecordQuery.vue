@@ -4,7 +4,10 @@ import type { RecordQuery } from "~/types/record"
 const query = defineModel<RecordQuery>("query", { required: true })
 
 const uiTabs = { wrapper: "relative space-y-0" }
-
+const uiReset = {
+  padding: { sm: "p-1" },
+  variant: { outline: "dark:hover:bg-gray-700" },
+}
 // const isWr = ref(true)
 // watch(isWr, (isWr) => {
 //   query.value.points = isWr ? 1000 : undefined
@@ -16,6 +19,18 @@ function onModeChange(index: number) {
 
 function onTypeChange(index: number) {
   query.value.teleports = index === 0 ? undefined : false
+}
+
+function resetFilter() {
+  query.value.mode = "classic"
+  query.value.player = ""
+  query.value.course = ""
+  query.value.server = ""
+  query.value.styles = ["normal"]
+  query.value.before = ""
+  query.value.after = ""
+  query.value.limit = 30
+  query.value.offset = 0
 }
 </script>
 
@@ -82,6 +97,16 @@ function onTypeChange(index: number) {
         value-attribute="value"
         option-attribute="name"
       />
+
+      <UButton
+        variant="outline"
+        color="gray"
+        :ui="uiReset"
+        @click="resetFilter"
+      >
+        <IconReset />
+      </UButton>
+
       <!-- TODO: date picker -->
     </div>
   </div>
