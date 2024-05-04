@@ -3,10 +3,19 @@ import type { ServerQuery } from "~/types/server"
 
 const query = defineModel<ServerQuery>("query", { required: true })
 
+const ip = ref("")
+
 const uiReset = {
   padding: { sm: "p-1" },
   variant: { outline: "dark:hover:bg-gray-700" },
 }
+
+watch(ip, (ip) => {
+  const regx = /^((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)\.?\b){4}$/
+  if (regx.test(ip) || ip === "") {
+    query.value.ip_address = ip
+  }
+})
 
 function resetFilter() {
   query.value.name = ""
@@ -24,10 +33,7 @@ function resetFilter() {
         <IconMap />
       </template>
     </UInput>
-    <UInput
-      v-model="query.ip_address"
-      :placeholder="$t('servers.query.ip_address')"
-    >
+    <UInput v-model="ip" :placeholder="$t('servers.query.ip_address')">
       <template #trailing>
         <IconPlayer />
       </template>
