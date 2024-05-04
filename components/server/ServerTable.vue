@@ -67,7 +67,9 @@ function connect(ip: string) {
         </tr>
       </tbody>
       <tbody v-else>
-        No Data
+        <tr class="border border-gray-700 text-gray-500">
+          <td colspan="8">No Data</td>
+        </tr>
       </tbody>
     </table>
   </div>
