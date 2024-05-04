@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import type { Server } from "~/types/server"
+import type { ServerWithInfo } from "~/types/server"
 
 defineProps<{
-  servers: Server[]
+  servers: ServerWithInfo[] | null
 }>()
 
 const uiButton = {
@@ -27,9 +27,10 @@ function connect(ip: string) {
           <th class="py-1">{{ $t("servers.title.ip_address") }}</th>
           <th class="py-1">{{ $t("servers.title.owner") }}</th>
           <th class="py-1">{{ $t("servers.title.created_on") }}</th>
+          <th class="py-1">{{ $t("servers.title.ping") }}</th>
         </tr>
       </thead>
-      <tbody v-if="servers.length > 0">
+      <tbody v-if="servers && servers.length > 0">
         <tr
           v-for="server in servers"
           :server="server"
@@ -63,6 +64,10 @@ function connect(ip: string) {
           </td>
           <td class="py-2 px-2 lg:px-0 whitespace-nowrap">
             {{ toLocal(server.created_on) }}
+          </td>
+
+          <td class="py-2 px-2 lg:px-0 whitespace-nowrap">
+            {{ server.info?.ping }}
           </td>
         </tr>
       </tbody>

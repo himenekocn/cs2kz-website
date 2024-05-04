@@ -1,7 +1,7 @@
 import type { Record, RecordData, RecordQuery } from "~/types/record"
 
 export function useRecords() {
-  const records = ref<Record[]>([])
+  const records = ref<Record[] | null>(null)
 
   const total = ref(0)
 
@@ -29,7 +29,7 @@ export function useRecords() {
       records.value = data.results
       total.value = data.total
     } else {
-      records.value = []
+      records.value = null
     }
   }
 

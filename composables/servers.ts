@@ -1,7 +1,13 @@
-import type { Server, ServerData, ServerQuery } from "~/types/server"
+import type {
+  Server,
+  ServerWithInfo,
+  ServerData,
+  ServerInfo,
+  ServerQuery,
+} from "~/types/server"
 
 export function useServers() {
-  const servers = ref<Server[]>([])
+  const servers = ref<ServerWithInfo[] | null>(null)
 
   const total = ref(0)
 
@@ -20,14 +26,36 @@ export function useServers() {
   })
 
   async function getServers() {
-    const data: ServerData | undefined = await $api("/servers", {
+    const serverData: ServerData | undefined = await $api("/servers", {
       query: validQuery(query),
     })
-    if (data) {
-      servers.value = data.results
-      total.value = data.total
+    if (serverData) {
+      total.value = serverData.total
+
+      const hosts = serverData.results.map((server) => {
+        const [ip, port] = server.ip_address.split(":")
+        return {
+          ip,
+          port,
+        }
+      })
+      try {
+        const infoData = await $fetch<ServerInfo[]>("/ping", {
+          method: "POST",
+          body: {
+            hosts,
+          },
+        })
+
+        servers.value = serverData.results.map((s, index) => ({
+          ...s,
+          info: infoData[index] ?? null,
+        }))
+      } catch (error) {
+        console.log(error)
+      }
     } else {
-      servers.value = []
+      servers.value = null
     }
   }
 

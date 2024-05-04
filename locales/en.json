@@ -29,7 +29,6 @@
     "jumpstats": "Jumpstats"
   },
   "pagination": {
-    "records": "records",
     "first": "first",
     "last": "last",
     "page": "page"
@@ -62,6 +61,7 @@
       "name": "Name",
       "ip_address": "IP",
       "owner": "Owner",
+      "ping": "Ping",
       "created_on": "Creation Date"
     }
   }

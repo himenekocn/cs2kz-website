@@ -70,7 +70,6 @@ function lastPage() {
       </UButton>
       <p>
         {{ `${start} - ${end} of ${total} ` }}
-        <span>{{ $t("pagination.records") }}</span>
       </p>
       <UButton
         :disabled="currentPage === totalPages"
