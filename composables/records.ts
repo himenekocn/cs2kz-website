@@ -10,7 +10,7 @@ export function useRecords() {
     player: "",
     course: "",
     server: "",
-    style: "normal",
+    styles: ["normal"],
     before: "",
     after: "",
     limit: 30,

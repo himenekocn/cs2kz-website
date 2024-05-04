@@ -5,7 +5,9 @@ const props = defineProps<{
   total: number
 }>()
 
-const query = defineModel<RecordQuery>("query", { required: true })
+const query = defineModel<{ limit: number; offset: number }>("query", {
+  required: true,
+})
 
 const currentPage = ref(1)
 const totalPages = computed(() => Math.ceil(props.total / query.value.limit))
@@ -56,7 +58,7 @@ function lastPage() {
   >
     <div class="flex items-center gap-1">
       <UButton variant="ghost" color="gray" :ui="uiButton" @click="firstPage">
-        First
+        {{ $t("pagination.first") }}
       </UButton>
       <UButton
         :disabled="currentPage === 1"
@@ -66,7 +68,10 @@ function lastPage() {
       >
         <IconLeft />
       </UButton>
-      <p>{{ `Showing ${start} - ${end} of ${total}` }}</p>
+      <p>
+        {{ `${start} - ${end} of ${total} ` }}
+        <span>{{ $t("pagination.records") }}</span>
+      </p>
       <UButton
         :disabled="currentPage === totalPages"
         variant="ghost"
@@ -76,17 +81,13 @@ function lastPage() {
         <IconRight />
       </UButton>
       <UButton variant="ghost" color="gray" :ui="uiButton" @click="lastPage">
-        Last
+        {{ $t("pagination.last") }}
       </UButton>
     </div>
 
     <div class="hidden lg:flex items-center pl-4 border-l border-gray-700">
-      <USelectMenu
-        v-model="query.limit"
-        :options="[10, 20, 30, 50, 100]"
-        :ui="{}"
-      />
-      <span class="pl-2">/ page</span>
+      <USelectMenu v-model="query.limit" :options="[10, 20, 30, 50, 100]" />
+      <span class="pl-2">{{ `/ ${$t("pagination.page")}` }}</span>
     </div>
   </div>
 </template>

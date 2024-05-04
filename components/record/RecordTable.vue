@@ -8,11 +8,9 @@ defineProps<{
 
 <template>
   <div class="overflow-x-auto">
-    <table
-      class="w-full mt-8 bg-gray-900 border border-gray-700 text-center text-gray-300"
-    >
+    <table class="w-full mt-8 bg-gray-900 border border-gray-700 text-center">
       <thead>
-        <tr>
+        <tr class="text-gray-300">
           <th class="py-1">{{ $t("records.title.map") }}</th>
           <th class="py-1">{{ $t("records.title.course") }}</th>
           <th class="py-1">{{ $t("records.title.tier") }}</th>
@@ -75,7 +73,9 @@ defineProps<{
         </tr>
       </tbody>
       <tbody v-else>
-        No Data
+        <tr class="border border-gray-700 text-gray-500">
+          <td colspan="8">No Data</td>
+        </tr>
       </tbody>
     </table>
   </div>

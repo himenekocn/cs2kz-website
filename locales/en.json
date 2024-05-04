@@ -6,8 +6,15 @@
     },
     "style": {
       "normal": "Normal",
-      "autobhop": "Auto Bhop",
-      "lowgrav": "Low Gravity"
+      "backwards": "Backward",
+      "sideways": "Sideways",
+      "half_sideways": "Half Sideways",
+      "w_only": "W Only",
+      "low_gravity": "Low Gravity",
+      "high_gravity": "High Gravity",
+      "no_prestrafe": "No Prestrafe",
+      "negev": "Negev",
+      "ice": "Ice"
     },
     "teleports": {
       "standard": "Standard",
@@ -21,11 +28,18 @@
     "servers": "Servers",
     "jumpstats": "Jumpstats"
   },
+  "pagination": {
+    "records": "records",
+    "first": "first",
+    "last": "last",
+    "page": "page"
+  },
   "records": {
     "query": {
       "course": "Course",
       "player": "Player",
-      "server": "Server"
+      "server": "Server",
+      "styles": "Select style"
     },
     "title": {
       "map": "Map",
@@ -43,6 +57,12 @@
       "name": "Name",
       "ip_address": "IP",
       "owned_by": "Owner"
+    },
+    "title": {
+      "name": "Name",
+      "ip_address": "IP",
+      "owner": "Owner",
+      "created_on": "Creation Date"
     }
   }
 }

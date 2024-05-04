@@ -52,7 +52,7 @@ export interface RecordQuery {
   course?: string
   server?: string
   teleports?: boolean
-  style: Style
+  styles: Style[]
   after?: string
   before?: string
   limit: number

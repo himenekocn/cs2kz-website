@@ -1,41 +1,55 @@
 {
   "common": {
     "mode": {
-      "ckz": "经典",
-      "vnl": "官匹"
+      "ckz": "CKZ",
+      "vnl": "VNL"
     },
     "style": {
-      "normal": "正常",
-      "autobhop": "自动连跳",
-      "lowgrav": "低重力"
+      "normal": "Normal",
+      "backwards": "Backward",
+      "sideways": "Sideways",
+      "half_sideways": "Half Sideways",
+      "w_only": "W Only",
+      "low_gravity": "Low Gravity",
+      "high_gravity": "High Gravity",
+      "no_prestrafe": "No Prestrafe",
+      "negev": "Negev",
+      "ice": "Ice"
     },
     "teleports": {
-      "standard": "标准",
-      "pro": "裸跳"
+      "standard": "Standard",
+      "pro": "Pro"
     }
   },
   "nav": {
-    "records": "记录",
-    "maps": "地图",
-    "profile": "个人数据",
-    "servers": "服务器",
-    "jumpstats": "跳跃数据"
+    "records": "Records",
+    "maps": "Maps",
+    "profile": "Profile",
+    "servers": "Servers",
+    "jumpstats": "Jumpstats"
+  },
+  "pagination": {
+    "records": "records",
+    "first": "first",
+    "last": "last",
+    "page": "page"
   },
   "records": {
     "query": {
-      "course": "关卡",
-      "player": "玩家",
-      "server": "服务器"
+      "course": "Course",
+      "player": "Player",
+      "server": "Server",
+      "styles": "Select style"
     },
     "title": {
-      "map": "地图",
-      "course": "关卡",
-      "tier": "难度",
-      "player": "玩家",
-      "time": "计时",
-      "server": "服务器",
-      "teleports": "读点",
-      "date": "日期"
+      "map": "Map",
+      "course": "Course",
+      "tier": "Tier",
+      "player": "Player",
+      "time": "Time",
+      "server": "Server",
+      "teleports": "TPs",
+      "date": "Date"
     }
   },
   "servers": {
@@ -43,6 +57,12 @@
       "name": "Name",
       "ip_address": "IP",
       "owned_by": "Owner"
+    },
+    "title": {
+      "name": "Name",
+      "ip_address": "IP",
+      "owner": "Owner",
+      "created_on": "Creation Date"
     }
   }
 }

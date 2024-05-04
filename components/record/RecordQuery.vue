@@ -64,13 +64,21 @@ function onTypeChange(index: number) {
       </UInput>
       <!-- TODO: style definitions -->
       <USelectMenu
-        v-model="query.style"
+        v-model="query.styles"
         :options="[
           { name: $t('common.style.normal'), value: 'normal' },
-          { name: $t('common.style.autobhop'), value: 'auto_bhop' },
-          { name: $t('common.style.lowgrav'), value: 'low_grav' },
+          { name: $t('common.style.backwards'), value: 'backwards' },
+          { name: $t('common.style.sideways'), value: 'sideways' },
+          { name: $t('common.style.half_sideways'), value: 'half_sideways' },
+          { name: $t('common.style.w_only'), value: 'w_only' },
+          { name: $t('common.style.low_gravity'), value: 'low_gravity' },
+          { name: $t('common.style.high_gravity'), value: 'high_gravity' },
+          { name: $t('common.style.no_prestrafe'), value: 'no_prestrafe' },
+          { name: $t('common.style.negev'), value: 'negev' },
+          { name: $t('common.style.ice'), value: 'ice' },
         ]"
-        placeholder="Style"
+        multiple
+        :placeholder="$t('records.query.styles')"
         value-attribute="value"
         option-attribute="name"
       />

@@ -12,7 +12,17 @@ export type Tier =
 
 export type Mode = "classic" | "vanilla"
 
-export type Style = "normal" | "autobhop" | "lowgrav"
+export type Style =
+  | "normal"
+  | "backwards"
+  | "sideways"
+  | "half_sideways"
+  | "w_only"
+  | "low_gravity"
+  | "high_gravity"
+  | "no_prestrafe"
+  | "negev"
+  | "ice"
 
 export type RankedStatus = "never" | "unranked" | "ranked"
 

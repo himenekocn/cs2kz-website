@@ -7,7 +7,7 @@ getRecords()
   <Main>
     <RecordQuery v-model:query="query" />
 
-    <RecordPagination :total="total" :query="query" />
+    <PageHelper :total="total" :query="query" />
 
     <RecordTable :records="records" />
   </Main>
