@@ -56,10 +56,8 @@ function lastPage() {
   <div
     class="lg:w-max lg:mx-auto mt-8 flex items-center justify-center flex-wrap gap-4 px-4 py-2 border border-gray-700 rounded-md text-gray-300"
   >
-    <div class="flex items-center gap-1">
-      <UButton variant="ghost" color="gray" :ui="uiButton" @click="firstPage">
-        {{ $t("pagination.first") }}
-      </UButton>
+    <div class="flex items-center gap-2">
+      <UButton variant="solid" color="gray" @click="firstPage"> 1 </UButton>
       <UButton
         :disabled="currentPage === 1"
         variant="ghost"
@@ -79,8 +77,8 @@ function lastPage() {
       >
         <IconRightRounded />
       </UButton>
-      <UButton variant="ghost" color="gray" :ui="uiButton" @click="lastPage">
-        {{ $t("pagination.last") }}
+      <UButton variant="solid" color="gray" @click="lastPage">
+        {{ totalPages }}
       </UButton>
     </div>
 

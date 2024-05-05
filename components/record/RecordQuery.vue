@@ -43,10 +43,11 @@ function toggleOrder() {
 
 function resetFilter() {
   query.value.mode = "classic"
+  teleports.value = "standard"
   query.value.player = ""
   query.value.course = ""
   query.value.server = ""
-  query.value.styles = "normal"
+  styles.value = ["normal"]
   query.value.sort_order = "descending"
   query.value.sort_by = "date"
   query.value.before = ""
