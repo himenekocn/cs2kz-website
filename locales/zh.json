@@ -18,7 +18,8 @@
     },
     "teleports": {
       "standard": "Standard",
-      "pro": "Pro"
+      "pro": "Pro",
+      "tp": "TP"
     }
   },
   "nav": {

@@ -9,10 +9,23 @@ const uiReset = {
   variant: { outline: "dark:hover:bg-gray-700" },
 }
 
+const teleports = ref("standard")
 const styles = ref(["normal"])
 
 watch(styles, (styles) => {
   query.value.styles = styles.join(",")
+})
+
+watch(teleports, (teleports) => {
+  if (teleports === "standard") {
+    query.value.teleports = undefined
+  }
+  if (teleports === "pro") {
+    query.value.teleports = false
+  }
+  if (teleports === "tp") {
+    query.value.teleports = true
+  }
 })
 // const isWr = ref(true)
 // watch(isWr, (isWr) => {
@@ -59,7 +72,7 @@ function resetFilter() {
     <div class="col-span-3 flex items-center flex-wrap lg:justify-end gap-4">
       <!-- TODO: wr filter -->
       <!-- <UCheckbox v-model="isWr" label="WRs" /> -->
-      <UTabs
+      <!-- <UTabs
         :items="[
           { label: $t('common.teleports.standard') },
           { label: $t('common.teleports.pro') },
@@ -67,6 +80,17 @@ function resetFilter() {
         :ui="uiTabs"
         :default-index="0"
         @change="onTypeChange"
+      /> -->
+
+      <USelectMenu
+        v-model="teleports"
+        :options="[
+          { name: $t('common.teleports.standard'), value: 'standard' },
+          { name: $t('common.teleports.pro'), value: 'pro' },
+          { name: $t('common.teleports.tp'), value: 'tp' },
+        ]"
+        value-attribute="value"
+        option-attribute="name"
       />
       <UInput v-model="query.course" :placeholder="$t('records.query.course')">
         <template #trailing>
@@ -83,7 +107,7 @@ function resetFilter() {
           <IconServer />
         </template>
       </UInput>
-      <!-- TODO: style definitions -->
+
       <USelectMenu
         v-model="styles"
         :options="[
