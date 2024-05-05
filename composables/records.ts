@@ -13,6 +13,8 @@ export function useRecords() {
     course: "",
     server: "",
     styles: "normal",
+    sort_by: "date",
+    sort_order: "descending",
     before: "",
     after: "",
     limit: 30,

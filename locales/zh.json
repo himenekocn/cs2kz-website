@@ -20,6 +20,10 @@
       "standard": "Standard",
       "pro": "Pro",
       "tp": "TP"
+    },
+    "sort_by": {
+      "date": "Date",
+      "time": "Time"
     }
   },
   "nav": {

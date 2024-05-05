@@ -53,6 +53,8 @@ export interface RecordQuery {
   server?: string
   teleports?: boolean
   styles: string
+  sort_by: "time" | "date"
+  sort_order: "ascending" | "descending"
   after?: string
   before?: string
   limit: number

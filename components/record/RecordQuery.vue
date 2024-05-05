@@ -36,8 +36,9 @@ function onModeChange(index: number) {
   query.value.mode = index === 0 ? "classic" : "vanilla"
 }
 
-function onTypeChange(index: number) {
-  query.value.teleports = index === 0 ? undefined : false
+function toggleOrder() {
+  const order = query.value.sort_order
+  query.value.sort_order = order === "ascending" ? "descending" : "ascending"
 }
 
 function resetFilter() {
@@ -46,6 +47,8 @@ function resetFilter() {
   query.value.course = ""
   query.value.server = ""
   query.value.styles = "normal"
+  query.value.sort_order = "descending"
+  query.value.sort_by = "date"
   query.value.before = ""
   query.value.after = ""
   query.value.limit = 30
@@ -72,16 +75,6 @@ function resetFilter() {
     <div class="col-span-3 flex items-center flex-wrap lg:justify-end gap-4">
       <!-- TODO: wr filter -->
       <!-- <UCheckbox v-model="isWr" label="WRs" /> -->
-      <!-- <UTabs
-        :items="[
-          { label: $t('common.teleports.standard') },
-          { label: $t('common.teleports.pro') },
-        ]"
-        :ui="uiTabs"
-        :default-index="0"
-        @change="onTypeChange"
-      /> -->
-
       <USelectMenu
         v-model="teleports"
         :options="[
@@ -92,6 +85,27 @@ function resetFilter() {
         value-attribute="value"
         option-attribute="name"
       />
+      <UButtonGroup>
+        <UButton
+          :icon="
+            query.sort_order === 'ascending'
+              ? 'i-heroicons-bars-arrow-down-20-solid'
+              : 'i-heroicons-bars-arrow-up-20-solid'
+          "
+          color="gray"
+          variant="solid"
+          @click="toggleOrder"
+        />
+        <USelectMenu
+          v-model="query.sort_by"
+          :options="[
+            { name: $t('common.sort_by.date'), value: 'date' },
+            { name: $t('common.sort_by.time'), value: 'time' },
+          ]"
+          value-attribute="value"
+          option-attribute="name"
+        />
+      </UButtonGroup>
       <UInput v-model="query.course" :placeholder="$t('records.query.course')">
         <template #trailing>
           <IconMap />
