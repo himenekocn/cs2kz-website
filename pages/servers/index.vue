@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { query, servers, total, getServers } = useServers()
+const { query, servers, loading, error, total, getServers } = useServers()
 
 getServers()
 </script>
@@ -9,6 +9,6 @@ getServers()
 
     <PageHelper :query="query" :total="total" />
 
-    <ServerTable :servers="servers" />
+    <ServerTable :loading="loading" :error="error" :servers="servers" />
   </Main>
 </template>

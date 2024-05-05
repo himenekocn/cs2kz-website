@@ -1,8 +1,8 @@
 <template>
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width="1.5em"
-    height="1.5em"
+    width="3rem"
+    height="3rem"
     viewBox="0 0 24 24"
   >
     <g fill="none" stroke="#dbdbdb" stroke-linecap="round" stroke-width="2">

@@ -8,6 +8,12 @@ const uiReset = {
   padding: { sm: "p-1" },
   variant: { outline: "dark:hover:bg-gray-700" },
 }
+
+const styles = ref(["normal"])
+
+watch(styles, (styles) => {
+  query.value.styles = styles.join(",")
+})
 // const isWr = ref(true)
 // watch(isWr, (isWr) => {
 //   query.value.points = isWr ? 1000 : undefined
@@ -26,7 +32,7 @@ function resetFilter() {
   query.value.player = ""
   query.value.course = ""
   query.value.server = ""
-  query.value.styles = ["normal"]
+  query.value.styles = "normal"
   query.value.before = ""
   query.value.after = ""
   query.value.limit = 30
@@ -79,7 +85,7 @@ function resetFilter() {
       </UInput>
       <!-- TODO: style definitions -->
       <USelectMenu
-        v-model="query.styles"
+        v-model="styles"
         :options="[
           { name: $t('common.style.normal'), value: 'normal' },
           { name: $t('common.style.backwards'), value: 'backwards' },

@@ -3,13 +3,20 @@ import type { ServerWithInfo } from "~/types/server"
 
 defineProps<{
   servers: ServerWithInfo[] | null
+  loading: boolean
+  error: any
 }>()
 
 const opened = ref<number[]>([])
 
-const uiButton = {
+const uiConnectButton = {
   padding: { sm: "p-1" },
   variant: { ghost: "dark:hover:bg-green-400/40" },
+}
+
+const uiInfoButton = {
+  padding: { sm: "p-1" },
+  variant: { ghost: "dark:hover:bg-gray-400/40" },
 }
 
 const pingColors = {
@@ -48,15 +55,24 @@ function toggleOpen(id: number) {
           <th class="py-1">{{ $t("servers.title.ping") }}</th>
         </tr>
       </thead>
-      <tbody v-if="servers && servers.length > 0">
+      <tbody v-if="loading">
+        <tr class="border border-gray-700 text-gray-400">
+          <td colspan="8" class="py-4">
+            <IconLoading class="inline" />
+          </td>
+        </tr>
+      </tbody>
+      <tbody v-else-if="servers && servers.length > 0">
         <template v-for="server in servers" :key="server.id">
           <tr
             :server="server"
             class="border border-gray-700 text-gray-400 hover:bg-gray-800 transition ease-in"
           >
             <td @click="toggleOpen(server.id)" class="py-2 px-2">
-              <IconDown v-if="opened.includes(server.id)" />
-              <IconRight v-else />
+              <UButton variant="ghost" :ui="uiInfoButton">
+                <IconDown v-if="opened.includes(server.id)" />
+                <IconRight v-else />
+              </UButton>
             </td>
             <td class="py-2 px-2 lg:px-0 italic whitespace-nowrap">
               {{ server.name }}
@@ -68,7 +84,7 @@ function toggleOpen(id: number) {
                 </p>
                 <UButton
                   variant="ghost"
-                  :ui="uiButton"
+                  :ui="uiConnectButton"
                   @click="connect(server.ip_address)"
                 >
                   <IconConnect />
@@ -95,7 +111,7 @@ function toggleOpen(id: number) {
               <IconNoConnection v-else class="inline" />
             </td>
           </tr>
-          <tr v-if="opened.includes(server.id)">
+          <tr v-if="opened.includes(server.id)" class="transition-all ease-in">
             <ServerInfo :info="server.info" />
           </tr>
         </template>

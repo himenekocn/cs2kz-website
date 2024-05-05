@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { query, total, records, getRecords } = useRecords()
+const { query, total, records, loading, error, getRecords } = useRecords()
 
 getRecords()
 </script>
@@ -9,6 +9,6 @@ getRecords()
 
     <PageHelper :total="total" :query="query" />
 
-    <RecordTable :records="records" />
+    <RecordTable :loading="loading" :error="error" :records="records" />
   </Main>
 </template>

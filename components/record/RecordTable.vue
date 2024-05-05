@@ -3,6 +3,8 @@ import type { Record } from "~/types/record"
 
 defineProps<{
   records: Record[] | null
+  loading: boolean
+  error: any
 }>()
 </script>
 
@@ -21,7 +23,14 @@ defineProps<{
           <th class="py-1">{{ $t("records.title.date") }}</th>
         </tr>
       </thead>
-      <tbody v-if="records && records.length > 0">
+      <tbody v-if="loading">
+        <tr class="border border-gray-700 text-gray-400">
+          <td colspan="8" class="py-4">
+            <IconLoading class="inline" />
+          </td>
+        </tr>
+      </tbody>
+      <tbody v-else-if="records && records.length > 0">
         <tr
           v-for="record in records"
           :record="record"
@@ -74,7 +83,10 @@ defineProps<{
       </tbody>
       <tbody v-else>
         <tr class="border border-gray-700 text-gray-500">
-          <td colspan="8">No Data</td>
+          <td v-if="records === null" colspan="8" class="text-red-500">
+            {{ error }}
+          </td>
+          <td v-else colspan="8">No Data</td>
         </tr>
       </tbody>
     </table>

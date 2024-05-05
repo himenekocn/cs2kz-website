@@ -1,5 +1,4 @@
 import type {
-  Server,
   ServerWithInfo,
   ServerData,
   ServerInfo,
@@ -7,6 +6,8 @@ import type {
 } from "~/types/server"
 
 export function useServers() {
+  const loading = ref(false)
+  const error = ref(null)
   const servers = ref<ServerWithInfo[] | null>(null)
 
   const total = ref(0)
@@ -26,20 +27,21 @@ export function useServers() {
   })
 
   async function getServers() {
-    const serverData: ServerData | undefined = await $api("/servers", {
-      query: validQuery(query),
-    })
-    if (serverData) {
-      total.value = serverData.total
-
-      const hosts = serverData.results.map((server) => {
-        const [ip, port] = server.ip_address.split(":")
-        return {
-          ip,
-          port,
-        }
+    try {
+      loading.value = true
+      const serverData: ServerData | undefined = await $api("/servers", {
+        query: validQuery(query),
       })
-      try {
+      if (serverData) {
+        total.value = serverData.total
+
+        const hosts = serverData.results.map((server) => {
+          const [ip, port] = server.ip_address.split(":")
+          return {
+            ip,
+            port,
+          }
+        })
         const infoData = await $fetch<ServerInfo[]>("/ping", {
           method: "POST",
           body: {
@@ -51,17 +53,22 @@ export function useServers() {
           ...s,
           info: infoData[index],
         }))
-      } catch (error) {
-        console.log(error)
+      } else {
+        servers.value = []
       }
-    } else {
+    } catch (err: any) {
+      error.value = err.data
       servers.value = null
+    } finally {
+      loading.value = false
     }
   }
 
   return {
     query,
     servers,
+    loading,
+    error,
     total,
     getServers,
   }

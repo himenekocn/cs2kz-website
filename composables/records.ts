@@ -1,6 +1,8 @@
 import type { Record, RecordData, RecordQuery } from "~/types/record"
 
 export function useRecords() {
+  const loading = ref(false)
+  const error = ref(null)
   const records = ref<Record[] | null>(null)
 
   const total = ref(0)
@@ -10,7 +12,7 @@ export function useRecords() {
     player: "",
     course: "",
     server: "",
-    styles: ["normal"],
+    styles: "normal",
     before: "",
     after: "",
     limit: 30,
@@ -23,6 +25,7 @@ export function useRecords() {
 
   async function getRecords() {
     try {
+      loading.value = true
       const data: RecordData | undefined = await $api("/records", {
         query: validQuery(query),
       })
@@ -31,16 +34,21 @@ export function useRecords() {
         records.value = data.results
         total.value = data.total
       } else {
-        records.value = null
+        records.value = []
       }
-    } catch (error) {
+    } catch (err: any) {
+      error.value = err.data
       records.value = null
+    } finally {
+      loading.value = false
     }
   }
 
   return {
     query,
     records,
+    loading,
+    error,
     total,
     getRecords,
   }
