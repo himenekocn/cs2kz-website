@@ -5,14 +5,31 @@ defineProps<{
   servers: ServerWithInfo[] | null
 }>()
 
+const opened = ref<number[]>([])
+
 const uiButton = {
   padding: { sm: "p-1" },
   variant: { ghost: "dark:hover:bg-green-400/40" },
 }
 
+const pingColors = {
+  good: "text-green-400",
+  mid: "text-orange-400",
+  bad: "text-red-400",
+}
+
 function connect(ip: string) {
   const url = `steam://rungameid/730//+connect ${ip}`
   navigateTo(url, { external: true })
+}
+
+function toggleOpen(id: number) {
+  const index = opened.value.indexOf(id)
+  if (index === -1) {
+    opened.value.push(id)
+  } else {
+    opened.value.splice(index, 1)
+  }
 }
 </script>
 
@@ -23,6 +40,7 @@ function connect(ip: string) {
     >
       <thead>
         <tr>
+          <th class="w-4"></th>
           <th class="py-1">{{ $t("servers.title.name") }}</th>
           <th class="py-1">{{ $t("servers.title.ip_address") }}</th>
           <th class="py-1">{{ $t("servers.title.owner") }}</th>
@@ -31,46 +49,56 @@ function connect(ip: string) {
         </tr>
       </thead>
       <tbody v-if="servers && servers.length > 0">
-        <tr
-          v-for="server in servers"
-          :server="server"
-          :key="server.id"
-          class="border border-gray-700 text-gray-400 hover:bg-gray-800"
-        >
-          <td class="py-2 px-2 lg:px-0 italic whitespace-nowrap">
-            {{ server.name }}
-          </td>
-          <td class="py-2 px-2 lg:px-0">
-            <div class="inline-flex items-center gap-2">
-              <p>
-                {{ server.ip_address }}
-              </p>
-              <UButton
-                variant="ghost"
-                :ui="uiButton"
-                @click="connect(server.ip_address)"
+        <template v-for="server in servers" :key="server.id">
+          <tr
+            :server="server"
+            class="border border-gray-700 text-gray-400 hover:bg-gray-800 transition ease-in"
+          >
+            <td @click="toggleOpen(server.id)" class="py-2 px-2">
+              <IconDown v-if="opened.includes(server.id)" />
+              <IconRight v-else />
+            </td>
+            <td class="py-2 px-2 lg:px-0 italic whitespace-nowrap">
+              {{ server.name }}
+            </td>
+            <td class="py-2 px-2 lg:px-0">
+              <div class="inline-flex items-center gap-2">
+                <p>
+                  {{ server.ip_address }}
+                </p>
+                <UButton
+                  variant="ghost"
+                  :ui="uiButton"
+                  @click="connect(server.ip_address)"
+                >
+                  <IconConnect />
+                </UButton>
+              </div>
+            </td>
+            <td class="py-2 px-2 lg:px-0">
+              <NuxtLink
+                :to="`/profile/${server.owner.steam_id}`"
+                class="py-2 px-2 lg:px-0 text-cyan-600 whitespace-nowrap hover:text-cyan-400"
               >
-                <IconConnect />
-              </UButton>
-            </div>
-          </td>
-          <td class="py-2 px-2 lg:px-0">
-            <NuxtLink
-              :to="`/profile/${server.owner.steam_id}`"
-              class="py-2 px-2 lg:px-0 text-cyan-600 whitespace-nowrap hover:text-cyan-400"
-            >
-              {{ server.owner.name }}
-            </NuxtLink>
-          </td>
-          <td class="py-2 px-2 lg:px-0 whitespace-nowrap">
-            {{ toLocal(server.created_on) }}
-          </td>
-
-          <td class="py-2 px-2 lg:px-0 whitespace-nowrap">
-            <span v-if="server.info">{{ server.info.ping }}</span>
-            <IconNoConnection v-else class="inline" />
-          </td>
-        </tr>
+                {{ server.owner.name }}
+              </NuxtLink>
+            </td>
+            <td class="py-2 px-2 lg:px-0 whitespace-nowrap">
+              {{ toLocal(server.created_on) }}
+            </td>
+            <td class="py-2 px-2 lg:px-0 whitespace-nowrap">
+              <span
+                v-if="server.info"
+                :class="pingColors[server.info.connection]"
+                >{{ server.info.ping }}</span
+              >
+              <IconNoConnection v-else class="inline" />
+            </td>
+          </tr>
+          <tr v-if="opened.includes(server.id)">
+            <ServerInfo :info="server.info" />
+          </tr>
+        </template>
       </tbody>
       <tbody v-else>
         <tr class="border border-gray-700 text-gray-500">

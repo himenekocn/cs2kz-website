@@ -66,7 +66,7 @@ function lastPage() {
         :ui="uiButton"
         @click="prevPage"
       >
-        <IconLeft />
+        <IconLeftRounded />
       </UButton>
       <p>
         {{ `${start} - ${end} of ${total} ` }}
@@ -77,7 +77,7 @@ function lastPage() {
         :ui="uiButton"
         @click="nextPage"
       >
-        <IconRight />
+        <IconRightRounded />
       </UButton>
       <UButton variant="ghost" color="gray" :ui="uiButton" @click="lastPage">
         {{ $t("pagination.last") }}

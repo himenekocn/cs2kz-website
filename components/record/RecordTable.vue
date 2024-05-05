@@ -26,13 +26,13 @@ defineProps<{
           v-for="record in records"
           :record="record"
           :key="record.id"
-          class="border border-gray-700 text-gray-400 hover:bg-gray-800"
+          class="border border-gray-700 text-gray-400 hover:bg-gray-800 transition ease-in"
         >
           <td
             :class="
               record.teleports === 0 ? 'from-blue-400' : 'from-yellow-400'
             "
-            class="py-2 px-2 lg:px-0 transition ease-in-out bg-gradient-to-r to-[3%]"
+            class="py-2 px-2 lg:px-0 bg-gradient-to-r to-[3%]"
           >
             <NuxtLink
               :to="`/maps/${record.map.name}`"

@@ -19,23 +19,14 @@ export interface ServerWithInfo extends Server {
 }
 
 export interface ServerInfo {
-  protocol: number
   name: string
   map: string
-  folder: string
-  game: string
-  appID: number
   players: { online: number; max: number; bots: number }
-  type: string
-  OS: string
   hasPassword: boolean
   VAC: boolean
   version: string
-  gamePort: number
-  steamID: bigint
-  keywords: string[]
-  gameID: bigint
   ping: number
+  connection: "good" | "mid" | "bad"
 }
 
 export interface ServerQuery {
