@@ -72,9 +72,9 @@ function signout() {
 }
 </script>
 <template>
-  <div class="h-16 border-b border-gray-700">
+  <div class="h-12 border-b border-gray-700">
     <header
-      class="h-full xl:max-w-7xl md:px-6 mx-auto grid grid-cols-2 lg:grid-cols-3 items-center bg-gray-900"
+      class="h-full xl:max-w-7xl px-2 md:px-6 lg:mx-auto grid grid-cols-2 lg:grid-cols-3 items-center bg-gray-900"
     >
       <!-- logo -->
       <div class="flex items-center">
@@ -88,7 +88,6 @@ function signout() {
         <ol class="text-[1.125rem] flex gap-4 leading-5">
           <li v-for="item in navigation" :key="item.path">
             <UButton
-              size="md"
               variant="ghost"
               color="gray"
               :to="item.path"
@@ -106,7 +105,6 @@ function signout() {
         <UButton variant="ghost" :ui="uiIcon">
           <UDropdown
             :items="availableLocales"
-            :ui="{ width: 'w-32' }"
             :popper="{ placement: 'bottom-start' }"
           >
             <IconLocales />
@@ -116,7 +114,6 @@ function signout() {
         <UButton
           @click="openNavigation = true"
           square
-          size="md"
           variant="ghost"
           :ui="uiIcon"
           class="lg:hidden"
@@ -126,11 +123,7 @@ function signout() {
 
         <!-- login -->
         <UButton v-if="player" variant="ghost" :ui="uiIcon">
-          <UDropdown
-            :items="options"
-            :ui="{ width: 'w-32' }"
-            :popper="{ placement: 'bottom-start' }"
-          >
+          <UDropdown :items="options" :popper="{ placement: 'bottom-start' }">
             <PlayerAvatar
               :avatar-url="player.avatar_url"
               :username="player.username"

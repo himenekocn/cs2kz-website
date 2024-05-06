@@ -9,5 +9,5 @@ const fullUrl = computed(() => {
 })
 </script>
 <template>
-  <UAvatar size="sm" :src="fullUrl" :alt="username" />
+  <UAvatar size="xs" :src="fullUrl" :alt="username" />
 </template>
