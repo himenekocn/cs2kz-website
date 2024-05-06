@@ -36,7 +36,8 @@
   "pagination": {
     "first": "first",
     "last": "last",
-    "page": "page"
+    "page": "page",
+    "refresh": "Refresh"
   },
   "records": {
     "query": {

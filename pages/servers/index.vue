@@ -7,7 +7,7 @@ getServers()
   <Main>
     <ServerQuery :query="query" />
 
-    <PageHelper :query="query" :total="total" />
+    <PageHelper :query="query" :total="total" @refresh="getServers" />
 
     <ServerTable :loading="loading" :error="error" :servers="servers" />
   </Main>

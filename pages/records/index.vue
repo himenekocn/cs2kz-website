@@ -7,7 +7,7 @@ getRecords()
   <Main>
     <RecordQuery v-model:query="query" />
 
-    <PageHelper :total="total" :query="query" />
+    <PageHelper :total="total" :query="query" @refresh="getRecords" />
 
     <RecordTable :loading="loading" :error="error" :records="records" />
   </Main>

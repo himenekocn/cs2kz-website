@@ -9,6 +9,8 @@ const query = defineModel<{ limit: number; offset: number }>("query", {
   required: true,
 })
 
+defineEmits(["refresh"])
+
 const currentPage = ref(1)
 const totalPages = computed(() => Math.ceil(props.total / query.value.limit))
 const start = computed(() => (currentPage.value - 1) * query.value.limit)
@@ -85,6 +87,12 @@ function lastPage() {
     <div class="hidden lg:flex items-center pl-4 border-l border-gray-700">
       <USelectMenu v-model="query.limit" :options="[10, 20, 30, 50, 100]" />
       <span class="pl-2">{{ `/ ${$t("pagination.page")}` }}</span>
+    </div>
+
+    <div class="pl-4 border-l border-gray-700">
+      <UButton variant="solid" color="gray" @click="$emit('refresh')">
+        {{ $t("pagination.refresh") }}
+      </UButton>
     </div>
   </div>
 </template>
