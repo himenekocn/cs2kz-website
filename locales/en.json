@@ -30,7 +30,7 @@
   },
   "nav": {
     "records": "Records",
-    "maps": "Maps",
+    "courses": "Courses",
     "profile": "Profile",
     "servers": "Servers",
     "jumpstats": "Jumpstats"
@@ -61,7 +61,7 @@
   },
   "courses": {
     "query": {
-      "courseormap": "Course, Map"
+      "searchby": "Course, Map"
     }
   },
   "servers": {

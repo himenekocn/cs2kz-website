@@ -1,7 +1,7 @@
 import type { CourseExt, MapData, CourseQuery } from "~/types/map"
 import MiniSearch, { type SearchResult } from "minisearch"
 
-export function useMaps() {
+export function useCourses() {
   const loading = ref(false)
   const error = ref(null)
 
@@ -21,7 +21,7 @@ export function useMaps() {
   ]
   const miniSearch = new MiniSearch({
     idField: "id",
-    fields: ["name", "map"],
+    fields: ["name", "map", "mappers"],
     storeFields: fields,
     searchOptions: {
       fuzzy: 0.2,

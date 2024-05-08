@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { courses, loading, error, query, total, getCourses } = useMaps()
+const { courses, loading, error, query, total, getCourses } = useCourses()
 
 getCourses()
 </script>

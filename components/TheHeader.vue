@@ -34,8 +34,8 @@ const navigation = [
     path: "/records",
   },
   {
-    localePath: "nav.maps",
-    path: "/maps",
+    localePath: "nav.courses",
+    path: "/courses",
   },
   {
     localePath: "nav.profile",

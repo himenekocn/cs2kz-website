@@ -79,10 +79,7 @@ function resetFilter() {
           option-attribute="name"
         />
       </UButtonGroup>
-      <UInput
-        v-model="query.name"
-        :placeholder="$t('courses.query.courseormap')"
-      >
+      <UInput v-model="query.name" :placeholder="$t('courses.query.searchby')">
         <template #trailing>
           <IconMap />
         </template>
