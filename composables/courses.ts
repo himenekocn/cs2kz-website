@@ -21,11 +21,8 @@ export function useCourses() {
   ]
   const miniSearch = new MiniSearch({
     idField: "id",
-    fields: ["name", "map", "mappers"],
+    fields: ["name", "map"],
     storeFields: fields,
-    searchOptions: {
-      fuzzy: 0.2,
-    },
   })
 
   const query = reactive<CourseQuery>({
