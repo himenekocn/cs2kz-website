@@ -9,8 +9,6 @@ const uiReset = {
   variant: { outline: "dark:hover:bg-gray-700" },
 }
 
-const teleports = ref<"standard" | "pro">("standard")
-
 function onModeChange(index: number) {
   query.value.mode = index === 0 ? "classic" : "vanilla"
 }
@@ -22,7 +20,7 @@ function toggleOrder() {
 
 function resetFilter() {
   query.value.mode = "classic"
-  teleports.value = "standard"
+  query.value.teleports = "standard"
   query.value.sort_order = "descending"
   query.value.sort_by = "map"
   query.value.created_before = ""
@@ -58,6 +56,32 @@ function resetFilter() {
         value-attribute="value"
         option-attribute="name"
       />
+      <USelectMenu
+        v-model="query.tier"
+        :options="[
+          { name: 'All', value: 'all' },
+          { name: $t('common.tier.very_easy'), value: 'very_easy' },
+          { name: $t('common.tier.easy'), value: 'easy' },
+          { name: $t('common.tier.medium'), value: 'medium' },
+          { name: $t('common.tier.advanced'), value: 'advanced' },
+          { name: $t('common.tier.hard'), value: 'hard' },
+          { name: $t('common.tier.very_hard'), value: 'very_hard' },
+          { name: $t('common.tier.extreme'), value: 'extreme' },
+          { name: $t('common.tier.death'), value: 'death' },
+          { name: $t('common.tier.unfeasible'), value: 'unfeasible' },
+          { name: $t('common.tier.impossible'), value: 'impossible' },
+        ]"
+        value-attribute="value"
+        option-attribute="name"
+        :leading="true"
+      >
+        <template #label>
+          <span v-if="query.tier !== 'all'">
+            {{ $t(`common.tier.${query.tier}`) }}
+          </span>
+          <span v-else>Select Tier</span>
+        </template>
+      </USelectMenu>
       <UButtonGroup>
         <UButton
           :icon="

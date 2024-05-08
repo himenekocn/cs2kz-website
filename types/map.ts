@@ -83,6 +83,7 @@ export interface CourseQuery {
   name: string
   mode: Mode
   teleports: "standard" | "pro"
+  tier: Tier | "all"
   sort_by: SortByOptions
   sort_order: "ascending" | "descending"
   created_after: string

@@ -1,7 +1,9 @@
-export function sort<T extends Record<string, unknown>>(
+import type { CourseExt } from "~/types/map"
+
+export function sort<T extends CourseExt>(
   data: T[],
   order: "ascending" | "descending",
-  orderBy: string,
+  orderBy: keyof T,
 ) {
   const ord = order === "ascending" ? 1 : -1
   if (!orderBy) return data

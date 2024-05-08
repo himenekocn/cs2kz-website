@@ -1,4 +1,4 @@
-import type { CourseExt, MapData, CourseQuery } from "~/types/map"
+import type { Tier, CourseExt, MapData, CourseQuery } from "~/types/map"
 import MiniSearch, { type SearchResult } from "minisearch"
 
 export function useCourses() {
@@ -29,6 +29,7 @@ export function useCourses() {
     name: "",
     mode: "classic",
     teleports: "standard",
+    tier: "all",
     sort_by: "map",
     sort_order: "ascending",
     created_after: "",
@@ -43,6 +44,7 @@ export function useCourses() {
 
   watch(
     [
+      () => query.tier,
       () => query.name,
       () => query.sort_by,
       () => query.sort_order,
@@ -52,6 +54,7 @@ export function useCourses() {
       () => query.offset,
     ],
     async ([
+      tier,
       name,
       sort_by,
       sort_order,
@@ -62,7 +65,8 @@ export function useCourses() {
     ]) => {
       if (allCourses.value !== null && allCourses.value.length > 0) {
         const searched = search(allCourses.value, name)
-        const sorted = sort(searched, sort_order, sort_by)
+        const tiered = matchTier(searched, tier)
+        const sorted = sort(tiered, sort_order, sort_by)
         // TODO: date filter
         const paginated = sorted.slice(offset, limit)
         courses.value = paginated as (CourseExt & SearchResult)[]
@@ -76,6 +80,14 @@ export function useCourses() {
     }
 
     return miniSearch.search(name) as (CourseExt & SearchResult)[]
+  }
+
+  function matchTier(data: CourseExt[], tier: Tier | "all") {
+    if (tier === "all") {
+      return data
+    } else {
+      return data.filter((course) => course.tier === tier)
+    }
   }
 
   async function getCourses() {
