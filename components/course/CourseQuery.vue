@@ -98,6 +98,7 @@ function resetFilter() {
           :options="[
             { name: $t('common.sort_by.map'), value: 'map' },
             { name: $t('common.sort_by.tier'), value: 'tier' },
+            { name: $t('common.sort_by.created_on'), value: 'created_on' },
           ]"
           value-attribute="value"
           option-attribute="name"
@@ -117,8 +118,6 @@ function resetFilter() {
       >
         <IconReset />
       </UButton>
-
-      <!-- TODO: date picker -->
     </div>
   </div>
 </template>

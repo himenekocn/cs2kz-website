@@ -37,7 +37,8 @@
       "date": "Date",
       "time": "Time",
       "map": "Map",
-      "tier": "Tier"
+      "tier": "Tier",
+      "created_on": "Release Date"
     }
   },
   "nav": {

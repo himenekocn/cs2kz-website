@@ -59,6 +59,7 @@ export interface CourseExt {
   tier: Tier
   ranked_status: RankedStatus
   mappers: Player[]
+  created_on: string
   img: string
 }
 

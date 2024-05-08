@@ -48,21 +48,11 @@ export function useCourses() {
       () => query.name,
       () => query.sort_by,
       () => query.sort_order,
-      () => query.created_after,
-      () => query.created_before,
+
       () => query.limit,
       () => query.offset,
     ],
-    async ([
-      tier,
-      name,
-      sort_by,
-      sort_order,
-      created_after,
-      created_before,
-      limit,
-      offset,
-    ]) => {
+    async ([tier, name, sort_by, sort_order, limit, offset]) => {
       if (allCourses.value !== null && allCourses.value.length > 0) {
         const searched = search(allCourses.value, name)
         const tiered = matchTier(searched, tier)
@@ -116,6 +106,7 @@ export function useCourses() {
               tier: fltr.tier,
               ranked_status: fltr.ranked_status,
               mappers: map.mappers,
+              created_on: map.created_on,
               // TODO: map images
               img: getUrl(),
             }

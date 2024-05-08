@@ -29,7 +29,14 @@ defineProps<{
         </span>
       </div>
 
-      <div class="flex items-center gap-2 mt-10">
+      <div class="flex items-center gap-1 mt-6">
+        <IconDate />
+        <span class="text-xs text-gray-200 leading-3">
+          {{ toLocal(course.created_on).slice(0, 10) }}
+        </span>
+      </div>
+
+      <div class="flex items-center gap-2 mt-1">
         <div
           :class="
             course.ranked_status === 'ranked'
