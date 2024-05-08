@@ -10,7 +10,15 @@ export function useMaps() {
 
   const total = ref(0)
 
-  const fields = ["id", "name", "tier", "ranked_status", "mappers", "img"]
+  const fields = [
+    "id",
+    "name",
+    "tier",
+    "map",
+    "ranked_status",
+    "mappers",
+    "img",
+  ]
   const miniSearch = new MiniSearch({
     idField: "id",
     fields: ["name", "map"],
