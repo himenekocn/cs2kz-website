@@ -42,16 +42,14 @@ function toggleOrder() {
 }
 
 function resetFilter() {
-  query.value.mode = "classic"
-  teleports.value = "standard"
   query.value.player = ""
   query.value.course = ""
   query.value.server = ""
   styles.value = ["normal"]
   query.value.sort_order = "descending"
   query.value.sort_by = "date"
-  query.value.before = ""
-  query.value.after = ""
+  query.value.created_before = ""
+  query.value.created_after = ""
   query.value.limit = 30
   query.value.offset = 0
 }

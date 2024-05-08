@@ -28,15 +28,11 @@ export type RankedStatus = "never" | "unranked" | "ranked"
 
 export type GlobalStatus = "global" | "not_global" | "in_testing"
 
-export type Role = "none" | "maps" | "servers" | "bans" | "admin"
+type SortByOptions = "map" | "tier"
 
-export type BanReason = "auto_strafe" | "auto_bhop"
-
-export interface Player {
+interface Player {
   name: string
   steam_id: string
-  ip_address?: string
-  is_banned: boolean
 }
 
 export interface Filter {
@@ -50,10 +46,20 @@ export interface Filter {
 
 export interface Course {
   id: number
-  name?: string
+  name: string
   description?: string
   filters: Filter[]
   mappers: Player[]
+}
+
+export interface CourseExt {
+  id: number
+  map: string
+  name: string
+  tier: Tier
+  ranked_status: RankedStatus
+  mappers: Player[]
+  img: string
 }
 
 export interface Map {
@@ -68,34 +74,19 @@ export interface Map {
   created_on: string
 }
 
-export interface Admin {
+export interface MapData {
+  total: number
+  results: Map[]
+}
+
+export interface CourseQuery {
   name: string
-  steam_id: string
-  roles: Role[]
-}
-
-export interface Server {
-  id: number
-  name: string
-  ip_address: string
-  owner: Player
-  created_on: string
-}
-
-export interface Ban {
-  id: number
-  player: Player
-  reason: BanReason
-  server?: Server
-  admin?: Player
-  created_on: string
-  expires_on?: string
-  unban?: Unban
-}
-
-export interface Unban {
-  id: number
-  reason: string
-  admin?: Player
-  created_on: string
+  mode: Mode
+  teleports: "standard" | "pro"
+  sort_by: SortByOptions
+  sort_order: "ascending" | "descending"
+  created_after: string
+  created_before: string
+  limit: number
+  offset: number
 }

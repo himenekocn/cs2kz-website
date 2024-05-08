@@ -20,6 +20,9 @@ importers:
       date-fns:
         specifier: ^3.6.0
         version: 3.6.0
+      minisearch:
+        specifier: ^6.3.0
+        version: 6.3.0
       nuxt:
         specifier: ^3.10.3
         version: 3.10.3(@parcel/watcher@2.4.1)(@types/node@20.11.26)(encoding@0.1.13)(rollup@4.13.0)(terser@5.29.1)(vite@5.1.6(@types/node@20.11.26)(terser@5.29.1))
@@ -2797,6 +2800,9 @@ packages:
   minipass@7.0.4:
     resolution: {integrity: sha512-jYofLM5Dam9279rdkWzqHozUo4ybjdZmCsDHePy5V/PbBcVMiSZR97gmAy45aqi8CK1lG2ECd356FU86avfwUQ==}
     engines: {node: '>=16 || 14 >=14.17'}
+
+  minisearch@6.3.0:
+    resolution: {integrity: sha512-ihFnidEeU8iXzcVHy74dhkxh/dn8Dc08ERl0xwoMMGqp4+LvRSCgicb+zGqWthVokQKvCSxITlh3P08OzdTYCQ==}
 
   minizlib@2.1.2:
     resolution: {integrity: sha512-bAxsR8BVfj60DWXHE3u30oHzfl4G7khkSuPW+qvpd7jFRHm7dLxOjUk1EHACJ/hxLY8phGJ0YhYHZo7jil7Qdg==}
@@ -7288,6 +7294,8 @@ snapshots:
   minipass@5.0.0: {}
 
   minipass@7.0.4: {}
+
+  minisearch@6.3.0: {}
 
   minizlib@2.1.2:
     dependencies:

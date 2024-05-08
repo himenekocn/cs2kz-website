@@ -15,8 +15,8 @@ export function useRecords() {
     styles: "normal",
     sort_by: "date",
     sort_order: "descending",
-    before: "",
-    after: "",
+    created_before: "",
+    created_after: "",
     limit: 30,
     offset: 0,
   })
@@ -47,10 +47,10 @@ export function useRecords() {
   }
 
   return {
-    query,
     records,
     loading,
     error,
+    query,
     total,
     getRecords,
   }

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { query, total, records, loading, error, getRecords } = useRecords()
+const { records, loading, error, query, total, getRecords } = useRecords()
 
 getRecords()
 </script>
@@ -7,7 +7,12 @@ getRecords()
   <Main>
     <RecordQuery v-model:query="query" />
 
-    <PageHelper :total="total" :query="query" @refresh="getRecords" />
+    <PageHelper
+      :total="total"
+      v-model:limit="query.limit"
+      v-model:offset="query.offset"
+      @refresh="getRecords"
+    />
 
     <RecordTable :loading="loading" :error="error" :records="records" />
   </Main>

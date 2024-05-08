@@ -1,13 +1,18 @@
 <script setup lang="ts">
-const { query, servers, loading, error, total, getServers } = useServers()
+const { servers, loading, error, query, total, getServers } = useServers()
 
 getServers()
 </script>
 <template>
   <Main>
-    <ServerQuery :query="query" />
+    <ServerQuery v-model:query="query" />
 
-    <PageHelper :query="query" :total="total" @refresh="getServers" />
+    <PageHelper
+      :total="total"
+      v-model:limit="query.limit"
+      v-model:offset="query.offset"
+      @refresh="getServers"
+    />
 
     <ServerTable :loading="loading" :error="error" :servers="servers" />
   </Main>

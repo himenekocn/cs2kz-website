@@ -1,4 +1,6 @@
-import type { Tier, Style, Mode, RankedStatus } from "./common"
+import type { Tier, Mode, RankedStatus } from "./map"
+
+type SoryByOptions = "time" | "date"
 
 export interface Record {
   id: number
@@ -53,10 +55,10 @@ export interface RecordQuery {
   server?: string
   teleports?: boolean
   styles: string
-  sort_by: "time" | "date"
+  sort_by: SoryByOptions
   sort_order: "ascending" | "descending"
-  after?: string
-  before?: string
+  created_after?: string
+  created_before?: string
   limit: number
   offset: number
 }

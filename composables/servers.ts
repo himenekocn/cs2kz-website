@@ -65,10 +65,10 @@ export function useServers() {
   }
 
   return {
-    query,
     servers,
     loading,
     error,
+    query,
     total,
     getServers,
   }

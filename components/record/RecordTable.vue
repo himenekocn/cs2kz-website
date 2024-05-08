@@ -82,11 +82,11 @@ defineProps<{
         </tr>
       </tbody>
       <tbody v-else>
-        <tr class="border border-gray-700 text-gray-500">
+        <tr class="border border-gray-700">
           <td v-if="records === null" colspan="8" class="text-red-500">
             {{ error }}
           </td>
-          <td v-else colspan="8">No Data</td>
+          <td v-else colspan="8" class="text-gray-500">No Data</td>
         </tr>
       </tbody>
     </table>

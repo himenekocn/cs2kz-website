@@ -23,7 +23,9 @@
     },
     "sort_by": {
       "date": "Date",
-      "time": "Time"
+      "time": "Time",
+      "map": "Map",
+      "tier": "Tier"
     }
   },
   "nav": {
@@ -55,6 +57,11 @@
       "server": "Server",
       "teleports": "TPs",
       "date": "Date"
+    }
+  },
+  "courses": {
+    "query": {
+      "courseormap": "Course, Map"
     }
   },
   "servers": {
