@@ -93,22 +93,8 @@ defineProps<{
   transition: background ease-in;
 }
 
-.card:hover::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  border-top-right-radius: 0.375rem;
-  border-bottom-right-radius: 0.375rem;
-  background: rgba(83, 83, 83, 0.4);
-  z-index: 2;
-  transition: background ease-in;
-}
-
 .info > * {
   position: relative;
-  z-index: 3;
+  z-index: 1;
 }
 </style>
