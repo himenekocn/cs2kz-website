@@ -105,7 +105,7 @@ export function useCourses() {
               map: map.name,
               tier: fltr.tier,
               ranked_status: fltr.ranked_status,
-              mappers: map.mappers,
+              mappers: course.mappers,
               created_on: map.created_on,
               // TODO: map images
               img: getUrl(),
