@@ -18,15 +18,22 @@ defineProps<{
         <p class="text-gray-300">{{ course.map }}</p>
       </div>
 
-      <div class="text-sm">
+      <div class="flex items-center text-sm">
         <span class="text-gray-400 mr-1">made by</span>
-        <span
-          v-for="mapper in course.mappers"
-          :key="mapper.steam_id"
-          class="text-cyan-600"
-        >
-          {{ mapper.name }}
-        </span>
+        <div v-for="(mapper, index) in course.mappers" :key="mapper.steam_id">
+          <NuxtLink
+            :to="`/profile/${mapper.steam_id}`"
+            class="text-cyan-600 hover:text-cyan-400"
+          >
+            {{ mapper.name }}
+          </NuxtLink>
+          <span
+            v-if="index < course.mappers.length - 1"
+            class="text-gray-400 mr-1"
+          >
+            ,
+          </span>
+        </div>
       </div>
 
       <div class="flex items-center gap-1 mt-6">
