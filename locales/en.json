@@ -62,6 +62,7 @@
       "styles": "Select style"
     },
     "title": {
+      "rank": "Rank",
       "map": "Map",
       "course": "Course",
       "tier": "Tier",

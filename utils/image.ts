@@ -8,8 +8,10 @@ const maps = [
   "kz_mz",
 ]
 
-export function getUrl() {
+export function getUrl(high: boolean) {
   const map = maps[Math.floor(Math.random() * maps.length)]
 
-  return `https://kzglobalteam.github.io/map-images/webp/medium/${map}.webp?raw=true`
+  return high
+    ? `https://kzglobalteam.github.io/map-images/webp/${map}.webp?raw=true`
+    : `https://kzglobalteam.github.io/map-images/webp/medium/${map}.webp?raw=true`
 }
