@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import type { GlobalStatus, Mode } from "~/types/map"
+import type { GlobalStatus, Mode, Style } from "~/types/map"
 const mode = defineModel<Mode>("mode")
 const teleports = defineModel<"standard" | "pro">("teleports")
+const styles = defineModel<Style[]>("styles")
 
 defineProps<{
   name: string
@@ -46,6 +47,29 @@ const globalStatusColors = {
           option-attribute="name"
         />
       </div>
+    </div>
+
+    <div class="flex items-center gap-2 md:ml-4">
+      <p class="text-gray-200 text-lg">Styles:</p>
+      <USelectMenu
+        v-model="styles"
+        :options="[
+          { name: $t('common.style.normal'), value: 'normal' },
+          { name: $t('common.style.backwards'), value: 'backwards' },
+          { name: $t('common.style.sideways'), value: 'sideways' },
+          { name: $t('common.style.half_sideways'), value: 'half_sideways' },
+          { name: $t('common.style.w_only'), value: 'w_only' },
+          { name: $t('common.style.low_gravity'), value: 'low_gravity' },
+          { name: $t('common.style.high_gravity'), value: 'high_gravity' },
+          { name: $t('common.style.no_prestrafe'), value: 'no_prestrafe' },
+          { name: $t('common.style.negev'), value: 'negev' },
+          { name: $t('common.style.ice'), value: 'ice' },
+        ]"
+        multiple
+        :placeholder="$t('records.query.styles')"
+        value-attribute="value"
+        option-attribute="name"
+      />
     </div>
   </div>
 </template>

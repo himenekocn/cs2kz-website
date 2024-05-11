@@ -19,6 +19,7 @@ const courseNames = computed(() =>
 
 const mode = ref<Mode>("classic")
 const teleports = ref<"standard" | "pro">("standard")
+const styles = ref(["normal"])
 
 const records = ref<Record[] | null>(null)
 
@@ -27,7 +28,7 @@ const playerRecord = ref<Record | null>(null)
 
 getMap()
 
-watch([mode, teleports], () => {
+watch([mode, teleports, styles], () => {
   getCourseRanking()
 })
 
@@ -54,12 +55,18 @@ function onCourseChange(index: number) {
 async function getCourseRanking() {
   try {
     loadingRecords.value = true
+
+    const baseQuery = {
+      map: map.value?.name,
+      course: course.value?.name,
+      mode: mode.value,
+      teleports: teleports.value === "standard" ? undefined : false,
+      styles: styles.value.join(","),
+    }
+
     const data: RecordData | undefined = await $api("/records", {
       query: {
-        map: map.value?.name,
-        course: course.value?.name,
-        mode: mode.value,
-        teleports: teleports.value === "standard" ? undefined : false,
+        ...baseQuery,
         sort_by: "time",
         limit: 50,
         // TODO: course filter
@@ -81,10 +88,7 @@ async function getCourseRanking() {
           // if not found, fetch player record from api
           const data: RecordData | undefined = await $api("/records", {
             query: {
-              map: map.value?.name,
-              course: course.value?.name,
-              mode: mode.value,
-              teleports: teleports.value === "standard" ? undefined : false,
+              ...baseQuery,
               player: player.value.steam_id,
             },
           })
@@ -115,6 +119,7 @@ async function getCourseRanking() {
         <CourseInfoHeader
           v-model:mode="mode"
           v-model:teleports="teleports"
+          v-model:styles="styles"
           :name="map.name"
           :global-status="map.global_status"
         />

@@ -8,7 +8,7 @@ const maps = [
   "kz_mz",
 ]
 
-export function getUrl(high: boolean) {
+export function getUrl(high?: boolean) {
   const map = maps[Math.floor(Math.random() * maps.length)]
 
   return high

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { RecordQuery } from "~/types/record"
+import type { Style } from "~/types/map"
 
 const query = defineModel<RecordQuery>("query", { required: true })
 
@@ -10,7 +11,7 @@ const uiReset = {
 }
 
 const teleports = ref("standard")
-const styles = ref(["normal"])
+const styles = ref<Style[]>(["normal"])
 
 watch(styles, (styles) => {
   query.value.styles = styles.join(",")
