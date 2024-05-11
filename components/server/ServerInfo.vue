@@ -37,6 +37,6 @@ defineProps<{
         <span class="text-gray-100">{{ info.version }}</span>
       </p>
     </div>
-    <span v-else>No Data</span>
+    <span v-else>{{ $t("common.no_data") }}</span>
   </td>
 </template>

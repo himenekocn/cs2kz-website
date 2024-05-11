@@ -39,7 +39,8 @@
       "map": "Map",
       "tier": "Tier",
       "created_on": "Release Date"
-    }
+    },
+    "no_data": "No Data"
   },
   "nav": {
     "records": "Records",
@@ -77,6 +78,25 @@
     "query": {
       "searchby": "Course, Map"
     }
+  },
+  "map": {
+    "global_status": {
+      "global": "Global",
+      "in_testing": "Testing",
+      "not_global": "Not Global"
+    },
+    "filters": "Filters",
+    "styles": "Styles",
+    "made_by": "made by",
+    "tags": "Tags",
+    "rating": "Rating",
+    "tier": "Tier",
+    "ranked_status": {
+      "ranked": "RANKED",
+      "unranked": "UNRANKED",
+      "never": "NEVER"
+    },
+    "course_ranking": "Course Ranking"
   },
   "servers": {
     "query": {

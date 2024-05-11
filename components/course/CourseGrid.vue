@@ -21,7 +21,9 @@ defineProps<{
     </div>
 
     <div v-else class="flex justify-center">
-      <p v-if="courses?.length === 0" class="text-gray-500">No Data</p>
+      <p v-if="courses?.length === 0" class="text-gray-500">
+        {{ $t("common.no_data") }}
+      </p>
 
       <p v-else class="text-red-500">
         {{ error }}

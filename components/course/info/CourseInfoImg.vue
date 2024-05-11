@@ -36,7 +36,7 @@ const tags = ["slide", "bhop", "strafe"]
     <p class="text-2xl text-gray-100 font-medium">{{ course.name }}</p>
 
     <div class="flex items-center">
-      <span class="text-gray-300 mr-1">made by</span>
+      <span class="text-gray-300 mr-1">{{ $t("map.made_by") }}</span>
       <div v-for="(mapper, index) in course.mappers" :key="mapper.steam_id">
         <NuxtLink
           :to="`/profile/${mapper.steam_id}`"
@@ -54,7 +54,7 @@ const tags = ["slide", "bhop", "strafe"]
     </div>
 
     <div class="flex mt-2">
-      <span class="text-gray-200 mr-2">Tags:</span>
+      <span class="text-gray-200 mr-2">{{ `${$t("map.tags")}:` }}</span>
       <div class="flex gap-2">
         <div
           v-for="tag in tags"
@@ -67,7 +67,7 @@ const tags = ["slide", "bhop", "strafe"]
     </div>
 
     <div class="mt-2">
-      <span class="text-gray-200 mr-2">Rating:</span>
+      <span class="text-gray-200 mr-2">{{ `${$t("map.rating")}:` }}</span>
       <!-- TODO: course rating -->
       <span class="text-lg text-gray-100 font-medium">7.62</span>
       <span class="text-gray-200">/</span>
@@ -75,7 +75,7 @@ const tags = ["slide", "bhop", "strafe"]
     </div>
 
     <div class="flex items-center mt-1">
-      <span class="text-gray-200 mr-2">Tier:</span>
+      <span class="text-gray-200 mr-2">{{ `${$t("map.tier")}:` }}</span>
       <div :style="{ color: tierColor }" class="font-semibold">
         {{
           tier
@@ -90,7 +90,7 @@ const tags = ["slide", "bhop", "strafe"]
       :class="rankedStatusColors[rankedStatus]"
       class="w-max px-1 mt-1 text-sm rounded-sm font-medium"
     >
-      {{ rankedStatus.toUpperCase() }}
+      {{ $t(`map.ranked_status.${rankedStatus}`) }}
     </div>
   </div>
 </template>

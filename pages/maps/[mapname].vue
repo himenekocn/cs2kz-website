@@ -134,7 +134,7 @@ async function getCourseRanking() {
         </div>
 
         <div class="mt-6">
-          <p class="text-2xl text-gray-200">Course Ranking</p>
+          <p class="text-2xl text-gray-200">{{ $t("map.course_ranking") }}</p>
           <div v-if="loadingRecords">
             <IconLoading />
           </div>
