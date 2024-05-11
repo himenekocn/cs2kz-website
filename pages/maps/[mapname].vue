@@ -11,7 +11,8 @@ const loading = ref(false)
 const loadingRecords = ref(false)
 
 const map = ref<Map | null>(null)
-const course = ref<Course>()
+const activeCourseIndex = ref(0)
+const course = computed(() => map.value?.courses[activeCourseIndex.value])
 
 const courseNames = computed(() =>
   map.value?.courses.map((course) => course.name),
@@ -37,7 +38,9 @@ async function getMap() {
     loading.value = true
     const data: Map = await $api(`/maps/${route.params.mapname}`)
     map.value = data
-    course.value = data.courses[0]
+    activeCourseIndex.value = route.query.course
+      ? Number(route.query.course)
+      : 0
     await getCourseRanking()
   } catch (err: any) {
     error.value = err.data
@@ -48,7 +51,7 @@ async function getMap() {
 }
 
 function onCourseChange(index: number) {
-  course.value = map.value?.courses[index]
+  activeCourseIndex.value = index
   getCourseRanking()
 }
 
@@ -124,10 +127,10 @@ async function getCourseRanking() {
           :global-status="map.global_status"
         />
 
-        <!-- course names & info -->
         <div class="border border-gray-700 rounded-md mt-2">
           <CourseInfoNames
             :names="courseNames"
+            :active-course-index="activeCourseIndex"
             @course-change="onCourseChange"
           />
           <CourseInfoImg :course="course" :mode="mode" :teleports="teleports" />

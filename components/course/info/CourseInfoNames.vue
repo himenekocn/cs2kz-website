@@ -1,16 +1,10 @@
 <script setup lang="ts">
 defineProps<{
   names: string[]
+  activeCourseIndex: number
 }>()
 
-const activeIndex = ref(0)
-
 const emit = defineEmits(["courseChange"])
-
-function onClickCourse(index: number) {
-  emit("courseChange", index)
-  activeIndex.value = index
-}
 </script>
 
 <template>
@@ -18,9 +12,9 @@ function onClickCourse(index: number) {
     <div
       v-for="(name, index) in names"
       :key="name"
-      @click="onClickCourse(index)"
+      @click="emit('courseChange', index)"
       class="coursename"
-      :class="activeIndex === index ? 'active' : ''"
+      :class="activeCourseIndex === index ? 'active' : ''"
     >
       {{ name }}
     </div>

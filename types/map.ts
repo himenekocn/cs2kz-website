@@ -56,6 +56,7 @@ export interface CourseExt {
   id: number
   map: string
   name: string
+  stage: number
   tier: Tier
   ranked_status: RankedStatus
   mappers: Player[]
