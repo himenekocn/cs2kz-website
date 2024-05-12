@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Map, Course, Mode } from "~/types/map"
+import type { Map, Mode } from "~/types/map"
 import type { Record, RecordData } from "~/types/record"
 
 const route = useRoute()
@@ -12,7 +12,11 @@ const loadingRecords = ref(false)
 
 const map = ref<Map | null>(null)
 const activeCourseIndex = ref(0)
-const course = computed(() => map.value?.courses[activeCourseIndex.value])
+const course = computed(() => {
+  console.log("computed")
+
+  return map.value?.courses[activeCourseIndex.value]
+})
 
 const courseNames = computed(() =>
   map.value?.courses.map((course) => course.name),
@@ -39,7 +43,7 @@ async function getMap() {
     const data: Map = await $api(`/maps/${route.params.mapname}`)
     map.value = data
     activeCourseIndex.value = route.query.course
-      ? Number(route.query.course)
+      ? data.courses.findIndex((course) => course.name === route.query.course)
       : 0
     await getCourseRanking()
   } catch (err: any) {

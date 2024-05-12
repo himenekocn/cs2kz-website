@@ -2,13 +2,12 @@
 import type { CourseExt } from "~/types/map"
 defineProps<{
   course: CourseExt
-  index: number
 }>()
 </script>
 
 <template>
   <div
-    @click="navigateTo(`/maps/${course.map}?course=${index}`)"
+    @click="navigateTo(`/maps/${course.map}?course=${course.name}`)"
     class="card w-max flex items-center rounded-md ring ring-blue-600/50 hover:scale-[103%] transition ease-in cursor-pointer"
   >
     <img :src="course.img" loading="lazy" class="w-64 h-auto rounded-l-md" />

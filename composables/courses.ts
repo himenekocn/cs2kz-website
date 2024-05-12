@@ -93,7 +93,7 @@ export function useCourses() {
         const teleports = query.teleports === "standard" ? false : true
 
         const res = data.results.flatMap((map) =>
-          map.courses.map((course, index) => {
+          map.courses.map((course) => {
             const fltr = course.filters.find(
               (filter) =>
                 filter.mode === query.mode && filter.teleports === teleports,
@@ -102,7 +102,6 @@ export function useCourses() {
             return {
               id: course.id,
               name: course.name,
-              stage: index,
               map: map.name,
               tier: fltr.tier,
               ranked_status: fltr.ranked_status,

@@ -51,7 +51,12 @@ defineProps<{
             </NuxtLink>
           </td>
           <td class="py-2 px-2 lg:px-0 lg:p-0 whitespace-nowrap">
-            {{ record.course.name }}
+            <NuxtLink
+              :to="`/maps/${record.map.name}?course=${record.course.name}`"
+              class="text-lg hover:text-slate-300"
+            >
+              {{ record.course.name }}
+            </NuxtLink>
           </td>
           <td
             :style="{ color: getTierColor(record.course.tier) }"
