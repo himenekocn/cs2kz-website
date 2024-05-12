@@ -14,7 +14,7 @@ defineProps<{
       :src="course.img"
       onerror="this.onerror = null; this.src = '/img/cs2kz_medium.jpg'"
       loading="lazy"
-      class="w-64 h-auto rounded-l-md"
+      class="animate-fade-in w-64 h-auto rounded-l-md"
     />
 
     <div :style="{ backgroundImage: `url(${course.img})` }" class="info">
