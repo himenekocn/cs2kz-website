@@ -13,8 +13,6 @@ const loadingRecords = ref(false)
 const map = ref<Map | null>(null)
 const activeCourseIndex = ref(0)
 const course = computed(() => {
-  console.log("computed")
-
   return map.value?.courses[activeCourseIndex.value]
 })
 

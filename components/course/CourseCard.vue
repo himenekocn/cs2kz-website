@@ -10,7 +10,12 @@ defineProps<{
     @click="navigateTo(`/maps/${course.map}?course=${course.name}`)"
     class="card w-max flex items-center rounded-md ring ring-blue-600/50 hover:scale-[103%] transition ease-in cursor-pointer"
   >
-    <img :src="course.img" loading="lazy" class="w-64 h-auto rounded-l-md" />
+    <img
+      :src="course.img"
+      onerror="this.onerror = null; this.src = '/img/cs2kz_medium.jpg'"
+      loading="lazy"
+      class="w-64 h-auto rounded-l-md"
+    />
 
     <div :style="{ backgroundImage: `url(${course.img})` }" class="info">
       <p class="text-gray-100 font-medium text-lg">{{ course.name }}</p>
