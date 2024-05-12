@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { RecordQuery } from "~/types/record"
 import type { Style } from "~/types/map"
+import { debounce } from "radash"
 
 const query = defineModel<RecordQuery>("query", { required: true })
 
@@ -10,8 +11,16 @@ const uiReset = {
   variant: { outline: "dark:hover:bg-gray-700" },
 }
 
+const player = ref("")
+const course = ref("")
+const server = ref("")
+
 const teleports = ref("standard")
 const styles = ref<Style[]>(["normal"])
+
+watch([player, course, server], ([player, course, server]) => {
+  updateStringQueries(player, course, server)
+})
 
 watch(styles, (styles) => {
   query.value.styles = styles.join(",")
@@ -28,10 +37,15 @@ watch(teleports, (teleports) => {
     query.value.teleports = true
   }
 })
-// const isWr = ref(true)
-// watch(isWr, (isWr) => {
-//   query.value.points = isWr ? 1000 : undefined
-// })
+
+const updateStringQueries = debounce(
+  { delay: 300 },
+  (player, course, server) => {
+    query.value.player = player
+    query.value.course = course
+    query.value.server = server
+  },
+)
 
 function onModeChange(index: number) {
   query.value.mode = index === 0 ? "classic" : "vanilla"
@@ -74,7 +88,6 @@ function resetFilter() {
     />
     <div class="col-span-3 flex items-center flex-wrap lg:justify-end gap-4">
       <!-- TODO: wr filter -->
-      <!-- <UCheckbox v-model="isWr" label="WRs" /> -->
       <USelectMenu
         v-model="teleports"
         :options="[
@@ -106,17 +119,17 @@ function resetFilter() {
           option-attribute="name"
         />
       </UButtonGroup>
-      <UInput v-model="query.course" :placeholder="$t('records.query.course')">
+      <UInput v-model="course" :placeholder="$t('records.query.course')">
         <template #trailing>
           <IconMap />
         </template>
       </UInput>
-      <UInput v-model="query.player" :placeholder="$t('records.query.player')">
+      <UInput v-model="player" :placeholder="$t('records.query.player')">
         <template #trailing>
           <IconPlayer />
         </template>
       </UInput>
-      <UInput v-model="query.server" :placeholder="$t('records.query.server')">
+      <UInput v-model="server" :placeholder="$t('records.query.server')">
         <template #trailing>
           <IconServer />
         </template>

@@ -26,6 +26,9 @@ importers:
       nuxt:
         specifier: ^3.10.3
         version: 3.10.3(@parcel/watcher@2.4.1)(@types/node@20.11.26)(encoding@0.1.13)(rollup@4.13.0)(terser@5.29.1)(vite@5.1.6(@types/node@20.11.26)(terser@5.29.1))
+      radash:
+        specifier: ^12.1.0
+        version: 12.1.0
       vlpt:
         specifier: ^0.0.1
         version: 0.0.1
@@ -3403,6 +3406,10 @@ packages:
 
   queue-tick@1.0.1:
     resolution: {integrity: sha512-kJt5qhMxoszgU/62PLP1CJytzd2NKetjSRnyuj31fDd3Rlcz3fzlFdFLD1SItunPwyqEOkca6GbV612BWfaBag==}
+
+  radash@12.1.0:
+    resolution: {integrity: sha512-b0Zcf09AhqKS83btmUeYBS8tFK7XL2e3RvLmZcm0sTdF1/UUlHSsjXdCcWNxe7yfmAlPve5ym0DmKGtTzP6kVQ==}
+    engines: {node: '>=14.18.0'}
 
   radix3@1.1.1:
     resolution: {integrity: sha512-yUUd5VTiFtcMEx0qFUxGAv5gbMc1un4RvEO1JZdP7ZUl/RHygZK6PknIKntmQRZxnMY3ZXD2ISaw1ij8GYW1yg==}
@@ -8063,6 +8070,8 @@ snapshots:
   queue-microtask@1.2.3: {}
 
   queue-tick@1.0.1: {}
+
+  radash@12.1.0: {}
 
   radix3@1.1.1: {}
 
