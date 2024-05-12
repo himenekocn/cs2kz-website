@@ -32,7 +32,12 @@ const tags = ["slide", "bhop", "strafe"]
 </script>
 
 <template>
-  <div :style="{ backgroundImage: `url(${getUrl(true)})` }" class="info">
+  <div
+    :style="{
+      backgroundImage: `url(${getUrl(true)}), url('/img/cs2kz_full.jpg')`,
+    }"
+    class="animate-fade-in info"
+  >
     <p class="text-2xl text-gray-100 font-medium">{{ course.name }}</p>
 
     <div class="flex items-center">
