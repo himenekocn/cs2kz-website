@@ -8,9 +8,9 @@ getCourses()
     <CourseQuery v-model:query="query" />
 
     <PageHelper
-      :total="total"
       v-model:limit="query.limit"
       v-model:offset="query.offset"
+      :total="total"
       @refresh="getCourses"
     />
 

@@ -6,7 +6,6 @@ const route = useRoute()
 
 const player = usePlayer()
 
-const error = ref(null)
 const loading = ref(false)
 const loadingRecords = ref(false)
 
@@ -44,8 +43,7 @@ async function getMap() {
       ? data.courses.findIndex((course) => course.name === route.query.course)
       : 0
     await getCourseRanking()
-  } catch (err: any) {
-    error.value = err.data
+  } catch (err) {
     map.value = null
   } finally {
     loading.value = false
@@ -104,8 +102,7 @@ async function getCourseRanking() {
     } else {
       records.value = []
     }
-  } catch (err: any) {
-    error.value = err.data
+  } catch (err) {
     records.value = null
   } finally {
     loadingRecords.value = false
@@ -143,23 +140,19 @@ async function getCourseRanking() {
           <div v-if="loadingRecords">
             <IconLoading />
           </div>
-          <div class="mt-2" v-else>
+          <div v-else class="mt-2">
             <RankHighlighted v-if="worldRecord" :record="worldRecord" wr />
             <RankHighlighted
               v-if="playerRecord"
               :record="playerRecord"
               class="mt-2"
             />
-            <CourseInfoRanking
-              :records="records"
-              :error="error"
-              :loading="loadingRecords"
-            />
+            <CourseInfoRanking :records="records" :loading="loadingRecords" />
           </div>
         </div>
       </div>
 
-      <div v-else>{{ error }}</div>
+      <div v-else>{{ $t("common.no_data") }}</div>
     </div>
   </Main>
 </template>

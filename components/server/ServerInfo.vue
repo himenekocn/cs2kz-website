@@ -22,14 +22,14 @@ defineProps<{
 
       <div class="flex items-center">
         <span>VAC:</span>
-        <IconYes class="inline" v-if="info.VAC" />
-        <IconNo class="inline" v-else />
+        <IconYes v-if="info.VAC" class="inline" />
+        <IconNo v-else class="inline" />
       </div>
 
       <div class="flex items-center">
         <span>Password:</span>
-        <IconYes class="inline" v-if="info.hasPassword" />
-        <IconNo class="inline" v-else />
+        <IconYes v-if="info.hasPassword" class="inline" />
+        <IconNo v-else class="inline" />
       </div>
 
       <p>

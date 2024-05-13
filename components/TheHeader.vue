@@ -14,7 +14,7 @@ const availableLocales = computed(() => {
           setLocale(locale.code)
         },
       },
-    ])
+    ]) as { label: string; click: () => void }[][]
 })
 
 const openNavigation = ref(false)
@@ -112,11 +112,11 @@ function signout() {
         </UButton>
 
         <UButton
-          @click="openNavigation = true"
           square
           variant="ghost"
           :ui="uiIcon"
           class="lg:hidden"
+          @click="openNavigation = true"
         >
           <IconBars />
         </UButton>
@@ -131,7 +131,7 @@ function signout() {
           </UDropdown>
         </UButton>
 
-        <UButton v-else variant="ghost" @click="signin" :ui="uiIcon">
+        <UButton v-else variant="ghost" :ui="uiIcon" @click="signin">
           <IconSteam />
         </UButton>
       </div>

@@ -56,8 +56,7 @@ export function useServers() {
       } else {
         servers.value = []
       }
-    } catch (err: any) {
-      error.value = err.data
+    } catch (err) {
       servers.value = null
     } finally {
       loading.value = false

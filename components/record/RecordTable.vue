@@ -4,7 +4,6 @@ import type { Record } from "~/types/record"
 defineProps<{
   records: Record[] | null
   loading: boolean
-  error: any
 }>()
 </script>
 
@@ -33,8 +32,8 @@ defineProps<{
       <tbody v-else-if="records && records.length > 0">
         <tr
           v-for="record in records"
-          :record="record"
           :key="record.id"
+          :record="record"
           class="border border-gray-700 text-gray-400 hover:bg-gray-800 transition ease-in"
         >
           <td
@@ -88,10 +87,7 @@ defineProps<{
       </tbody>
       <tbody v-else>
         <tr class="border border-gray-700">
-          <td v-if="records === null" colspan="8" class="text-red-500">
-            {{ error }}
-          </td>
-          <td v-else colspan="8" class="text-gray-500">
+          <td colspan="8" class="text-gray-500">
             {{ $t("common.no_data") }}
           </td>
         </tr>

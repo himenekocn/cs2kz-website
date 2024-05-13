@@ -12,9 +12,9 @@ const emit = defineEmits(["courseChange"])
     <div
       v-for="(name, index) in names"
       :key="name"
-      @click="emit('courseChange', index)"
       class="coursename"
       :class="activeCourseIndex === index ? 'active' : ''"
+      @click="emit('courseChange', index)"
     >
       {{ name }}
     </div>

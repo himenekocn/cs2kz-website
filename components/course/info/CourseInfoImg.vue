@@ -12,7 +12,7 @@ const currentFilter = computed(
       (filter) =>
         filter.mode === props.mode &&
         filter.teleports === (props.teleports === "standard" ? false : true),
-    )!!,
+    )!,
 )
 
 const tier = computed(() => currentFilter.value.tier)

@@ -24,7 +24,7 @@ async function getAvatar() {
         :src="avatarUrl"
         class="rounded-md w-16"
         :class="wr ? 'ring-2 ring-yellow-200' : 'ring-2 ring-slate-200'"
-      />
+      >
     </NuxtLink>
 
     <div>

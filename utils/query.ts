@@ -1,4 +1,4 @@
-export function validQuery(query: Record<string, any>) {
+export function validQuery(query: Record<string, unknown>) {
   return Object.fromEntries(
     Object.entries(query).filter(([_, value]) => value !== ""),
   )

@@ -4,7 +4,6 @@ import type { ServerWithInfo } from "~/types/server"
 defineProps<{
   servers: ServerWithInfo[] | null
   loading: boolean
-  error: any
 }>()
 
 const opened = ref<number[]>([])
@@ -47,7 +46,7 @@ function toggleOpen(id: number) {
     >
       <thead>
         <tr>
-          <th class="w-4"></th>
+          <th class="w-4" />
           <th class="py-1">{{ $t("servers.title.name") }}</th>
           <th class="py-1">{{ $t("servers.title.ip_address") }}</th>
           <th class="py-1">{{ $t("servers.title.owner") }}</th>
@@ -68,7 +67,7 @@ function toggleOpen(id: number) {
             :server="server"
             class="border border-gray-700 text-gray-400 hover:bg-gray-800 transition ease-in"
           >
-            <td @click="toggleOpen(server.id)" class="py-2 px-2">
+            <td class="py-2 px-2" @click="toggleOpen(server.id)">
               <UButton variant="ghost" :ui="uiInfoButton">
                 <IconDown v-if="opened.includes(server.id)" />
                 <IconRight v-else />
@@ -118,10 +117,7 @@ function toggleOpen(id: number) {
       </tbody>
       <tbody v-else>
         <tr class="border border-gray-700">
-          <td v-if="servers === null" colspan="8" class="text-red-500">
-            {{ error }}
-          </td>
-          <td v-else colspan="8" class="text-gray-500">
+          <td colspan="8" class="text-gray-500">
             {{ $t("common.no_data") }}
           </td>
         </tr>

@@ -6,7 +6,7 @@ export default defineEventHandler(async (event) => {
 
   const promises = []
 
-  for (let host of hosts) {
+  for (const host of hosts) {
     const { ip, port } = host
 
     const server = new Server({

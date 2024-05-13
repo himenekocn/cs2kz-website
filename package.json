@@ -5,6 +5,8 @@
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "fmt": "prettier . --write",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
@@ -13,7 +15,7 @@
   },
   "lint-staged": {
     "**/*.{js,ts,vue}": "prettier --write",
-    "**/*.{js,mjs,cjs,jsx,ts,mts,cts,tsx,vue,astro,svelte}": "oxlint"
+    "*": "eslint --fix"
   },
   "dependencies": {
     "@headlessui/vue": "^1.7.19",
@@ -28,12 +30,13 @@
     "vue-router": "^4.3.0"
   },
   "devDependencies": {
+    "@nuxt/eslint": "^0.3.12",
     "@nuxt/fonts": "^0.3.0",
     "@nuxtjs/i18n": "^8.1.1",
     "@nuxtjs/tailwindcss": "^6.11.4",
+    "eslint": "^9.2.0",
     "husky": "^9.0.11",
     "lint-staged": "^15.2.2",
-    "oxlint": "^0.2.13",
     "prettier": "3.2.5"
   }
 }

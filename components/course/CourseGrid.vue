@@ -4,7 +4,6 @@ import type { CourseExt } from "~/types/map"
 defineProps<{
   courses: CourseExt[] | null
   loading: boolean
-  error: any
 }>()
 </script>
 
@@ -17,21 +16,12 @@ defineProps<{
       v-else-if="courses && courses.length > 0"
       class="mx-auto w-max grid xl:grid-cols-2 gap-10 xl:place-items-center"
     >
-      <CourseCard
-        v-for="course in courses"
-        :key="course.id"
-        :course="course"
-        :index="course.stage"
-      />
+      <CourseCard v-for="course in courses" :key="course.id" :course="course" />
     </div>
 
     <div v-else class="flex justify-center">
-      <p v-if="courses?.length === 0" class="text-gray-500">
+      <p class="text-gray-500">
         {{ $t("common.no_data") }}
-      </p>
-
-      <p v-else class="text-red-500">
-        {{ error }}
       </p>
     </div>
   </div>

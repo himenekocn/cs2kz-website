@@ -97,7 +97,7 @@ export function useCourses() {
             const fltr = course.filters.find(
               (filter) =>
                 filter.mode === query.mode && filter.teleports === teleports,
-            )!!
+            )!
 
             return {
               id: course.id,
@@ -123,8 +123,7 @@ export function useCourses() {
         allCourses.value = []
         courses.value = []
       }
-    } catch (err: any) {
-      error.value = err.data
+    } catch (err) {
       allCourses.value = null
       courses.value = null
     } finally {

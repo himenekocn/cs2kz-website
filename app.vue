@@ -15,7 +15,7 @@ player.value = kzPlayer.value || null
 
     <NuxtPage />
 
-    <div class="h-[300px]"></div>
+    <div class="h-[300px]" />
   </div>
 </template>
 
