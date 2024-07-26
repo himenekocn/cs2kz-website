@@ -1,7 +1,8 @@
 export interface Server {
   id: number
   name: string
-  ip_address: string
+  host: string
+  port: number
   owner: {
     name: string
     steam_id: string
@@ -31,7 +32,7 @@ export interface ServerInfo {
 
 export interface ServerQuery {
   name?: string
-  ip_address?: string
+  host?: string
   owned_by?: string
   created_after?: string
   created_before?: string

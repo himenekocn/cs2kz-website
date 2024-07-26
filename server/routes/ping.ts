@@ -22,7 +22,7 @@ export default defineEventHandler(async (event) => {
     ServerInfo & { ping: number }
   >[]
 
-  console.log(results)
+  // console.log(results)
 
   return results.map((result) => {
     if (result.status === "fulfilled") {

@@ -14,7 +14,7 @@ export function useServers() {
 
   const query = reactive<ServerQuery>({
     name: "",
-    ip_address: "",
+    host: "",
     owned_by: "",
     created_after: "",
     created_before: "",
@@ -35,13 +35,10 @@ export function useServers() {
       if (serverData) {
         total.value = serverData.total
 
-        const hosts = serverData.results.map((server) => {
-          const [ip, port] = server.ip_address.split(":")
-          return {
-            ip,
-            port,
-          }
-        })
+        const hosts = serverData.results.map((server) => ({
+          ip: server.host,
+          port: server.port,
+        }))
         const infoData = await $fetch<ServerInfo[]>("/ping", {
           method: "POST",
           body: {

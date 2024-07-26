@@ -79,12 +79,12 @@ function toggleOpen(id: number) {
             <td class="py-2 px-2 lg:px-0">
               <div class="inline-flex items-center gap-2">
                 <p>
-                  {{ server.ip_address }}
+                  {{ `${server.host}:${server.port}` }}
                 </p>
                 <UButton
                   variant="ghost"
                   :ui="uiConnectButton"
-                  @click="connect(server.ip_address)"
+                  @click="connect(`${server.host}:${server.port}`)"
                 >
                   <IconConnect />
                 </UButton>

@@ -11,15 +11,16 @@ const uiReset = {
 }
 
 watch(ip, (ip) => {
-  const regx = /^((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)\.?\b){4}$/
-  if (regx.test(ip) || ip === "") {
-    query.value.ip_address = ip
-  }
+  // const regx = /^((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)\.?\b){4}$/
+  // if (regx.test(ip) || ip === "") {
+  //   query.value.host = ip
+  // }
+  query.value.host = ip
 })
 
 function resetFilter() {
   query.value.name = ""
-  query.value.ip_address = ""
+  query.value.host = ""
   query.value.owned_by = ""
 }
 </script>
