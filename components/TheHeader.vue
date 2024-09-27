@@ -2,7 +2,6 @@
 const config = useRuntimeConfig()
 const { locale, locales, setLocale } = useI18n()
 const player = usePlayer()
-const kzPlayer = useCookie("kz-player")
 
 const availableLocales = computed(() => {
   return locales.value
@@ -66,9 +65,10 @@ function signin() {
 
 function signout() {
   player.value = null
-  kzPlayer.value = null
-  const url = `${config.public.apiBase}/auth/logout?return_to=${location.origin}`
-  navigateTo(url, { external: true })
+  $fetch("/auth/logout", {
+    baseURL: config.public.apiBase,
+    credentials: "include",
+  })
 }
 </script>
 <template>

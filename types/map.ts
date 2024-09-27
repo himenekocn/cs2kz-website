@@ -77,7 +77,7 @@ export interface Map {
 
 export interface MapData {
   total: number
-  results: Map[]
+  maps: Map[]
 }
 
 export interface CourseQuery {

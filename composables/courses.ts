@@ -92,7 +92,7 @@ export function useCourses() {
 
         const teleports = query.teleports === "standard" ? false : true
 
-        const res = data.results.flatMap((map) =>
+        const res = data.maps.flatMap((map) =>
           map.courses.map((course) => {
             const fltr = course.filters.find(
               (filter) =>
