@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { Record } from "~/types/record"
-import type { Player } from "~/types/player"
+import type { Record, Player } from "~/types"
+
 const props = defineProps<{
   record: Record
   wr?: boolean

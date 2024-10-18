@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import type { Player } from "./types/player"
+import type { PlayerSteam } from "./types"
 
 const player = usePlayer()
-const kzPlayer = useCookie<Player>("kz-player")
+const kzPlayer = useCookie<PlayerSteam>("kz-player")
 
 player.value = kzPlayer.value || null
 </script>

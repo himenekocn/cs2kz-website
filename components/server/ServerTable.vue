@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { ServerWithInfo } from "~/types/server"
+import type { ServerWithInfo } from "~/types"
 
 defineProps<{
   servers: ServerWithInfo[] | null

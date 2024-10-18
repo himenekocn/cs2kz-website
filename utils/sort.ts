@@ -1,4 +1,4 @@
-import type { CourseExt } from "~/types/map"
+import type { CourseExt } from "~/types"
 
 export function sort<T extends CourseExt>(
   data: T[],

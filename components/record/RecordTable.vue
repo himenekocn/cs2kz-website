@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Record } from "~/types/record"
+import type { Record } from "~/types"
 
 defineProps<{
   records: Record[] | null
@@ -43,25 +43,25 @@ defineProps<{
             class="py-2 px-2 lg:px-0 bg-gradient-to-r to-[3%]"
           >
             <NuxtLink
-              :to="`/maps/${record.map.name}`"
+              :to="`/maps/${record.course.map_name}`"
               class="text-slate-300 font-medium text-lg hover:text-slate-200"
             >
-              {{ record.map.name }}
+              {{ record.course.map_name }}
             </NuxtLink>
           </td>
           <td class="py-2 px-2 lg:px-0 lg:p-0 whitespace-nowrap">
             <NuxtLink
-              :to="`/maps/${record.map.name}?course=${record.course.name}`"
+              :to="`/maps/${record.course.name}?course=${record.course.name}`"
               class="text-lg hover:text-slate-300"
             >
               {{ record.course.name }}
             </NuxtLink>
           </td>
           <td
-            :style="{ color: getTierColor(record.course.tier) }"
+            :style="{ color: getTierColor(record.course.tier as string) }"
             class="py-2 px-2 lg:px-0 text-lg font-medium"
           >
-            {{ getNumTier(record.course.tier) }}
+            {{ getNumTier(record.course.tier as string) }}
           </td>
           <td>
             <NuxtLink

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { CourseExt } from "~/types/map"
+import type { CourseExt } from "~/types"
 defineProps<{
   course: CourseExt
 }>()
@@ -61,7 +61,10 @@ defineProps<{
           {{ course.ranked_status.toUpperCase() }}
         </div>
 
-        <p :style="{ color: getTierColor(course.tier) }" class="font-semibold">
+        <p
+          :style="{ color: getTierColor(course.tier as string) }"
+          class="font-semibold"
+        >
           {{
             course.tier
               .split("_")

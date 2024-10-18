@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { GlobalStatus, Mode, Style } from "~/types/map"
+import type { GlobalStatus, Mode, Style } from "~/types"
 const mode = defineModel<Mode>("mode")
 const teleports = defineModel<"standard" | "pro">("teleports")
 const styles = defineModel<Style[]>("styles")

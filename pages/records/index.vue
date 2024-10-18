@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { records, loading, error, query, total, getRecords } = useRecords()
+const { records, loading, query, total, getRecords } = useRecords()
 
 getRecords()
 </script>
@@ -14,6 +14,6 @@ getRecords()
       @refresh="getRecords"
     />
 
-    <RecordTable :loading="loading" :error="error" :records="records" />
+    <RecordTable :loading="loading" :records="records" />
   </Main>
 </template>

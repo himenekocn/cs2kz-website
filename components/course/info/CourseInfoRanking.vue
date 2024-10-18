@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Record } from "~/types/record"
+import type { Record } from "~/types"
 
 defineProps<{
   records: Record[] | null

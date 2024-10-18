@@ -3,7 +3,7 @@ import type {
   ServerData,
   ServerInfo,
   ServerQuery,
-} from "~/types/server"
+} from "~/types"
 
 export function useServers() {
   const loading = ref(false)
@@ -35,7 +35,7 @@ export function useServers() {
       if (serverData) {
         total.value = serverData.total
 
-        const hosts = serverData.results.map((server) => ({
+        const hosts = serverData.servers.map((server) => ({
           ip: server.host,
           port: server.port,
         }))
@@ -46,7 +46,7 @@ export function useServers() {
           },
         })
 
-        servers.value = serverData.results.map((s, index) => ({
+        servers.value = serverData.servers.map((s, index) => ({
           ...s,
           info: infoData[index],
         }))

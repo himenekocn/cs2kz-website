@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { ServerQuery } from "~/types/server"
+import type { ServerQuery } from "~/types"
 
 const query = defineModel<ServerQuery>("query", { required: true })
 

@@ -1,9 +1,8 @@
-import type { Tier, CourseExt, MapData, CourseQuery } from "~/types/map"
+import type { Tier, CourseExt, MapResponse, CourseQuery } from "~/types"
 import MiniSearch, { type SearchResult } from "minisearch"
 
 export function useCourses() {
   const loading = ref(false)
-  const error = ref(null)
 
   const allCourses = ref<CourseExt[] | null>(null)
   const courses = ref<CourseExt[] | null>(null)
@@ -26,14 +25,14 @@ export function useCourses() {
   })
 
   const query = reactive<CourseQuery>({
-    name: "",
+    name: null,
     mode: "classic",
-    teleports: "standard",
+    teleports: true,
     tier: "all",
     sort_by: "map",
     sort_order: "ascending",
-    created_after: "",
-    created_before: "",
+    created_after: null,
+    created_before: null,
     limit: 30,
     offset: 0,
   })
@@ -48,18 +47,19 @@ export function useCourses() {
       () => query.name,
       () => query.sort_by,
       () => query.sort_order,
-
       () => query.limit,
       () => query.offset,
     ],
     async ([tier, name, sort_by, sort_order, limit, offset]) => {
       if (allCourses.value !== null && allCourses.value.length > 0) {
-        const searched = search(allCourses.value, name)
-        const tiered = matchTier(searched, tier)
-        const sorted = sort(tiered, sort_order, sort_by)
-        // TODO: date filter
-        const paginated = sorted.slice(offset, limit)
-        courses.value = paginated as (CourseExt & SearchResult)[]
+        if (name !== null) {
+          const searched = search(allCourses.value, name)
+          const tiered = matchTier(searched, tier)
+          const sorted = sort(tiered, sort_order, sort_by)
+          // TODO: date filter
+          const paginated = sorted.slice(offset, limit)
+          courses.value = paginated as (CourseExt & SearchResult)[]
+        }
       }
     },
   )
@@ -85,18 +85,17 @@ export function useCourses() {
       loading.value = true
 
       // fetch all maps at once and do pagination on the frontend
-      const data: MapData | undefined = await $api("/maps")
+      const data: MapResponse | undefined = await $api("/maps")
 
       if (data) {
         miniSearch.removeAll()
-
-        const teleports = query.teleports === "standard" ? false : true
 
         const res = data.maps.flatMap((map) =>
           map.courses.map((course) => {
             const fltr = course.filters.find(
               (filter) =>
-                filter.mode === query.mode && filter.teleports === teleports,
+                filter.mode === query.mode &&
+                filter.teleports === query.teleports,
             )!
 
             return {
@@ -134,7 +133,6 @@ export function useCourses() {
   return {
     courses,
     loading,
-    error,
     query,
     total,
     getCourses,

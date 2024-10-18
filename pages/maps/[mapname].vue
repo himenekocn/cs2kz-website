@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import type { Map, Mode } from "~/types/map"
-import type { Record, RecordData } from "~/types/record"
+import type { Map, Style, Mode , Record, RecordData } from "~/types"
 
 const route = useRoute()
 
@@ -21,7 +20,7 @@ const courseNames = computed(() =>
 
 const mode = ref<Mode>("classic")
 const teleports = ref<"standard" | "pro">("standard")
-const styles = ref(["normal"])
+const styles = ref<Style[]>(["normal"])
 
 const records = ref<Record[] | null>(null)
 
@@ -77,7 +76,7 @@ async function getCourseRanking() {
     })
 
     if (data) {
-      records.value = data.results
+      records.value = data.records
 
       if (player.value) {
         // find player record
@@ -96,7 +95,7 @@ async function getCourseRanking() {
             },
           })
 
-          playerRecord.value = data?.results[0] || null
+          playerRecord.value = data?.records[0] || null
         }
       }
     } else {

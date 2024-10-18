@@ -1,4 +1,4 @@
-import type { Record, RecordData, RecordQuery } from "~/types/record"
+import type { Record, RecordResponse, RecordQuery } from "~/types"
 
 export function useRecords() {
   const loading = ref(false)
@@ -8,14 +8,14 @@ export function useRecords() {
 
   const query = reactive<RecordQuery>({
     mode: "classic",
-    player: "",
-    course: "",
-    server: "",
-    styles: "normal",
+    player: null,
+    course: null,
+    server: null,
+    styles: null,
     sort_by: "date",
     sort_order: "descending",
-    created_before: "",
-    created_after: "",
+    created_before: null,
+    created_after: null,
     limit: 30,
     offset: 0,
   })
@@ -27,12 +27,12 @@ export function useRecords() {
   async function getRecords() {
     try {
       loading.value = true
-      const data: RecordData | undefined = await $api("/records", {
+      const data: RecordResponse | undefined = await $api("/records", {
         query: validQuery(query),
       })
 
       if (data) {
-        records.value = data.results
+        records.value = data.records
         total.value = data.total
       } else {
         records.value = []

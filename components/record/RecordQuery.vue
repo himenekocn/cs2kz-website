@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import type { RecordQuery } from "~/types/record"
-import type { Style } from "~/types/map"
+import type { RecordQuery , Style } from "~/types"
 import { debounce } from "radash"
 
 const query = defineModel<RecordQuery>("query", { required: true })

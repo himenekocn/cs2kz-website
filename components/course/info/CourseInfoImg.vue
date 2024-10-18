@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Course, Mode } from "~/types/map"
+import type { Course, Mode } from "~/types"
 const props = defineProps<{
   course: Course
   mode: Mode

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { CourseExt } from "~/types/map"
+import type { CourseExt } from "~/types"
 
 defineProps<{
   courses: CourseExt[] | null

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { CourseQuery } from "~/types/map"
+import type { CourseQuery } from "~/types"
 
 const query = defineModel<CourseQuery>("query", { required: true })
 
@@ -19,8 +19,9 @@ function toggleOrder() {
 }
 
 function resetFilter() {
+  query.value.name = null
   query.value.mode = "classic"
-  query.value.teleports = "standard"
+  query.value.teleports = true
   query.value.sort_order = "descending"
   query.value.sort_by = "map"
   query.value.created_before = ""
@@ -50,8 +51,8 @@ function resetFilter() {
       <USelectMenu
         v-model="query.teleports"
         :options="[
-          { name: $t('common.teleports.standard'), value: 'standard' },
-          { name: $t('common.teleports.pro'), value: 'pro' },
+          { name: $t('common.teleports.standard'), value: true },
+          { name: $t('common.teleports.pro'), value: false },
         ]"
         value-attribute="value"
         option-attribute="name"

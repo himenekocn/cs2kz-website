@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { courses, loading, error, query, total, getCourses } = useCourses()
+const { courses, loading, query, total, getCourses } = useCourses()
 
 getCourses()
 </script>
@@ -14,6 +14,6 @@ getCourses()
       @refresh="getCourses"
     />
 
-    <CourseGrid :loading="loading" :error="error" :courses="courses" />
+    <CourseGrid :loading="loading" :courses="courses" />
   </Main>
 </template>

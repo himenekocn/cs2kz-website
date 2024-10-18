@@ -1,3 +1,4 @@
-import type { Player } from "~/types/player"
+import type { PlayerSteam } from "~/types"
 
-export const usePlayer = () => useState<Player | null>("player", () => null)
+export const usePlayer = () =>
+  useState<PlayerSteam | null>("player", () => null)
