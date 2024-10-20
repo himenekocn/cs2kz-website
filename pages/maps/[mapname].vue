@@ -15,7 +15,7 @@ const course = computed(() => {
 })
 
 const courseNames = computed(() =>
-  map.value?.courses.map((course) => course.name || "Main"),
+  map.value?.courses.map((course) => course.name),
 )
 
 const mode = ref<Mode>("classic")

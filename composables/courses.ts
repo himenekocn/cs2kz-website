@@ -98,7 +98,7 @@ export function useCourses() {
 
             return {
               id: course.id,
-              name: course.name || "Main",
+              name: course.name,
               map: map.name,
               tier: fltr.tier,
               ranked_status: fltr.ranked_status,
