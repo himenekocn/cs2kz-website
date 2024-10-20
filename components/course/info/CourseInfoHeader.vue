@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { GlobalStatus, Mode, Style } from "~/types"
 const mode = defineModel<Mode>("mode")
-const teleports = defineModel<"standard" | "pro">("teleports")
+const teleports = defineModel<"all" | false>("teleports")
 const styles = defineModel<Style[]>("styles")
 
 defineProps<{
@@ -40,8 +40,8 @@ const globalStatusColors = {
         <USelectMenu
           v-model="teleports"
           :options="[
-            { name: $t('common.teleports.standard'), value: 'standard' },
-            { name: $t('common.teleports.pro'), value: 'pro' },
+            { name: $t('common.teleports.standard'), value: 'all' },
+            { name: $t('common.teleports.pro'), value: false },
           ]"
           value-attribute="value"
           option-attribute="name"
@@ -53,18 +53,7 @@ const globalStatusColors = {
       <p class="text-gray-200 text-lg">{{ `${$t("map.styles")}:` }}</p>
       <USelectMenu
         v-model="styles"
-        :options="[
-          { name: $t('common.style.normal'), value: 'normal' },
-          { name: $t('common.style.backwards'), value: 'backwards' },
-          { name: $t('common.style.sideways'), value: 'sideways' },
-          { name: $t('common.style.half_sideways'), value: 'half_sideways' },
-          { name: $t('common.style.w_only'), value: 'w_only' },
-          { name: $t('common.style.low_gravity'), value: 'low_gravity' },
-          { name: $t('common.style.high_gravity'), value: 'high_gravity' },
-          { name: $t('common.style.no_prestrafe'), value: 'no_prestrafe' },
-          { name: $t('common.style.negev'), value: 'negev' },
-          { name: $t('common.style.ice'), value: 'ice' },
-        ]"
+        :options="[{ name: $t('common.style.auto_bhop'), value: 'auto_bhop' }]"
         multiple
         :placeholder="$t('records.query.styles')"
         value-attribute="value"

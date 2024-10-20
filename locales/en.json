@@ -18,15 +18,7 @@
     },
     "style": {
       "normal": "Normal",
-      "backwards": "Backward",
-      "sideways": "Sideways",
-      "half_sideways": "Half Sideways",
-      "w_only": "W Only",
-      "low_gravity": "Low Gravity",
-      "high_gravity": "High Gravity",
-      "no_prestrafe": "No Prestrafe",
-      "negev": "Negev",
-      "ice": "Ice"
+      "auto_bhop": "Auto Bhop"
     },
     "teleports": {
       "standard": "Standard",

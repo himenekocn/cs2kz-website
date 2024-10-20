@@ -1,4 +1,4 @@
-import type { Record, RecordResponse, RecordQuery } from "~/types"
+import type { Record, RecordQuery, RecordResponse } from "~/types"
 
 export function useRecords() {
   const loading = ref(false)
@@ -6,12 +6,14 @@ export function useRecords() {
 
   const total = ref(0)
 
+  // query that corresponds to the actual input
   const query = reactive<RecordQuery>({
     mode: "classic",
-    player: null,
-    course: null,
-    server: null,
-    styles: null,
+    has_teleports: "all",
+    player: "",
+    course: "",
+    server: "",
+    styles: [],
     sort_by: "date",
     sort_order: "descending",
     created_before: null,
@@ -27,8 +29,14 @@ export function useRecords() {
   async function getRecords() {
     try {
       loading.value = true
+      const transformedQuery = {
+        ...toRaw(query),
+        has_teleports:
+          query.has_teleports === "all" ? null : query.has_teleports,
+        styles: query.styles.length === 0 ? null : query.styles,
+      }
       const data: RecordResponse | undefined = await $api("/records", {
-        query: validQuery(query),
+        query: validQuery(transformedQuery),
       })
 
       if (data) {

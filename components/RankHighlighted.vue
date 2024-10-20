@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Record, Player } from "~/types"
+import type { Record, PlayerSteam } from "~/types"
 
 const props = defineProps<{
   record: Record
@@ -10,7 +10,9 @@ getAvatar()
 
 async function getAvatar() {
   const steamId = props.record.player.steam_id
-  const player: Player | undefined = await $api(`/players/${steamId}/steam`)
+  const player: PlayerSteam | undefined = await $api(
+    `/players/${steamId}/steam`,
+  )
   avatarUrl.value = player?.avatar_url.replace(/(\.jpg)$/, "_full" + "$1") || ""
 }
 </script>

@@ -8,8 +8,8 @@ getRecords()
     <RecordQuery v-model:query="query" />
 
     <PageHelper
-      v-model:limit="query.limit"
-      v-model:offset="query.offset"
+      v-model:limit="query.limit!"
+      v-model:offset="query.offset!"
       :total="total"
       @refresh="getRecords"
     />

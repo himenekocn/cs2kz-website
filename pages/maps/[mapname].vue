@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Map, Style, Mode , Record, RecordData } from "~/types"
+import type { Map, Style, Mode, Record, Course, RecordResponse } from "~/types"
 
 const route = useRoute()
 
@@ -11,16 +11,16 @@ const loadingRecords = ref(false)
 const map = ref<Map | null>(null)
 const activeCourseIndex = ref(0)
 const course = computed(() => {
-  return map.value?.courses[activeCourseIndex.value]
+  return map.value?.courses[activeCourseIndex.value] as Course
 })
 
 const courseNames = computed(() =>
-  map.value?.courses.map((course) => course.name),
+  map.value?.courses.map((course) => course.name || "Main"),
 )
 
 const mode = ref<Mode>("classic")
-const teleports = ref<"standard" | "pro">("standard")
-const styles = ref<Style[]>(["normal"])
+const has_teleports = ref<"all" | false>("all")
+const styles = ref<Style[]>([])
 
 const records = ref<Record[] | null>(null)
 
@@ -29,7 +29,7 @@ const playerRecord = ref<Record | null>(null)
 
 getMap()
 
-watch([mode, teleports, styles], () => {
+watch([mode, has_teleports, styles], () => {
   getCourseRanking()
 })
 
@@ -38,9 +38,15 @@ async function getMap() {
     loading.value = true
     const data: Map = await $api(`/maps/${route.params.mapname}`)
     map.value = data
-    activeCourseIndex.value = route.query.course
-      ? data.courses.findIndex((course) => course.name === route.query.course)
-      : 0
+
+    if (map.value.courses.length === 1) {
+      activeCourseIndex.value = 0
+    } else {
+      activeCourseIndex.value = route.query.course
+        ? data.courses.findIndex((course) => course.name === route.query.course)
+        : 0
+    }
+
     await getCourseRanking()
   } catch (err) {
     map.value = null
@@ -62,11 +68,11 @@ async function getCourseRanking() {
       map: map.value?.name,
       course: course.value?.name,
       mode: mode.value,
-      teleports: teleports.value === "standard" ? undefined : false,
-      styles: styles.value.join(","),
+      has_teleports: has_teleports.value === "all" ? null : has_teleports.value,
+      styles: styles.value.length === 0 ? null : styles.value,
     }
 
-    const data: RecordData | undefined = await $api("/records", {
+    const data: RecordResponse | undefined = await $api("/records", {
       query: {
         ...baseQuery,
         sort_by: "time",
@@ -88,7 +94,7 @@ async function getCourseRanking() {
           playerRecord.value = record
         } else {
           // if not found, fetch player record from api
-          const data: RecordData | undefined = await $api("/records", {
+          const data: RecordResponse | undefined = await $api("/records", {
             query: {
               ...baseQuery,
               player: player.value.steam_id,
@@ -119,7 +125,7 @@ async function getCourseRanking() {
       <div v-else-if="map && course">
         <CourseInfoHeader
           v-model:mode="mode"
-          v-model:teleports="teleports"
+          v-model:teleports="has_teleports"
           v-model:styles="styles"
           :name="map.name"
           :global-status="map.global_status"
@@ -127,11 +133,15 @@ async function getCourseRanking() {
 
         <div class="border border-gray-700 rounded-md mt-2">
           <CourseInfoNames
-            :names="courseNames"
+            :names="courseNames!"
             :active-course-index="activeCourseIndex"
             @course-change="onCourseChange"
           />
-          <CourseInfoImg :course="course" :mode="mode" :teleports="teleports" />
+          <CourseInfoImg
+            :course="course"
+            :mode="mode"
+            :teleports="has_teleports ? true : false"
+          />
         </div>
 
         <div class="mt-6">

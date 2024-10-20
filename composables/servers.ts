@@ -1,6 +1,6 @@
 import type {
   ServerWithInfo,
-  ServerData,
+  ServerResponse,
   ServerInfo,
   ServerQuery,
 } from "~/types"
@@ -16,8 +16,8 @@ export function useServers() {
     name: "",
     host: "",
     owned_by: "",
-    created_after: "",
-    created_before: "",
+    created_after: null,
+    created_before: null,
     limit: 30,
     offset: 0,
   })
@@ -29,7 +29,8 @@ export function useServers() {
   async function getServers() {
     try {
       loading.value = true
-      const serverData: ServerData | undefined = await $api("/servers", {
+
+      const serverData: ServerResponse | undefined = await $api("/servers", {
         query: validQuery(query),
       })
       if (serverData) {
@@ -48,7 +49,7 @@ export function useServers() {
 
         servers.value = serverData.servers.map((s, index) => ({
           ...s,
-          info: infoData[index],
+          info: infoData[index]!,
         }))
       } else {
         servers.value = []

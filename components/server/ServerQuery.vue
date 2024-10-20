@@ -22,6 +22,8 @@ function resetFilter() {
   query.value.name = ""
   query.value.host = ""
   query.value.owned_by = ""
+  query.value.created_after = null
+  query.value.created_before = null
 }
 </script>
 

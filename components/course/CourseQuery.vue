@@ -19,13 +19,13 @@ function toggleOrder() {
 }
 
 function resetFilter() {
-  query.value.name = null
+  query.value.name = ""
   query.value.mode = "classic"
   query.value.teleports = true
   query.value.sort_order = "descending"
   query.value.sort_by = "map"
-  query.value.created_before = ""
-  query.value.created_after = ""
+  query.value.created_before = null
+  query.value.created_after = null
   query.value.limit = 30
   query.value.offset = 0
 }

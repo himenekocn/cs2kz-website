@@ -4,20 +4,25 @@ export default defineNuxtConfig({
       title: "CS2 KZ",
     },
   },
+
   runtimeConfig: {
     public: {
       apiBase: "",
     },
   },
+
   devServer: {
     host: "127.0.0.1",
     port: 5173,
   },
+
   devtools: { enabled: false },
   modules: ["@nuxt/ui", "@nuxtjs/i18n", "@nuxt/fonts", "@nuxt/eslint"],
+
   colorMode: {
     classSuffix: "",
   },
+
   i18n: {
     strategy: "no_prefix",
     locales: [
@@ -42,6 +47,7 @@ export default defineNuxtConfig({
       redirectOn: "root", // recommended
     },
   },
+
   fonts: {
     provider: "bunny",
     defaults: {
@@ -49,5 +55,7 @@ export default defineNuxtConfig({
       styles: ["normal"],
     },
   },
+
   ssr: false,
+  compatibilityDate: "2024-10-19",
 })

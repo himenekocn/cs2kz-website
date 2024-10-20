@@ -25,7 +25,7 @@ export function useCourses() {
   })
 
   const query = reactive<CourseQuery>({
-    name: null,
+    name: "",
     mode: "classic",
     teleports: true,
     tier: "all",
@@ -52,14 +52,12 @@ export function useCourses() {
     ],
     async ([tier, name, sort_by, sort_order, limit, offset]) => {
       if (allCourses.value !== null && allCourses.value.length > 0) {
-        if (name !== null) {
-          const searched = search(allCourses.value, name)
-          const tiered = matchTier(searched, tier)
-          const sorted = sort(tiered, sort_order, sort_by)
-          // TODO: date filter
-          const paginated = sorted.slice(offset, limit)
-          courses.value = paginated as (CourseExt & SearchResult)[]
-        }
+        const searched = search(allCourses.value, name)
+        const tiered = matchTier(searched, tier)
+        const sorted = sort(tiered, sort_order, sort_by)
+        // TODO: date filter
+        const paginated = sorted.slice(offset, limit)
+        courses.value = paginated as (CourseExt & SearchResult)[]
       }
     },
   )
@@ -100,7 +98,7 @@ export function useCourses() {
 
             return {
               id: course.id,
-              name: course.name,
+              name: course.name || "Main",
               map: map.name,
               tier: fltr.tier,
               ranked_status: fltr.ranked_status,

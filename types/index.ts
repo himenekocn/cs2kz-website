@@ -1,5 +1,9 @@
 import type { paths, components } from "~/schema"
 
+type RemoveNull<T> = {
+  [K in keyof T]: Exclude<T[K], null>
+}
+
 export type Player = components["schemas"]["PlayerInfo"]
 
 export interface PlayerSteam {
@@ -16,20 +20,20 @@ export type Tier = components["schemas"]["Tier"]
 
 export type Mode = components["schemas"]["Mode"]
 
-export type Styles = components["schemas"]["Styles"]
+export type Style = components["schemas"]["Styles"]
 
 export type RankedStatus = components["schemas"]["RankedStatus"]
 
 export type GlobalStatus = components["schemas"]["GlobalStatus"]
 
-export type Filter = components["schemas"]["Filter"]
+export type Filter = RemoveNull<components["schemas"]["Filter"]>
 
-export type Course = components["schemas"]["Course"]
+export type Course = RemoveNull<components["schemas"]["Course"]>
 
 export interface CourseExt {
   id: number
   map: string
-  name?: string | null
+  name: string
   tier: Tier
   ranked_status: RankedStatus
   mappers: Player[]
@@ -38,11 +42,11 @@ export interface CourseExt {
 }
 
 export interface CourseQuery {
-  name: string | null
-  mode: Mode | null
+  name: string
+  mode: Mode
   teleports: boolean
   tier: Tier | "all"
-  sort_by: "map" | "tier"
+  sort_by: "map" | "tier" | "created_on"
   sort_order: "ascending" | "descending"
   created_after: string | null
   created_before: string | null
@@ -50,7 +54,7 @@ export interface CourseQuery {
   offset: number
 }
 
-export type Map = components["schemas"]["FetchMapResponse"]
+export type Map = RemoveNull<components["schemas"]["FetchMapResponse"]>
 
 export type MapResponse =
   paths["/maps"]["get"]["responses"]["200"]["content"]["application/json"]
@@ -58,17 +62,26 @@ export type MapResponse =
 export type RecordResponse =
   paths["/records"]["get"]["responses"]["200"]["content"]["application/json"]
 
-export type Record = components["schemas"]["FetchRecordResponse"]
+export type Record = RemoveNull<components["schemas"]["FetchRecordResponse"]>
 
-export type RecordQuery = Exclude<
-  paths["/records"]["get"]["parameters"]["query"],
-  undefined
->
-
+export interface RecordQuery {
+  mode: Mode
+  has_teleports: boolean | "all"
+  player: string
+  course: string
+  server: string
+  styles: Style[]
+  sort_by: "date" | "time"
+  sort_order: "ascending" | "descending"
+  created_before: string | null
+  created_after: string | null
+  limit: number
+  offset: number
+}
 export type ServerResponse =
   paths["/servers"]["get"]["responses"]["200"]["content"]["application/json"]
 
-export type Server = components["schemas"]["FetchServerResponse"]
+export type Server = RemoveNull<components["schemas"]["FetchServerResponse"]>
 
 export interface ServerWithInfo extends Server {
   info: ServerInfo | null
@@ -85,7 +98,12 @@ export interface ServerInfo {
   connection: "good" | "mid" | "bad"
 }
 
-export type ServerQuery = Exclude<
-  paths["/servers"]["get"]["parameters"]["query"],
-  undefined
->
+export interface ServerQuery {
+  name: string
+  host: string
+  owned_by: string
+  created_after: string | null
+  created_before: string | null
+  limit: number
+  offset: number
+}

@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { RecordQuery , Style } from "~/types"
 import { debounce } from "radash"
+import type { RecordQuery } from "~/types"
 
 const query = defineModel<RecordQuery>("query", { required: true })
 
@@ -10,32 +10,16 @@ const uiReset = {
   variant: { outline: "dark:hover:bg-gray-700" },
 }
 
-const player = ref("")
-const course = ref("")
-const server = ref("")
-
-const teleports = ref("standard")
-const styles = ref<Style[]>(["normal"])
-
-watch([player, course, server], ([player, course, server]) => {
-  updateStringQueries(player, course, server)
-})
-
-watch(styles, (styles) => {
-  query.value.styles = styles.join(",")
-})
-
-watch(teleports, (teleports) => {
-  if (teleports === "standard") {
-    query.value.teleports = undefined
-  }
-  if (teleports === "pro") {
-    query.value.teleports = false
-  }
-  if (teleports === "tp") {
-    query.value.teleports = true
-  }
-})
+watch(
+  [
+    () => query.value.player,
+    () => query.value.course,
+    () => query.value.server,
+  ],
+  ([player, course, server]) => {
+    updateStringQueries(player, course, server)
+  },
+)
 
 const updateStringQueries = debounce(
   { delay: 300 },
@@ -56,14 +40,15 @@ function toggleOrder() {
 }
 
 function resetFilter() {
+  query.value.has_teleports = "all"
   query.value.player = ""
   query.value.course = ""
   query.value.server = ""
-  styles.value = ["normal"]
+  query.value.styles = []
   query.value.sort_order = "descending"
   query.value.sort_by = "date"
-  query.value.created_before = ""
-  query.value.created_after = ""
+  query.value.created_before = null
+  query.value.created_after = null
   query.value.limit = 30
   query.value.offset = 0
 }
@@ -88,11 +73,11 @@ function resetFilter() {
     <div class="col-span-3 flex items-center flex-wrap lg:justify-end gap-4">
       <!-- TODO: wr filter -->
       <USelectMenu
-        v-model="teleports"
+        v-model="query.has_teleports"
         :options="[
-          { name: $t('common.teleports.standard'), value: 'standard' },
-          { name: $t('common.teleports.pro'), value: 'pro' },
-          { name: $t('common.teleports.tp'), value: 'tp' },
+          { name: $t('common.teleports.standard'), value: 'all' },
+          { name: $t('common.teleports.pro'), value: false },
+          { name: $t('common.teleports.tp'), value: true },
         ]"
         value-attribute="value"
         option-attribute="name"
@@ -118,36 +103,25 @@ function resetFilter() {
           option-attribute="name"
         />
       </UButtonGroup>
-      <UInput v-model="course" :placeholder="$t('records.query.course')">
+      <UInput v-model="query.course" :placeholder="$t('records.query.course')">
         <template #trailing>
           <IconMap />
         </template>
       </UInput>
-      <UInput v-model="player" :placeholder="$t('records.query.player')">
+      <UInput v-model="query.player" :placeholder="$t('records.query.player')">
         <template #trailing>
           <IconPlayer />
         </template>
       </UInput>
-      <UInput v-model="server" :placeholder="$t('records.query.server')">
+      <UInput v-model="query.server" :placeholder="$t('records.query.server')">
         <template #trailing>
           <IconServer />
         </template>
       </UInput>
 
       <USelectMenu
-        v-model="styles"
-        :options="[
-          { name: $t('common.style.normal'), value: 'normal' },
-          { name: $t('common.style.backwards'), value: 'backwards' },
-          { name: $t('common.style.sideways'), value: 'sideways' },
-          { name: $t('common.style.half_sideways'), value: 'half_sideways' },
-          { name: $t('common.style.w_only'), value: 'w_only' },
-          { name: $t('common.style.low_gravity'), value: 'low_gravity' },
-          { name: $t('common.style.high_gravity'), value: 'high_gravity' },
-          { name: $t('common.style.no_prestrafe'), value: 'no_prestrafe' },
-          { name: $t('common.style.negev'), value: 'negev' },
-          { name: $t('common.style.ice'), value: 'ice' },
-        ]"
+        v-model="query.styles"
+        :options="[{ name: $t('common.style.auto_bhop'), value: 'auto_bhop' }]"
         multiple
         :placeholder="$t('records.query.styles')"
         value-attribute="value"

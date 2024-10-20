@@ -3,15 +3,14 @@ import type { Course, Mode } from "~/types"
 const props = defineProps<{
   course: Course
   mode: Mode
-  teleports: "standard" | "pro"
+  teleports: boolean
 }>()
 
 const currentFilter = computed(
   () =>
     props.course.filters.find(
       (filter) =>
-        filter.mode === props.mode &&
-        filter.teleports === (props.teleports === "standard" ? false : true),
+        filter.mode === props.mode && filter.teleports === props.teleports,
     )!,
 )
 

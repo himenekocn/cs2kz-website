@@ -12,7 +12,7 @@ export interface paths {
       cookie?: never
     }
     /** (͡ ͡° ͜ つ ͡͡°) */
-    get: operations["get"]
+    get: operations["healthcheck"]
     put?: never
     post?: never
     delete?: never
@@ -287,7 +287,7 @@ export interface paths {
     /** Fetch many jumpstats. */
     get: operations["get_jumpstats"]
     put?: never
-    post: operations["submit"]
+    post: operations["submit_jumpstat"]
     delete?: never
     options?: never
     head?: never
@@ -322,7 +322,7 @@ export interface paths {
     get: operations["get_bans"]
     put?: never
     /** Ban a player. */
-    post: operations["create"]
+    post: operations["submit_ban"]
     delete?: never
     options?: never
     head?: never
@@ -341,11 +341,11 @@ export interface paths {
     put?: never
     post?: never
     /** Unban a player. */
-    delete: operations["revert"]
+    delete: operations["revert_ban"]
     options?: never
     head?: never
     /** Update a ban. */
-    patch: operations["update"]
+    patch: operations["update_ban"]
     trace?: never
   }
   "/admins": {
@@ -375,7 +375,7 @@ export interface paths {
     /** Fetch a specific ban by its ID. */
     get: operations["get_admin"]
     /** Set a user's permissions. */
-    put: operations["set_permissions"]
+    put: operations["update_admin"]
     post?: never
     delete?: never
     options?: never
@@ -815,26 +815,28 @@ export interface components {
       plugin_version: components["schemas"]["PluginVersion"]
     }
     /**
-     * @default global
+     * Name
      * @example global
+     * @enum {string}
      */
-    GlobalStatus: ("not_global" | "in_testing" | "global") | (-1 | 0 | 1)
+    GlobalStatus: "not_global" | "in_testing" | "global"
     /** @description A CS2 server host. */
     Host: components["schemas"]["IpAddr"] | string
     /** @description A wrapper around [`std::net::Ipv6Addr`] that correctly takes care of mapped
      *     IPv4 addresses when encoding/decoding. */
     IpAddr: string
-    /** @example longjump */
+    /**
+     * Name
+     * @example longjump
+     * @enum {string}
+     */
     JumpType:
-      | (
-          | "longjump"
-          | "single_bhop"
-          | "multi_bhop"
-          | "weirdjump"
-          | "ladderjump"
-          | "ladderhop"
-        )
-      | (1 | 2 | 3 | 4 | 5 | 6)
+      | "longjump"
+      | "single_bhop"
+      | "multi_bhop"
+      | "weirdjump"
+      | "ladderjump"
+      | "ladderhop"
     /**
      * Format: uint64
      * @description An ID uniquely identifying an jumpstat.
@@ -848,10 +850,11 @@ export interface components {
     /** @description A map's ID or name */
     MapIdentifier: string | number
     /**
-     * @description a KZ Mode
-     * @example ckz
+     * Name
+     * @example classic
+     * @enum {string}
      */
-    Mode: ("vanilla" | "classic") | (1 | 2)
+    Mode: "vanilla" | "classic"
     /**
      * @description Request payload for a course when submitting a new map.
      * @example {
@@ -919,10 +922,7 @@ export interface components {
       /** @description Any additional notes. */
       notes?: string | null
     }
-    Permissions: (
-      | ("bans" | "records" | "servers" | "maps" | "admin")
-      | (1 | 2 | 256 | 65536 | 2147483648)
-    )[]
+    Permissions: ("bans" | "records" | "servers" | "maps" | "admin")[]
     /** @description A SteamID or name */
     PlayerIdentifier: string | (string | number)
     /** @description Basic information about a player. */
@@ -941,8 +941,12 @@ export interface components {
      * @description A unique identifier for CS2KZ versions.
      */
     PluginVersionID: number
-    /** @example ranked */
-    RankedStatus: ("never" | "unranked" | "ranked") | (-1 | 0 | 1)
+    /**
+     * Name
+     * @example ranked
+     * @enum {string}
+     */
+    RankedStatus: "never" | "unranked" | "ranked"
     /**
      * Format: uint64
      * @description An ID uniquely identifying a record.
@@ -1046,7 +1050,12 @@ export interface components {
      * @example STEAM_1:1:161178172
      */
     SteamID: string | number
-    Styles: ("auto_bhop" | 1)[]
+    /**
+     * Name
+     * @example auto_bhop
+     * @enum {string}
+     */
+    Styles: "auto_bhop"
     /** SubmitJumpstatRequest */
     SubmitJumpstatRequestPayload: {
       jump_type: components["schemas"]["JumpType"]
@@ -1185,21 +1194,22 @@ export interface components {
       player_id: components["schemas"]["SteamID"]
       bhop_stats: components["schemas"]["BhopStats"]
     }
-    /** @example hard */
+    /**
+     * Name
+     * @example hard
+     * @enum {string}
+     */
     Tier:
-      | (
-          | "very_easy"
-          | "easy"
-          | "medium"
-          | "advanced"
-          | "hard"
-          | "very_hard"
-          | "extreme"
-          | "death"
-          | "unfeasible"
-          | "impossible"
-        )
-      | (1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10)
+      | "very_easy"
+      | "easy"
+      | "medium"
+      | "advanced"
+      | "hard"
+      | "very_hard"
+      | "extreme"
+      | "death"
+      | "unfeasible"
+      | "impossible"
     /** @description A reverted ban. */
     Unban: {
       id: components["schemas"]["UnbanID"]
@@ -1359,7 +1369,7 @@ export interface components {
 }
 export type $defs = Record<string, never>
 export interface operations {
-  get: {
+  healthcheck: {
     parameters: {
       query?: never
       header?: never
@@ -3419,7 +3429,7 @@ export interface operations {
       }
     }
   }
-  submit: {
+  submit_jumpstat: {
     parameters: {
       query?: never
       header?: never
@@ -3749,7 +3759,7 @@ export interface operations {
       }
     }
   }
-  create: {
+  submit_ban: {
     parameters: {
       query?: never
       header?: never
@@ -3931,7 +3941,7 @@ export interface operations {
       }
     }
   }
-  revert: {
+  revert_ban: {
     parameters: {
       query?: never
       header?: never
@@ -4018,7 +4028,7 @@ export interface operations {
       }
     }
   }
-  update: {
+  update_ban: {
     parameters: {
       query?: never
       header?: never
@@ -4267,7 +4277,7 @@ export interface operations {
       }
     }
   }
-  set_permissions: {
+  update_admin: {
     parameters: {
       query?: never
       header?: never
