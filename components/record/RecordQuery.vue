@@ -41,6 +41,7 @@ function toggleOrder() {
 
 function resetFilter() {
   query.value.has_teleports = "all"
+  query.value.top = true
   query.value.player = ""
   query.value.course = ""
   query.value.server = ""
@@ -56,7 +57,7 @@ function resetFilter() {
 
 <template>
   <div
-    class="p-4 grid grid-cols-1 lg:grid-cols-4 gap-4 lg:gap-8 border border-gray-700 rounded-md"
+    class="p-4 grid grid-cols-1 lg:grid-cols-4 gap-4 lg:gap-8 border border-gray-700 rounded-md text-gray-300"
   >
     <UTabs
       :items="[
@@ -71,6 +72,11 @@ function resetFilter() {
       @change="onModeChange"
     />
     <div class="col-span-3 flex items-center flex-wrap lg:justify-end gap-4">
+      <div class="flex items-center gap-2">
+        <p>Show PB</p>
+        <UToggle v-model="query.top" size="lg" />
+      </div>
+
       <!-- TODO: wr filter -->
       <USelectMenu
         v-model="query.has_teleports"

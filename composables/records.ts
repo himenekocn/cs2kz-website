@@ -10,6 +10,7 @@ export function useRecords() {
   const query = reactive<RecordQuery>({
     mode: "classic",
     has_teleports: "all",
+    top: true,
     player: "",
     course: "",
     server: "",

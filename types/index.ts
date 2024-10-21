@@ -67,6 +67,7 @@ export type Record = RemoveNull<components["schemas"]["FetchRecordResponse"]>
 export interface RecordQuery {
   mode: Mode
   has_teleports: boolean | "all"
+  top: boolean
   player: string
   course: string
   server: string
