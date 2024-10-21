@@ -88,7 +88,7 @@ function lastPage() {
     </div>
 
     <div class="hidden lg:flex items-center pl-4 border-l border-gray-700">
-      <USelectMenu v-model="limit" :options="['10', '20', '30', '50', '100']" />
+      <USelectMenu v-model="lmt" :options="['10', '20', '30', '50', '100']" />
       <span class="pl-2">{{ `/ ${$t("pagination.page")}` }}</span>
     </div>
 
