@@ -529,7 +529,7 @@ export interface components {
     Course: {
       id: components["schemas"]["CourseID"]
       /** @description The course's name. */
-      name?: string | null
+      name: string
       /** @description Description of the course. */
       description?: string | null
       /** @description Players who contributed to the creation of this course. */
