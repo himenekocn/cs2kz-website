@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import type { GlobalStatus, Mode, Style } from "~/types"
+import type { GlobalStatus, Mode } from "~/types"
+
 const mode = defineModel<Mode>("mode")
 const teleports = defineModel<"all" | false>("teleports")
-const styles = defineModel<Style[]>("styles")
 
 defineProps<{
   name: string
@@ -47,18 +47,6 @@ const globalStatusColors = {
           option-attribute="name"
         />
       </div>
-    </div>
-
-    <div class="flex items-center gap-2 md:ml-4">
-      <p class="text-gray-200 text-lg">{{ `${$t("map.styles")}:` }}</p>
-      <USelectMenu
-        v-model="styles"
-        :options="[{ name: $t('common.style.auto_bhop'), value: 'auto_bhop' }]"
-        multiple
-        :placeholder="$t('records.query.styles')"
-        value-attribute="value"
-        option-attribute="name"
-      />
     </div>
   </div>
 </template>

@@ -72,6 +72,7 @@ async function getCourseRanking() {
       mode: mode.value,
       has_teleports: has_teleports.value === "all" ? null : has_teleports.value,
       styles: styles.value.length === 0 ? null : styles.value,
+      top: true,
     }
 
     const data: RecordResponse | undefined = await $api("/records", {
@@ -135,7 +136,7 @@ async function getCourseRanking() {
 
         <div class="border border-gray-700 rounded-md mt-2">
           <CourseInfoNames
-            :names="courseNames"
+            :names="courseNames!"
             :active-course-index="activeCourseIndex"
             @course-change="onCourseChange"
           />
@@ -147,7 +148,19 @@ async function getCourseRanking() {
         </div>
 
         <div class="mt-6">
-          <p class="text-2xl text-gray-200">{{ $t("map.course_ranking") }}</p>
+          <div class="flex gap-4 items-center">
+            <p class="text-3xl text-gray-200">{{ $t("map.course_ranking") }}</p>
+            <USelectMenu
+              v-model="styles"
+              :options="[
+                { name: $t('common.style.auto_bhop'), value: 'auto_bhop' },
+              ]"
+              multiple
+              :placeholder="$t('records.query.styles')"
+              value-attribute="value"
+              option-attribute="name"
+            />
+          </div>
           <div v-if="loadingRecords">
             <IconLoading />
           </div>

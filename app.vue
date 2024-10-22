@@ -12,16 +12,20 @@ if (kzPlayer.value) {
 }
 
 async function verifySession() {
-  await $api("/auth/verify-session", {
-    async onResponseError({ response }) {
-      if (response.status >= 400) {
-        player.value = null
-        navigateTo("/")
-      }
-    },
-    credentials: "include",
-  })
-  setTimeout(verifySession, 1000 * 3)
+  try {
+    await $api("/auth/verify-session", {
+      async onResponseError({ response }) {
+        if (response.status >= 400) {
+          player.value = null
+          navigateTo("/")
+        }
+      },
+      credentials: "include",
+    })
+    setTimeout(verifySession, 1000 * 3)
+  } catch (error) {
+    console.log()
+  }
 }
 </script>
 
