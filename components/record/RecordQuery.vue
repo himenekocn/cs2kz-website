@@ -5,10 +5,6 @@ import type { RecordQuery } from "~/types"
 const query = defineModel<RecordQuery>("query", { required: true })
 
 const uiTabs = { wrapper: "relative space-y-0" }
-const uiReset = {
-  padding: { sm: "p-1" },
-  variant: { outline: "dark:hover:bg-gray-700" },
-}
 
 watch(
   [
@@ -38,21 +34,6 @@ function toggleOrder() {
   const order = query.value.sort_order
   query.value.sort_order = order === "ascending" ? "descending" : "ascending"
 }
-
-function resetFilter() {
-  query.value.has_teleports = "all"
-  query.value.top = true
-  query.value.player = ""
-  query.value.course = ""
-  query.value.server = ""
-  query.value.styles = []
-  query.value.sort_order = "descending"
-  query.value.sort_by = "date"
-  query.value.created_before = null
-  query.value.created_after = null
-  query.value.limit = 30
-  query.value.offset = 0
-}
 </script>
 
 <template>
@@ -73,7 +54,7 @@ function resetFilter() {
     />
     <div class="col-span-3 flex items-center flex-wrap lg:justify-end gap-4">
       <div class="flex items-center gap-2">
-        <p>Show PB</p>
+        <p>PB Only</p>
         <UToggle v-model="query.top" size="lg" />
       </div>
 
@@ -85,6 +66,14 @@ function resetFilter() {
           { name: $t('common.teleports.pro'), value: false },
           { name: $t('common.teleports.tp'), value: true },
         ]"
+        value-attribute="value"
+        option-attribute="name"
+      />
+      <USelectMenu
+        v-model="query.styles"
+        :options="[{ name: $t('common.style.auto_bhop'), value: 'auto_bhop' }]"
+        multiple
+        :placeholder="$t('records.query.styles')"
         value-attribute="value"
         option-attribute="name"
       />
@@ -109,6 +98,7 @@ function resetFilter() {
           option-attribute="name"
         />
       </UButtonGroup>
+
       <UInput v-model="query.course" :placeholder="$t('records.query.course')">
         <template #trailing>
           <IconMap />
@@ -124,24 +114,6 @@ function resetFilter() {
           <IconServer />
         </template>
       </UInput>
-
-      <USelectMenu
-        v-model="query.styles"
-        :options="[{ name: $t('common.style.auto_bhop'), value: 'auto_bhop' }]"
-        multiple
-        :placeholder="$t('records.query.styles')"
-        value-attribute="value"
-        option-attribute="name"
-      />
-
-      <UButton
-        variant="outline"
-        color="gray"
-        :ui="uiReset"
-        @click="resetFilter"
-      >
-        <IconReset />
-      </UButton>
 
       <!-- TODO: date picker -->
     </div>

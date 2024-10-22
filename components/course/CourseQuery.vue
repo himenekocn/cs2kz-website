@@ -4,10 +4,6 @@ import type { CourseQuery } from "~/types"
 const query = defineModel<CourseQuery>("query", { required: true })
 
 const uiTabs = { wrapper: "relative space-y-0" }
-const uiReset = {
-  padding: { sm: "p-1" },
-  variant: { outline: "dark:hover:bg-gray-700" },
-}
 
 function onModeChange(index: number) {
   query.value.mode = index === 0 ? "classic" : "vanilla"
@@ -16,18 +12,6 @@ function onModeChange(index: number) {
 function toggleOrder() {
   const order = query.value.sort_order
   query.value.sort_order = order === "ascending" ? "descending" : "ascending"
-}
-
-function resetFilter() {
-  query.value.name = ""
-  query.value.mode = "classic"
-  query.value.teleports = true
-  query.value.sort_order = "descending"
-  query.value.sort_by = "map"
-  query.value.created_before = null
-  query.value.created_after = null
-  query.value.limit = 30
-  query.value.offset = 0
 }
 </script>
 
@@ -110,15 +94,6 @@ function resetFilter() {
           <IconMap />
         </template>
       </UInput>
-
-      <UButton
-        variant="outline"
-        color="gray"
-        :ui="uiReset"
-        @click="resetFilter"
-      >
-        <IconReset />
-      </UButton>
     </div>
   </div>
 </template>

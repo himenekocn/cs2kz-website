@@ -5,11 +5,6 @@ const query = defineModel<ServerQuery>("query", { required: true })
 
 const ip = ref("")
 
-const uiReset = {
-  padding: { sm: "p-1" },
-  variant: { outline: "dark:hover:bg-gray-700" },
-}
-
 watch(ip, (ip) => {
   // const regx = /^((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)\.?\b){4}$/
   // if (regx.test(ip) || ip === "") {
@@ -17,14 +12,6 @@ watch(ip, (ip) => {
   // }
   query.value.host = ip
 })
-
-function resetFilter() {
-  query.value.name = ""
-  query.value.host = ""
-  query.value.owned_by = ""
-  query.value.created_after = null
-  query.value.created_before = null
-}
 </script>
 
 <template>
@@ -49,9 +36,5 @@ function resetFilter() {
         <IconServer />
       </template>
     </UInput>
-
-    <UButton variant="outline" color="gray" :ui="uiReset" @click="resetFilter">
-      <IconReset />
-    </UButton>
   </div>
 </template>
