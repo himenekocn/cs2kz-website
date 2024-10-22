@@ -7,7 +7,7 @@ defineProps<{
 
 <template>
   <div
-    class="card w-max flex items-center rounded-md ring ring-blue-600/50 hover:scale-[103%] transition ease-in cursor-pointer"
+    class="card w-max flex items-center rounded-md ring ring-blue-600/20 hover:ring-blue-600/70 hover:ring-4 transition ease-in cursor-pointer"
     @click="navigateTo(`/maps/${course.map}?course=${course.name}`)"
   >
     <img
