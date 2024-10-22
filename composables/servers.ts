@@ -6,6 +6,8 @@ import type {
 } from "~/types"
 
 export function useServers() {
+  const { $api } = useNuxtApp()
+
   const loading = ref(false)
   const error = ref(null)
   const servers = ref<ServerWithInfo[] | null>(null)

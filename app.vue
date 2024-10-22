@@ -1,10 +1,28 @@
 <script lang="ts" setup>
 import type { PlayerSteam } from "./types"
 
+const { $api } = useNuxtApp()
+
 const player = usePlayer()
 const kzPlayer = useCookie<PlayerSteam>("kz-player")
 
-player.value = kzPlayer.value || null
+if (kzPlayer.value) {
+  player.value = kzPlayer.value
+  verifySession()
+}
+
+async function verifySession() {
+  await $api("/auth/verify-session", {
+    async onResponseError({ response }) {
+      if (response.status >= 400) {
+        player.value = null
+        navigateTo("/")
+      }
+    },
+    credentials: "include",
+  })
+  setTimeout(verifySession, 1000 * 3)
+}
 </script>
 
 <template>

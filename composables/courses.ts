@@ -2,6 +2,8 @@ import type { Tier, CourseExt, MapResponse, CourseQuery } from "~/types"
 import MiniSearch, { type SearchResult } from "minisearch"
 
 export function useCourses() {
+  const { $api } = useNuxtApp()
+
   const loading = ref(false)
 
   const allCourses = ref<CourseExt[] | null>(null)

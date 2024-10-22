@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import type { Record, PlayerSteam } from "~/types"
 
+const { $api } = useNuxtApp()
+
 const props = defineProps<{
   record: Record
   wr?: boolean

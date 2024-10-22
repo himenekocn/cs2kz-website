@@ -1,6 +1,8 @@
 import type { Record, RecordQuery, RecordResponse } from "~/types"
 
 export function useRecords() {
+  const { $api } = useNuxtApp()
+
   const loading = ref(false)
   const records = ref<Record[] | null>(null)
 

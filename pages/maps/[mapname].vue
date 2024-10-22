@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import type { Map, Style, Mode, Record, Course, RecordResponse } from "~/types"
 
+const { $api } = useNuxtApp()
+
 const route = useRoute()
 
 const player = usePlayer()
@@ -133,7 +135,7 @@ async function getCourseRanking() {
 
         <div class="border border-gray-700 rounded-md mt-2">
           <CourseInfoNames
-            :names="courseNames!"
+            :names="courseNames"
             :active-course-index="activeCourseIndex"
             @course-change="onCourseChange"
           />
