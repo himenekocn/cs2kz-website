@@ -92,7 +92,7 @@ function lastPage() {
       <span class="pl-2">{{ `/ ${$t("pagination.page")}` }}</span>
     </div>
 
-    <div class="pl-4 border-l border-gray-700">
+    <div class="hidden lg:block pl-4 border-l border-gray-700">
       <UButton variant="solid" color="gray" @click="$emit('refresh')">
         {{ $t("pagination.refresh") }}
       </UButton>

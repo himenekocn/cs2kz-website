@@ -8,7 +8,7 @@ defineProps<{
 </script>
 
 <template>
-  <div class="overflow-x-auto mt-8 p-4">
+  <div class="overflow-x-auto mt-8 py-4 px-1">
     <div v-if="loading" class="flex justify-center">
       <IconLoading class="inline" />
     </div>

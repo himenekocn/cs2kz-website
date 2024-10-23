@@ -17,7 +17,7 @@ function toggleOrder() {
 
 <template>
   <div
-    class="p-4 grid grid-cols-1 lg:grid-cols-4 gap-4 lg:gap-8 border border-gray-700 rounded-md"
+    class="p-2 lg:p-4 grid grid-cols-1 lg:grid-cols-4 gap-4 lg:gap-8 border border-gray-700 rounded-md"
   >
     <UTabs
       :items="[
@@ -31,7 +31,9 @@ function toggleOrder() {
       :default-index="0"
       @change="onModeChange"
     />
-    <div class="col-span-3 flex items-center flex-wrap lg:justify-end gap-4">
+    <div
+      class="col-span-3 flex items-center flex-wrap lg:justify-end gap-2 lg:gap-4"
+    >
       <USelectMenu
         v-model="query.teleports"
         :options="[

@@ -22,7 +22,7 @@ async function verifySession() {
       },
       credentials: "include",
     })
-    setTimeout(verifySession, 1000 * 3)
+    setTimeout(verifySession, 1000 * 25)
   } catch (error) {
     console.log()
   }

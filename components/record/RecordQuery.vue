@@ -38,7 +38,7 @@ function toggleOrder() {
 
 <template>
   <div
-    class="p-4 grid grid-cols-1 lg:grid-cols-4 gap-4 lg:gap-8 border border-gray-700 rounded-md text-gray-300"
+    class="p-2 lg:p-4 grid grid-cols-1 lg:grid-cols-4 gap-4 lg:gap-8 border border-gray-700 rounded-md text-gray-300"
   >
     <UTabs
       :items="[
@@ -52,8 +52,10 @@ function toggleOrder() {
       :default-index="0"
       @change="onModeChange"
     />
-    <div class="col-span-3 flex items-center flex-wrap lg:justify-end gap-4">
-      <div class="flex items-center gap-2">
+    <div
+      class="col-span-3 flex items-center flex-wrap lg:justify-end gap-2 lg:gap-4"
+    >
+      <div class="hidden lg:flex items-center gap-2">
         <p>PB Only</p>
         <UToggle v-model="query.top" size="lg" />
       </div>
@@ -109,7 +111,11 @@ function toggleOrder() {
           <IconPlayer />
         </template>
       </UInput>
-      <UInput v-model="query.server" :placeholder="$t('records.query.server')">
+      <UInput
+        v-model="query.server"
+        :placeholder="$t('records.query.server')"
+        class="hidden lg:block"
+      >
         <template #trailing>
           <IconServer />
         </template>
