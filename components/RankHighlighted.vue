@@ -32,7 +32,7 @@ async function getAvatar() {
     </NuxtLink>
 
     <div>
-      <div class="flex items-center">
+      <div class="flex w-36">
         <NuxtLink
           :to="`/profile/${record.player.steam_id}`"
           :class="
@@ -50,26 +50,26 @@ async function getAvatar() {
       </p>
     </div>
 
-    <div class="flex items-center gap-10 ml-6">
+    <div class="flex items-center gap-4 ml-6">
       <div class="">
         <p class="text-gray-400">Time</p>
-        <p class="text-gray-100">{{ formatTime(record.time) }}</p>
+        <p class="text-gray-100 w-20">{{ formatTime(record.time) }}</p>
       </div>
       <div>
         <p class="text-gray-400">Server</p>
-        <p class="text-gray-100 italic whitespace-nowrap">
+        <p class="text-gray-100 w-40 italic whitespace-nowrap">
           {{ record.server.name }}
         </p>
       </div>
 
       <div>
         <p class="text-gray-400">TPs</p>
-        <p class="text-gray-100 italic">{{ record.teleports }}</p>
+        <p class="text-gray-100 italic w-10">{{ record.teleports }}</p>
       </div>
 
       <div>
         <p class="text-gray-400">Date</p>
-        <p class="text-gray-100 italic whitespace-nowrap">
+        <p class="text-gray-100 italic whitespace-nowrap w-32">
           {{ toLocal(record.created_on) }}
         </p>
       </div>
