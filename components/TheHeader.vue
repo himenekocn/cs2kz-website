@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { navigateTo } from "#app"
 const config = useRuntimeConfig()
 const { locale, locales, setLocale } = useI18n()
 const player = usePlayer()
@@ -100,7 +101,33 @@ function signout() {
         </ol>
       </nav>
 
-      <div class="flex gap-2 justify-end items-center">
+      <div class="flex justify-end items-center">
+        <UButton
+          variant="ghost"
+          :ui="uiIcon"
+          @click="
+            navigateTo('https://github.com/KZGlobalTeam', {
+              external: true,
+              open: { target: '_blank' },
+            })
+          "
+        >
+          <IconGithub />
+        </UButton>
+
+        <UButton
+          variant="ghost"
+          :ui="uiIcon"
+          @click="
+            navigateTo('https://www.discord.gg/csgokz', {
+              external: true,
+              open: { target: '_blank' },
+            })
+          "
+        >
+          <IconDiscord />
+        </UButton>
+
         <!-- switch locale -->
         <UButton variant="ghost" :ui="uiIcon">
           <UDropdown
@@ -109,16 +136,6 @@ function signout() {
           >
             <IconLocales />
           </UDropdown>
-        </UButton>
-
-        <UButton
-          square
-          variant="ghost"
-          :ui="uiIcon"
-          class="lg:hidden"
-          @click="openNavigation = true"
-        >
-          <IconBars />
         </UButton>
 
         <!-- login -->
@@ -133,6 +150,16 @@ function signout() {
 
         <UButton v-else variant="ghost" :ui="uiIcon" @click="signin">
           <IconSteam />
+        </UButton>
+
+        <UButton
+          square
+          variant="ghost"
+          :ui="uiIcon"
+          class="lg:hidden"
+          @click="openNavigation = true"
+        >
+          <IconBars />
         </UButton>
       </div>
     </header>
