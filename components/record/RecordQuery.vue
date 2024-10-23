@@ -29,11 +29,6 @@ const updateStringQueries = debounce(
 function onModeChange(index: number) {
   query.value.mode = index === 0 ? "classic" : "vanilla"
 }
-
-function toggleOrder() {
-  const order = query.value.sort_order
-  query.value.sort_order = order === "ascending" ? "descending" : "ascending"
-}
 </script>
 
 <template>
@@ -52,6 +47,7 @@ function toggleOrder() {
       :default-index="0"
       @change="onModeChange"
     />
+
     <div
       class="col-span-3 flex items-center flex-wrap lg:justify-end gap-2 lg:gap-4"
     >
@@ -71,6 +67,7 @@ function toggleOrder() {
         value-attribute="value"
         option-attribute="name"
       />
+
       <USelectMenu
         v-model="query.styles"
         :options="[{ name: $t('common.style.auto_bhop'), value: 'auto_bhop' }]"
@@ -79,38 +76,19 @@ function toggleOrder() {
         value-attribute="value"
         option-attribute="name"
       />
-      <UButtonGroup>
-        <UButton
-          :icon="
-            query.sort_order === 'ascending'
-              ? 'i-heroicons-bars-arrow-down-20-solid'
-              : 'i-heroicons-bars-arrow-up-20-solid'
-          "
-          color="gray"
-          variant="solid"
-          @click="toggleOrder"
-        />
-        <USelectMenu
-          v-model="query.sort_by"
-          :options="[
-            { name: $t('common.sort_by.date'), value: 'date' },
-            { name: $t('common.sort_by.time'), value: 'time' },
-          ]"
-          value-attribute="value"
-          option-attribute="name"
-        />
-      </UButtonGroup>
 
       <UInput v-model="query.course" :placeholder="$t('records.query.course')">
         <template #trailing>
           <IconMap />
         </template>
       </UInput>
+
       <UInput v-model="query.player" :placeholder="$t('records.query.player')">
         <template #trailing>
           <IconPlayer />
         </template>
       </UInput>
+
       <UInput
         v-model="query.server"
         :placeholder="$t('records.query.server')"

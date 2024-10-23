@@ -9,8 +9,8 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "fmt": "prettier . --write",
-    "schemagen": "openapi-typescript https://raw.githubusercontent.com/KZGlobalTeam/cs2kz-api/refs/heads/master/api-spec.json -o ./schema.d.ts", 
-    "schemagen:local": "openapi-typescript ./api-spec.json -o ./schema.d.ts", 
+    "schemagen": "openapi-typescript https://raw.githubusercontent.com/KZGlobalTeam/cs2kz-api/refs/heads/master/api-spec.json -o ./schema.d.ts",
+    "schemagen:local": "openapi-typescript ./api-spec.json -o ./schema.d.ts",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
@@ -21,7 +21,7 @@
     "*": "eslint --fix"
   },
   "dependencies": {
-    "@headlessui/vue": "^1.7.19",
+    "@headlessui/vue": "^1.7.23",
     "@nuxt/ui": "^2.18.7",
     "@vueuse/core": "^10.9.0",
     "date-fns": "^3.6.0",

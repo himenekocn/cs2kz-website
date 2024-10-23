@@ -14,6 +14,11 @@ getRecords()
       @refresh="getRecords"
     />
 
-    <RecordTable :loading="loading" :records="records" />
+    <RecordTable
+      v-model:sort-by="query.sort_by"
+      v-model:sort-order="query.sort_order"
+      :loading="loading"
+      :records="records"
+    />
   </Main>
 </template>

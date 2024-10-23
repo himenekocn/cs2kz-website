@@ -42,7 +42,7 @@ export function useServers() {
           ip: server.host,
           port: server.port,
         }))
-        const infoData = await $fetch<ServerInfo[]>("/ping", {
+        const infoData = await $fetch<(ServerInfo | null)[]>("/ping", {
           method: "POST",
           body: {
             hosts,
@@ -51,7 +51,7 @@ export function useServers() {
 
         servers.value = serverData.servers.map((s, index) => ({
           ...s,
-          info: infoData[index]!,
+          info: infoData[index] as ServerInfo | null,
         }))
       } else {
         servers.value = []

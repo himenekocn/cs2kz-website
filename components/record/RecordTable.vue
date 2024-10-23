@@ -1,97 +1,150 @@
 <script setup lang="ts">
 import type { Record } from "~/types"
 
-defineProps<{
+const props = defineProps<{
   records: Record[] | null
   loading: boolean
 }>()
+
+const sortBy = defineModel<"date" | "time">("sortBy", { required: true })
+const sortOrder = defineModel<"ascending" | "descending">("sortOrder", {
+  required: true,
+})
+
+const { t } = useI18n()
+
+const sort = ref({
+  column: "date",
+  direction: "desc" as const,
+})
+
+const columns = computed(() => {
+  return [
+    {
+      key: "map",
+      label: t("records.title.map"),
+    },
+    {
+      key: "course",
+      label: t("records.title.course"),
+    },
+    {
+      key: "tier",
+      label: t("records.title.tier"),
+    },
+    {
+      key: "player",
+      label: t("records.title.player"),
+    },
+    {
+      key: "time",
+      label: t("records.title.time"),
+      sortable: true,
+    },
+    {
+      key: "server",
+      label: t("records.title.server"),
+    },
+    {
+      key: "teleports",
+      label: t("records.title.teleports"),
+    },
+    {
+      key: "date",
+      label: t("records.title.date"),
+      sortable: true,
+    },
+  ]
+})
+
+const rows = computed(() => {
+  return props.records?.map((record) => {
+    return {
+      map: record.course.map_name,
+      course: record.course.name,
+      tier: record.course.tier,
+      player: record.player.name,
+      player_id: record.player.steam_id,
+      time: formatTime(record.time),
+      server: record.server.name,
+      teleports: record.teleports,
+      date: toLocal(record.created_on),
+    }
+  })
+})
+
+function onSort(sort: { column: "date" | "time"; direction: "asc" | "desc" }) {
+  sortBy.value = sort.column
+  sortOrder.value = sort.direction === "asc" ? "ascending" : "descending"
+}
 </script>
 
 <template>
-  <div class="overflow-x-auto">
-    <table class="w-full mt-8 bg-gray-900 border border-gray-700 text-center">
-      <thead>
-        <tr class="text-gray-300">
-          <th class="py-1">{{ $t("records.title.map") }}</th>
-          <th class="py-1">{{ $t("records.title.course") }}</th>
-          <th class="py-1">{{ $t("records.title.tier") }}</th>
-          <th class="py-1">{{ $t("records.title.player") }}</th>
-          <th class="py-1">{{ $t("records.title.time") }}</th>
-          <th class="py-1">{{ $t("records.title.server") }}</th>
-          <th class="py-1">{{ $t("records.title.teleports") }}</th>
-          <th class="py-1">{{ $t("records.title.date") }}</th>
-        </tr>
-      </thead>
-      <tbody v-if="loading">
-        <tr class="border border-gray-700 text-gray-400">
-          <td colspan="8" class="py-4">
-            <IconLoading class="inline" />
-          </td>
-        </tr>
-      </tbody>
-      <tbody v-else-if="records && records.length > 0">
-        <tr
-          v-for="record in records"
-          :key="record.id"
-          :record="record"
-          class="border border-gray-700 text-gray-400 hover:bg-gray-800 transition ease-in"
-        >
-          <td
-            :class="
-              record.teleports === 0 ? 'from-blue-400' : 'from-yellow-400'
-            "
-            class="py-2 px-2 lg:px-0 bg-gradient-to-r to-[3%]"
+  <div class="mt-8">
+    <UCard :ui="{ body: { padding: '' } }">
+      <UTable
+        v-model:sort="sort"
+        :ui="{
+          th: { size: 'text-base', padding: 'py-2' },
+          td: { size: 'text-base', padding: 'py-2' },
+          tr: { base: 'hover:bg-gray-800 transition ease-in' },
+        }"
+        :columns="columns"
+        :rows="rows"
+        @update:sort="onSort"
+      >
+        <template #map-data="{ row }">
+          <NuxtLink
+            :to="`/maps/${row.map}`"
+            class="text-slate-300 font-medium text-lg hover:text-slate-200"
           >
-            <NuxtLink
-              :to="`/maps/${record.course.map_name}`"
-              class="text-slate-300 font-medium text-lg hover:text-slate-200"
-            >
-              {{ record.course.map_name }}
-            </NuxtLink>
-          </td>
-          <td class="py-2 px-2 lg:px-0 lg:p-0 whitespace-nowrap">
-            <NuxtLink
-              :to="`/maps/${record.course.name}?course=${record.course.name}`"
-              class="text-lg hover:text-slate-300"
-            >
-              {{ record.course.name }}
-            </NuxtLink>
-          </td>
-          <td
-            :style="{ color: getTierColor(record.course.tier as string) }"
-            class="py-2 px-2 lg:px-0 text-lg font-medium"
+            {{ row.map }}
+          </NuxtLink>
+        </template>
+
+        <template #course-data="{ row }">
+          <NuxtLink
+            :to="`/maps/${row.map}?course=${row.name}`"
+            class="text-lg hover:text-slate-300"
           >
-            {{ getNumTier(record.course.tier as string) }}
-          </td>
-          <td>
-            <NuxtLink
-              :to="`/profile/${record.player.steam_id}`"
-              class="py-2 px-2 lg:px-0 text-cyan-600 whitespace-nowrap hover:text-cyan-400"
-            >
-              {{ record.player.name }}
-            </NuxtLink>
-          </td>
-          <td class="py-2 px-2 lg:px-0 text-slate-300">
-            {{ formatTime(record.time) }}
-          </td>
-          <td class="py-2 px-2 lg:px-0 italic whitespace-nowrap">
-            {{ record.server.name }}
-          </td>
-          <td class="py-2 px-2 lg:px-0">
-            {{ record.teleports }}
-          </td>
-          <td class="py-2 px-2 lg:px-0 whitespace-nowrap">
-            {{ toLocal(record.created_on) }}
-          </td>
-        </tr>
-      </tbody>
-      <tbody v-else>
-        <tr class="border border-gray-700">
-          <td colspan="8" class="text-gray-500">
-            {{ $t("common.no_data") }}
-          </td>
-        </tr>
-      </tbody>
-    </table>
+            {{ row.course }}
+          </NuxtLink>
+        </template>
+
+        <template #tier-data="{ row }">
+          <span
+            :style="{ color: getTierColor(row.tier as string) }"
+            class="text-lg font-medium"
+          >
+            {{ getNumTier(row.tier as string) }}
+          </span>
+        </template>
+
+        <template #player-data="{ row }">
+          <NuxtLink
+            :to="`/profile/${row.player_id}`"
+            class="py-2 px-2 lg:px-0 text-cyan-600 whitespace-nowrap hover:text-cyan-400"
+          >
+            {{ row.player }}
+          </NuxtLink>
+        </template>
+
+        <template #time-data="{ row }">
+          <span class="text-slate-300">{{ row.time }}</span>
+        </template>
+
+        <template #server-data="{ row }">
+          <span class="italic whitespace-nowrap">{{ row.server }}</span>
+        </template>
+
+        <template #teleports-data="{ row }">
+          <span>{{ row.teleports }}</span>
+        </template>
+
+        <template #date-data="{ row }">
+          <span class="whitespace-nowrap">{{ row.date }}</span>
+        </template>
+      </UTable>
+    </UCard>
   </div>
 </template>

@@ -1,62 +1,95 @@
 <script setup lang="ts">
 import type { Record } from "~/types"
 
-defineProps<{
+const props = defineProps<{
   records: Record[] | null
   loading: boolean
 }>()
+
+const { t } = useI18n()
+
+const columns = computed(() => {
+  return [
+    {
+      key: "rank",
+      label: t("records.title.rank"),
+    },
+    {
+      key: "player",
+      label: t("records.title.player"),
+    },
+    {
+      key: "time",
+      label: t("records.title.time"),
+    },
+    {
+      key: "server",
+      label: t("records.title.server"),
+    },
+    {
+      key: "teleports",
+      label: t("records.title.teleports"),
+    },
+    {
+      key: "date",
+      label: t("records.title.date"),
+    },
+  ]
+})
+
+const rows = computed(() => {
+  return props.records?.map((record, index) => ({
+    rank: `#${index + 1}`,
+    player: record.player.name,
+    time: formatTime(record.time),
+    server: record.server.name,
+    teleports: record.teleports,
+    date: toLocal(record.created_on),
+  }))
+})
 </script>
 
 <template>
-  <div class="overflow-x-auto">
-    <table class="w-full mt-2 bg-gray-900 border border-gray-700 text-center">
-      <thead>
-        <tr class="text-gray-300">
-          <th class="py-1">{{ $t("records.title.rank") }}</th>
-          <th class="py-1">{{ $t("records.title.player") }}</th>
-          <th class="py-1">{{ $t("records.title.time") }}</th>
-          <th class="py-1">{{ $t("records.title.server") }}</th>
-          <th class="py-1">{{ $t("records.title.teleports") }}</th>
-          <th class="py-1">{{ $t("records.title.date") }}</th>
-        </tr>
-      </thead>
-      <tbody v-if="records && records.length > 0">
-        <tr
-          v-for="(record, index) in records"
-          :key="record.id"
-          :record="record"
-          class="border border-gray-700 text-gray-400 hover:bg-gray-800 transition ease-in"
-        >
-          <td>{{ `#${index + 1}` }}</td>
-          <td>
-            <NuxtLink
-              :to="`/profile/${record.player.steam_id}`"
-              class="py-2 px-2 lg:px-0 text-cyan-600 whitespace-nowrap hover:text-cyan-400"
-            >
-              {{ record.player.name }}
-            </NuxtLink>
-          </td>
-          <td class="py-2 px-2 lg:px-0 text-slate-300">
-            {{ formatTime(record.time) }}
-          </td>
-          <td class="py-2 px-2 lg:px-0 italic whitespace-nowrap">
-            {{ record.server.name }}
-          </td>
-          <td class="py-2 px-2 lg:px-0">
-            {{ record.teleports }}
-          </td>
-          <td class="py-2 px-2 lg:px-0 whitespace-nowrap">
-            {{ toLocal(record.created_on) }}
-          </td>
-        </tr>
-      </tbody>
-      <tbody v-else>
-        <tr class="border border-gray-700">
-          <td colspan="8" class="text-gray-500">
-            {{ $t("common.no_data") }}
-          </td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="mt-2">
+    <UCard :ui="{ body: { padding: '' } }">
+      <UTable
+        :ui="{
+          th: { size: 'text-base', padding: 'py-2' },
+          td: { size: 'text-base', padding: 'py-2' },
+          tr: { base: 'hover:bg-gray-800 transition ease-in' },
+        }"
+        :columns="columns"
+        :rows="rows"
+      >
+        <template #rank-data="{ row }">
+          {{ row.rank }}
+        </template>
+
+        <template #player-data="{ row }">
+          <NuxtLink
+            :to="`/profile/${row.player_id}`"
+            class="py-2 px-2 lg:px-0 text-cyan-600 whitespace-nowrap hover:text-cyan-400"
+          >
+            {{ row.player }}
+          </NuxtLink>
+        </template>
+
+        <template #time-data="{ row }">
+          <span class="text-slate-300">{{ row.time }}</span>
+        </template>
+
+        <template #server-data="{ row }">
+          <span class="italic whitespace-nowrap">{{ row.server }}</span>
+        </template>
+
+        <template #teleports-data="{ row }">
+          {{ row.teleports }}
+        </template>
+
+        <template #date-data="{ row }">
+          {{ row.date }}
+        </template>
+      </UTable>
+    </UCard>
   </div>
 </template>
