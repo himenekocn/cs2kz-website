@@ -39,6 +39,7 @@ const activeClassButton = "bg-primary bg-opacity-30"
             <UButton
               variant="ghost"
               :to="item.path"
+              :ui="{ size: { sm: 'text-lg' } }"
               :active-class="activeClassButton"
               @click="open = false"
             >
@@ -50,3 +51,9 @@ const activeClassButton = "bg-primary bg-opacity-30"
     </div>
   </UModal>
 </template>
+
+<style>
+.container {
+  font-family: "Akshar", sans-serif;
+}
+</style>
