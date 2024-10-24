@@ -102,31 +102,7 @@ function signout() {
       </nav>
 
       <div class="flex justify-end items-center">
-        <UButton
-          variant="ghost"
-          :ui="uiIcon"
-          @click="
-            navigateTo('https://github.com/KZGlobalTeam', {
-              external: true,
-              open: { target: '_blank' },
-            })
-          "
-        >
-          <IconGithub />
-        </UButton>
-
-        <UButton
-          variant="ghost"
-          :ui="uiIcon"
-          @click="
-            navigateTo('https://www.discord.gg/csgokz', {
-              external: true,
-              open: { target: '_blank' },
-            })
-          "
-        >
-          <IconDiscord />
-        </UButton>
+        <ExternalLinks class="hidden lg:block" />
 
         <!-- switch locale -->
         <UButton variant="ghost" :ui="uiIcon">
