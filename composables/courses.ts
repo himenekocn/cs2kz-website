@@ -6,8 +6,8 @@ export function useCourses() {
 
   const loading = ref(false)
 
-  const allCourses = ref<CourseExt[] | null>(null)
-  const courses = ref<CourseExt[] | null>(null)
+  const allCourses = ref<CourseExt[]>([])
+  const courses = ref<CourseExt[]>([])
 
   const total = ref(0)
 
@@ -112,10 +112,12 @@ export function useCourses() {
       } else {
         allCourses.value = []
         courses.value = []
+        total.value = 0
       }
     } catch (err) {
-      allCourses.value = null
-      courses.value = null
+      allCourses.value = []
+      courses.value = []
+      total.value = 0
     } finally {
       loading.value = false
     }

@@ -2,7 +2,7 @@
 import type { Record } from "~/types"
 
 const props = defineProps<{
-  records: Record[] | null
+  records: Record[]
   loading: boolean
 }>()
 
@@ -58,7 +58,7 @@ const columns = computed(() => {
 })
 
 const rows = computed(() => {
-  return props.records?.map((record) => {
+  return props.records.map((record) => {
     return {
       map: record.course.map_name,
       course: record.course.name,

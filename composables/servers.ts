@@ -55,9 +55,11 @@ export function useServers() {
         }))
       } else {
         servers.value = []
+        total.value = 0
       }
     } catch (err) {
-      servers.value = null
+      servers.value = []
+      total.value = 0
     } finally {
       loading.value = false
     }

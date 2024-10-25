@@ -2,7 +2,7 @@
 import type { CourseExt } from "~/types"
 
 defineProps<{
-  courses: CourseExt[] | null
+  courses: CourseExt[]
   loading: boolean
 }>()
 </script>
@@ -13,7 +13,7 @@ defineProps<{
       <IconLoading class="inline" />
     </div>
     <div
-      v-else-if="courses && courses.length > 0"
+      v-else-if="courses.length > 0"
       class="mx-auto w-max grid xl:grid-cols-2 gap-10 xl:place-items-center"
     >
       <CourseCard v-for="course in courses" :key="course.id" :course="course" />

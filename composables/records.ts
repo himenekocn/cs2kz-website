@@ -4,7 +4,7 @@ export function useRecords() {
   const { $api } = useNuxtApp()
 
   const loading = ref(false)
-  const records = ref<Record[] | null>(null)
+  const records = ref<Record[]>([])
 
   const total = ref(0)
 
@@ -47,9 +47,11 @@ export function useRecords() {
         total.value = data.total
       } else {
         records.value = []
+        total.value = 0
       }
     } catch (err) {
-      records.value = null
+      records.value = []
+      total.value = 0
     } finally {
       loading.value = false
     }

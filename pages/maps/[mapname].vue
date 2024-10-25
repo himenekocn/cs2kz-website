@@ -24,9 +24,11 @@ const mode = ref<Mode>("classic")
 const has_teleports = ref<"all" | false>("all")
 const styles = ref<Style[]>([])
 
-const records = ref<Record[] | null>(null)
+const records = ref<Record[]>([])
 
-const worldRecord = computed(() => (records.value ? records.value[0] : null))
+const worldRecord = computed(() =>
+  records.value.length > 0 ? records.value[0] : null,
+)
 const playerRecord = ref<Record | null>(null)
 
 getMap()
@@ -111,7 +113,7 @@ async function getCourseRanking() {
       records.value = []
     }
   } catch (err) {
-    records.value = null
+    records.value = []
   } finally {
     loadingRecords.value = false
   }

@@ -4,7 +4,7 @@ import type { ServerWithInfo } from "~/types"
 const { t } = useI18n()
 
 const props = defineProps<{
-  servers: ServerWithInfo[] | null
+  servers: ServerWithInfo[]
   loading: boolean
 }>()
 
@@ -20,7 +20,7 @@ const columns = computed(() => {
 })
 
 const rows = computed(() => {
-  return props.servers?.map((server) => ({
+  return props.servers.map((server) => ({
     id: server.id,
     name: server.name,
     ip: `${server.host}:${server.port}`,
