@@ -1,4 +1,5 @@
 import type { Tier, CourseExt, MapResponse, CourseQuery } from "~/types"
+import { debounce } from "radash"
 
 export function useCourses() {
   const { $api } = useNuxtApp()
@@ -23,30 +24,36 @@ export function useCourses() {
     offset: 0,
   })
 
-  watch([() => query.mode, () => query.teleports], () => {
-    getCourses()
-  })
+  const debouncedUpdate = debounce({ delay: 300 }, update)
 
   watch(
-    [
-      () => query.tier,
-      () => query.name,
-      () => query.sort_by,
-      () => query.sort_order,
-      () => query.limit,
-      () => query.offset,
-    ],
-    async ([tier, name, sort_by, sort_order, limit, offset]) => {
-      if (allCourses.value !== null && allCourses.value.length > 0) {
-        const searched = search(allCourses.value, name)
-        const tiered = matchTier(searched, tier)
-        const sorted = sort(tiered, sort_order, sort_by)
-        // TODO: date filter
-        const paginated = sorted.slice(offset, limit)
-        courses.value = paginated
+    () => ({ ...query }),
+    async (newQuery, oldQuery) => {
+      if (
+        newQuery.mode !== oldQuery.mode ||
+        newQuery.teleports !== oldQuery.teleports
+      ) {
+        await getCourses()
+        update(query)
+      } else if (newQuery.name !== oldQuery.name) {
+        debouncedUpdate(query)
+      } else {
+        update(query)
       }
     },
+    { deep: true },
   )
+
+  function update(query: CourseQuery) {
+    if (allCourses.value !== null && allCourses.value.length > 0) {
+      const searched = search(allCourses.value, query.name)
+      const tiered = matchTier(searched, query.tier)
+      const sorted = sort(tiered, query.sort_order, query.sort_by)
+      // TODO: date filter
+      const paginated = sorted.slice(query.offset, query.limit)
+      courses.value = paginated
+    }
+  }
 
   function search(data: CourseExt[], name: string) {
     if (name === "") {
