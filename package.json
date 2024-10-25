@@ -25,7 +25,6 @@
     "@nuxt/ui": "^2.18.7",
     "@vueuse/core": "^10.9.0",
     "date-fns": "^3.6.0",
-    "minisearch": "^6.3.0",
     "nuxt": "^3.13.2",
     "radash": "^12.1.0",
     "vlpt": "^0.0.1",

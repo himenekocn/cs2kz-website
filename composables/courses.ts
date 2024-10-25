@@ -1,5 +1,4 @@
 import type { Tier, CourseExt, MapResponse, CourseQuery } from "~/types"
-import MiniSearch, { type SearchResult } from "minisearch"
 
 export function useCourses() {
   const { $api } = useNuxtApp()
@@ -10,21 +9,6 @@ export function useCourses() {
   const courses = ref<CourseExt[] | null>(null)
 
   const total = ref(0)
-
-  const fields = [
-    "id",
-    "name",
-    "tier",
-    "map",
-    "ranked_status",
-    "mappers",
-    "img",
-  ]
-  const miniSearch = new MiniSearch({
-    idField: "id",
-    fields: ["name", "map"],
-    storeFields: fields,
-  })
 
   const query = reactive<CourseQuery>({
     name: "",
@@ -59,17 +43,21 @@ export function useCourses() {
         const sorted = sort(tiered, sort_order, sort_by)
         // TODO: date filter
         const paginated = sorted.slice(offset, limit)
-        courses.value = paginated as (CourseExt & SearchResult)[]
+        courses.value = paginated
       }
     },
   )
 
   function search(data: CourseExt[], name: string) {
     if (name === "") {
-      return data as (CourseExt & SearchResult)[]
+      return data
     }
 
-    return miniSearch.search(name) as (CourseExt & SearchResult)[]
+    return data.filter(
+      (course) =>
+        course.name.toLowerCase().includes(name) ||
+        course.map.toLowerCase().includes(name),
+    )
   }
 
   function matchTier(data: CourseExt[], tier: Tier | "all") {
@@ -88,8 +76,6 @@ export function useCourses() {
       const data: MapResponse | undefined = await $api("/maps")
 
       if (data) {
-        miniSearch.removeAll()
-
         const res = data.maps.flatMap((map) =>
           map.courses.map((course) => {
             const fltr = course.filters.find(
@@ -116,8 +102,6 @@ export function useCourses() {
         courses.value = res
 
         total.value = res.length
-
-        miniSearch.addAll(res)
       } else {
         allCourses.value = []
         courses.value = []
