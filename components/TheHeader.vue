@@ -59,6 +59,12 @@ const navButton = {
 const activeNavButton = "bg-primary bg-opacity-30"
 const uiIcon = { variant: { ghost: "hover:bg-primary/40" } }
 
+watch(player, (val) => {
+  if (val === null) {
+    navigateTo("/")
+  }
+})
+
 function signin() {
   const url = `${config.public.apiBase}/auth/login?redirect_to=${location.origin}`
   navigateTo(url, { external: true })

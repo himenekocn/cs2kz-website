@@ -17,7 +17,6 @@ async function verifySession() {
       async onResponseError({ response }) {
         if (response.status >= 400) {
           player.value = null
-          navigateTo("/")
         }
       },
       credentials: "include",
