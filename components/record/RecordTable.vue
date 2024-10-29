@@ -84,6 +84,7 @@ function onSort(sort: { column: "date" | "time"; direction: "asc" | "desc" }) {
     <UCard :ui="{ body: { padding: '' } }">
       <UTable
         v-model:sort="sort"
+        :loading="loading"
         :ui="{
           th: { size: 'text-base', padding: 'py-2' },
           td: { size: 'text-base', padding: 'py-2' },

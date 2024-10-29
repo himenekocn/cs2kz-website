@@ -58,6 +58,7 @@ function connect(ip: string) {
           td: { size: 'text-base', padding: 'py-2' },
           tr: { base: 'hover:bg-gray-800 transition ease-in' },
         }"
+        :loading="loading"
         :columns="columns"
         :rows="rows"
       >
