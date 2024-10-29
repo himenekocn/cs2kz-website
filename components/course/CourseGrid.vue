@@ -14,7 +14,7 @@ defineProps<{
     </div>
     <div
       v-else-if="courses.length > 0"
-      class="mx-auto w-max grid xl:grid-cols-2 gap-10 xl:place-items-center"
+      class="mx-auto w-max grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-10 xl:place-items-center"
     >
       <CourseCard v-for="course in courses" :key="course.id" :course="course" />
     </div>
