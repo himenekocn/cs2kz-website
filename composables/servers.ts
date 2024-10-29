@@ -10,7 +10,7 @@ export function useServers() {
 
   const loading = ref(false)
   const error = ref(null)
-  const servers = ref<ServerWithInfo[] | null>(null)
+  const servers = ref<ServerWithInfo[]>([])
 
   const total = ref(0)
 

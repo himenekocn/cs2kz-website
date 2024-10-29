@@ -49,6 +49,7 @@
   },
   "records": {
     "query": {
+      "map": "Map",
       "course": "Course",
       "player": "Player",
       "server": "Server",

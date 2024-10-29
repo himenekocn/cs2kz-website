@@ -33,7 +33,7 @@ function onModeChange(index: number) {
 
 <template>
   <div
-    class="p-2 lg:p-4 grid grid-cols-1 lg:grid-cols-4 gap-4 lg:gap-8 border border-gray-700 rounded-md text-gray-300"
+    class="p-2 lg:p-4 grid grid-cols-1 lg:grid-cols-4 gap-2 lg:gap-8 border border-gray-700 rounded-md text-gray-300"
   >
     <UTabs
       :items="[
@@ -77,9 +77,15 @@ function onModeChange(index: number) {
         option-attribute="name"
       />
 
-      <UInput v-model="query.course" :placeholder="$t('records.query.course')">
+      <UInput v-model="query.map" :placeholder="$t('records.query.map')">
         <template #trailing>
           <IconMap />
+        </template>
+      </UInput>
+
+      <UInput v-model="query.course" :placeholder="$t('records.query.course')">
+        <template #trailing>
+          <IconCourse />
         </template>
       </UInput>
 

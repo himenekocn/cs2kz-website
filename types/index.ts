@@ -69,6 +69,7 @@ export interface RecordQuery {
   has_teleports: boolean | "all"
   top: boolean
   player: string
+  map: string
   course: string
   server: string
   styles: Style[]

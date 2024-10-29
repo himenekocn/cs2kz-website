@@ -14,6 +14,7 @@ export function useRecords() {
     has_teleports: "all",
     top: true,
     player: "",
+    map: "",
     course: "",
     server: "",
     styles: [],
