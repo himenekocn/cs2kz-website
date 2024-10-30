@@ -4,8 +4,6 @@ import type { RecordQuery } from "~/types"
 
 const query = defineModel<RecordQuery>("query", { required: true })
 
-const uiTabs = { wrapper: "relative space-y-0" }
-
 watch(
   [
     () => query.value.player,
@@ -42,7 +40,7 @@ function onModeChange(index: number) {
       ]"
       :ui="{
         list: { width: 'w-48', tab: { size: 'text-xl', padding: 'px-0' } },
-        ...uiTabs,
+        wrapper: 'relative space-y-0',
       }"
       :default-index="0"
       @change="onModeChange"

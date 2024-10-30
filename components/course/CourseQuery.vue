@@ -3,8 +3,6 @@ import type { CourseQuery } from "~/types"
 
 const query = defineModel<CourseQuery>("query", { required: true })
 
-const uiTabs = { wrapper: "relative space-y-0" }
-
 function onModeChange(index: number) {
   query.value.mode = index === 0 ? "classic" : "vanilla"
 }
@@ -26,7 +24,7 @@ function toggleOrder() {
       ]"
       :ui="{
         list: { width: 'w-48', tab: { size: 'text-xl', padding: 'px-0' } },
-        ...uiTabs,
+        wrapper: 'relative space-y-0',
       }"
       :default-index="0"
       @change="onModeChange"
