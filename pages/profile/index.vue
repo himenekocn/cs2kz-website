@@ -6,22 +6,23 @@ function onModeChange(index: number) {
 <template>
   <Main>
     <div class="max-w-4xl mx-auto">
-      <div class="mb-4">
-        <UTabs
-          :items="[
-            { label: $t('common.mode.ckz') },
-            { label: $t('common.mode.vnl') },
-          ]"
-          :ui="{
-            list: { width: 'w-48', tab: { size: 'text-xl', padding: 'px-0' } },
-            wrapper: 'relative space-y-0',
-          }"
-          :default-index="0"
-          @change="onModeChange"
-        />
-      </div>
+      <UTabs
+        class="mb-6"
+        :items="[
+          { label: $t('common.mode.ckz') },
+          { label: $t('common.mode.vnl') },
+        ]"
+        :ui="{
+          list: { width: 'w-48', tab: { size: 'text-xl', padding: 'px-0' } },
+          wrapper: 'relative space-y-0',
+        }"
+        :default-index="0"
+        @change="onModeChange"
+      />
 
-      <ProfileCard />
+      <ProfileCard class="mb-6" />
+
+      <ProfileCompletion />
     </div>
   </Main>
 </template>

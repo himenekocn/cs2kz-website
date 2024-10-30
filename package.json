@@ -24,6 +24,7 @@
     "@headlessui/vue": "^1.7.23",
     "@nuxt/ui": "^2.18.7",
     "@vueuse/core": "^10.9.0",
+    "chart.js": "^4.4.6",
     "date-fns": "^3.6.0",
     "nuxt": "^3.13.2",
     "radash": "^12.1.0",

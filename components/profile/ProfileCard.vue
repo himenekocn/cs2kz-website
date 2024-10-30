@@ -9,7 +9,9 @@
       >
 
       <div class="flex flex-col gap-1 lg:gap-4">
-        <p class="text-2xl font-semibold max-w-56 lg:w-full truncate">
+        <p
+          class="text-2xl font-semibold max-w-56 lg:w-full truncate text-cyan-600"
+        >
           smieszneznaczki
         </p>
 
