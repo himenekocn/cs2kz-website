@@ -5,7 +5,7 @@ function onModeChange(index: number) {
 </script>
 <template>
   <Main>
-    <div class="max-w-4xl mx-auto">
+    <div class="max-w-5xl mx-auto text-gray-300">
       <UTabs
         class="mb-6"
         :items="[
@@ -22,7 +22,9 @@ function onModeChange(index: number) {
 
       <ProfileCard class="mb-6" />
 
-      <ProfileCompletion />
+      <ProfileCompletion class="mb-6" />
+
+      <ProfileHistory class="mb-6" />
     </div>
   </Main>
 </template>

@@ -1,13 +1,9 @@
 <script setup lang="ts">
 const hasTeleports = ref<"all" | boolean>("all")
-
-function onTeleportsChange(index: number) {
-  console.log(index)
-}
 </script>
 
 <template>
-  <div class="text-gray-300">
+  <div>
     <!-- title & filter -->
     <div class="flex items-center gap-4 mb-2">
       <p class="text-2xl text-gray-300 font-semibold">Completion</p>
@@ -20,7 +16,6 @@ function onTeleportsChange(index: number) {
         ]"
         value-attribute="value"
         option-attribute="name"
-        @change="onTeleportsChange"
       />
     </div>
 

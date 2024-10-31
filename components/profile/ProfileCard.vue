@@ -1,7 +1,7 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div class="p-4 border border-gray-700 rounded-md text-gray-300 lg:text-lg">
+  <div class="p-4 border border-gray-700 rounded-md lg:text-lg">
     <div class="flex gap-2 lg:gap-4 pb-4 mb-4 border-b border-gray-800">
       <img
         src="/img/avatar.jpg"

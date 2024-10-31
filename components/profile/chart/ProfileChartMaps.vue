@@ -92,7 +92,6 @@ onMounted(() => {
       },
       plugins: {
         tooltip: {
-          enabled: true,
           displayColors: false,
           callbacks: {
             label: (context) => {

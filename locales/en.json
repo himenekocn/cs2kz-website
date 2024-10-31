@@ -72,6 +72,15 @@
       "searchby": "Course, Map"
     }
   },
+  "profile": {
+    "history": {
+      "filter": {
+        "week": "Week",
+        "month": "Month",
+        "year": "Year"
+      }
+    }
+  },
   "map": {
     "global_status": {
       "global": "Global",

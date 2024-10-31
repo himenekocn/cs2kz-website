@@ -84,11 +84,6 @@ onMounted(() => {
           },
         },
       },
-      plugins: {
-        tooltip: {
-          enabled: true,
-        },
-      },
     },
   })
 })
