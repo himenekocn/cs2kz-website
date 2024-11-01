@@ -27,29 +27,35 @@ const options = [
     },
   ],
 ]
+const navigation = computed(() => {
+  const routes = [
+    {
+      localePath: "nav.records",
+      path: "/records",
+    },
+    {
+      localePath: "nav.courses",
+      path: "/courses",
+    },
+    {
+      localePath: "nav.servers",
+      path: "/servers",
+    },
+    {
+      localePath: "nav.jumpstats",
+      path: "/jumpstats",
+    },
+  ]
 
-const navigation = [
-  {
-    localePath: "nav.records",
-    path: "/records",
-  },
-  {
-    localePath: "nav.courses",
-    path: "/courses",
-  },
-  {
-    localePath: "nav.profile",
-    path: "/profile",
-  },
-  {
-    localePath: "nav.servers",
-    path: "servers",
-  },
-  {
-    localePath: "nav.jumpstats",
-    path: "/jumpstats",
-  },
-]
+  if (player.value) {
+    routes.splice(2, 0, {
+      localePath: "nav.profile",
+      path: "/profile",
+    })
+  }
+
+  return routes
+})
 
 // replace style preset
 const navButton = {

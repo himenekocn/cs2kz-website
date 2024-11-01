@@ -1,10 +1,5 @@
 <script setup lang="ts">
-const player = usePlayer()
-
 const { records, loading, query, total, getRecords } = useRecords()
-
-// it will trigger data fetch, so no need to call getRecords
-query.player = player.value!.steam_id64
 </script>
 
 <template>
