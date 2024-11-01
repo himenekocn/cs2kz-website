@@ -1,4 +1,17 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import type { Mode } from "~/types"
+
+const props = defineProps<{
+  mode: Mode
+}>()
+
+watch(
+  () => props.mode,
+  (mode) => {
+    console.log(mode)
+  },
+)
+</script>
 
 <template>
   <div class="p-4 border border-gray-700 rounded-md lg:text-lg">

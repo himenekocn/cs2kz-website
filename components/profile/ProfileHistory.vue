@@ -14,7 +14,7 @@ const history = reactive({
 <template>
   <div>
     <!-- title & filter -->
-    <p class="text-2xl text-gray-300 font-semibold mb-2">History</p>
+    <p class="text-3xl text-gray-300 font-semibold mb-2">History</p>
 
     <div class="gap-4 p-4 border border-gray-700 rounded-md text-gray-300">
       <!-- play history -->

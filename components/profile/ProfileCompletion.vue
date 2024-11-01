@@ -6,7 +6,7 @@ const hasTeleports = ref<"all" | boolean>("all")
   <div>
     <!-- title & filter -->
     <div class="flex items-center gap-4 mb-2">
-      <p class="text-2xl text-gray-300 font-semibold">Completion</p>
+      <p class="text-3xl text-gray-300 font-semibold">Completion</p>
       <USelectMenu
         v-model="hasTeleports"
         :options="[

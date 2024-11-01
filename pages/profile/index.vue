@@ -1,6 +1,14 @@
 <script setup lang="ts">
+import type { Mode } from "~/types"
+
+const { query } = useRecords()
+
+const mode = ref<Mode>("classic")
+
 function onModeChange(index: number) {
-  console.log(index)
+  const newMode = index === 0 ? "classic" : "vanilla"
+  mode.value = newMode
+  query.mode = newMode
 }
 </script>
 <template>
@@ -20,11 +28,13 @@ function onModeChange(index: number) {
         @change="onModeChange"
       />
 
-      <ProfileCard class="mb-6" />
+      <ProfileCard :mode="mode" class="mb-10" />
 
-      <ProfileCompletion class="mb-6" />
+      <ProfileCompletion class="mb-10" />
 
-      <ProfileHistory class="mb-6" />
+      <ProfileRuns class="mb-10" />
+
+      <ProfileHistory class="mb-10" />
     </div>
   </Main>
 </template>
