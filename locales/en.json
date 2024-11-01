@@ -74,10 +74,14 @@
   },
   "profile": {
     "history": {
-      "filter": {
+      "chartFilter": {
         "week": "Week",
         "month": "Month",
         "year": "Year"
+      },
+      "mostPlayedFilter": {
+        "time": "Time",
+        "runs": "Runs"
       }
     }
   },

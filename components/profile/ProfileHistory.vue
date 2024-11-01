@@ -1,5 +1,7 @@
 <script setup lang="ts">
-const lastDays = ref(7)
+const pastDays = ref(7)
+
+const mostPlayedFilter = ref<"time" | "runs">("time")
 
 const history = reactive({
   // generate 30 numbers
@@ -18,19 +20,41 @@ const history = reactive({
       <!-- play history -->
       <div class="flex items-center gap-2 mb-2">
         <p class="text-xl font-medium">Play History</p>
-
         <USelectMenu
-          v-model="lastDays"
+          v-model="pastDays"
           :options="[
-            { name: $t('profile.history.filter.week'), value: 7 },
-            { name: $t('profile.history.filter.month'), value: 30 },
-            { name: $t('profile.history.filter.year'), value: 365 },
+            { name: $t('profile.history.chartFilter.week'), value: 7 },
+            { name: $t('profile.history.chartFilter.month'), value: 30 },
+            { name: $t('profile.history.chartFilter.year'), value: 365 },
           ]"
           value-attribute="value"
           option-attribute="name"
         />
       </div>
+
       <ProfileChartPlayHistory :history="history" />
+
+      <!-- most played maps -->
+      <div class="flex items-center gap-2 mt-4 mb-2">
+        <p class="text-xl font-medium">Most Played Courses</p>
+        <USelectMenu
+          v-model="mostPlayedFilter"
+          :options="[
+            {
+              name: $t('profile.history.mostPlayedFilter.time'),
+              value: 'time',
+            },
+            {
+              name: $t('profile.history.mostPlayedFilter.runs'),
+              value: 'runs',
+            },
+          ]"
+          value-attribute="value"
+          option-attribute="name"
+        />
+      </div>
+
+      <ProfileChartMostPlayed :sort-by="mostPlayedFilter" />
     </div>
   </div>
 </template>
