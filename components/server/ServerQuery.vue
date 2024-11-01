@@ -16,7 +16,7 @@ watch(ip, (ip) => {
 
 <template>
   <div
-    class="lg:w-max mx-auto p-2 lg:p-4 flex flex-wrap items-center justify-center gap-2 lg:gap-8 border border-gray-700 rounded-md"
+    class="lg:w-max mx-auto p-2 lg:p-4 flex flex-wrap items-center lg:justify-center gap-2 lg:gap-8 border border-gray-700 rounded-md"
   >
     <UInput v-model="query.name" :placeholder="$t('servers.query.name')">
       <template #trailing>

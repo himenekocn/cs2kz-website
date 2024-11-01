@@ -14,7 +14,6 @@ getServers()
         v-if="total > 0"
         v-model:limit="query.limit"
         v-model:offset="query.offset"
-        class="mt-8"
         :total="total"
         @refresh="getServers"
       />
