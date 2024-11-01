@@ -35,7 +35,7 @@ function toggleOrder() {
       <USelectMenu
         v-model="query.teleports"
         :options="[
-          { name: $t('common.teleports.standard'), value: true },
+          { name: $t('common.teleports.overall'), value: true },
           { name: $t('common.teleports.pro'), value: false },
         ]"
         value-attribute="value"

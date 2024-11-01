@@ -11,7 +11,7 @@ export function useRecords() {
   // query that corresponds to the actual input
   const query = reactive<RecordQuery>({
     mode: "classic",
-    has_teleports: "all",
+    has_teleports: "overall",
     top: true,
     player: "",
     map: "",
@@ -36,7 +36,7 @@ export function useRecords() {
       const transformedQuery = {
         ...toRaw(query),
         has_teleports:
-          query.has_teleports === "all" ? null : query.has_teleports,
+          query.has_teleports === "overall" ? null : query.has_teleports,
         styles: query.styles.length === 0 ? null : query.styles,
       }
       const data: RecordResponse | undefined = await $api("/records", {

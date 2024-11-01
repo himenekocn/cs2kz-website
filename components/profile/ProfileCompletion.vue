@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const hasTeleports = ref<"all" | boolean>("all")
+const hasTeleports = ref<"overall" | boolean>("overall")
 </script>
 
 <template>
@@ -10,7 +10,7 @@ const hasTeleports = ref<"all" | boolean>("all")
       <USelectMenu
         v-model="hasTeleports"
         :options="[
-          { name: $t('common.teleports.standard'), value: 'all' },
+          { name: $t('common.teleports.overall'), value: 'overall' },
           { name: $t('common.teleports.pro'), value: false },
           { name: $t('common.teleports.tp'), value: true },
         ]"

@@ -2,7 +2,7 @@
 import type { GlobalStatus, Mode } from "~/types"
 
 const mode = defineModel<Mode>("mode")
-const teleports = defineModel<"all" | false>("teleports")
+const teleports = defineModel<"overall" | false>("overall")
 
 defineProps<{
   name: string
@@ -40,7 +40,7 @@ const globalStatusColors = {
         <USelectMenu
           v-model="teleports"
           :options="[
-            { name: $t('common.teleports.standard'), value: 'all' },
+            { name: $t('common.teleports.overall'), value: 'overall' },
             { name: $t('common.teleports.pro'), value: false },
           ]"
           value-attribute="value"

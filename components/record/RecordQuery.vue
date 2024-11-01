@@ -58,7 +58,7 @@ function onModeChange(index: number) {
       <USelectMenu
         v-model="query.has_teleports"
         :options="[
-          { name: $t('common.teleports.standard'), value: 'all' },
+          { name: $t('common.teleports.overall'), value: 'overall' },
           { name: $t('common.teleports.pro'), value: false },
           { name: $t('common.teleports.tp'), value: true },
         ]"

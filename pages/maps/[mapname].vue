@@ -21,7 +21,7 @@ const courseNames = computed(() =>
 )
 
 const mode = ref<Mode>("classic")
-const has_teleports = ref<"all" | false>("all")
+const has_teleports = ref<"overall" | false>("overall")
 const styles = ref<Style[]>([])
 
 const records = ref<Record[]>([])
@@ -72,7 +72,8 @@ async function getCourseRanking() {
       map: map.value?.name,
       course: course.value?.name,
       mode: mode.value,
-      has_teleports: has_teleports.value === "all" ? null : has_teleports.value,
+      has_teleports:
+        has_teleports.value === "overall" ? null : has_teleports.value,
       styles: styles.value.length === 0 ? null : styles.value,
       top: true,
     }
