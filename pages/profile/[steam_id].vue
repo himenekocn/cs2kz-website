@@ -1,5 +1,17 @@
 <script setup lang="ts">
 import type { Mode } from "~/types"
+import SteamID from "steamid"
+
+definePageMeta({
+  validate: async (route) => {
+    try {
+      const steamID = new SteamID(route.params.steam_id as string)
+      return steamID.isValidIndividual()
+    } catch (error) {
+      return false
+    }
+  },
+})
 
 const route = useRoute()
 

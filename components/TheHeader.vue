@@ -50,7 +50,7 @@ const navigation = computed(() => {
   if (player.value) {
     routes.splice(2, 0, {
       localePath: "nav.profile",
-      path: "/profile",
+      path: `/profile/${player.value.steam_id}`,
     })
   }
 
