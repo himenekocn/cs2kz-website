@@ -105,7 +105,7 @@ function onSort(sort: { column: "date" | "time"; direction: "asc" | "desc" }) {
 
         <template #course-data="{ row }">
           <NuxtLink
-            :to="`/maps/${row.map}?course=${row.name}`"
+            :to="`/maps/${row.map}?course=${row.course}`"
             class="text-lg hover:text-slate-300"
           >
             {{ row.course }}

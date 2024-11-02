@@ -2,7 +2,7 @@
 import type { GlobalStatus, Mode } from "~/types"
 
 const mode = defineModel<Mode>("mode")
-const teleports = defineModel<"overall" | false>("overall")
+const teleports = defineModel<"overall" | false>("teleports")
 
 defineProps<{
   name: string
