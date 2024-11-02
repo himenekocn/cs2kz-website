@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { navigateTo } from "#app"
 const config = useRuntimeConfig()
-const { locale, locales, setLocale } = useI18n()
+const { t, locale, locales, setLocale } = useI18n()
 const player = usePlayer()
 
 const availableLocales = computed(() => {
@@ -19,14 +19,19 @@ const availableLocales = computed(() => {
 
 const openNavigation = ref(false)
 
-const options = [
+const options = computed(() => [
   [
     {
-      label: "Sign Out",
-      click: signout,
+      label: t("nav.signOut"),
+      click: signOut,
+    },
+    {
+      label: t("nav.signOutAll"),
+      click: signOutFromAll,
     },
   ],
-]
+])
+
 const navigation = computed(() => {
   const routes = [
     {
@@ -71,15 +76,24 @@ watch(player, (val) => {
   }
 })
 
-function signin() {
+function signIn() {
   const url = `${config.public.apiBase}/auth/login?redirect_to=${location.origin}`
   navigateTo(url, { external: true })
 }
 
-function signout() {
+function signOut() {
   player.value = null
   $fetch("/auth/logout", {
     baseURL: config.public.apiBase,
+    credentials: "include",
+  })
+}
+
+function signOutFromAll() {
+  player.value = null
+  $fetch("/auth/logout", {
+    baseURL: config.public.apiBase,
+    params: { invalidate_all_sessions: true },
     credentials: "include",
   })
 }
@@ -128,7 +142,11 @@ function signout() {
 
         <!-- login -->
         <UButton v-if="player" variant="ghost" :ui="uiIcon">
-          <UDropdown :items="options" :popper="{ placement: 'bottom-start' }">
+          <UDropdown
+            :items="options"
+            mode="hover"
+            :popper="{ placement: 'bottom-start' }"
+          >
             <PlayerAvatar
               :avatar-url="player.avatar_url"
               :username="player.username"
@@ -136,7 +154,7 @@ function signout() {
           </UDropdown>
         </UButton>
 
-        <UButton v-else variant="ghost" :ui="uiIcon" @click="signin">
+        <UButton v-else variant="ghost" :ui="uiIcon" @click="signIn">
           <IconSteam />
         </UButton>
 

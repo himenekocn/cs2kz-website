@@ -39,7 +39,9 @@
     "courses": "Courses",
     "profile": "Profile",
     "servers": "Servers",
-    "jumpstats": "Jumpstats"
+    "jumpstats": "Jumpstats",
+    "signOut": "Sign out",
+    "signOutAll": "Sign out from all websites"
   },
   "pagination": {
     "first": "first",
