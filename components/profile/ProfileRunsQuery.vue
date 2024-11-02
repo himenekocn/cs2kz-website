@@ -9,7 +9,7 @@ const query = defineModel<RecordQuery>({ required: true })
     class="px-2 py-3 flex items-center flex-wrap gap-2 lg:gap-4 border-b border-gray-800"
   >
     <div class="hidden lg:flex items-center gap-2">
-      <p>PB Only</p>
+      <p>{{ $t("records.query.pbOnly") }}</p>
       <UToggle v-model="query.top" size="lg" />
     </div>
 

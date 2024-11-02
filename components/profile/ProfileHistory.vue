@@ -27,12 +27,16 @@ watch(
 <template>
   <div>
     <!-- title & filter -->
-    <p class="text-3xl text-gray-300 font-semibold mb-2">History</p>
+    <p class="text-3xl text-gray-300 font-semibold mb-2">
+      {{ $t("profile.history.title") }}
+    </p>
 
     <div class="gap-4 p-4 border border-gray-700 rounded-md text-gray-300">
       <!-- play history -->
       <div class="flex items-center gap-2 mb-2">
-        <p class="text-xl font-medium">Play History</p>
+        <p class="text-xl font-medium">
+          {{ $t("profile.history.playHistory") }}
+        </p>
         <USelectMenu
           v-model="pastDays"
           :options="[
@@ -49,7 +53,9 @@ watch(
 
       <!-- most played maps -->
       <div class="flex items-center gap-2 mt-4 mb-2">
-        <p class="text-xl font-medium">Most Played Courses</p>
+        <p class="text-xl font-medium">
+          {{ $t("profile.history.mostPlayedCourse") }}
+        </p>
         <USelectMenu
           v-model="mostPlayedFilter"
           :options="[

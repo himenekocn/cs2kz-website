@@ -41,29 +41,33 @@ watch(
 
         <p>
           <span class="font-semibold mr-1">2446</span>
-          <span class="text-gray-400">hrs on record</span>
+          <span class="text-gray-400">{{ $t("profile.info.hours") }}</span>
         </p>
       </div>
     </div>
 
     <div class="flex flex-wrap gap-x-8 gap-y-0 lg:gap-y-8">
       <div>
-        <span class="mr-1 text-gray-400">World Rank:</span>
+        <span class="mr-1 text-gray-400"
+          >{{ $t("profile.info.worldRank") }}:</span
+        >
         <span class="font-medium">#1,789</span>
       </div>
 
       <div>
-        <span class="mr-1 text-gray-400">Rating:</span>
+        <span class="mr-1 text-gray-400">{{ $t("profile.info.rating") }}:</span>
         <span class="font-medium">9.88</span>
       </div>
 
       <div>
-        <span class="mr-1 text-gray-400">Points:</span>
+        <span class="mr-1 text-gray-400">{{ $t("profile.info.points") }}:</span>
         <span class="font-medium">43,771</span>
       </div>
 
       <div>
-        <span class="mr-1 text-gray-400">Maps Finished:</span>
+        <span class="mr-1 text-gray-400"
+          >{{ $t("profile.info.mapsFinished") }}:</span
+        >
         <span class="font-medium">252</span>
       </div>
     </div>

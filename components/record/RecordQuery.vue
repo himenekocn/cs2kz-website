@@ -50,7 +50,7 @@ function onModeChange(index: number) {
       class="col-span-3 flex items-center flex-wrap lg:justify-end gap-2 lg:gap-4"
     >
       <div class="hidden lg:flex items-center gap-2">
-        <p>PB Only</p>
+        <p>{{ $t("records.query.pbOnly") }}</p>
         <UToggle v-model="query.top" size="lg" />
       </div>
 

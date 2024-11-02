@@ -51,6 +51,7 @@
   },
   "records": {
     "query": {
+      "pbOnly": "PB only",
       "map": "Map",
       "course": "Course",
       "player": "Player",
@@ -75,12 +76,36 @@
     }
   },
   "profile": {
+    "info": {
+      "hours": "hrs on record",
+      "worldRank": "World Rank",
+      "rating": "Rating",
+      "points": "Points",
+      "mapsFinished": "Maps Finished"
+    },
+    "completion": {
+      "title": "Completion",
+      "wrs": "WRs",
+      "top20": "Top 20",
+      "top50": "Top 50",
+      "points": "Points",
+      "mapsDist": "Maps Distribution",
+      "pointsDist": "Points Distribution"
+    },
+    "runs": {
+      "title:": "Runs"
+    },
     "history": {
+      "title": "History",
+      "playHistory": "Play History",
+      "mostPlayedCourse": "Most Played Course",
       "chartFilter": {
         "week": "Week",
         "month": "Month",
         "year": "Year"
       },
+      "course": "Course",
+      "map": "Map",
       "mostPlayedFilter": {
         "time": "Time",
         "runs": "Runs"

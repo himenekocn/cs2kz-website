@@ -3,36 +3,38 @@ const props = defineProps<{
   sortBy: "time" | "runs"
 }>()
 
+const { t } = useI18n()
+
 const columns = computed(() =>
   [
     {
       key: "course",
-      label: "Course",
+      label: t("profile.history.course"),
     },
     {
       key: "map",
-      label: "Map",
+      label: t("profile.history.map"),
     },
   ].concat(
     props.sortBy === "time"
       ? [
           {
             key: "time",
-            label: "Time",
+            label: t("profile.history.mostPlayedFilter.time"),
           },
           {
             key: "runs",
-            label: "Runs",
+            label: t("profile.history.mostPlayedFilter.runs"),
           },
         ]
       : [
           {
             key: "runs",
-            label: "Runs",
+            label: t("profile.history.mostPlayedFilter.runs"),
           },
           {
             key: "time",
-            label: "Time",
+            label: t("profile.history.mostPlayedFilter.time"),
           },
         ],
   ),
