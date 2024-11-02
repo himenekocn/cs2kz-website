@@ -28,13 +28,11 @@ export default defineNuxtConfig({
     locales: [
       {
         code: "zh",
-        iso: "zh-CN",
         file: "zh.json",
         name: "简体中文",
       },
       {
         code: "en",
-        iso: "en-US",
         file: "en.json",
         name: "English",
       },
