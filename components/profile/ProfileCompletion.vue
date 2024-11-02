@@ -1,5 +1,18 @@
 <script setup lang="ts">
+import type { Mode } from "~/types"
+
+const props = defineProps<{
+  mode: Mode
+}>()
+
 const hasTeleports = ref<"overall" | boolean>("overall")
+
+watch(
+  () => props.mode,
+  () => {
+    console.log("mode changed")
+  },
+)
 </script>
 
 <template>

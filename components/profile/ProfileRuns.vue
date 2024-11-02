@@ -1,17 +1,24 @@
 <script setup lang="ts">
+const route = useRoute()
+
 const { records, loading, query, total, getRecords } = useRecords()
+
+query.player = route.params.steam_id as string
 </script>
 
 <template>
   <div>
     <p class="text-3xl text-gray-300 font-semibold mb-2">Runs</p>
 
-    <UCard :ui="{ body: { padding: '' } }">
+    <UCard
+      :ui="{
+        body: { padding: '' },
+      }"
+    >
       <ProfileRunsQuery v-model="query" />
 
-      <div class="mx-auto py-3 border-b border-gray-800">
+      <div v-if="total > 0" class="mx-auto py-3 border-b border-gray-700">
         <PageHelper
-          v-if="total > 0"
           v-model:limit="query.limit!"
           v-model:offset="query.offset!"
           :total="total"

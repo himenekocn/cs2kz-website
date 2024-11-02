@@ -13,11 +13,7 @@ definePageMeta({
   },
 })
 
-const route = useRoute()
-
 const { query } = useRecords()
-
-query.player = route.params.steam_id as string
 
 const mode = ref<Mode>("classic")
 
@@ -46,11 +42,11 @@ function onModeChange(index: number) {
 
       <ProfileCard :mode="mode" class="mb-10" />
 
-      <ProfileCompletion class="mb-10" />
+      <ProfileCompletion :mode="mode" class="mb-10" />
 
       <ProfileRuns class="mb-10" />
 
-      <ProfileHistory class="mb-10" />
+      <ProfileHistory :mode="mode" class="mb-10" />
     </div>
   </Main>
 </template>

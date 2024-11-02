@@ -1,4 +1,10 @@
 <script setup lang="ts">
+import type { Mode } from "~/types"
+
+const props = defineProps<{
+  mode: Mode
+}>()
+
 const pastDays = ref(7)
 
 const mostPlayedFilter = ref<"time" | "runs">("time")
@@ -9,6 +15,13 @@ const history = reactive({
   runs: Array.from({ length: 30 }, () => Math.floor(Math.random() * 24)),
   maps: Array.from({ length: 30 }, () => Math.floor(Math.random() * 24)),
 })
+
+watch(
+  () => props.mode,
+  () => {
+    console.log("mode changed")
+  },
+)
 </script>
 
 <template>
