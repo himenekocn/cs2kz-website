@@ -52,7 +52,8 @@ async function getMap() {
     }
 
     await getCourseRanking()
-  } catch (err) {
+  } catch (error) {
+    console.log(error)
     map.value = null
   } finally {
     loading.value = false
@@ -113,7 +114,8 @@ async function getCourseRanking() {
     } else {
       records.value = []
     }
-  } catch (err) {
+  } catch (error) {
+    console.log(error)
     records.value = []
   } finally {
     loadingRecords.value = false
@@ -170,7 +172,10 @@ async function getCourseRanking() {
           <div v-else class="mt-2">
             <RankHighlighted v-if="worldRecord" :record="worldRecord" wr />
             <RankHighlighted
-              v-if="playerRecord"
+              v-if="
+                playerRecord &&
+                playerRecord.player.steam_id !== worldRecord?.player.steam_id
+              "
               :record="playerRecord"
               class="mt-2"
             />
