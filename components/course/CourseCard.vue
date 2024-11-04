@@ -18,10 +18,10 @@ defineProps<{
     >
 
     <div :style="{ backgroundImage: `url(${course.img})` }" class="info">
-      <p class="text-gray-100 font-medium text-lg">{{ course.name }}</p>
-      <div class="flex items-center gap-1">
-        <IconMap :width="1.2" />
-        <p class="text-gray-300">{{ course.map }}</p>
+      <p class="text-gray-100 font-medium text-lg">{{ course.map }}</p>
+      <div class="flex gap-2">
+        <IconCourse width="1rem" />
+        <p class="text-gray-300">{{ course.name }}</p>
       </div>
 
       <div class="flex items-center text-sm">
@@ -42,7 +42,7 @@ defineProps<{
         </div>
       </div>
 
-      <div class="flex items-center gap-1 mt-6">
+      <div class="flex gap-1 mt-6">
         <IconDate />
         <span class="text-xs text-gray-200 leading-3">
           {{ toLocal(course.created_on).slice(0, 10) }}

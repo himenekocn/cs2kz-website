@@ -3,11 +3,36 @@
     xmlns="http://www.w3.org/2000/svg"
     width="1.5rem"
     height="1.5rem"
-    viewBox="0 0 24 24"
+    viewBox="0 0 48 48"
   >
-    <path
-      fill="#dbdbdb"
-      d="M19.5 21q-.625 0-1.062-.437T18 19.5t.438-1.062T19.5 18t1.063.438T21 19.5t-.437 1.063T19.5 21M10 22q-2.5 0-4.25-.587T4 20q0-.575.825-1.025T7 18.25V20h2V2l8 3.9L11 9v9.05q2.15.125 3.575.663T16 20q0 .825-1.75 1.413T10 22"
-    />
+    <g fill="none">
+      <ellipse
+        cx="24"
+        cy="34"
+        stroke="#dbdbdb"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="4"
+        rx="20"
+        ry="10"
+      />
+      <circle
+        cx="32"
+        cy="34"
+        r="2"
+        stroke="#dbdbdb"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="4"
+      />
+      <path d="M24 9L13 4v10z" />
+      <path
+        stroke="#dbdbdb"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="4"
+        d="M13 34V14m0 0V4l11 5z"
+      />
+    </g>
   </svg>
 </template>
