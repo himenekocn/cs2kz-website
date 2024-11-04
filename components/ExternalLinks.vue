@@ -1,12 +1,10 @@
-<script setup lang="ts">
-const uiIcon = { variant: { ghost: "hover:bg-primary/40" } }
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <div class="flex items-center">
     <UButton
       variant="ghost"
-      :ui="uiIcon"
+      color="gray"
       @click="
         navigateTo('https://github.com/KZGlobalTeam', {
           external: true,
@@ -18,7 +16,7 @@ const uiIcon = { variant: { ghost: "hover:bg-primary/40" } }
     </UButton>
     <UButton
       variant="ghost"
-      :ui="uiIcon"
+      color="gray"
       @click="
         navigateTo('https://www.discord.gg/csgokz', {
           external: true,

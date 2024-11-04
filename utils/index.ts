@@ -1,4 +1,4 @@
-import type { CourseExt } from "~/types"
+import type { CourseExt, Record as Run } from "~/types"
 import { format } from "date-fns"
 
 // for testing
@@ -105,4 +105,27 @@ export function formatTime(seconds: number) {
   timeParts.push(remainingSeconds.padStart(6, "0"))
 
   return timeParts.join(":")
+}
+
+export function getWrHistory(records: Run[]) {
+  // will remove this part when api is able to sort them
+  const sorted = records.sort((a, b) => {
+    return new Date(b.created_on).getTime() - new Date(a.created_on).getTime()
+  })
+
+  const history: Run[] = []
+
+  sorted.forEach((record) => {
+    const len = history.length
+    if (len === 0) {
+      history.push(record)
+    } else {
+      const last = history[len - 1] as Run
+      if (record.time <= last.time) {
+        history.push(record)
+      }
+    }
+  })
+
+  return history.reverse()
 }

@@ -31,9 +31,26 @@ const worldRecord = computed(() =>
 )
 const playerRecord = ref<Record | null>(null)
 
+const baseQuery = computed(() => ({
+  map: map.value!.name,
+  course: course.value.name,
+  mode: mode.value,
+  has_teleports: has_teleports.value === "overall" ? null : has_teleports.value,
+  styles: styles.value.length === 0 ? null : styles.value,
+}))
+
+const showWrProgression = ref(false)
+
+const loadingProgression = ref(false)
+
+const history = ref<Record[]>([])
+
 getMap()
 
 watch([mode, has_teleports, styles], () => {
+  if (showWrProgression.value) {
+    getWrProgression()
+  }
   getCourseRanking()
 })
 
@@ -69,20 +86,11 @@ async function getCourseRanking() {
   try {
     loadingRecords.value = true
 
-    const baseQuery = {
-      map: map.value?.name,
-      course: course.value?.name,
-      mode: mode.value,
-      has_teleports:
-        has_teleports.value === "overall" ? null : has_teleports.value,
-      styles: styles.value.length === 0 ? null : styles.value,
-      top: true,
-    }
-
     const data: RecordResponse | undefined = await $api("/records", {
       query: {
-        ...baseQuery,
-        sort_by: "time",
+        ...baseQuery.value,
+        sort_by: "date",
+        sort_order: "descending",
         limit: 50,
         // TODO: course filter
       },
@@ -103,7 +111,7 @@ async function getCourseRanking() {
           // if not found, fetch player record from api
           const data: RecordResponse | undefined = await $api("/records", {
             query: {
-              ...baseQuery,
+              ...baseQuery.value,
               player: player.value.steam_id,
             },
           })
@@ -113,12 +121,49 @@ async function getCourseRanking() {
       }
     } else {
       records.value = []
+      playerRecord.value = null
     }
   } catch (error) {
     console.log(error)
     records.value = []
   } finally {
     loadingRecords.value = false
+  }
+}
+
+function toggleWrProgression() {
+  if (showWrProgression.value) {
+    showWrProgression.value = false
+  } else {
+    showWrProgression.value = true
+
+    getWrProgression()
+  }
+}
+
+async function getWrProgression() {
+  try {
+    loadingProgression.value = true
+
+    const data: RecordResponse | undefined = await $api("/records", {
+      query: {
+        ...baseQuery.value,
+        sort_by: "date",
+        sort_order: "ascending",
+        limit: 100000,
+      },
+    })
+
+    if (data) {
+      history.value = getWrHistory(data.records)
+    } else {
+      history.value = []
+    }
+  } catch (error) {
+    console.log(error)
+    history.value = []
+  } finally {
+    loadingProgression.value = false
   }
 }
 </script>
@@ -170,7 +215,18 @@ async function getCourseRanking() {
             <IconLoading />
           </div>
           <div v-else class="mt-2">
-            <RankHighlighted v-if="worldRecord" :record="worldRecord" wr />
+            <RankHighlighted
+              v-if="worldRecord"
+              :record="worldRecord"
+              wr
+              @toggle="toggleWrProgression"
+            />
+            <ProgressionTable
+              v-if="showWrProgression"
+              class="mt-2"
+              :history="history"
+              :loading="loadingProgression"
+            />
             <RankHighlighted
               v-if="
                 playerRecord &&

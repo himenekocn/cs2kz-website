@@ -50,7 +50,9 @@ export function useRecords() {
         records.value = []
         total.value = 0
       }
-    } catch (err) {
+    } catch (error) {
+      console.log(error)
+
       records.value = []
       total.value = 0
     } finally {

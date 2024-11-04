@@ -25,11 +25,6 @@ const end = computed(() => {
 
 const lmt = ref("30")
 
-const uiButton = {
-  padding: { sm: "px-2 py-1" },
-  variant: { ghost: "dark:hover:bg-gray-600/40" },
-}
-
 watch(lmt, (lmt) => {
   limit.value = Number(lmt)
 })
@@ -64,7 +59,8 @@ function lastPage() {
       <UButton
         :disabled="currentPage === 1"
         variant="ghost"
-        :ui="uiButton"
+        color="gray"
+        :ui="{ padding: { sm: 'px-2 py-1' } }"
         @click="prevPage"
       >
         <IconLeftRounded />
@@ -75,7 +71,8 @@ function lastPage() {
       <UButton
         :disabled="currentPage === totalPages"
         variant="ghost"
-        :ui="uiButton"
+        color="gray"
+        :ui="{ padding: { sm: 'px-2 py-1' } }"
         @click="nextPage"
       >
         <IconRightRounded />

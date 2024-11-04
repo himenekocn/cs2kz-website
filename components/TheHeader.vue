@@ -62,14 +62,6 @@ const navigation = computed(() => {
   return routes
 })
 
-// replace style preset
-const navButton = {
-  font: "font-medium",
-  color: { gray: { ghost: "dark:hover:bg-primary/40" } },
-}
-const activeNavButton = "bg-primary bg-opacity-30"
-const uiIcon = { variant: { ghost: "hover:bg-primary/40" } }
-
 watch(player, (val) => {
   if (val === null) {
     navigateTo("/")
@@ -116,10 +108,9 @@ function signOutFromAll() {
           <li v-for="item in navigation" :key="item.path">
             <UButton
               variant="ghost"
-              color="gray"
               :to="item.path"
-              :ui="navButton"
-              :active-class="activeNavButton"
+              :ui="{ font: 'font-medium' }"
+              active-class="bg-primary bg-opacity-30"
             >
               {{ $t(item.localePath) }}
             </UButton>
@@ -131,7 +122,7 @@ function signOutFromAll() {
         <ExternalLinks class="hidden lg:block" />
 
         <!-- switch locale -->
-        <UButton variant="ghost" :ui="uiIcon">
+        <UButton variant="ghost" color="gray">
           <UDropdown
             :items="availableLocales"
             :popper="{ placement: 'bottom-start' }"
@@ -141,7 +132,7 @@ function signOutFromAll() {
         </UButton>
 
         <!-- login -->
-        <UButton v-if="player" variant="ghost" :ui="uiIcon">
+        <UButton v-if="player" variant="ghost" color="gray">
           <UDropdown
             :items="options"
             mode="hover"
@@ -154,14 +145,14 @@ function signOutFromAll() {
           </UDropdown>
         </UButton>
 
-        <UButton v-else variant="ghost" :ui="uiIcon" @click="signIn">
+        <UButton v-else variant="ghost" color="gray" @click="signIn">
           <IconSteam />
         </UButton>
 
         <UButton
           square
           variant="ghost"
-          :ui="uiIcon"
+          color="gray"
           class="lg:hidden"
           @click="openNavigation = true"
         >

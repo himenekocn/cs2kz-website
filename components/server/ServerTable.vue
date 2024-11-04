@@ -32,11 +32,6 @@ const rows = computed(() => {
   }))
 })
 
-const uiConnectButton = {
-  padding: { sm: "p-1" },
-  variant: { ghost: "dark:hover:bg-green-400/40" },
-}
-
 const pingColors = {
   good: "text-green-400",
   mid: "text-orange-400",
@@ -71,7 +66,10 @@ function connect(ip: string) {
             <p>{{ row.ip }}</p>
             <UButton
               variant="ghost"
-              :ui="uiConnectButton"
+              :ui="{
+                padding: { sm: 'p-1' },
+                variant: { ghost: 'dark:hover:bg-green-400/40' },
+              }"
               @click="connect(row.ip)"
             >
               <IconConnect />

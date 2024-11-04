@@ -7,7 +7,11 @@ const props = defineProps<{
   record: Record
   wr?: boolean
 }>()
+
+const emits = defineEmits(["toggle"])
+
 const avatarUrl = ref("")
+
 getAvatar()
 
 async function getAvatar() {
@@ -22,6 +26,7 @@ async function getAvatar() {
 <template>
   <div
     class="overflow-x-auto flex items-center gap-4 p-3 bg-gray-800 border border-gray-700 rounded-md"
+    :class="wr && 'ring-1 ring-yellow-200'"
   >
     <NuxtLink :to="`/profile/${record.player.steam_id}`">
       <img
@@ -73,6 +78,18 @@ async function getAvatar() {
           {{ toLocal(record.created_on) }}
         </p>
       </div>
+
+      <UTooltip v-if="wr" text="WR Progression">
+        <UButton
+          variant="ghost"
+          color="gray"
+          :ui="{ color: { gray: { ghost: 'dark:hover:bg-yellow-400/10' } } }"
+          square
+          @click="emits('toggle')"
+        >
+          <IconChart />
+        </UButton>
+      </UTooltip>
     </div>
   </div>
 </template>
