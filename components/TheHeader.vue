@@ -62,12 +62,6 @@ const navigation = computed(() => {
   return routes
 })
 
-watch(player, (val) => {
-  if (val === null) {
-    navigateTo("/")
-  }
-})
-
 function signIn() {
   const url = `${config.public.apiBase}/auth/login?redirect_to=${location.origin}`
   navigateTo(url, { external: true })

@@ -23,7 +23,7 @@ async function verifySession() {
     })
     setTimeout(verifySession, 1000 * 25)
   } catch (error) {
-    console.log()
+    console.log(error)
   }
 }
 </script>

@@ -35,6 +35,7 @@
     "no_data": "No Data"
   },
   "nav": {
+    "home": "Home",
     "records": "Records",
     "courses": "Courses",
     "profile": "Profile",
@@ -84,6 +85,9 @@
       "mapsFinished": "Maps Finished"
     },
     "completion": {
+      "finished": "Finished",
+      "total": "Total",
+      "average": "Average",
       "title": "Completion",
       "wrs": "WRs",
       "top20": "Top 20",

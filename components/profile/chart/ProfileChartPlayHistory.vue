@@ -110,6 +110,10 @@ onMounted(() => {
   })
 })
 
+onUnmounted(() => {
+  chart.value?.destroy()
+})
+
 function getDateLabels(range: number) {
   return Array.from({ length: range }, (_, i) => {
     const date = new Date()

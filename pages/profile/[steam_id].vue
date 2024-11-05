@@ -8,6 +8,7 @@ definePageMeta({
       const steamID = new SteamID(route.params.steam_id as string)
       return steamID.isValidIndividual()
     } catch (error) {
+      console.log(error)
       return false
     }
   },

@@ -18,6 +18,8 @@ Chart.register(
   Tooltip,
 )
 
+const chart = ref<Chart | null>(null)
+
 const datasets = [
   {
     label: "Finished",
@@ -40,7 +42,7 @@ onMounted(() => {
   const chartElement = document.getElementById(
     "maps-chart",
   ) as HTMLCanvasElement
-  new Chart(chartElement, {
+  chart.value = new Chart(chartElement, {
     type: "bar",
     data: {
       labels: [
@@ -105,6 +107,10 @@ onMounted(() => {
       },
     },
   })
+})
+
+onUnmounted(() => {
+  chart.value?.destroy()
 })
 </script>
 
