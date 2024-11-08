@@ -10,7 +10,13 @@ defineProps<{
 </script>
 
 <template>
-  <UModal v-model="open" :ui="{ container: 'items-start' }">
+  <UModal
+    v-model="open"
+    :ui="{
+      container: 'items-start',
+      overlay: { background: 'bg-gray-800/75' },
+    }"
+  >
     <UCard
       :ui="{
         ring: '',
