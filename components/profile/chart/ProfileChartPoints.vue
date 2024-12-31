@@ -1,22 +1,7 @@
 <script setup lang="ts">
-import {
-  Chart,
-  LinearScale,
-  CategoryScale,
-  BarElement,
-  BarController,
-  Colors,
-  Tooltip,
-} from "chart.js"
+import { Chart, LinearScale, CategoryScale, BarElement, BarController, Colors, Tooltip } from "chart.js"
 
-Chart.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  BarController,
-  Colors,
-  Tooltip,
-)
+Chart.register(CategoryScale, LinearScale, BarElement, BarController, Colors, Tooltip)
 
 const chart = ref<Chart | null>(null)
 
@@ -41,25 +26,11 @@ const datasets = [
 ]
 
 onMounted(() => {
-  const chartElement = document.getElementById(
-    "points-chart",
-  ) as HTMLCanvasElement
+  const chartElement = document.getElementById("points-chart") as HTMLCanvasElement
   chart.value = new Chart(chartElement, {
     type: "bar",
     data: {
-      labels: [
-        "0-100",
-        "100+",
-        "200+",
-        "300+",
-        "400+",
-        "500+",
-        "600+",
-        "700+",
-        "800+",
-        "900+",
-        "WRs",
-      ],
+      labels: ["0-1000", "1000+", "2000+", "3000+", "4000+", "5000+", "6000+", "7000+", "8000+", "9000+", "WRs"],
       datasets,
     },
     options: {

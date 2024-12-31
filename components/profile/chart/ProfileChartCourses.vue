@@ -1,22 +1,7 @@
 <script setup lang="ts">
-import {
-  Chart,
-  LinearScale,
-  CategoryScale,
-  BarElement,
-  BarController,
-  Colors,
-  Tooltip,
-} from "chart.js"
+import { Chart, LinearScale, CategoryScale, BarElement, BarController, Colors, Tooltip } from "chart.js"
 
-Chart.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  BarController,
-  Colors,
-  Tooltip,
-)
+Chart.register(CategoryScale, LinearScale, BarElement, BarController, Colors, Tooltip)
 
 const chart = ref<Chart | null>(null)
 
@@ -29,7 +14,7 @@ const datasets = [
   {
     label: "Total",
     data: [120, 342, 261, 188, 102, 95, 74, 32],
-    backgroundColor: "rgb(171, 171, 171, 0.7)",
+    backgroundColor: "rgb(171, 171, 171, 0.3)",
   },
   {
     label: "Average Points",
@@ -39,22 +24,11 @@ const datasets = [
 ]
 
 onMounted(() => {
-  const chartElement = document.getElementById(
-    "maps-chart",
-  ) as HTMLCanvasElement
+  const chartElement = document.getElementById("maps-chart") as HTMLCanvasElement
   chart.value = new Chart(chartElement, {
     type: "bar",
     data: {
-      labels: [
-        "Very Easy",
-        "Easy",
-        "Medium",
-        "Advanced",
-        "Hard",
-        "Very Hard",
-        "Extreme",
-        "Death",
-      ],
+      labels: ["Very Easy", "Easy", "Medium", "Advanced", "Hard", "Very Hard", "Extreme", "Death"],
       datasets,
     },
     options: {
@@ -76,16 +50,7 @@ onMounted(() => {
         x: {
           stacked: true,
           ticks: {
-            color: [
-              "#4CAF50",
-              "#8BC34A",
-              "#FFEB3B",
-              "#FF9800",
-              "#FF5722",
-              "#F44336",
-              "#9C27B0",
-              "#673AB7",
-            ],
+            color: ["#4CAF50", "#8BC34A", "#FFEB3B", "#FF9800", "#FF5722", "#F44336", "#9C27B0", "#673AB7"],
           },
           grid: {
             display: false,
@@ -97,10 +62,7 @@ onMounted(() => {
           displayColors: false,
           callbacks: {
             label: (context) => {
-              return datasets.map(
-                (dataset) =>
-                  `${dataset.label}: ${dataset.data[context.dataIndex]}`,
-              )
+              return datasets.map((dataset) => `${dataset.label}: ${dataset.data[context.dataIndex]}`)
             },
           },
         },

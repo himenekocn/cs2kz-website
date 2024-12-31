@@ -81,8 +81,7 @@
       "hours": "hrs on record",
       "worldRank": "World Rank",
       "rating": "Rating",
-      "points": "Points",
-      "mapsFinished": "Maps Finished"
+      "coursesFinished": "Courses Finished"
     },
     "completion": {
       "finished": "Finished",
@@ -92,8 +91,7 @@
       "wrs": "WRs",
       "top20": "Top 20",
       "top50": "Top 50",
-      "points": "Points",
-      "mapsDist": "Maps Distribution",
+      "coursesDist": "Courses Distribution",
       "pointsDist": "Points Distribution"
     },
     "runs": {
