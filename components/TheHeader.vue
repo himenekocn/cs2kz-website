@@ -35,6 +35,10 @@ const options = computed(() => [
 const navigation = computed(() => {
   const routes = [
     {
+      localePath: "nav.home",
+      path: "/",
+    },
+    {
       localePath: "nav.records",
       path: "/records",
     },
@@ -46,10 +50,10 @@ const navigation = computed(() => {
       localePath: "nav.servers",
       path: "/servers",
     },
-    {
-      localePath: "nav.jumpstats",
-      path: "/jumpstats",
-    },
+    // {
+    //   localePath: "nav.jumpstats",
+    //   path: "/jumpstats",
+    // },
   ]
 
   if (player.value) {
@@ -87,8 +91,7 @@ function signOutFromAll() {
 <template>
   <div class="h-12 border-b border-gray-700">
     <header
-      class="h-full xl:max-w-7xl px-2 md:px-6 lg:mx-auto grid grid-cols-2 lg:grid-cols-3 items-center bg-gray-900"
-    >
+      class="h-full xl:max-w-7xl px-2 md:px-6 lg:mx-auto grid grid-cols-2 lg:grid-cols-3 items-center bg-gray-900">
       <!-- logo -->
       <div class="flex items-center">
         <nuxt-link to="/">
@@ -104,8 +107,7 @@ function signOutFromAll() {
               variant="ghost"
               :to="item.path"
               :ui="{ font: 'font-medium' }"
-              active-class="bg-primary bg-opacity-30"
-            >
+              active-class="bg-primary bg-opacity-30">
               {{ $t(item.localePath) }}
             </UButton>
           </li>
@@ -117,25 +119,15 @@ function signOutFromAll() {
 
         <!-- switch locale -->
         <UButton variant="ghost" color="gray">
-          <UDropdown
-            :items="availableLocales"
-            :popper="{ placement: 'bottom-start' }"
-          >
+          <UDropdown :items="availableLocales" :popper="{ placement: 'bottom-start' }">
             <IconLocales />
           </UDropdown>
         </UButton>
 
         <!-- login -->
         <UButton v-if="player" variant="ghost" color="gray">
-          <UDropdown
-            :items="options"
-            mode="hover"
-            :popper="{ placement: 'bottom-start' }"
-          >
-            <PlayerAvatar
-              :avatar-url="player.avatar_url"
-              :username="player.username"
-            />
+          <UDropdown :items="options" mode="hover" :popper="{ placement: 'bottom-start' }">
+            <PlayerAvatar :avatar-url="player.avatar_url" :username="player.username" />
           </UDropdown>
         </UButton>
 
@@ -143,13 +135,7 @@ function signOutFromAll() {
           <IconSteam />
         </UButton>
 
-        <UButton
-          square
-          variant="ghost"
-          color="gray"
-          class="lg:hidden"
-          @click="openNavigation = true"
-        >
+        <UButton square variant="ghost" color="gray" class="lg:hidden" @click="openNavigation = true">
           <IconBars />
         </UButton>
       </div>
