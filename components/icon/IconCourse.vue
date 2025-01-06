@@ -1,38 +1,7 @@
 <template>
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="1.5rem"
-    height="1.5rem"
-    viewBox="0 0 48 48"
-  >
-    <g fill="none">
-      <ellipse
-        cx="24"
-        cy="34"
-        stroke="#dbdbdb"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="4"
-        rx="20"
-        ry="10"
-      />
-      <circle
-        cx="32"
-        cy="34"
-        r="2"
-        stroke="#dbdbdb"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="4"
-      />
-      <path d="M24 9L13 4v10z" />
-      <path
-        stroke="#dbdbdb"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="4"
-        d="M13 34V14m0 0V4l11 5z"
-      />
-    </g>
+  <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24">
+    <path
+      fill="#dbdbdb"
+      d="M11 12H3.5L6 9.5L3.5 7H11V3l1-1l1 1v4h5l2.5 2.5L18 12h-5v8a2 2 0 0 1 2 2H9a2 2 0 0 1 2-2z" />
   </svg>
 </template>

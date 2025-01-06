@@ -8,18 +8,16 @@ defineProps<{
 <template>
   <div
     class="card w-max flex items-center rounded-md ring ring-blue-600/20 hover:ring-blue-600/70 hover:ring-4 transition ease-in cursor-pointer"
-    @click="navigateTo(`/maps/${course.map}?course=${course.name}`)"
-  >
+    @click="navigateTo(`/maps/${course.map}?course=${course.name}`)">
     <img
       :src="course.img"
       onerror="this.onerror = null; this.src = '/img/cs2kz_medium.jpg'"
       loading="lazy"
-      class="animate-fade-in w-64 h-auto rounded-l-md"
-    >
+      class="animate-fade-in w-64 h-auto rounded-l-md" >
 
     <div :style="{ backgroundImage: `url(${course.img})` }" class="info">
       <p class="text-gray-100 font-medium text-lg">{{ course.map }}</p>
-      <div class="flex gap-2">
+      <div class="flex gap-1">
         <IconCourse width="1rem" />
         <p class="text-gray-300">{{ course.name }}</p>
       </div>
@@ -27,44 +25,28 @@ defineProps<{
       <div class="flex items-center text-sm">
         <span class="text-gray-400 mr-1">made by</span>
         <div v-for="(mapper, index) in course.mappers" :key="mapper.steam_id">
-          <NuxtLink
-            :to="`/profile/${mapper.steam_id}`"
-            class="text-cyan-600 hover:text-cyan-400"
-          >
+          <NuxtLink :to="`/profile/${mapper.steam_id}`" class="text-cyan-600 hover:text-cyan-400">
             {{ mapper.name }}
           </NuxtLink>
-          <span
-            v-if="index < course.mappers.length - 1"
-            class="text-gray-400 mr-1"
-          >
-            ,
-          </span>
+          <span v-if="index < course.mappers.length - 1" class="text-gray-400 mr-1"> , </span>
         </div>
       </div>
 
-      <div class="flex gap-1 mt-6">
+      <div class="flex items-center gap-1 mt-6">
         <IconDate />
-        <span class="text-xs text-gray-200 leading-3">
+        <span class="text-xs text-gray-200 leading-[14px]">
           {{ toLocal(course.created_on).slice(0, 10) }}
         </span>
       </div>
 
       <div class="flex items-center gap-2 mt-1">
         <div
-          :class="
-            course.ranked_status === 'ranked'
-              ? 'text-green-400 bg-green-300/20'
-              : 'text-gray-300'
-          "
-          class="px-1 text-xs border rounded-sm"
-        >
+          :class="course.ranked_status === 'ranked' ? 'text-green-400 bg-green-300/20' : 'text-gray-300'"
+          class="px-1 text-xs border rounded-sm">
           {{ course.ranked_status.toUpperCase() }}
         </div>
 
-        <p
-          :style="{ color: getTierColor(course.tier as string) }"
-          class="font-semibold"
-        >
+        <p :style="{ color: getTierColor(course.tier as string) }" class="font-semibold">
           {{
             course.tier
               .split("_")
@@ -100,11 +82,7 @@ defineProps<{
   bottom: 0;
   border-top-right-radius: 0.375rem;
   border-bottom-right-radius: 0.375rem;
-  background: linear-gradient(
-    to right,
-    rgba(46, 46, 46),
-    rgba(46, 46, 46, 0.6)
-  );
+  background: linear-gradient(to right, rgba(46, 46, 46), rgba(46, 46, 46, 0.6));
   z-index: 0;
   transition: background ease-in;
 }
