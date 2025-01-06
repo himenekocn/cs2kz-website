@@ -25,7 +25,7 @@ const rows = computed(() => {
     name: server.name,
     ip: `${server.host}:${server.port}`,
     owner: server.owner.name,
-    owmer_id: server.owner.steam_id,
+    owner_id: server.owner.steam_id,
     date: toLocal(server.created_on),
     ping: server.info ? server.info.ping : null,
     info: server.info,
@@ -55,8 +55,7 @@ function connect(ip: string) {
         }"
         :loading="loading"
         :columns="columns"
-        :rows="rows"
-      >
+        :rows="rows">
         <template #name-data="{ row }">
           <p>{{ row.name }}</p>
         </template>
@@ -70,18 +69,14 @@ function connect(ip: string) {
                 padding: { sm: 'p-1' },
                 variant: { ghost: 'dark:hover:bg-green-400/40' },
               }"
-              @click="connect(row.ip)"
-            >
+              @click="connect(row.ip)">
               <IconConnect />
             </UButton>
           </div>
         </template>
 
         <template #owner-data="{ row }">
-          <NuxtLink
-            :to="`/profile/${row.owner}`"
-            class="text-cyan-600 whitespace-nowrap hover:text-cyan-400"
-          >
+          <NuxtLink :to="`/profile/${row.owner_id}`" class="text-cyan-600 whitespace-nowrap hover:text-cyan-400">
             {{ row.owner }}
           </NuxtLink>
         </template>
@@ -91,11 +86,9 @@ function connect(ip: string) {
         </template>
 
         <template #ping-data="{ row }">
-          <span
-            v-if="row.info"
-            :class="pingColors[row.info.connection as keyof typeof pingColors]"
-            >{{ row.ping }}</span
-          >
+          <span v-if="row.info" :class="pingColors[row.info.connection as keyof typeof pingColors]">{{
+            row.ping
+          }}</span>
           <IconNoConnection v-else class="inline" />
         </template>
 
