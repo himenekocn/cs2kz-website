@@ -34,10 +34,10 @@ const options = computed(() => [
 
 const navigation = computed(() => {
   const routes = [
-    {
-      localePath: "nav.home",
-      path: "/",
-    },
+    // {
+    //   localePath: "nav.home",
+    //   path: "/",
+    // },
     {
       localePath: "nav.records",
       path: "/records",
