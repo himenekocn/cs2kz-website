@@ -56,13 +56,13 @@ const columns = computed(() => {
 const rows = computed(() => {
   return props.records.map((record) => {
     return {
-      map: record.course.map_name,
+      map: record.map.name,
       course: record.course.name,
       tier: record.course.tier,
       time: formatTime(record.time),
       server: record.server.name,
       teleports: record.teleports,
-      date: toLocal(record.created_on),
+      date: toLocal(record.submitted_at),
     }
   })
 })
@@ -85,31 +85,21 @@ function onSort(sort: { column: "date" | "time"; direction: "asc" | "desc" }) {
       }"
       :columns="columns"
       :rows="rows"
-      @update:sort="onSort"
-    >
+      @update:sort="onSort">
       <template #map-data="{ row }">
-        <NuxtLink
-          :to="`/maps/${row.map}`"
-          class="text-slate-300 font-medium text-lg hover:text-slate-200"
-        >
+        <NuxtLink :to="`/maps/${row.map}`" class="text-slate-300 font-medium text-lg hover:text-slate-200">
           {{ row.map }}
         </NuxtLink>
       </template>
 
       <template #course-data="{ row }">
-        <NuxtLink
-          :to="`/maps/${row.map}?course=${row.name}`"
-          class="text-lg hover:text-slate-300"
-        >
+        <NuxtLink :to="`/maps/${row.map}?course=${row.name}`" class="text-lg hover:text-slate-300">
           {{ row.course }}
         </NuxtLink>
       </template>
 
       <template #tier-data="{ row }">
-        <span
-          :style="{ color: getTierColor(row.tier as string) }"
-          class="text-lg font-medium"
-        >
+        <span :style="{ color: getTierColor(row.tier as string) }" class="text-lg font-medium">
           {{ getNumTier(row.tier as string) }}
         </span>
       </template>

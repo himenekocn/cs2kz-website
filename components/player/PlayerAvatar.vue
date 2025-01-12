@@ -5,7 +5,7 @@ const props = defineProps<{
 }>()
 
 const fullUrl = computed(() => {
-  return props.avatarUrl.replace(/(\.jpg)$/, "_full" + "$1")
+  return props.avatarUrl.replace(/_medium/, "_full")
 })
 </script>
 <template>

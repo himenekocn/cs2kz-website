@@ -10,7 +10,6 @@ const props = defineProps<{
 
 const columns = computed(() => {
   return [
-    { key: "actions" },
     { key: "name", label: t("servers.title.name") },
     { key: "ip", label: t("servers.title.ip_address") },
     { key: "owner", label: t("servers.title.owner") },
@@ -25,8 +24,8 @@ const rows = computed(() => {
     name: server.name,
     ip: `${server.host}:${server.port}`,
     owner: server.owner.name,
-    owner_id: server.owner.steam_id,
-    date: toLocal(server.created_on),
+    owner_id: server.owner.id,
+    date: toLocal(server.approved_at),
     ping: server.info ? server.info.ping : null,
     info: server.info,
   }))
@@ -102,3 +101,10 @@ function connect(ip: string) {
     </UCard>
   </div>
 </template>
+
+<style scoped>
+:deep(tr th:first-of-type) {
+  /* 样式规则 */
+  width: 1rem;
+}
+</style>

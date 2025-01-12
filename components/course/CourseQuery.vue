@@ -14,43 +14,34 @@ function toggleOrder() {
 </script>
 
 <template>
-  <div
-    class="p-2 lg:p-4 grid grid-cols-1 lg:grid-cols-4 gap-2 lg:gap-8 border border-gray-700 rounded-md"
-  >
+  <div class="p-2 lg:p-4 grid grid-cols-1 lg:grid-cols-4 gap-2 lg:gap-8 border border-gray-700 rounded-md">
     <UTabs
-      :items="[
-        { label: $t('common.mode.ckz') },
-        { label: $t('common.mode.vnl') },
-      ]"
+      :items="[{ label: $t('common.mode.ckz') }, { label: $t('common.mode.vnl') }]"
       :ui="{
         list: { width: 'w-48', tab: { size: 'text-xl', padding: 'px-0' } },
         wrapper: 'relative space-y-0',
       }"
       :default-index="0"
-      @change="onModeChange"
-    />
-    <div
-      class="col-span-3 flex items-center flex-wrap lg:justify-end gap-2 lg:gap-4"
-    >
+      @change="onModeChange" />
+    <div class="col-span-3 flex items-center flex-wrap lg:justify-end gap-2 lg:gap-4">
       <USelectMenu
-        v-model="query.teleports"
+        v-model="query.has_teleports"
         :options="[
-          { name: $t('common.teleports.overall'), value: true },
-          { name: $t('common.teleports.pro'), value: false },
+          { name: $t('common.teleports.overall'), value: 'overall' },
+          { name: $t('common.teleports.pro'), value: 'pro' },
         ]"
         value-attribute="value"
-        option-attribute="name"
-      />
+        option-attribute="name" />
       <USelectMenu
         v-model="query.tier"
         :options="[
           { name: 'All', value: 'all' },
-          { name: $t('common.tier.very_easy'), value: 'very_easy' },
+          { name: $t('common.tier.very_easy'), value: 'very-easy' },
           { name: $t('common.tier.easy'), value: 'easy' },
           { name: $t('common.tier.medium'), value: 'medium' },
           { name: $t('common.tier.advanced'), value: 'advanced' },
           { name: $t('common.tier.hard'), value: 'hard' },
-          { name: $t('common.tier.very_hard'), value: 'very_hard' },
+          { name: $t('common.tier.very_hard'), value: 'very-hard' },
           { name: $t('common.tier.extreme'), value: 'extreme' },
           { name: $t('common.tier.death'), value: 'death' },
           { name: $t('common.tier.unfeasible'), value: 'unfeasible' },
@@ -58,8 +49,7 @@ function toggleOrder() {
         ]"
         value-attribute="value"
         option-attribute="name"
-        :leading="true"
-      >
+        :leading="true">
         <template #label>
           <span v-if="query.tier !== 'all'">
             {{ $t(`common.tier.${query.tier}`) }}
@@ -76,8 +66,7 @@ function toggleOrder() {
           "
           color="gray"
           variant="solid"
-          @click="toggleOrder"
-        />
+          @click="toggleOrder" />
         <USelectMenu
           v-model="query.sort_by"
           :options="[
@@ -86,8 +75,7 @@ function toggleOrder() {
             { name: $t('common.sort_by.created_on'), value: 'created_on' },
           ]"
           value-attribute="value"
-          option-attribute="name"
-        />
+          option-attribute="name" />
       </UButtonGroup>
       <UInput v-model="query.name" :placeholder="$t('courses.query.searchby')">
         <template #trailing>

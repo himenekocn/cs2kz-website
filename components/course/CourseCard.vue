@@ -24,8 +24,8 @@ defineProps<{
 
       <div class="flex items-center text-sm">
         <span class="text-gray-400 mr-1">made by</span>
-        <div v-for="(mapper, index) in course.mappers" :key="mapper.steam_id">
-          <NuxtLink :to="`/profile/${mapper.steam_id}`" class="text-cyan-600 hover:text-cyan-400">
+        <div v-for="(mapper, index) in course.mappers" :key="mapper.id">
+          <NuxtLink :to="`/profile/${mapper.id}`" class="text-cyan-600 hover:text-cyan-400">
             {{ mapper.name }}
           </NuxtLink>
           <span v-if="index < course.mappers.length - 1" class="text-gray-400 mr-1"> , </span>
@@ -41,9 +41,9 @@ defineProps<{
 
       <div class="flex items-center gap-2 mt-1">
         <div
-          :class="course.ranked_status === 'ranked' ? 'text-green-400 bg-green-300/20' : 'text-gray-300'"
+          :class="course.state === 'ranked' ? 'text-green-400 bg-green-300/20' : 'text-gray-300'"
           class="px-1 text-xs border rounded-sm">
-          {{ course.ranked_status.toUpperCase() }}
+          {{ course.state.toUpperCase() }}
         </div>
 
         <p :style="{ color: getTierColor(course.tier as string) }" class="font-semibold">

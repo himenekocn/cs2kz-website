@@ -22,8 +22,7 @@
     },
     "teleports": {
       "overall": "Overall",
-      "pro": "Pro",
-      "tp": "TP"
+      "pro": "Pro"
     },
     "sort_by": {
       "date": "Date",
@@ -115,10 +114,10 @@
     }
   },
   "map": {
-    "global_status": {
-      "global": "Global",
+    "state": {
+      "approved": "Approved",
       "in_testing": "Testing",
-      "not_global": "Not Global"
+      "invalid": "Invalid"
     },
     "filters": "Filters",
     "styles": "Styles",
@@ -126,10 +125,10 @@
     "tags": "Tags",
     "rating": "Rating",
     "tier": "Tier",
-    "ranked_status": {
+    "filter_state": {
       "ranked": "RANKED",
       "unranked": "UNRANKED",
-      "never": "NEVER"
+      "pending": "PENDING"
     },
     "course_ranking": "Course Ranking"
   },

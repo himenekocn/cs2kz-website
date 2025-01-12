@@ -1,33 +1,30 @@
 <script setup lang="ts">
 import type { Course, Mode } from "~/types"
+
 const props = defineProps<{
   course: Course
   mode: Mode
-  teleports: boolean
+  hasTeleports: "overall" | "pro"
 }>()
 
-const currentFilter = computed(
-  () =>
-    props.course.filters.find(
-      (filter) =>
-        filter.mode === props.mode && filter.teleports === props.teleports,
-    )!,
+const tier = computed(() =>
+  props.hasTeleports === "overall"
+    ? props.course.filters[props.mode].nub_tier
+    : props.course.filters[props.mode].pro_tier,
 )
-
-const tier = computed(() => currentFilter.value.tier)
 
 const tierColor = computed(() => getTierColor(tier.value))
 
-const rankedStatus = computed(() => currentFilter.value.ranked_status)
+const filterState = computed(() => props.course.filters[props.mode].state)
 
-const rankedStatusColors = {
+const stateColorMap = {
   ranked: "text-white bg-green-600",
   unranked: "text-gray-400 bg-gray-400",
-  never: "text-gray-400 bg-gray-400",
+  pending: "text-gray-400 bg-gray-400",
 }
 
 // TODO: tags
-const tags = ["slide", "bhop", "strafe"]
+// const tags = ["slide", "bhop", "strafe"]
 </script>
 
 <template>
@@ -35,29 +32,20 @@ const tags = ["slide", "bhop", "strafe"]
     :style="{
       backgroundImage: `url(${getUrl(true)}), url('/img/cs2kz_full.jpg')`,
     }"
-    class="animate-fade-in info"
-  >
+    class="animate-fade-in info">
     <p class="text-2xl text-gray-100 font-medium">{{ course.name }}</p>
 
     <div class="flex items-center">
       <span class="text-gray-300 mr-1">{{ $t("map.made_by") }}</span>
-      <div v-for="(mapper, index) in course.mappers" :key="mapper.steam_id">
-        <NuxtLink
-          :to="`/profile/${mapper.steam_id}`"
-          class="text-cyan-500 hover:text-cyan-400"
-        >
+      <div v-for="(mapper, index) in course.mappers" :key="mapper.id">
+        <NuxtLink :to="`/profile/${mapper.id}`" class="text-cyan-500 hover:text-cyan-400">
           {{ mapper.name }}
         </NuxtLink>
-        <span
-          v-if="index < course.mappers.length - 1"
-          class="text-gray-300 mr-1"
-        >
-          ,
-        </span>
+        <span v-if="index < course.mappers.length - 1" class="text-gray-300 mr-1"> , </span>
       </div>
     </div>
 
-    <div class="flex mt-2">
+    <!-- <div class="flex mt-2">
       <span class="text-gray-200 mr-2">{{ `${$t("map.tags")}:` }}</span>
       <div class="flex gap-2">
         <div
@@ -72,11 +60,10 @@ const tags = ["slide", "bhop", "strafe"]
 
     <div class="mt-2">
       <span class="text-gray-200 mr-2">{{ `${$t("map.rating")}:` }}</span>
-      <!-- TODO: course rating -->
       <span class="text-lg text-gray-100 font-medium">7.62</span>
       <span class="text-gray-200">/</span>
       <span class="text-gray-100">10</span>
-    </div>
+    </div> -->
 
     <div class="flex items-center mt-1">
       <span class="text-gray-200 mr-2">{{ `${$t("map.tier")}:` }}</span>
@@ -90,11 +77,8 @@ const tags = ["slide", "bhop", "strafe"]
       </div>
     </div>
 
-    <div
-      :class="rankedStatusColors[rankedStatus]"
-      class="w-max px-1 mt-1 text-sm rounded-sm font-medium"
-    >
-      {{ $t(`map.ranked_status.${rankedStatus}`) }}
+    <div :class="stateColorMap[filterState]" class="w-max px-1 mt-1 text-sm rounded-sm font-medium">
+      {{ $t(`map.filter_state.${filterState}`) }}
     </div>
   </div>
 </template>

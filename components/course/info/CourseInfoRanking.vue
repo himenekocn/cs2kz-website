@@ -44,7 +44,7 @@ const rows = computed(() => {
     time: formatTime(record.time),
     server: record.server.name,
     teleports: record.teleports,
-    date: toLocal(record.created_on),
+    date: toLocal(record.submitted_at),
   }))
 })
 </script>
@@ -59,8 +59,7 @@ const rows = computed(() => {
           tr: { base: 'hover:bg-gray-800 transition ease-in' },
         }"
         :columns="columns"
-        :rows="rows"
-      >
+        :rows="rows">
         <template #rank-data="{ row }">
           {{ row.rank }}
         </template>
@@ -68,8 +67,7 @@ const rows = computed(() => {
         <template #player-data="{ row }">
           <NuxtLink
             :to="`/profile/${row.player_id}`"
-            class="py-2 px-2 lg:px-0 text-cyan-600 whitespace-nowrap hover:text-cyan-400"
-          >
+            class="py-2 px-2 lg:px-0 text-cyan-600 whitespace-nowrap hover:text-cyan-400">
             {{ row.player }}
           </NuxtLink>
         </template>

@@ -59,7 +59,7 @@ const navigation = computed(() => {
   if (player.value) {
     routes.splice(2, 0, {
       localePath: "nav.profile",
-      path: `/profile/${player.value.steam_id}`,
+      path: `/profile/${player.value.id}`,
     })
   }
 
@@ -127,7 +127,7 @@ function signOutFromAll() {
         <!-- login -->
         <UButton v-if="player" variant="ghost" color="gray">
           <UDropdown :items="options" mode="hover" :popper="{ placement: 'bottom-start' }">
-            <PlayerAvatar :avatar-url="player.avatar_url" :username="player.username" />
+            <PlayerAvatar :avatar-url="player.avatar_url" :username="player.name" />
           </UDropdown>
         </UButton>
 

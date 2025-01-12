@@ -1,9 +1,4 @@
-import type {
-  ServerWithInfo,
-  ServerResponse,
-  ServerInfo,
-  ServerQuery,
-} from "~/types"
+import type { ServerWithInfo, ServerResponse, ServerInfo, ServerQuery } from "~/types"
 
 export function useServers() {
   const { $api } = useNuxtApp()
@@ -38,7 +33,7 @@ export function useServers() {
       if (serverData) {
         total.value = serverData.total
 
-        const hosts = serverData.servers.map((server) => ({
+        const hosts = serverData.values.map((server) => ({
           ip: server.host,
           port: server.port,
         }))
@@ -49,7 +44,7 @@ export function useServers() {
           },
         })
 
-        servers.value = serverData.servers.map((s, index) => ({
+        servers.value = serverData.values.map((s, index) => ({
           ...s,
           info: infoData[index] as ServerInfo | null,
         }))
@@ -58,6 +53,7 @@ export function useServers() {
         total.value = 0
       }
     } catch (err) {
+      console.error(err)
       servers.value = []
       total.value = 0
     } finally {

@@ -15,10 +15,8 @@ const avatarUrl = ref("")
 getAvatar()
 
 async function getAvatar() {
-  const steamId = props.record.player.steam_id
-  const player: PlayerSteam | undefined = await $api(
-    `/players/${steamId}/steam`,
-  )
+  const steamId = props.record.player.id
+  const player: PlayerSteam | undefined = await $api(`/players/${steamId}/steam`)
   avatarUrl.value = player?.avatar_url.replace(/(\.jpg)$/, "_full" + "$1") || ""
 }
 </script>
@@ -26,25 +24,16 @@ async function getAvatar() {
 <template>
   <div
     class="overflow-x-auto flex items-center gap-4 p-3 bg-gray-800 border border-gray-700 rounded-md"
-    :class="wr && 'ring-1 ring-yellow-200'"
-  >
-    <NuxtLink :to="`/profile/${record.player.steam_id}`">
-      <img
-        :src="avatarUrl"
-        class="rounded-md w-16"
-        :class="wr ? 'ring-2 ring-yellow-200' : 'ring-2 ring-slate-200'"
-      >
+    :class="wr && 'ring-1 ring-yellow-200'">
+    <NuxtLink :to="`/profile/${record.player.id}`">
+      <img :src="avatarUrl" class="rounded-md w-16" :class="wr ? 'ring-2 ring-yellow-200' : 'ring-2 ring-slate-200'" >
     </NuxtLink>
 
     <div>
       <div class="flex w-36">
         <NuxtLink
-          :to="`/profile/${record.player.steam_id}`"
-          :class="
-            wr
-              ? 'text-yellow-500 hover:text-yellow-300'
-              : 'text-blue-400 hover:text-blue-300'
-          "
+          :to="`/profile/${record.player.id}`"
+          :class="wr ? 'text-yellow-500 hover:text-yellow-300' : 'text-blue-400 hover:text-blue-300'"
           class="text-xl font-medium whitespace-nowrap"
           >{{ record.player.name }}</NuxtLink
         >
@@ -75,7 +64,7 @@ async function getAvatar() {
       <div>
         <p class="text-gray-400">Date</p>
         <p class="text-gray-100 italic whitespace-nowrap w-32">
-          {{ toLocal(record.created_on) }}
+          {{ toLocal(record.submitted_at) }}
         </p>
       </div>
 
@@ -85,8 +74,7 @@ async function getAvatar() {
           color="gray"
           :ui="{ color: { gray: { ghost: 'dark:hover:bg-yellow-400/10' } } }"
           square
-          @click="emits('toggle')"
-        >
+          @click="emits('toggle')">
           <IconChart />
         </UButton>
       </UTooltip>

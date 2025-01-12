@@ -5,7 +5,7 @@ const props = defineProps<{
   mode: Mode
 }>()
 
-const hasTeleports = ref<"overall" | boolean>("overall")
+const hasTeleports = ref<"overall" | "pro">("overall")
 
 watch(
   () => props.mode,
@@ -26,8 +26,7 @@ watch(
         v-model="hasTeleports"
         :options="[
           { name: $t('common.teleports.overall'), value: 'overall' },
-          { name: $t('common.teleports.pro'), value: false },
-          { name: $t('common.teleports.tp'), value: true },
+          { name: $t('common.teleports.pro'), value: 'pro' },
         ]"
         value-attribute="value"
         option-attribute="name" />

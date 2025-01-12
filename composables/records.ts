@@ -20,8 +20,6 @@ export function useRecords() {
     styles: [],
     sort_by: "date",
     sort_order: "descending",
-    created_before: null,
-    created_after: null,
     limit: 30,
     offset: 0,
   })
@@ -34,17 +32,16 @@ export function useRecords() {
     try {
       loading.value = true
       const transformedQuery = {
-        ...toRaw(query),
-        has_teleports:
-          query.has_teleports === "overall" ? null : query.has_teleports,
-        styles: query.styles.length === 0 ? null : query.styles,
+        // ...toRaw(query),
+        // has_teleports: query.has_teleports === "overall" ? null : true,
+        // styles: query.styles.length === 0 ? null : query.styles,
       }
       const data: RecordResponse | undefined = await $api("/records", {
         query: validQuery(transformedQuery),
       })
 
       if (data) {
-        records.value = data.records
+        records.value = data.values
         total.value = data.total
       } else {
         records.value = []

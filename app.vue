@@ -13,7 +13,7 @@ if (kzPlayer.value) {
 
 async function verifySession() {
   try {
-    await $api("/auth/verify-session", {
+    await $api("/auth/web", {
       async onResponseError({ response }) {
         if (response.status >= 400) {
           player.value = null

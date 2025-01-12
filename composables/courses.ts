@@ -14,7 +14,7 @@ export function useCourses() {
   const query = reactive<CourseQuery>({
     name: "",
     mode: "classic",
-    teleports: true,
+    has_teleports: "overall",
     tier: "all",
     sort_by: "map",
     sort_order: "ascending",
@@ -29,10 +29,7 @@ export function useCourses() {
   watch(
     () => ({ ...query }),
     async (newQuery, oldQuery) => {
-      if (
-        newQuery.mode !== oldQuery.mode ||
-        newQuery.teleports !== oldQuery.teleports
-      ) {
+      if (newQuery.mode !== oldQuery.mode || newQuery.has_teleports !== oldQuery.has_teleports) {
         await getCourses()
         update(query)
       } else if (newQuery.name !== oldQuery.name) {
@@ -60,11 +57,7 @@ export function useCourses() {
       return data
     }
 
-    return data.filter(
-      (course) =>
-        course.name.toLowerCase().includes(name) ||
-        course.map.toLowerCase().includes(name),
-    )
+    return data.filter((course) => course.name.toLowerCase().includes(name) || course.map.toLowerCase().includes(name))
   }
 
   function matchTier(data: CourseExt[], tier: Tier | "all") {
@@ -83,22 +76,24 @@ export function useCourses() {
       const data: MapResponse | undefined = await $api("/maps")
 
       if (data) {
-        const res = data.maps.flatMap((map) =>
+        const res = data.values.flatMap((map) =>
           map.courses.map((course) => {
-            const fltr = course.filters.find(
-              (filter) =>
-                filter.mode === query.mode &&
-                filter.teleports === query.teleports,
-            )!
+            // const fltr = course.filters.find(
+            //   (filter) =>
+            //     filter.mode === query.mode &&
+            //     filter.teleports === query.teleports,
+            // )!
 
             return {
-              id: course.id,
               name: course.name,
               map: map.name,
-              tier: fltr.tier,
-              ranked_status: fltr.ranked_status,
+              tier:
+                query.has_teleports === "overall"
+                  ? course.filters[query.mode].nub_tier
+                  : course.filters[query.mode].pro_tier,
+              state: course.filters[query.mode].state,
               mappers: course.mappers,
-              created_on: map.created_on,
+              created_on: map.approved_at,
               // TODO: map images
               img: getUrl(),
             }
@@ -115,6 +110,7 @@ export function useCourses() {
         total.value = 0
       }
     } catch (err) {
+      console.error(err)
       allCourses.value = []
       courses.value = []
       total.value = 0
