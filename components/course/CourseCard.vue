@@ -50,12 +50,7 @@ defineProps<{
         </div>
 
         <p :style="{ color: getTierColor(course.tier as string) }" class="font-semibold">
-          {{
-            course.tier
-              .split("_")
-              .map((tier) => tier.at(0)?.toUpperCase() + tier.slice(1))
-              .join(" ")
-          }}
+          {{ transformTier(course.tier) }}
         </p>
       </div>
     </div>
