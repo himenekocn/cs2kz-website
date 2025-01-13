@@ -12,7 +12,6 @@ const rows = computed(() => {
     player_id: record.player.id,
     time: formatTime(record.time),
     server: record.server.name,
-    teleports: record.teleports,
     created_on: toLocal(record.submitted_at),
   }))
 })
@@ -48,10 +47,6 @@ const columns = [
   {
     key: "server",
     label: "Server",
-  },
-  {
-    key: "teleports",
-    label: "TPs",
   },
   {
     key: "created_on",

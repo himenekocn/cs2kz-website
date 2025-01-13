@@ -16,8 +16,8 @@ getAvatar()
 
 async function getAvatar() {
   const steamId = props.record.player.id
-  const player: PlayerSteam | undefined = await $api(`/players/${steamId}/steam`)
-  avatarUrl.value = player?.avatar_url.replace(/(\.jpg)$/, "_full" + "$1") || ""
+  const player: PlayerSteam | undefined = await $api(`/players/${steamId}/steam-profile`)
+  avatarUrl.value = player?.avatar_url.replace(/_medium/, "_full") || ""
 }
 </script>
 
@@ -45,20 +45,23 @@ async function getAvatar() {
     </div>
 
     <div class="flex items-center gap-4 ml-6">
-      <div class="">
+      <div>
         <p class="text-gray-400">Time</p>
         <p class="text-gray-100 w-20">{{ formatTime(record.time) }}</p>
       </div>
+
       <div>
-        <p class="text-gray-400">Server</p>
-        <p class="text-gray-100 w-40 italic whitespace-nowrap">
-          {{ record.server.name }}
+        <p class="text-gray-400">Overall Points</p>
+        <p class="text-gray-100 w-20">
+          {{ record.nub_points || "-" }}
         </p>
       </div>
 
-      <div>
-        <p class="text-gray-400">TPs</p>
-        <p class="text-gray-100 italic w-10">{{ record.teleports }}</p>
+      <div v-if="record.teleports === 0">
+        <p class="text-gray-400">Pro Points</p>
+        <p class="text-gray-100 w-20">
+          {{ record.pro_points || "-" }}
+        </p>
       </div>
 
       <div>

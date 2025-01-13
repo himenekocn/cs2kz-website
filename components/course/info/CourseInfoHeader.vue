@@ -2,7 +2,7 @@
 import type { MapState, Mode } from "~/types"
 
 const mode = defineModel<Mode>("mode")
-const has_teleports = defineModel<"overall" | "pro">("overall")
+const hasTeleports = defineModel<"overall" | "pro">("hasTeleports")
 
 defineProps<{
   name: string
@@ -37,7 +37,7 @@ const stateColorMap = {
           value-attribute="value"
           option-attribute="name" />
         <USelectMenu
-          v-model="has_teleports"
+          v-model="hasTeleports"
           :options="[
             { name: $t('common.teleports.overall'), value: 'overall' },
             { name: $t('common.teleports.pro'), value: 'pro' },

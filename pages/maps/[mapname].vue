@@ -27,13 +27,15 @@ const records = ref<Record[]>([])
 const worldRecord = computed(() => (records.value.length > 0 ? records.value[0] : null))
 const playerRecord = ref<Record | null>(null)
 
-const baseQuery = computed(() => ({
-  map: map.value!.name,
-  course: course.value.name,
-  mode: mode.value,
-  has_teleports: has_teleports.value === "overall" ? null : false,
-  styles: styles.value.length === 0 ? null : styles.value,
-}))
+const baseQuery = computed(() =>
+  validQuery({
+    map: map.value!.name,
+    course: course.value.name,
+    mode: mode.value,
+    has_teleports: has_teleports.value === "overall" ? null : false,
+    styles: styles.value.length === 0 ? null : styles.value,
+  }),
+)
 
 const showWrProgression = ref(false)
 
@@ -85,8 +87,8 @@ async function getCourseRanking() {
     const data: RecordResponse | undefined = await $api("/records", {
       query: {
         ...baseQuery.value,
-        sort_by: "date",
-        sort_order: "descending",
+        sort_by: "time",
+        sort_order: "ascending",
         limit: 50,
         // TODO: course filter
       },
@@ -142,7 +144,7 @@ async function getWrProgression() {
     const data: RecordResponse | undefined = await $api("/records", {
       query: {
         ...baseQuery.value,
-        sort_by: "date",
+        sort_by: "submission-date",
         sort_order: "ascending",
         limit: 100000,
       },
@@ -172,7 +174,7 @@ async function getWrProgression() {
       <div v-else-if="map && course">
         <CourseInfoHeader
           v-model:mode="mode"
-          v-model:has_teleports="has_teleports"
+          v-model:has-teleports="has_teleports"
           v-model:styles="styles"
           :name="map.name"
           :state="map.state" />
