@@ -56,7 +56,16 @@
       "course": "Course",
       "player": "Player",
       "server": "Server",
-      "styles": "Select style"
+      "styles": "Select style",
+      "maxRank": {
+        "placeholder": "Select rank",
+        "all": "All",
+        "wr": "World Record",
+        "top10": "Top 10",
+        "top20": "Top 20",
+        "top50": "Top 50",
+        "top100": "Top 100"
+      }
     },
     "title": {
       "rank": "Rank",
@@ -65,6 +74,8 @@
       "tier": "Tier",
       "player": "Player",
       "time": "Time",
+      "nubRank": "Overall Rank",
+      "proRank": "Pro Rank",
       "server": "Server",
       "teleports": "TPs",
       "date": "Date"

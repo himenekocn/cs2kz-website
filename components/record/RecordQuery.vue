@@ -37,13 +37,26 @@ function onModeChange(index: number) {
         <UToggle v-model="query.top" size="lg" />
       </div>
 
-      <!-- TODO: wr filter -->
       <USelectMenu
         v-model="query.has_teleports"
         :options="[
           { name: $t('common.teleports.overall'), value: 'overall' },
           { name: $t('common.teleports.pro'), value: 'pro' },
         ]"
+        value-attribute="value"
+        option-attribute="name" />
+
+      <USelectMenu
+        v-model="query.max_rank"
+        :options="[
+          { name: $t('records.query.maxRank.all'), value: undefined },
+          { name: $t('records.query.maxRank.wr'), value: 1 },
+          { name: $t('records.query.maxRank.top10'), value: 10 },
+          { name: $t('records.query.maxRank.top20'), value: 20 },
+          { name: $t('records.query.maxRank.top50'), value: 50 },
+          { name: $t('records.query.maxRank.top100'), value: 100 },
+        ]"
+        :placeholder="$t('records.query.maxRank.placeholder')"
         value-attribute="value"
         option-attribute="name" />
 

@@ -1,18 +1,19 @@
 <script setup lang="ts">
 import type { Record } from "~/types"
 import type { TableRow } from "#ui/types"
+import RecordDetail from "./RecordDetail.vue"
 
 interface ExpandData {
   openedRows: TableRow[]
   row: TableRow
 }
 
-const props = defineProps<{
+defineProps<{
   records: Record[]
   loading: boolean
 }>()
 
-const sortBy = defineModel<"date" | "time">("sortBy", { required: true })
+const sortBy = defineModel<"submission-date" | "time">("sortBy", { required: true })
 const sortOrder = defineModel<"ascending" | "descending">("sortOrder", {
   required: true,
 })
@@ -25,7 +26,7 @@ const expand = ref<ExpandData>({
 const { t } = useI18n()
 
 const sort = ref({
-  column: "date",
+  column: "submitted_at",
   direction: "desc" as const,
 })
 
@@ -53,40 +54,23 @@ const columns = computed(() => {
       sortable: true,
     },
     {
-      key: "server",
-      label: t("records.title.server"),
+      key: "nub_rank",
+      label: t("records.title.nubRank"),
     },
     {
-      key: "teleports",
-      label: t("records.title.teleports"),
+      key: "pro_rank",
+      label: t("records.title.proRank"),
     },
     {
-      key: "date",
+      key: "submitted_at",
       label: t("records.title.date"),
       sortable: true,
     },
   ]
 })
 
-const rows = computed(() => {
-  return props.records.map((record) => {
-    return {
-      id: record.id,
-      map: record.map.name,
-      course: record.course.name,
-      tier: record.course.tier,
-      player: record.player.name,
-      player_id: record.player.id,
-      time: formatTime(record.time),
-      server: record.server.name,
-      teleports: record.teleports,
-      date: toLocal(record.submitted_at),
-    }
-  })
-})
-
-function onSort(sort: { column: "date" | "time"; direction: "asc" | "desc" }) {
-  sortBy.value = sort.column
+function onSort(sort: { column: "submitted_at" | "time"; direction: "asc" | "desc" }) {
+  sortBy.value = sort.column === "submitted_at" ? "submission-date" : "time"
   sortOrder.value = sort.direction === "asc" ? "ascending" : "descending"
 }
 
@@ -115,54 +99,59 @@ function handleSelect(row: TableRow) {
           tr: { base: 'hover:bg-gray-800 transition ease-in' },
         }"
         :columns="columns"
-        :rows="rows"
+        :rows="records"
         @select="handleSelect"
         @update:sort="onSort">
         <template #map-data="{ row }">
-          <NuxtLink :to="`/maps/${row.map}`" class="text-slate-300 font-medium text-lg hover:text-slate-200">
-            {{ row.map }}
+          <NuxtLink :to="`/maps/${row.map}`" class="text-slate-300 font-semibold text-lg hover:text-slate-200">
+            {{ row.map.name }}
           </NuxtLink>
         </template>
 
         <template #course-data="{ row }">
           <NuxtLink :to="`/maps/${row.map}?course=${row.course}`" class="text-lg hover:text-slate-300">
-            {{ row.course }}
+            {{ row.course.name }}
           </NuxtLink>
         </template>
 
         <template #tier-data="{ row }">
-          <span :style="{ color: getTierColor(row.tier as string) }" class="text-lg font-medium">
-            {{ getNumTier(row.tier as string) }}
+          <span :style="{ color: getTierColor(row.course.tier) }" class="text-lg font-medium">
+            {{ getNumTier(row.course.tier) }}
           </span>
         </template>
 
         <template #player-data="{ row }">
-          <NuxtLink
-            :to="`/profile/${row.player_id}`"
-            class="py-2 px-2 lg:px-0 text-cyan-600 whitespace-nowrap hover:text-cyan-400">
-            {{ row.player }}
+          <NuxtLink :to="`/profile/${row.player.id}`" class="text-cyan-600 whitespace-nowrap hover:text-cyan-400">
+            {{ row.player.name }}
           </NuxtLink>
         </template>
 
         <template #time-data="{ row }">
-          <span class="text-slate-300">{{ row.time }}</span>
+          <div class="flex items-start gap-1">
+            <span class="text-slate-300">{{ formatTime(row.time) }}</span>
+            <div
+              class="flex justify-center items-center text-gray-100 text-xs rounded-sm px-1"
+              :class="{ 'bg-yellow-600': row.teleports > 0, 'bg-blue-600': row.teleports === 0 }">
+              {{ row.teleports > 0 ? "TP" : "PRO" }}
+            </div>
+          </div>
         </template>
 
         <template #server-data="{ row }">
-          <span class="italic whitespace-nowrap">{{ row.server }}</span>
+          <span class="">{{ row.nub_rank }}</span>
         </template>
 
         <template #teleports-data="{ row }">
-          <span>{{ row.teleports }}</span>
+          <span class="">{{ row.pro_rank }}</span>
         </template>
 
-        <template #date-data="{ row }">
-          <span class="whitespace-nowrap">{{ row.date }}</span>
+        <template #submitted_at-data="{ row }">
+          <span class="whitespace-nowrap">{{ toLocal(row.submitted_at) }}</span>
         </template>
 
         <template #expand="{ row }">
-          <div class="p-2 text-gray-300">
-            {{ row.map }}
+          <div class="p-4">
+            <RecordDetail :record="row" />
           </div>
         </template>
       </UTable>

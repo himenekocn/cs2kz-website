@@ -1,4 +1,4 @@
-import type { CourseExt, Record as Run } from "~/types"
+import type { CourseExt, Record as Run, Tier } from "~/types"
 import { format } from "date-fns"
 
 // for testing
@@ -64,6 +64,17 @@ export function getNumTier(tier: string) {
 
 export function getTierColor(tier: string) {
   return colorMap.get(tier)
+}
+
+export function transformTier(tier: Tier) {
+  if (tier.includes("-")) {
+    return tier
+      .split("-")
+      .map((word) => word.charAt(0).toUpperCase() + word.substring(1))
+      .join(" ")
+  } else {
+    return tier.charAt(0).toUpperCase() + tier.substring(1)
+  }
 }
 
 export function toLocal(date: string) {

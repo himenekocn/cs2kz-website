@@ -16,8 +16,11 @@ defineProps<{
       class="animate-fade-in w-64 h-auto rounded-l-md" >
 
     <div :style="{ backgroundImage: `url(${course.img})` }" class="info">
-      <p class="text-gray-100 font-medium text-lg">{{ course.map }}</p>
-      <div class="flex gap-1">
+      <div class="flex gap-1 items-center">
+        <IconMap :width="1" />
+        <p class="text-gray-100 font-medium text-lg">{{ course.map }}</p>
+      </div>
+      <div class="flex gap-1 items-center">
         <IconCourse width="1rem" />
         <p class="text-gray-300">{{ course.name }}</p>
       </div>

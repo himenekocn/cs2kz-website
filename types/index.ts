@@ -60,12 +60,13 @@ export interface RecordQuery {
   mode: Mode
   has_teleports: "overall" | "pro"
   top: boolean
+  max_rank?: number
   player: string
   map: string
   course: string
   server: string
   styles: Style[]
-  sort_by: "date" | "time"
+  sort_by: "submission-date" | "time"
   sort_order: "ascending" | "descending"
   limit: number
   offset: number

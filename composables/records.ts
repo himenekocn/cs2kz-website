@@ -18,7 +18,7 @@ export function useRecords() {
     course: "",
     server: "",
     styles: [],
-    sort_by: "date",
+    sort_by: "submission-date",
     sort_order: "descending",
     limit: 30,
     offset: 0,
@@ -32,9 +32,9 @@ export function useRecords() {
     try {
       loading.value = true
       const transformedQuery = {
-        // ...toRaw(query),
-        // has_teleports: query.has_teleports === "overall" ? null : true,
-        // styles: query.styles.length === 0 ? null : query.styles,
+        ...toRaw(query),
+        has_teleports: query.has_teleports === "overall" ? null : false,
+        styles: query.styles.length === 0 ? null : query.styles,
       }
       const data: RecordResponse | undefined = await $api("/records", {
         query: validQuery(transformedQuery),
@@ -48,7 +48,7 @@ export function useRecords() {
         total.value = 0
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
 
       records.value = []
       total.value = 0
