@@ -3,6 +3,8 @@ import type { ServerWithInfo } from "~/types"
 
 const { t } = useI18n()
 
+const { expand, toggleSelect } = useExpand()
+
 const props = defineProps<{
   servers: ServerWithInfo[]
   loading: boolean
@@ -47,6 +49,7 @@ function connect(ip: string) {
   <div class="mt-8">
     <UCard :ui="{ body: { padding: '' } }">
       <UTable
+        v-model:expand="expand"
         :ui="{
           th: { size: 'text-base', padding: 'py-2' },
           td: { size: 'text-base', padding: 'py-2' },
@@ -54,7 +57,8 @@ function connect(ip: string) {
         }"
         :loading="loading"
         :columns="columns"
-        :rows="rows">
+        :rows="rows"
+        @select="toggleSelect">
         <template #name-data="{ row }">
           <p>{{ row.name }}</p>
         </template>
@@ -103,8 +107,7 @@ function connect(ip: string) {
 </template>
 
 <style scoped>
-:deep(tr th:first-of-type) {
-  /* 样式规则 */
+/* :deep(tr th:first-of-type) {
   width: 1rem;
-}
+} */
 </style>

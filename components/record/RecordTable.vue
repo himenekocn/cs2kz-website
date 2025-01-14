@@ -1,12 +1,6 @@
 <script setup lang="ts">
 import type { Record } from "~/types"
-import type { TableRow } from "#ui/types"
 import RecordDetail from "./RecordDetail.vue"
-
-interface ExpandData {
-  openedRows: TableRow[]
-  row: TableRow
-}
 
 defineProps<{
   records: Record[]
@@ -18,12 +12,9 @@ const sortOrder = defineModel<"ascending" | "descending">("sortOrder", {
   required: true,
 })
 
-const expand = ref<ExpandData>({
-  openedRows: [],
-  row: {},
-})
-
 const { t } = useI18n()
+
+const { expand, toggleSelect } = useExpand()
 
 const sort = ref({
   column: "submitted_at",
@@ -73,17 +64,6 @@ function onSort(sort: { column: "submitted_at" | "time"; direction: "asc" | "des
   sortBy.value = sort.column === "submitted_at" ? "submission-date" : "time"
   sortOrder.value = sort.direction === "asc" ? "ascending" : "descending"
 }
-
-function handleSelect(row: TableRow) {
-  const openedRows = expand.value.openedRows
-  if (openedRows.length === 0) {
-    expand.value.openedRows = [row]
-  } else if (openedRows[0].id === row.id) {
-    expand.value.openedRows = []
-  } else {
-    expand.value.openedRows = [row]
-  }
-}
 </script>
 
 <template>
@@ -100,7 +80,7 @@ function handleSelect(row: TableRow) {
         }"
         :columns="columns"
         :rows="records"
-        @select="handleSelect"
+        @select="toggleSelect"
         @update:sort="onSort">
         <template #map-data="{ row }">
           <NuxtLink :to="`/maps/${row.map}`" class="text-slate-300 font-semibold text-lg hover:text-slate-200">
@@ -130,7 +110,7 @@ function handleSelect(row: TableRow) {
           <div class="flex items-start gap-1">
             <span class="text-slate-300">{{ formatTime(row.time) }}</span>
             <div
-              class="flex justify-center items-center text-gray-100 text-xs rounded-sm px-1"
+              class="flex justify-center items-center text-gray-100 text-[10px] leading-3 rounded-sm px-1"
               :class="{ 'bg-yellow-600': row.teleports > 0, 'bg-blue-600': row.teleports === 0 }">
               {{ row.teleports > 0 ? "TP" : "PRO" }}
             </div>

@@ -95,8 +95,6 @@ export interface ServerQuery {
   name: string
   host: string
   owned_by: string
-  created_after: string | null
-  created_before: string | null
   limit: number
   offset: number
 }
