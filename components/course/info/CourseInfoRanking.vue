@@ -23,8 +23,12 @@ const columns = computed(() => {
       label: t("records.title.time"),
     },
     {
-      key: "server",
-      label: t("records.title.server"),
+      key: "nub_points",
+      label: t("records.title.nubPoints"),
+    },
+    {
+      key: "pro_points",
+      label: t("records.title.proPoints"),
     },
     {
       key: "teleports",
@@ -34,17 +38,17 @@ const columns = computed(() => {
       key: "date",
       label: t("records.title.date"),
     },
+    {
+      key: "server",
+      label: t("records.title.server"),
+    },
   ]
 })
 
 const rows = computed(() => {
   return props.records?.map((record, index) => ({
     rank: `#${index + 1}`,
-    player: record.player.name,
-    time: formatTime(record.time),
-    server: record.server.name,
-    teleports: record.teleports,
-    date: toLocal(record.submitted_at),
+    ...record,
   }))
 })
 </script>
@@ -68,16 +72,20 @@ const rows = computed(() => {
           <NuxtLink
             :to="`/profile/${row.player_id}`"
             class="py-2 px-2 lg:px-0 text-cyan-600 whitespace-nowrap hover:text-cyan-400">
-            {{ row.player }}
+            {{ row.player.name }}
           </NuxtLink>
         </template>
 
         <template #time-data="{ row }">
-          <span class="text-slate-300">{{ row.time }}</span>
+          <span class="text-slate-300">{{ formatTime(row.time) }}</span>
         </template>
 
-        <template #server-data="{ row }">
-          <span class="italic whitespace-nowrap">{{ row.server }}</span>
+        <template #nub_points-data="{ row }">
+          <span class="text-slate-300">{{ row.nub_points || "-" }}</span>
+        </template>
+
+        <template #pro_points-data="{ row }">
+          <span class="italic whitespace-nowrap">{{ row.pro_points || "-" }}</span>
         </template>
 
         <template #teleports-data="{ row }">
@@ -85,7 +93,11 @@ const rows = computed(() => {
         </template>
 
         <template #date-data="{ row }">
-          {{ row.date }}
+          {{ row.submitted_at }}
+        </template>
+
+        <template #server-data="{ row }">
+          <span class="italic text-slate-300">{{ row.server.name }}</span>
         </template>
       </UTable>
     </UCard>

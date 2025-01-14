@@ -25,19 +25,11 @@ const options = computed(() => [
       label: t("nav.signOut"),
       click: signOut,
     },
-    {
-      label: t("nav.signOutAll"),
-      click: signOutFromAll,
-    },
   ],
 ])
 
 const navigation = computed(() => {
   const routes = [
-    // {
-    //   localePath: "nav.home",
-    //   path: "/",
-    // },
     {
       localePath: "nav.records",
       path: "/records",
@@ -50,10 +42,6 @@ const navigation = computed(() => {
       localePath: "nav.servers",
       path: "/servers",
     },
-    // {
-    //   localePath: "nav.jumpstats",
-    //   path: "/jumpstats",
-    // },
   ]
 
   if (player.value) {
@@ -67,23 +55,14 @@ const navigation = computed(() => {
 })
 
 function signIn() {
-  const url = `${config.public.apiBase}/auth/login?redirect_to=${location.origin}`
+  const url = `${config.public.apiBase}/auth/web/login?redirect_to=${location.origin}`
   navigateTo(url, { external: true })
 }
 
 function signOut() {
   player.value = null
-  $fetch("/auth/logout", {
+  $fetch("/auth/web/logout", {
     baseURL: config.public.apiBase,
-    credentials: "include",
-  })
-}
-
-function signOutFromAll() {
-  player.value = null
-  $fetch("/auth/logout", {
-    baseURL: config.public.apiBase,
-    params: { invalidate_all_sessions: true },
     credentials: "include",
   })
 }

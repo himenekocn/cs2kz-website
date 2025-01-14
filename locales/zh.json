@@ -75,7 +75,9 @@
       "player": "Player",
       "time": "Time",
       "nubRank": "Overall Rank",
+      "nubPoints": "Overall Pts",
       "proRank": "Pro Rank",
+      "proPoints": "Pro Pts",
       "server": "Server",
       "teleports": "TPs",
       "date": "Date"
