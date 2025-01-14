@@ -98,3 +98,14 @@ export interface ServerQuery {
   limit: number
   offset: number
 }
+
+export interface Profile {
+  id: string
+  name: string
+  first_joined_at: string
+}
+
+export interface ProfileQuery {
+  player_id: string
+  mode: Mode
+}

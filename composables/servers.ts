@@ -17,9 +17,7 @@ export function useServers() {
     offset: 0,
   })
 
-  watch(query, () => {
-    getServers()
-  })
+  watch(query, getServers)
 
   async function getServers() {
     try {

@@ -24,9 +24,7 @@ export function useRecords() {
     offset: 0,
   })
 
-  watch(query, () => {
-    getRecords()
-  })
+  watch(query, getRecords)
 
   async function getRecords() {
     try {

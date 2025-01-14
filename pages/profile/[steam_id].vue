@@ -2,6 +2,14 @@
 import type { Mode } from "~/types"
 import SteamID from "steamid"
 
+const route = useRoute()
+
+const { query: recordQuery } = useRecords()
+
+const { query: profileQuery } = useProfile()
+
+const mode = ref<Mode>("classic")
+
 definePageMeta({
   validate: async (route) => {
     try {
@@ -14,14 +22,13 @@ definePageMeta({
   },
 })
 
-const { query } = useRecords()
-
-const mode = ref<Mode>("classic")
+profileQuery.player_id = new SteamID(route.params.steam_id as string).getSteamID64()
 
 function onModeChange(index: number) {
   const newMode = index === 0 ? "classic" : "vanilla"
   mode.value = newMode
-  query.mode = newMode
+  recordQuery.mode = newMode
+  profileQuery.mode = newMode
 }
 </script>
 <template>
@@ -29,17 +36,13 @@ function onModeChange(index: number) {
     <div class="max-w-5xl mx-auto text-gray-300">
       <UTabs
         class="mb-6"
-        :items="[
-          { label: $t('common.mode.ckz') },
-          { label: $t('common.mode.vnl') },
-        ]"
+        :items="[{ label: $t('common.mode.ckz') }, { label: $t('common.mode.vnl') }]"
         :ui="{
           list: { width: 'w-48', tab: { size: 'text-xl', padding: 'px-0' } },
           wrapper: 'relative space-y-0',
         }"
         :default-index="0"
-        @change="onModeChange"
-      />
+        @change="onModeChange" />
 
       <ProfileCard :mode="mode" class="mb-10" />
 

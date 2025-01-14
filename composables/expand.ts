@@ -15,8 +15,7 @@ export function useExpand() {
     const openedRows = expand.value.openedRows
     if (openedRows.length === 0) {
       expand.value.openedRows = [row]
-    } else if (openedRows[0].id === row.id) {
-      // how is `openedRows[0]` possibly undefined???
+    } else if (openedRows[0] && openedRows[0].id === row.id) {
       expand.value.openedRows = []
     } else {
       expand.value.openedRows = [row]
