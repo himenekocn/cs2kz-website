@@ -8,6 +8,8 @@ const props = defineProps<{
 
 const { t } = useI18n()
 
+const { expand, toggleSelect } = useExpand()
+
 const columns = computed(() => {
   return [
     {
@@ -31,16 +33,8 @@ const columns = computed(() => {
       label: t("records.title.proPoints"),
     },
     {
-      key: "teleports",
-      label: t("records.title.teleports"),
-    },
-    {
-      key: "date",
+      key: "submitted_at",
       label: t("records.title.date"),
-    },
-    {
-      key: "server",
-      label: t("records.title.server"),
     },
   ]
 })
@@ -57,13 +51,15 @@ const rows = computed(() => {
   <div class="mt-2">
     <UCard :ui="{ body: { padding: '' } }">
       <UTable
+        v-model:expand="expand"
         :ui="{
           th: { size: 'text-base', padding: 'py-2' },
           td: { size: 'text-base', padding: 'py-2' },
           tr: { base: 'hover:bg-gray-800 transition ease-in' },
         }"
         :columns="columns"
-        :rows="rows">
+        :rows="rows"
+        @select="toggleSelect">
         <template #rank-data="{ row }">
           {{ row.rank }}
         </template>
@@ -81,11 +77,11 @@ const rows = computed(() => {
         </template>
 
         <template #nub_points-data="{ row }">
-          <span class="text-slate-300">{{ row.nub_points || "-" }}</span>
+          <span class="text-slate-300">{{ row.nub_points ? Math.floor(row.nub_points) : "-" }}</span>
         </template>
 
         <template #pro_points-data="{ row }">
-          <span class="italic whitespace-nowrap">{{ row.pro_points || "-" }}</span>
+          <span class="italic whitespace-nowrap">{{ row.pro_points ? Math.floor(row.pro_points) : "-" }}</span>
         </template>
 
         <template #teleports-data="{ row }">
@@ -93,13 +89,21 @@ const rows = computed(() => {
         </template>
 
         <template #date-data="{ row }">
-          {{ row.submitted_at }}
+          {{ toLocal(row.submitted_at) }}
         </template>
 
-        <template #server-data="{ row }">
-          <span class="italic text-slate-300">{{ row.server.name }}</span>
+        <template #expand="{ row }">
+          <div class="p-3">
+            <RecordDetail :detailed="false" :record="row as Record" />
+          </div>
         </template>
       </UTable>
     </UCard>
   </div>
 </template>
+
+<style scoped>
+:deep(tr th:first-of-type) {
+  width: 1rem;
+}
+</style>

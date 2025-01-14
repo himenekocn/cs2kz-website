@@ -2,34 +2,36 @@
 import type { Record } from "~/types"
 
 defineProps<{
+  detailed: boolean
   record: Record
 }>()
 </script>
 
 <template>
-  <div class="flex items-center gap-3 text-lg text-gray-300">
+  <div class="flex items-center gap-3 text-gray-300">
     <img
+      v-if="detailed"
       :src="getUrl()"
       onerror="this.onerror = null; this.src = '/img/cs2kz_medium.jpg'"
       loading="lazy"
       class="ring-slate-400 rounded-md ring-1 animate-fade-in w-64 h-auto rounded-l-md" >
 
-    <div class="grid grid-cols-[1fr_2fr_2fr_2fr] gap-x-10 gap-y-2">
-      <div class="grid-item">
+    <div class="grid grid-cols-[1fr_2fr_2fr_2fr] gap-x-10 gap-y-3">
+      <div v-if="detailed" class="grid-item">
         <p class="item-key">{{ $t("records.title.map") }}:</p>
-        <NuxtLink :to="`/maps/${record.map.name}`" class="text-slate-300 font-semibold text-lg hover:text-slate-200">
+        <NuxtLink :to="`/maps/${record.map.name}`" class="text-slate-300 font-semibold hover:text-slate-200">
           {{ record.map.name }}
         </NuxtLink>
       </div>
 
-      <div class="grid-item">
+      <div v-if="detailed" class="grid-item">
         <p class="item-key">{{ $t("records.title.course") }}:</p>
-        <NuxtLink :to="`/maps/${record.map.name}?course=${record.course.name}`" class="text-lg hover:text-slate-300">
+        <NuxtLink :to="`/maps/${record.map.name}?course=${record.course.name}`" class="hover:text-slate-300">
           {{ record.course.name }}
         </NuxtLink>
       </div>
 
-      <div class="grid-item col-span-2">
+      <div v-if="detailed" class="grid-item col-span-2">
         <p class="item-key">{{ $t("records.title.tier") }}:</p>
         <p class="font-medium" :style="{ color: getTierColor(record.course.tier) }">
           {{ getNumTier(record.course.tier) }}

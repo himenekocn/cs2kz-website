@@ -29,6 +29,7 @@ const playerRecord = ref<Record | null>(null)
 
 const baseQuery = computed(() =>
   validQuery({
+    top: true,
     map: map.value!.name,
     course: course.value.name,
     mode: mode.value,

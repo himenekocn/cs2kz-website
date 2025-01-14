@@ -16,18 +16,32 @@ getAvatar()
 
 async function getAvatar() {
   const steamId = props.record.player.id
-  const player: PlayerSteam | undefined = await $api(`/players/${steamId}/steam-profile`)
-  avatarUrl.value = player?.avatar_url.replace(/_medium/, "_full") || ""
+  try {
+    const player: PlayerSteam | undefined = await $api(`/players/${steamId}/steam-profile`)
+    avatarUrl.value = player?.avatar_url.replace(/_medium/, "_full") || ""
+  } catch (error) {
+    console.error(error)
+    avatarUrl.value = "https://avatars.steamstatic.com/e9546990b674d6af2c471b2daf1ccbe7b9e5b19c_medium.jpg".replace(
+      /_medium/,
+      "_full",
+    )
+  }
 }
 </script>
 
 <template>
   <div
     class="overflow-x-auto flex items-center gap-4 p-3 bg-gray-800 border border-gray-700 rounded-md"
-    :class="wr && 'ring-1 ring-yellow-200'">
-    <NuxtLink :to="`/profile/${record.player.id}`">
-      <img :src="avatarUrl" class="rounded-md w-16" :class="wr ? 'ring-2 ring-yellow-200' : 'ring-2 ring-slate-200'" >
-    </NuxtLink>
+    :class="wr && 'ring-2 ring-yellow-200'">
+    <div class="relative">
+      <NuxtLink :to="`/profile/${record.player.id}`">
+        <img
+          :src="avatarUrl"
+          class="rounded-md w-20 h-auto"
+          :class="wr ? 'ring-2 ring-yellow-200' : 'ring-2 ring-slate-200'" >
+      </NuxtLink>
+      <IconMedal class="w-6 h-6 absolute top-[2px] left-[2px]" />
+    </div>
 
     <div>
       <div class="flex w-36">
@@ -37,7 +51,6 @@ async function getAvatar() {
           class="text-xl font-medium whitespace-nowrap"
           >{{ record.player.name }}</NuxtLink
         >
-        <IconMedal v-if="wr" />
       </div>
       <p class="relative text-slate-300 text-lg">
         {{ wr ? "#1" : `#${Math.ceil(Math.random() * 1000)}` }}
@@ -48,20 +61,6 @@ async function getAvatar() {
       <div>
         <p class="text-gray-400">Time</p>
         <p class="text-gray-100 w-20">{{ formatTime(record.time) }}</p>
-      </div>
-
-      <div>
-        <p class="text-gray-400">Overall Points</p>
-        <p class="text-gray-100 w-20">
-          {{ record.nub_points || "-" }}
-        </p>
-      </div>
-
-      <div v-if="record.teleports === 0">
-        <p class="text-gray-400">Pro Points</p>
-        <p class="text-gray-100 w-20">
-          {{ record.pro_points || "-" }}
-        </p>
       </div>
 
       <div>

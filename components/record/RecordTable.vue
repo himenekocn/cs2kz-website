@@ -131,7 +131,7 @@ function onSort(sort: { column: "submitted_at" | "time"; direction: "asc" | "des
 
         <template #expand="{ row }">
           <div class="p-4">
-            <RecordDetail :record="row" />
+            <RecordDetail detailed :record="row as Record" />
           </div>
         </template>
       </UTable>
@@ -141,7 +141,6 @@ function onSort(sort: { column: "submitted_at" | "time"; direction: "asc" | "des
 
 <style scoped>
 :deep(tr th:first-of-type) {
-  /* 样式规则 */
   width: 1rem;
 }
 </style>

@@ -68,12 +68,7 @@ const stateColorMap = {
     <div class="flex items-center mt-1">
       <span class="text-gray-200 mr-2">{{ `${$t("map.tier")}:` }}</span>
       <div :style="{ color: tierColor }" class="font-semibold">
-        {{
-          tier
-            .split("_")
-            .map((tier) => tier.at(0)?.toUpperCase() + tier.slice(1))
-            .join(" ")
-        }}
+        {{ transformTier(tier) }}
       </div>
     </div>
 
