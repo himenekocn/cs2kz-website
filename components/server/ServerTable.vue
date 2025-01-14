@@ -107,7 +107,7 @@ function connect(ip: string) {
 </template>
 
 <style scoped>
-/* :deep(tr th:first-of-type) {
+:deep(tr th:first-of-type) {
   width: 1rem;
-} */
+}
 </style>
