@@ -1,6 +1,8 @@
 import { Server, type ServerInfo } from "vlpt"
 
 export default defineEventHandler(async (event) => {
+  console.log("ping event", event)
+
   const { hosts }: { hosts: { ip: string; port: string }[] } = await readBody(event)
 
   console.log("read hosts", hosts)
