@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import type { Record } from "~/types"
+import type { Record, RecordQuery } from "~/types"
 import RecordDetail from "./RecordDetail.vue"
+import type { TableRow } from "#ui/types"
 
-defineProps<{
+const props = defineProps<{
   records: Record[]
+  query: RecordQuery
   loading: boolean
 }>()
 
@@ -15,6 +17,8 @@ const sortOrder = defineModel<"ascending" | "descending">("sortOrder", {
 const { t } = useI18n()
 
 const { expand, toggleSelect } = useExpand()
+
+const courseQuery = useCourseQuery()
 
 const sort = ref({
   column: "submitted_at",
@@ -64,6 +68,13 @@ function onSort(sort: { column: "submitted_at" | "time"; direction: "asc" | "des
   sortBy.value = sort.column === "submitted_at" ? "submission-date" : "time"
   sortOrder.value = sort.direction === "asc" ? "ascending" : "descending"
 }
+
+function goToCourse(row: TableRow) {
+  courseQuery.value.course = row.course.name
+  courseQuery.value.mode = props.query.mode
+  courseQuery.value.has_teleports = props.query.has_teleports
+  navigateTo(`/maps/${row.map.name}`)
+}
 </script>
 
 <template>
@@ -83,15 +94,15 @@ function onSort(sort: { column: "submitted_at" | "time"; direction: "asc" | "des
         @select="toggleSelect"
         @update:sort="onSort">
         <template #map-data="{ row }">
-          <NuxtLink :to="`/maps/${row.map}`" class="text-slate-300 font-semibold text-lg hover:text-slate-200">
+          <span class="text-slate-300 font-semibold text-lg hover:text-slate-200" @click="goToCourse(row)">
             {{ row.map.name }}
-          </NuxtLink>
+          </span>
         </template>
 
         <template #course-data="{ row }">
-          <NuxtLink :to="`/maps/${row.map}?course=${row.course}`" class="text-lg hover:text-slate-300">
+          <span class="text-lg hover:text-slate-300" @click="goToCourse(row)">
             {{ row.course.name }}
-          </NuxtLink>
+          </span>
         </template>
 
         <template #tier-data="{ row }">
