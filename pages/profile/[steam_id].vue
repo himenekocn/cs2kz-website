@@ -22,7 +22,7 @@ definePageMeta({
   },
 })
 
-profileQuery.player_id = new SteamID(route.params.steam_id as string).getSteamID64()
+profileQuery.player_id = route.params.steam_id as string
 
 function onModeChange(index: number) {
   const newMode = index === 0 ? "classic" : "vanilla"
