@@ -9,7 +9,7 @@ const player = usePlayer()
 
 const courseQuery = useCourseQuery()
 
-const activeCourseName = ref<string>(courseQuery.value.course)
+const activeCourseName = ref<string>()
 
 const { records, loading: loadingRecords, query } = useRecords()
 
@@ -58,18 +58,24 @@ async function getMap() {
     const data: Map = await $api(`/maps/${route.params.mapname}`)
     map.value = data
 
-    course.value = map.value.courses.find((course) => course.name === activeCourseName.value)!
+    if (courseQuery.value.course === "") {
+      course.value = map.value.courses[0]!
+      activeCourseName.value = course.value.name
+    } else {
+      activeCourseName.value = courseQuery.value.course
+      course.value = map.value.courses.find((course) => course.name === activeCourseName.value)!
+    }
 
     query.sort_by = "time"
     query.sort_order = "ascending"
     query.limit = 50
 
     query.map = map.value.name
-    query.course = courseQuery.value.course
+    query.course = course.value.name
     query.mode = courseQuery.value.mode
     query.has_teleports = courseQuery.value.has_teleports
   } catch (error) {
-    console.log(error)
+    console.error(error)
     map.value = null
   } finally {
     loading.value = false
