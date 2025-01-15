@@ -1,13 +1,18 @@
 <script setup lang="ts">
-import type { Record } from "~/types"
+import type { Record, RecordQuery, RecordResponse } from "~/types"
 
 const props = defineProps<{
-  history: Record[]
-  loading: boolean
+  query: RecordQuery
 }>()
 
+const { $api } = useNuxtApp()
+
+const history = ref<Record[]>([])
+
+const loading = ref(false)
+
 const rows = computed(() => {
-  return props.history.map((record) => ({
+  return history.value.map((record) => ({
     player: record.player.name,
     player_id: record.player.id,
     time: formatTime(record.time),
@@ -53,6 +58,35 @@ const columns = [
     label: "Date",
   },
 ]
+
+async function getWrProgression() {
+  try {
+    loading.value = true
+
+    const data: RecordResponse | undefined = await $api("/records", {
+      query: validQuery({
+        ...toRaw(props.query),
+        has_teleports: props.query.has_teleports === "overall" ? null : false,
+        sort_by: "submission-date",
+        sort_order: "ascending",
+        limit: 100000,
+      }),
+    })
+
+    if (data) {
+      history.value = getWrHistory(data.values)
+    } else {
+      history.value = []
+    }
+  } catch (error) {
+    console.log(error)
+    history.value = []
+  } finally {
+    loading.value = false
+  }
+}
+
+getWrProgression()
 </script>
 
 <template>

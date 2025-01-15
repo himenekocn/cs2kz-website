@@ -1,63 +1,56 @@
 <script setup lang="ts">
-import type { Map, Style, Mode, Record, Course, RecordResponse } from "~/types"
-
-const { $api } = useNuxtApp()
-
-const { activeCourseIndex } = useCourses()
-
-const activeIndex = ref<number>(activeCourseIndex.value)
+import type { Map, Course, Style } from "~/types"
 
 const route = useRoute()
 
-console.log("route params", route.params)
+const { $api } = useNuxtApp()
 
 const player = usePlayer()
 
-const loading = ref(false)
-const loadingRecords = ref(false)
+const courseQuery = useCourseQuery()
+
+const activeCourseName = ref<string>(courseQuery.value.course)
+
+const { records, loading: loadingRecords, query } = useRecords()
+
+const { records: playerRecords, query: playerQuery } = useRecords()
 
 const map = ref<Map | null>(null)
 
-const course = computed(() => {
-  return map.value?.courses[activeIndex.value] as Course
-})
+const course = ref<Course | null>(null)
 
-const courseNames = computed(() => map.value?.courses.map((course) => course.name))
-
-const mode = ref<Mode>("classic")
-const has_teleports = ref<"overall" | "pro">("overall")
 const styles = ref<Style[]>([])
 
-const records = ref<Record[]>([])
+const loading = ref(false)
+
+watch(query, (newBaseQuery) => {
+  if (player.value) {
+    Object.assign(playerQuery, newBaseQuery)
+    playerQuery.player = player.value.id
+  }
+})
+
+watch(activeCourseName, (name) => {
+  if (map.value) {
+    course.value = map.value.courses.find((course) => course.name === name)!
+    query.course = course.value.name
+  }
+})
+
+const courseNames = computed(() => (map.value ? map.value.courses.map((course) => course.name) : []))
 
 const worldRecord = computed(() => (records.value.length > 0 ? records.value[0] : null))
-const playerRecord = ref<Record | null>(null)
-
-const baseQuery = computed(() =>
-  validQuery({
-    top: true,
-    map: map.value!.name,
-    course: course.value.name,
-    mode: mode.value,
-    has_teleports: has_teleports.value === "overall" ? null : false,
-    styles: styles.value.length === 0 ? null : styles.value,
-  }),
-)
+const playerRecord = computed(() => {
+  if (player.value) {
+    return playerRecords.value.length > 0 ? playerRecords.value[0] : null
+  } else {
+    return null
+  }
+})
 
 const showWrProgression = ref(false)
 
-const loadingProgression = ref(false)
-
-const history = ref<Record[]>([])
-
 getMap()
-
-watch([mode, has_teleports, styles], () => {
-  if (showWrProgression.value) {
-    getWrProgression()
-  }
-  getCourseRanking()
-})
 
 async function getMap() {
   try {
@@ -65,95 +58,21 @@ async function getMap() {
     const data: Map = await $api(`/maps/${route.params.mapname}`)
     map.value = data
 
-    await getCourseRanking()
+    course.value = map.value.courses.find((course) => course.name === activeCourseName.value)!
+
+    query.sort_by = "time"
+    query.sort_order = "ascending"
+    query.limit = 50
+
+    query.map = map.value.name
+    query.course = courseQuery.value.course
+    query.mode = courseQuery.value.mode
+    query.has_teleports = courseQuery.value.has_teleports
   } catch (error) {
     console.log(error)
     map.value = null
   } finally {
     loading.value = false
-  }
-}
-
-async function getCourseRanking() {
-  try {
-    loadingRecords.value = true
-
-    const data: RecordResponse | undefined = await $api("/records", {
-      query: {
-        ...baseQuery.value,
-        sort_by: "time",
-        sort_order: "ascending",
-        limit: 50,
-        // TODO: course filter
-      },
-    })
-
-    if (data) {
-      records.value = data.values
-
-      if (player.value) {
-        // find player record
-        const record = records.value.find((record) => record.player.id === player.value?.id)
-
-        if (record) {
-          playerRecord.value = record
-        } else {
-          // if not found, fetch player record from api
-          const data: RecordResponse | undefined = await $api("/records", {
-            query: {
-              ...baseQuery.value,
-              player: player.value.id,
-            },
-          })
-
-          playerRecord.value = data?.values[0] || null
-        }
-      }
-    } else {
-      records.value = []
-      playerRecord.value = null
-    }
-  } catch (error) {
-    console.log(error)
-    records.value = []
-  } finally {
-    loadingRecords.value = false
-  }
-}
-
-function toggleWrProgression() {
-  if (showWrProgression.value) {
-    showWrProgression.value = false
-  } else {
-    showWrProgression.value = true
-
-    getWrProgression()
-  }
-}
-
-async function getWrProgression() {
-  try {
-    loadingProgression.value = true
-
-    const data: RecordResponse | undefined = await $api("/records", {
-      query: {
-        ...baseQuery.value,
-        sort_by: "submission-date",
-        sort_order: "ascending",
-        limit: 100000,
-      },
-    })
-
-    if (data) {
-      history.value = getWrHistory(data.values)
-    } else {
-      history.value = []
-    }
-  } catch (error) {
-    console.log(error)
-    history.value = []
-  } finally {
-    loadingProgression.value = false
   }
 }
 </script>
@@ -167,15 +86,14 @@ async function getWrProgression() {
 
       <div v-else-if="map && course">
         <CourseInfoHeader
-          v-model:mode="mode"
-          v-model:has-teleports="has_teleports"
-          v-model:styles="styles"
+          v-model:mode="query.mode"
+          v-model:has-teleports="query.has_teleports"
           :name="map.name"
           :state="map.state" />
 
         <div class="border border-gray-700 rounded-md mt-2">
-          <CourseInfoNames v-model:active-index="activeIndex" :names="courseNames!" />
-          <CourseInfoImg :course="course" :mode="mode" :has-teleports="has_teleports" />
+          <CourseInfoNames v-model:active-course-name="activeCourseName" :names="courseNames!" />
+          <CourseInfoImg :course="course" :mode="query.mode" :has-teleports="query.has_teleports" />
         </div>
 
         <div class="mt-6">
@@ -193,8 +111,12 @@ async function getWrProgression() {
             <IconLoading />
           </div>
           <div v-else class="mt-2">
-            <RankHighlighted v-if="worldRecord" :record="worldRecord" wr @toggle="toggleWrProgression" />
-            <ProgressionTable v-if="showWrProgression" class="mt-2" :history="history" :loading="loadingProgression" />
+            <RankHighlighted
+              v-if="worldRecord"
+              :record="worldRecord"
+              wr
+              @toggle="showWrProgression = !showWrProgression" />
+            <ProgressionTable v-if="showWrProgression" :query="query" class="mt-2" />
             <RankHighlighted
               v-if="playerRecord && playerRecord.player.id !== worldRecord?.player.id"
               :record="playerRecord"

@@ -3,17 +3,17 @@ defineProps<{
   names: string[]
 }>()
 
-const activeIndex = defineModel<number>("activeIndex")
+const activeCourseName = defineModel<string | null>("activeCourseName")
 </script>
 
 <template>
   <div class="p-2 flex items-center gap-6 border-b border-gray-700 text-xl">
     <div
-      v-for="(name, index) in names"
+      v-for="name in names"
       :key="name"
       class="coursename"
-      :class="activeIndex === index ? 'active' : ''"
-      @click="activeIndex = index">
+      :class="activeCourseName === name ? 'active' : ''"
+      @click="activeCourseName = name">
       {{ name }}
     </div>
   </div>

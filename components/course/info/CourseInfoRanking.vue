@@ -77,18 +77,18 @@ const rows = computed(() => {
         </template>
 
         <template #nub_points-data="{ row }">
-          <span class="text-slate-300">{{ row.nub_points ? Math.floor(row.nub_points) : "-" }}</span>
+          {{ row.nub_points ? Math.floor(row.nub_points) : "-" }}
         </template>
 
         <template #pro_points-data="{ row }">
-          <span class="italic whitespace-nowrap">{{ row.pro_points ? Math.floor(row.pro_points) : "-" }}</span>
+          {{ row.pro_points ? Math.floor(row.pro_points) : "-" }}
         </template>
 
         <template #teleports-data="{ row }">
           {{ row.teleports }}
         </template>
 
-        <template #date-data="{ row }">
+        <template #submitted_at-data="{ row }">
           {{ toLocal(row.submitted_at) }}
         </template>
 

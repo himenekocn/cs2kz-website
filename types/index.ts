@@ -32,7 +32,6 @@ export type Course = components["schemas"]["Course"]
 export interface CourseExt {
   map: string
   name: string
-  courseIndex: number
   tier: Tier
   state: CourseFilterState
   mappers: Player[]

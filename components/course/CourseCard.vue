@@ -1,22 +1,25 @@
 <script setup lang="ts">
-import type { CourseExt } from "~/types"
+import type { CourseExt, CourseQuery } from "~/types"
 
-const { activeCourseIndex } = useCourses()
+const courseQuery = useCourseQuery()
 
-defineProps<{
+const props = defineProps<{
+  query: CourseQuery
   course: CourseExt
 }>()
 
-function goToCourse(map: string, courseIndex: number) {
-  activeCourseIndex.value = courseIndex
-  navigateTo(`/maps/${map}`)
+function goToCourse() {
+  courseQuery.value.course = props.course.name
+  courseQuery.value.mode = props.query.mode
+  courseQuery.value.has_teleports = props.query.has_teleports
+  navigateTo(`/maps/${props.course.map}`)
 }
 </script>
 
 <template>
   <div
     class="card w-max flex items-center rounded-md ring ring-blue-600/20 hover:ring-blue-600/70 hover:ring-4 transition ease-in cursor-pointer"
-    @click="goToCourse(course.map, course.courseIndex)">
+    @click="goToCourse()">
     <img
       :src="course.img"
       onerror="this.onerror = null; this.src = '/img/cs2kz_medium.jpg'"

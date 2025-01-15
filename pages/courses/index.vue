@@ -11,6 +11,6 @@ getCourses()
       <PageHelper v-model:limit="query.limit" v-model:offset="query.offset" :total="total" @refresh="getCourses" />
     </div>
 
-    <CourseGrid :loading="loading" :courses="courses" />
+    <CourseGrid :query="query" :loading="loading" :courses="courses" />
   </Main>
 </template>

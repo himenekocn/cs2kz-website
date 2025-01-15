@@ -9,8 +9,6 @@ export function useCourses() {
   const allCourses = ref<CourseExt[]>([])
   const courses = ref<CourseExt[]>([])
 
-  const activeCourseIndex = ref(0)
-
   const total = ref(0)
 
   const query = reactive<CourseQuery>({
@@ -79,7 +77,7 @@ export function useCourses() {
 
       if (data) {
         const res = data.values.flatMap((map) =>
-          map.courses.map((course, index) => {
+          map.courses.map((course) => {
             // const fltr = course.filters.find(
             //   (filter) =>
             //     filter.mode === query.mode &&
@@ -89,7 +87,6 @@ export function useCourses() {
             return {
               name: course.name,
               map: map.name,
-              courseIndex: index,
               tier:
                 query.has_teleports === "overall"
                   ? course.filters[query.mode].nub_tier
@@ -127,7 +124,6 @@ export function useCourses() {
     loading,
     query,
     total,
-    activeCourseIndex,
     getCourses,
   }
 }
