@@ -37,7 +37,9 @@ async function getAvatar() {
       <NuxtLink :to="`/profile/${record.player.id}`">
         <img
           :src="avatarUrl"
-          class="rounded-md w-20 h-auto"
+          onerror="this.onerror = null; this.src = '/img/cs2kz_medium.jpg'"
+          loading="lazy"
+          class="rounded-md w-20 h-20"
           :class="wr ? 'ring-2 ring-yellow-200' : 'ring-2 ring-slate-200'" >
       </NuxtLink>
       <IconMedal class="w-6 h-6 absolute top-[2px] left-[2px]" />
