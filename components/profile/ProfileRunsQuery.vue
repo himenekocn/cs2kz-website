@@ -23,7 +23,7 @@ const query = defineModel<RecordQuery>({ required: true })
 
     <USelectMenu
       v-model="query.styles"
-      :options="[{ name: $t('common.style.auto_bhop'), value: 'auto_bhop' }]"
+      :options="[{ name: $t('common.style.autoBhop'), value: 'auto_bhop' }]"
       multiple
       :placeholder="$t('records.query.styles')"
       value-attribute="value"

@@ -44,7 +44,7 @@ export interface CourseQuery {
   name: string
   mode: Mode
   has_teleports: "overall" | "pro"
-  tier: Tier | "all"
+  tier?: Tier
   sort_by: "map" | "tier" | "created_on"
   sort_order: "ascending" | "descending"
   created_after: string | null

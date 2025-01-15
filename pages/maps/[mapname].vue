@@ -104,10 +104,10 @@ async function getMap() {
 
         <div class="mt-6">
           <div class="flex gap-4 items-center">
-            <p class="text-3xl text-gray-200">{{ $t("map.course_ranking") }}</p>
+            <p class="text-3xl text-gray-200">{{ $t("map.courseRanking") }}</p>
             <USelectMenu
               v-model="styles"
-              :options="[{ name: $t('common.style.auto_bhop'), value: 'auto_bhop' }]"
+              :options="[{ name: $t('common.style.autoBhop'), value: 'auto_bhop' }]"
               multiple
               :placeholder="$t('records.query.styles')"
               value-attribute="value"
@@ -132,7 +132,7 @@ async function getMap() {
         </div>
       </div>
 
-      <div v-else>{{ $t("common.no_data") }}</div>
+      <div v-else>{{ $t("common.noData") }}</div>
     </div>
   </Main>
 </template>

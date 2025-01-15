@@ -16,7 +16,7 @@ defineProps<{
       loading="lazy"
       class="ring-slate-400 rounded-md ring-1 animate-fade-in w-64 h-auto rounded-l-md" >
 
-    <div class="grid grid-cols-[1fr_2fr_2fr_2fr] gap-x-10 gap-y-3">
+    <div class="grid grid-cols-[1fr_1fr_1fr_1fr] gap-x-10 gap-y-3">
       <div v-if="detailed" class="grid-item">
         <p class="item-key">{{ $t("records.title.map") }}:</p>
         <NuxtLink :to="`/maps/${record.map.name}`" class="text-slate-300 font-semibold hover:text-slate-200">

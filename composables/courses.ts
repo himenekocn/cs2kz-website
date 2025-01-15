@@ -16,7 +16,6 @@ export function useCourses() {
     name: "",
     mode: "classic",
     has_teleports: "overall",
-    tier: "all",
     sort_by: "map",
     sort_order: "ascending",
     created_after: null,
@@ -61,8 +60,8 @@ export function useCourses() {
     return data.filter((course) => course.name.toLowerCase().includes(name) || course.map.toLowerCase().includes(name))
   }
 
-  function matchTier(data: CourseExt[], tier: Tier | "all") {
-    if (tier === "all") {
+  function matchTier(data: CourseExt[], tier?: Tier) {
+    if (!tier) {
       return data
     } else {
       return data.filter((course) => course.tier === tier)

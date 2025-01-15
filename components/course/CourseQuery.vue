@@ -35,13 +35,13 @@ function toggleOrder() {
       <USelectMenu
         v-model="query.tier"
         :options="[
-          { name: 'All', value: 'all' },
-          { name: $t('common.tier.very_easy'), value: 'very-easy' },
+          { name: $t('common.tier.all'), value: undefined },
+          { name: $t('common.tier.veryEasy'), value: 'very-easy' },
           { name: $t('common.tier.easy'), value: 'easy' },
           { name: $t('common.tier.medium'), value: 'medium' },
           { name: $t('common.tier.advanced'), value: 'advanced' },
           { name: $t('common.tier.hard'), value: 'hard' },
-          { name: $t('common.tier.very_hard'), value: 'very-hard' },
+          { name: $t('common.tier.veryHard'), value: 'very-hard' },
           { name: $t('common.tier.extreme'), value: 'extreme' },
           { name: $t('common.tier.death'), value: 'death' },
           { name: $t('common.tier.unfeasible'), value: 'unfeasible' },
@@ -49,13 +49,14 @@ function toggleOrder() {
         ]"
         value-attribute="value"
         option-attribute="name"
+        :placeholder="$t('courses.query.selectTier')"
         :leading="true">
-        <template #label>
+        <!-- <template #label>
           <span v-if="query.tier !== 'all'">
             {{ $t(`common.tier.${query.tier}`) }}
           </span>
           <span v-else>Select Tier</span>
-        </template>
+        </template> -->
       </USelectMenu>
       <UButtonGroup>
         <UButton
@@ -70,9 +71,9 @@ function toggleOrder() {
         <USelectMenu
           v-model="query.sort_by"
           :options="[
-            { name: $t('common.sort_by.map'), value: 'map' },
-            { name: $t('common.sort_by.tier'), value: 'tier' },
-            { name: $t('common.sort_by.created_on'), value: 'created_on' },
+            { name: $t('common.sortBy.map'), value: 'map' },
+            { name: $t('common.sortBy.tier'), value: 'tier' },
+            { name: $t('common.sortBy.createdOn'), value: 'created_on' },
           ]"
           value-attribute="value"
           option-attribute="name" />

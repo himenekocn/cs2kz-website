@@ -21,7 +21,7 @@ defineProps<{
 
     <div v-else class="flex justify-center">
       <p class="text-gray-500">
-        {{ $t("common.no_data") }}
+        {{ $t("common.noData") }}
       </p>
     </div>
   </div>

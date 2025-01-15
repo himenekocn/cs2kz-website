@@ -36,7 +36,7 @@ const stateColorMap = {
     <p class="text-2xl text-gray-100 font-medium">{{ course.name }}</p>
 
     <div class="flex items-center">
-      <span class="text-gray-300 mr-1">{{ $t("map.made_by") }}</span>
+      <span class="text-gray-300 mr-1">{{ $t("map.madeBy") }}</span>
       <div v-for="(mapper, index) in course.mappers" :key="mapper.id">
         <NuxtLink :to="`/profile/${mapper.id}`" class="text-cyan-500 hover:text-cyan-400">
           {{ mapper.name }}
@@ -73,7 +73,7 @@ const stateColorMap = {
     </div>
 
     <div :class="stateColorMap[filterState]" class="w-max px-1 mt-1 text-sm rounded-sm font-medium">
-      {{ $t(`map.filter_state.${filterState}`) }}
+      {{ $t(`map.filterState.${filterState}`) }}
     </div>
   </div>
 </template>

@@ -128,11 +128,11 @@ function goToCourse(row: TableRow) {
           </div>
         </template>
 
-        <template #server-data="{ row }">
+        <template #nub_rank-data="{ row }">
           <span class="">{{ row.nub_rank }}</span>
         </template>
 
-        <template #teleports-data="{ row }">
+        <template #pro_rank-data="{ row }">
           <span class="">{{ row.pro_rank }}</span>
         </template>
 

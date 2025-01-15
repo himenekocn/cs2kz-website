@@ -5,12 +5,13 @@
       "vnl": "VNL"
     },
     "tier": {
-      "very_easy": "Very Easy",
+      "all": "All",
+      "veryEasy": "Very Easy",
       "easy": "Easy",
       "medium": "Medium",
       "advanced": "Advanced",
       "hard": "Hard",
-      "very_hard": "Very Hard",
+      "veryHard": "Very Hard",
       "extreme": "Extreme",
       "death": "Death",
       "unfeasible": "Unfeasbile",
@@ -18,20 +19,20 @@
     },
     "style": {
       "normal": "Normal",
-      "auto_bhop": "Auto Bhop"
+      "autoBhop": "Auto Bhop"
     },
     "teleports": {
       "overall": "Overall",
       "pro": "Pro"
     },
-    "sort_by": {
+    "sortBy": {
       "date": "Date",
       "time": "Time",
       "map": "Map",
       "tier": "Tier",
-      "created_on": "Release Date"
+      "createdOn": "Release Date"
     },
-    "no_data": "No Data"
+    "noData": "No Data"
   },
   "nav": {
     "home": "Home",
@@ -85,6 +86,7 @@
   },
   "courses": {
     "query": {
+      "selectTier": "Select Tier",
       "searchby": "Course, Map"
     }
   },
@@ -129,34 +131,34 @@
   "map": {
     "state": {
       "approved": "Approved",
-      "in_testing": "Testing",
+      "inTesting": "Testing",
       "invalid": "Invalid"
     },
     "filters": "Filters",
     "styles": "Styles",
-    "made_by": "made by",
+    "madeBy": "made by",
     "tags": "Tags",
     "rating": "Rating",
     "tier": "Tier",
-    "filter_state": {
+    "filterState": {
       "ranked": "RANKED",
       "unranked": "UNRANKED",
       "pending": "PENDING"
     },
-    "course_ranking": "Course Ranking"
+    "courseRanking": "Course Ranking"
   },
   "servers": {
     "query": {
       "name": "Name",
-      "ip_address": "IP",
-      "owned_by": "Owner"
+      "ipAddress": "IP",
+      "ownedBy": "Owner"
     },
     "title": {
       "name": "Name",
-      "ip_address": "IP",
+      "ipAddress": "IP",
       "owner": "Owner",
       "ping": "Ping",
-      "created_on": "Creation Date"
+      "createdOn": "Creation Date"
     }
   }
 }

@@ -62,7 +62,7 @@ function onModeChange(index: number) {
 
       <USelectMenu
         v-model="query.styles"
-        :options="[{ name: $t('common.style.auto_bhop'), value: 'auto_bhop' }]"
+        :options="[{ name: $t('common.style.autoBhop'), value: 'auto_bhop' }]"
         multiple
         :placeholder="$t('records.query.styles')"
         value-attribute="value"

@@ -13,9 +13,9 @@ const props = defineProps<{
 const columns = computed(() => {
   return [
     { key: "name", label: t("servers.title.name") },
-    { key: "ip", label: t("servers.title.ip_address") },
+    { key: "ip", label: t("servers.title.ipAddress") },
     { key: "owner", label: t("servers.title.owner") },
-    { key: "date", label: t("servers.title.created_on") },
+    { key: "date", label: t("servers.title.createdOn") },
     { key: "ping", label: t("servers.title.ping") },
   ]
 })
@@ -98,7 +98,7 @@ function connect(ip: string) {
         <template #expand="{ row }">
           <div class="p-2 text-gray-300">
             <ServerInfo v-if="row.info" :info="row.info" />
-            <span v-else>{{ $t("common.no_data") }}</span>
+            <span v-else>{{ $t("common.noData") }}</span>
           </div>
         </template>
       </UTable>

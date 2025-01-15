@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { CourseExt, CourseQuery } from "~/types"
+import type { CourseExt, CourseQuery, Tier } from "~/types"
 
 const courseQuery = useCourseQuery()
 
@@ -13,6 +13,11 @@ function goToCourse() {
   courseQuery.value.mode = props.query.mode
   courseQuery.value.has_teleports = props.query.has_teleports
   navigateTo(`/maps/${props.course.map}`)
+}
+
+function convertTier(tier: Tier) {
+  // 去掉短横线，转换为驼峰
+  return tier.replace(/-([a-z])/g, (g) => g[1]!.toUpperCase())
 }
 </script>
 
@@ -37,7 +42,7 @@ function goToCourse() {
       </div>
 
       <div class="flex items-center text-sm">
-        <span class="text-gray-400 mr-1">made by</span>
+        <span class="text-gray-400 mr-1">{{ $t("map.madeBy") }}:</span>
         <div v-for="(mapper, index) in course.mappers" :key="mapper.id">
           <NuxtLink :to="`/profile/${mapper.id}`" class="text-cyan-600 hover:text-cyan-400">
             {{ mapper.name }}
@@ -57,11 +62,11 @@ function goToCourse() {
         <div
           :class="course.state === 'ranked' ? 'text-green-400 bg-green-300/20' : 'text-gray-300'"
           class="px-1 text-xs border rounded-sm">
-          {{ course.state.toUpperCase() }}
+          {{ $t(`map.filterState.${course.state}`) }}
         </div>
 
         <p :style="{ color: getTierColor(course.tier as string) }" class="font-semibold">
-          {{ transformTier(course.tier) }}
+          {{ $t(`common.tier.${convertTier(course.tier)}`) }}
         </p>
       </div>
     </div>

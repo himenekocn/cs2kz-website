@@ -5,158 +5,160 @@
       "vnl": "VNL"
     },
     "tier": {
-      "very_easy": "Very Easy",
-      "easy": "Easy",
-      "medium": "Medium",
-      "advanced": "Advanced",
-      "hard": "Hard",
-      "very_hard": "Very Hard",
-      "extreme": "Extreme",
-      "death": "Death",
-      "unfeasible": "Unfeasbile",
-      "impossible": "Impossible"
+      "all": "所有难度",
+      "veryEasy": "非常简单",
+      "easy": "简单",
+      "medium": "中等",
+      "advanced": "高级",
+      "hard": "困难",
+      "veryHard": "非常困难",
+      "extreme": "极限",
+      "death": "死亡",
+      "unfeasible": "不可行",
+      "impossible": "不可能"
     },
     "style": {
-      "normal": "Normal",
-      "auto_bhop": "Auto Bhop"
+      "normal": "普通",
+      "autoBhop": "自动连跳"
     },
     "teleports": {
-      "overall": "Overall",
-      "pro": "Pro"
+      "overall": "总体",
+      "pro": "裸跳"
     },
-    "sort_by": {
-      "date": "Date",
-      "time": "Time",
-      "map": "Map",
-      "tier": "Tier",
-      "created_on": "Release Date"
+    "sortBy": {
+      "date": "日期",
+      "time": "时间",
+      "map": "地图",
+      "tier": "难度",
+      "createdOn": "发布日期"
     },
-    "no_data": "No Data"
+    "noData": "无数据"
   },
   "nav": {
-    "home": "Home",
-    "records": "Records",
-    "courses": "Courses",
-    "profile": "Profile",
-    "servers": "Servers",
-    "jumpstats": "Jumpstats",
-    "signOut": "Sign out",
-    "signOutAll": "Sign out from all websites"
+    "home": "首页",
+    "records": "记录",
+    "courses": "关卡",
+    "profile": "个人资料",
+    "servers": "服务器",
+    "jumpstats": "跳跃数据",
+    "signOut": "退出登录",
+    "signOutAll": "退出所有网站"
   },
   "pagination": {
-    "first": "first",
-    "last": "last",
-    "page": "page",
-    "refresh": "Refresh"
+    "first": "首页",
+    "last": "尾页",
+    "page": "页",
+    "refresh": "刷新"
   },
   "records": {
     "query": {
-      "pbOnly": "PB only",
-      "map": "Map",
-      "course": "Course",
-      "player": "Player",
-      "server": "Server",
-      "styles": "Select style",
+      "pbOnly": "仅PB",
+      "map": "地图",
+      "course": "关卡",
+      "player": "玩家",
+      "server": "服务器",
+      "styles": "选择风格",
       "maxRank": {
-        "placeholder": "Select rank",
-        "all": "All",
-        "wr": "World Record",
-        "top10": "Top 10",
-        "top20": "Top 20",
-        "top50": "Top 50",
-        "top100": "Top 100"
+        "placeholder": "选择排名",
+        "all": "全部",
+        "wr": "世界纪录",
+        "top10": "前10",
+        "top20": "前20",
+        "top50": "前50",
+        "top100": "前100"
       }
     },
     "title": {
-      "rank": "Rank",
-      "map": "Map",
-      "course": "Course",
-      "tier": "Tier",
-      "player": "Player",
-      "time": "Time",
-      "nubRank": "Overall Rank",
-      "nubPoints": "Overall Pts",
-      "proRank": "Pro Rank",
-      "proPoints": "Pro Pts",
-      "server": "Server",
-      "teleports": "TPs",
-      "date": "Date"
+      "rank": "排名",
+      "map": "地图",
+      "course": "关卡",
+      "tier": "难度",
+      "player": "玩家",
+      "time": "时间",
+      "nubRank": "总排名",
+      "nubPoints": "总积分",
+      "proRank": "裸跳排名",
+      "proPoints": "裸跳积分",
+      "server": "服务器",
+      "teleports": "读点次数",
+      "date": "日期"
     }
   },
   "courses": {
     "query": {
-      "searchby": "Course, Map"
+      "selectTier": "选择难度",
+      "searchby": "关卡, 地图"
     }
   },
   "profile": {
     "info": {
-      "hours": "hrs on record",
-      "worldRank": "World Rank",
-      "rating": "Rating",
-      "coursesFinished": "Courses Finished"
+      "hours": "记录时长",
+      "worldRank": "世界排名",
+      "rating": "评分",
+      "coursesFinished": "完成关卡"
     },
     "completion": {
-      "finished": "Finished",
-      "total": "Total",
-      "average": "Average",
-      "title": "Completion",
-      "wrs": "WRs",
-      "top20": "Top 20",
-      "top50": "Top 50",
-      "coursesDist": "Courses Distribution",
-      "pointsDist": "Points Distribution"
+      "finished": "已完成",
+      "total": "总计",
+      "average": "平均",
+      "title": "完成情况",
+      "wrs": "世界纪录",
+      "top20": "前20",
+      "top50": "前50",
+      "coursesDist": "关卡分布",
+      "pointsDist": "积分分布"
     },
     "runs": {
-      "title:": "Runs"
+      "title:": "记录"
     },
     "history": {
-      "title": "History",
-      "playHistory": "Play History",
-      "mostPlayedCourse": "Most Played Course",
+      "title": "历史记录",
+      "playHistory": "游玩历史",
+      "mostPlayedCourse": "最常玩关卡",
       "chartFilter": {
-        "week": "Week",
-        "month": "Month",
-        "year": "Year"
+        "week": "周",
+        "month": "月",
+        "year": "年"
       },
-      "course": "Course",
-      "map": "Map",
+      "course": "关卡",
+      "map": "地图",
       "mostPlayedFilter": {
-        "time": "Time",
-        "runs": "Runs"
+        "time": "时间",
+        "runs": "次数"
       }
     }
   },
   "map": {
     "state": {
-      "approved": "Approved",
-      "in_testing": "Testing",
-      "invalid": "Invalid"
+      "approved": "已全球",
+      "inTesting": "测试中",
+      "invalid": "无效"
     },
-    "filters": "Filters",
-    "styles": "Styles",
-    "made_by": "made by",
-    "tags": "Tags",
-    "rating": "Rating",
-    "tier": "Tier",
-    "filter_state": {
-      "ranked": "RANKED",
-      "unranked": "UNRANKED",
-      "pending": "PENDING"
+    "filters": "筛选器",
+    "styles": "风格",
+    "madeBy": "作者",
+    "tags": "标签",
+    "rating": "评分",
+    "tier": "难度",
+    "filterState": {
+      "ranked": "计入排名",
+      "unranked": "不计排名",
+      "pending": "待处理"
     },
-    "course_ranking": "Course Ranking"
+    "courseRanking": "关卡排名"
   },
   "servers": {
     "query": {
-      "name": "Name",
-      "ip_address": "IP",
-      "owned_by": "Owner"
+      "name": "名称",
+      "ipAddress": "IP",
+      "ownedBy": "所有者"
     },
     "title": {
-      "name": "Name",
-      "ip_address": "IP",
-      "owner": "Owner",
-      "ping": "Ping",
-      "created_on": "Creation Date"
+      "name": "名称",
+      "ipAddress": "IP",
+      "owner": "所有者",
+      "ping": "延迟",
+      "createdOn": "创建日期"
     }
   }
 }
