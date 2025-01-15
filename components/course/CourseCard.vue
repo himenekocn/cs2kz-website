@@ -1,14 +1,22 @@
 <script setup lang="ts">
 import type { CourseExt } from "~/types"
+
+const { activeCourseIndex } = useCourses()
+
 defineProps<{
   course: CourseExt
 }>()
+
+function goToCourse(map: string, courseIndex: number) {
+  activeCourseIndex.value = courseIndex
+  navigateTo(`/maps/${map}`)
+}
 </script>
 
 <template>
   <div
     class="card w-max flex items-center rounded-md ring ring-blue-600/20 hover:ring-blue-600/70 hover:ring-4 transition ease-in cursor-pointer"
-    @click="navigateTo(`/maps/${course.map}?course=${course.name}`)">
+    @click="goToCourse(course.map, course.courseIndex)">
     <img
       :src="course.img"
       onerror="this.onerror = null; this.src = '/img/cs2kz_medium.jpg'"

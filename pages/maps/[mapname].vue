@@ -3,7 +3,13 @@ import type { Map, Style, Mode, Record, Course, RecordResponse } from "~/types"
 
 const { $api } = useNuxtApp()
 
+const { activeCourseIndex } = useCourses()
+
+const activeIndex = ref<number>(activeCourseIndex.value)
+
 const route = useRoute()
+
+console.log("route params", route.params)
 
 const player = usePlayer()
 
@@ -11,9 +17,9 @@ const loading = ref(false)
 const loadingRecords = ref(false)
 
 const map = ref<Map | null>(null)
-const activeCourseIndex = ref(0)
+
 const course = computed(() => {
-  return map.value?.courses[activeCourseIndex.value] as Course
+  return map.value?.courses[activeIndex.value] as Course
 })
 
 const courseNames = computed(() => map.value?.courses.map((course) => course.name))
@@ -59,14 +65,6 @@ async function getMap() {
     const data: Map = await $api(`/maps/${route.params.mapname}`)
     map.value = data
 
-    if (map.value.courses.length === 1) {
-      activeCourseIndex.value = 0
-    } else {
-      activeCourseIndex.value = route.query.course
-        ? data.courses.findIndex((course) => course.name === route.query.course)
-        : 0
-    }
-
     await getCourseRanking()
   } catch (error) {
     console.log(error)
@@ -74,11 +72,6 @@ async function getMap() {
   } finally {
     loading.value = false
   }
-}
-
-function onCourseChange(index: number) {
-  activeCourseIndex.value = index
-  getCourseRanking()
 }
 
 async function getCourseRanking() {
@@ -181,10 +174,7 @@ async function getWrProgression() {
           :state="map.state" />
 
         <div class="border border-gray-700 rounded-md mt-2">
-          <CourseInfoNames
-            :names="courseNames!"
-            :active-course-index="activeCourseIndex"
-            @course-change="onCourseChange" />
+          <CourseInfoNames v-model:active-index="activeIndex" :names="courseNames!" />
           <CourseInfoImg :course="course" :mode="mode" :has-teleports="has_teleports" />
         </div>
 

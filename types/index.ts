@@ -1,4 +1,4 @@
-import type { paths, components } from "~/schema"
+import type { paths, components } from "~/openapi-types"
 
 export type Player = components["schemas"]["PlayerInfo"]
 
@@ -32,6 +32,7 @@ export type Course = components["schemas"]["Course"]
 export interface CourseExt {
   map: string
   name: string
+  courseIndex: number
   tier: Tier
   state: CourseFilterState
   mappers: Player[]

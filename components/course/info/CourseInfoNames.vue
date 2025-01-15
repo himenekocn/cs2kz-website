@@ -1,10 +1,9 @@
 <script setup lang="ts">
 defineProps<{
   names: string[]
-  activeCourseIndex: number
 }>()
 
-const emit = defineEmits(["courseChange"])
+const activeIndex = defineModel<number>("activeIndex")
 </script>
 
 <template>
@@ -13,9 +12,8 @@ const emit = defineEmits(["courseChange"])
       v-for="(name, index) in names"
       :key="name"
       class="coursename"
-      :class="activeCourseIndex === index ? 'active' : ''"
-      @click="emit('courseChange', index)"
-    >
+      :class="activeIndex === index ? 'active' : ''"
+      @click="activeIndex = index">
       {{ name }}
     </div>
   </div>
