@@ -21,10 +21,6 @@ async function getAvatar() {
     avatarUrl.value = player?.avatar_url.replace(/_medium/, "_full") || ""
   } catch (error) {
     console.error(error)
-    avatarUrl.value = "https://avatars.steamstatic.com/e9546990b674d6af2c471b2daf1ccbe7b9e5b19c_medium.jpg".replace(
-      /_medium/,
-      "_full",
-    )
   }
 }
 </script>
@@ -39,7 +35,7 @@ async function getAvatar() {
           :src="avatarUrl"
           onerror="this.onerror = null; this.src = '/img/cs2kz_medium.jpg'"
           loading="lazy"
-          class="rounded-md w-20 h-20"
+          class="rounded-md w-20 h-20 object-cover"
           :class="wr ? 'ring-2 ring-yellow-200' : 'ring-2 ring-slate-200'" >
       </NuxtLink>
       <IconMedal class="w-6 h-6 absolute top-[2px] left-[2px]" />

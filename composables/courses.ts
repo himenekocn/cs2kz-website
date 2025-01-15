@@ -1,5 +1,6 @@
 import type { Tier, CourseExt, MapResponse, CourseQuery } from "~/types"
 import { debounce } from "radash"
+import { v4 as uuidv4 } from "uuid"
 
 export function useCourses() {
   const { $api } = useNuxtApp()
@@ -85,6 +86,7 @@ export function useCourses() {
             // )!
 
             return {
+              id: uuidv4(),
               name: course.name,
               map: map.name,
               tier:

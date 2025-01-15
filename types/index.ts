@@ -30,6 +30,7 @@ export type CourseFilters = components["schemas"]["CourseFilters"]
 export type Course = components["schemas"]["Course"]
 
 export interface CourseExt {
+  id: string
   map: string
   name: string
   tier: Tier
