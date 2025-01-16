@@ -78,12 +78,6 @@ export function useCourses() {
       if (data) {
         const res = data.values.flatMap((map) =>
           map.courses.map((course) => {
-            // const fltr = course.filters.find(
-            //   (filter) =>
-            //     filter.mode === query.mode &&
-            //     filter.teleports === query.teleports,
-            // )!
-
             return {
               id: uuidv4(),
               name: course.name,
@@ -95,8 +89,7 @@ export function useCourses() {
               state: course.filters[query.mode].state,
               mappers: course.mappers,
               created_on: map.approved_at,
-              // TODO: map images
-              img: getUrl(),
+              img: "",
             }
           }),
         )

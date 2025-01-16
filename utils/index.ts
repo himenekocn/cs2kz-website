@@ -1,17 +1,6 @@
 import type { CourseExt, Record as Run, Tier } from "~/types"
 import { format } from "date-fns"
 
-// for testing
-const maps = ["kz_natureblock_scte", "kz_bhop_algetic", "kz_tangent", "kz_maxine", "kz_bigcastle", "kz_mz"]
-
-export function getUrl(high?: boolean) {
-  const map = maps[Math.floor(Math.random() * maps.length)]
-
-  return high
-    ? `https://kzglobalteam.github.io/map-images/webp/${map}.webp?raw=true`
-    : `https://kzglobalteam.github.io/map-images/webp/medium/${map}.webp?raw=true`
-}
-
 export function validQuery(query: Record<string, unknown>) {
   return Object.fromEntries(Object.entries(query).filter(([_, value]) => value !== "" && value !== null))
 }

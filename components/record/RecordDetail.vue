@@ -11,10 +11,10 @@ defineProps<{
   <div class="flex items-center gap-3 text-gray-300">
     <img
       v-if="detailed"
-      :src="getUrl()"
+      src=""
       onerror="this.onerror = null; this.src = '/img/cs2kz_medium.jpg'"
       loading="lazy"
-      class="ring-slate-400 rounded-md ring-1 animate-fade-in w-64 h-auto rounded-l-md" >
+      class="ring-slate-400 rounded-md ring-1 animate-fade-in w-64 h-auto rounded-l-md" />
 
     <div class="grid grid-cols-[1fr_1fr_1fr_1fr] gap-x-10 gap-y-3">
       <div v-if="detailed" class="grid-item">
