@@ -4,6 +4,7 @@ import RecordDetail from "./RecordDetail.vue"
 import type { TableRow } from "#ui/types"
 
 const props = defineProps<{
+  detailed?: boolean
   records: Record[]
   query: RecordQuery
   loading: boolean
@@ -26,7 +27,7 @@ const sort = ref({
 })
 
 const columns = computed(() => {
-  return [
+  const cols = [
     {
       key: "map",
       label: t("records.title.map"),
@@ -38,10 +39,6 @@ const columns = computed(() => {
     {
       key: "tier",
       label: t("records.title.tier"),
-    },
-    {
-      key: "player",
-      label: t("records.title.player"),
     },
     {
       key: "time",
@@ -62,6 +59,15 @@ const columns = computed(() => {
       sortable: true,
     },
   ]
+
+  if (props.detailed) {
+    cols.splice(3, 0, {
+      key: "player",
+      label: t("records.title.player"),
+    })
+  }
+
+  return cols
 })
 
 function onSort(sort: { column: "submitted_at" | "time"; direction: "asc" | "desc" }) {
@@ -111,7 +117,7 @@ function goToCourse(row: TableRow) {
           </span>
         </template>
 
-        <template #player-data="{ row }">
+        <template v-if="detailed" #player-data="{ row }">
           <span
             class="text-cyan-600 whitespace-nowrap hover:text-cyan-400"
             @click.stop="navigateTo(`/profile/${row.player.id}`)">

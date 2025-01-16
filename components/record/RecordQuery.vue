@@ -2,6 +2,10 @@
 import { debounce } from "radash"
 import type { RecordQuery } from "~/types"
 
+defineProps<{
+  detailed?: boolean
+}>()
+
 const query = defineModel<RecordQuery>("query", { required: true })
 
 watch([() => query.value.player, () => query.value.course, () => query.value.server], ([player, course, server]) => {
@@ -21,8 +25,12 @@ function onModeChange(index: number) {
 
 <template>
   <div
-    class="p-2 lg:p-4 grid grid-cols-1 lg:grid-cols-4 gap-2 lg:gap-8 border border-gray-700 rounded-md text-gray-300">
+    :class="
+      detailed &&
+      'p-2 lg:p-4 grid grid-cols-1 lg:grid-cols-4 gap-2 lg:gap-8 border border-gray-700 rounded-md text-gray-300'
+    ">
     <UTabs
+      v-if="detailed"
       :items="[{ label: $t('common.mode.ckz') }, { label: $t('common.mode.vnl') }]"
       :ui="{
         list: { width: 'w-48', tab: { size: 'text-xl', padding: 'px-0' } },
@@ -31,7 +39,12 @@ function onModeChange(index: number) {
       :default-index="0"
       @change="onModeChange" />
 
-    <div class="col-span-3 flex items-center flex-wrap lg:justify-end gap-2 lg:gap-4">
+    <div
+      :class="
+        detailed
+          ? 'col-span-3 flex items-center flex-wrap lg:justify-end gap-2 lg:gap-4'
+          : 'px-2 py-3 flex items-center flex-wrap gap-2 border-b border-gray-800'
+      ">
       <div class="hidden lg:flex items-center gap-2">
         <p>{{ $t("records.query.pbOnly") }}</p>
         <UToggle v-model="query.top" size="lg" />
@@ -80,7 +93,7 @@ function onModeChange(index: number) {
         </template>
       </UInput>
 
-      <UInput v-model="query.player" :placeholder="$t('records.query.player')">
+      <UInput v-if="detailed" v-model="query.player" :placeholder="$t('records.query.player')">
         <template #trailing>
           <IconPlayer />
         </template>
