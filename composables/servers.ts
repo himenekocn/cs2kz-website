@@ -1,11 +1,11 @@
-import type { ServerWithInfo, ServerResponse, ServerInfo, ServerQuery } from "~/types"
+import type { Server, ServerResponse, ServerQuery } from "~/types"
 
 export function useServers() {
   const { $api } = useNuxtApp()
 
   const loading = ref(false)
   const error = ref(null)
-  const servers = ref<ServerWithInfo[]>([])
+  const servers = ref<Server[]>([])
 
   const total = ref(0)
 
@@ -23,27 +23,12 @@ export function useServers() {
     try {
       loading.value = true
 
-      const serverData: ServerResponse | undefined = await $api("/servers", {
+      const data: ServerResponse | undefined = await $api("/servers", {
         query: validQuery(query),
       })
-      if (serverData) {
-        total.value = serverData.total
-
-        const hosts = serverData.values.map((server) => ({
-          ip: server.host,
-          port: server.port,
-        }))
-        const infoData = await $fetch<(ServerInfo | null)[]>("/ping", {
-          method: "POST",
-          body: {
-            hosts,
-          },
-        })
-
-        servers.value = serverData.values.map((s, index) => ({
-          ...s,
-          info: infoData[index] as ServerInfo | null,
-        }))
+      if (data) {
+        total.value = data.total
+        servers.value = data.values
       } else {
         servers.value = []
         total.value = 0
