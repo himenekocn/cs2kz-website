@@ -94,13 +94,13 @@ function goToCourse(row: TableRow) {
         @select="toggleSelect"
         @update:sort="onSort">
         <template #map-data="{ row }">
-          <span class="text-slate-300 font-semibold text-lg hover:text-slate-200" @click="goToCourse(row)">
+          <span class="text-slate-300 font-semibold text-lg hover:text-slate-200" @click.stop="goToCourse(row)">
             {{ row.map.name }}
           </span>
         </template>
 
         <template #course-data="{ row }">
-          <span class="text-lg hover:text-slate-300" @click="goToCourse(row)">
+          <span class="text-lg hover:text-slate-300" @click.stop="goToCourse(row)">
             {{ row.course.name }}
           </span>
         </template>
@@ -112,9 +112,11 @@ function goToCourse(row: TableRow) {
         </template>
 
         <template #player-data="{ row }">
-          <NuxtLink :to="`/profile/${row.player.id}`" class="text-cyan-600 whitespace-nowrap hover:text-cyan-400">
+          <span
+            class="text-cyan-600 whitespace-nowrap hover:text-cyan-400"
+            @click.stop="navigateTo(`/profile/${row.player.id}`)">
             {{ row.player.name }}
-          </NuxtLink>
+          </span>
         </template>
 
         <template #time-data="{ row }">

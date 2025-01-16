@@ -65,11 +65,11 @@ const rows = computed(() => {
         </template>
 
         <template #player-data="{ row }">
-          <NuxtLink
-            :to="`/profile/${row.player_id}`"
-            class="py-2 px-2 lg:px-0 text-cyan-600 whitespace-nowrap hover:text-cyan-400">
+          <span
+            class="py-2 px-2 lg:px-0 text-cyan-600 whitespace-nowrap hover:text-cyan-400"
+            @click.stop="navigateTo(`/profile/${row.player.id}`)">
             {{ row.player.name }}
-          </NuxtLink>
+          </span>
         </template>
 
         <template #time-data="{ row }">
