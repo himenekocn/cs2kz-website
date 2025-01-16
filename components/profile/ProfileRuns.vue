@@ -22,7 +22,7 @@ watch(
 
 <template>
   <div>
-    <p class="text-3xl text-gray-300 font-semibold mb-2">Runs</p>
+    <p class="text-3xl text-gray-300 font-semibold mb-2">{{ $t("profile.runs.title") }}</p>
 
     <UCard
       :ui="{
