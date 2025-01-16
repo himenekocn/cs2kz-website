@@ -1,9 +1,23 @@
 <script setup lang="ts">
-const route = useRoute()
+import type { Mode } from "~/types"
+
+// const route = useRoute()
+
+const props = defineProps<{
+  mode: Mode
+}>()
 
 const { records, loading, query, total, getRecords } = useRecords()
 
-query.player = route.params.steam_id as string
+// query.player = route.params.steam_id as string
+query.player = "76648292156514919"
+
+watch(
+  () => props.mode,
+  (mode) => {
+    query.mode = mode
+  },
+)
 </script>
 
 <template>
@@ -15,18 +29,10 @@ query.player = route.params.steam_id as string
         body: { padding: '' },
       }">
       <RecordQuery v-model:query="query" />
-      <!-- <ProfileRunsQuery v-model="query" /> -->
 
       <div v-if="total > 0" class="mx-auto py-3 border-b border-gray-700">
         <PageHelper v-model:limit="query.limit!" v-model:offset="query.offset!" :total="total" @refresh="getRecords" />
       </div>
-
-      <!-- <ProfileRunsTable
-        v-model:sort-by="query.sort_by"
-        v-model:sort-order="query.sort_order"
-        :records="records"
-        :loading="loading"
-      /> -->
 
       <RecordTable
         v-model:sort-by="query.sort_by"

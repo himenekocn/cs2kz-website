@@ -92,6 +92,7 @@
   },
   "profile": {
     "info": {
+      "joinedOn": "Joined on",
       "hours": "hrs on record",
       "worldRank": "World Rank",
       "rating": "Rating",

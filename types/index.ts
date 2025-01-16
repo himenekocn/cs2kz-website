@@ -103,6 +103,7 @@ export interface ServerQuery {
 export interface Profile {
   id: string
   name: string
+  rating: number
   first_joined_at: string
 }
 

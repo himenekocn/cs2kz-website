@@ -1,58 +1,53 @@
 <script setup lang="ts">
-import type { Mode } from "~/types"
+import type { Profile, PlayerSteam } from "~/types"
+
+const { $api } = useNuxtApp()
 
 const props = defineProps<{
-  mode: Mode
+  profile: Profile
 }>()
 
-watch(
-  () => props.mode,
-  (mode) => {
-    console.log(mode)
-  },
-)
+const avatarUrl = ref("")
+const profileUrl = ref("")
+
+getSteamProfile()
+
+async function getSteamProfile() {
+  try {
+    const player: PlayerSteam | undefined = await $api(`/players/${props.profile.id}/steam-profile`)
+    avatarUrl.value = player?.avatar_url.replace(/_medium/, "_full") || ""
+    profileUrl.value = player?.profile_url || ""
+  } catch (error) {
+    console.error(error)
+  }
+}
 </script>
 
 <template>
-  <div class="p-4 border border-gray-700 rounded-md lg:text-lg">
-    <div class="flex gap-2 lg:gap-4 pb-4 mb-4 border-b border-gray-800">
-      <img src="/img/avatar.jpg" class="w-24 h-24 lg:w-32 lg:h-32 rounded-md ring-2 ring-blue-400/30" >
+  <div class="flex gap-2 lg:gap-4 p-4 border border-gray-700 rounded-md lg:text-lg">
+    <img
+      onerror="this.onerror = null; this.src = '/img/cs2kz_medium.jpg'"
+      :src="avatarUrl"
+      class="w-24 h-24 lg:w-32 lg:h-32 object-cover rounded-md ring-2 ring-blue-400/30" />
 
-      <div class="flex flex-col gap-1 lg:gap-4">
-        <p class="text-2xl font-semibold max-w-56 lg:w-full truncate text-cyan-600">smieszneznaczki</p>
-
-        <div class="flex items-center gap-2">
-          <div class="flex items-center gap-1">
-            <img src="/img/finland.png" class="w-6 h-auto" >
-            <p>Finland</p>
-          </div>
-
-          <UButton square variant="ghost">
-            <IconSteam class="w-5 h-5" />
-          </UButton>
-        </div>
-
-        <p>
-          <span class="font-semibold mr-1">2446</span>
-          <span class="text-gray-400">{{ $t("profile.info.hours") }}</span>
-        </p>
+    <div class="flex flex-col gap-2 lg:gap-5">
+      <div class="flex items-center gap-1">
+        <p class="text-2xl font-semibold max-w-56 truncate text-cyan-600">{{ profile.name }}</p>
+        <UButton square variant="ghost" @click="navigateTo(profileUrl, { external: true, open: { target: '_blank' } })">
+          <IconSteam class="w-5 h-5" />
+        </UButton>
       </div>
-    </div>
 
-    <div class="flex flex-wrap gap-x-8 gap-y-0 lg:gap-y-8">
-      <div>
-        <span class="mr-1 text-gray-400">{{ $t("profile.info.worldRank") }}:</span>
-        <span class="font-medium">#1,789</span>
-      </div>
+      <p>
+        <span class="text-gray-400">{{ $t("profile.info.joinedOn") }}: </span>
+        <span class="font-semibold mr-1">{{ toLocal(profile.first_joined_at, true) }}</span>
+      </p>
 
       <div>
         <span class="mr-1 text-gray-400">{{ $t("profile.info.rating") }}:</span>
-        <span class="font-medium">9.88</span>
-      </div>
-
-      <div>
-        <span class="mr-1 text-gray-400">{{ $t("profile.info.coursesFinished") }}:</span>
-        <span class="font-medium">252</span>
+        <span class="font-medium">
+          {{ seperateThousands(profile.rating) }}
+        </span>
       </div>
     </div>
   </div>

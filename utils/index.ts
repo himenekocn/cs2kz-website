@@ -77,8 +77,8 @@ export function transformTier(tier: Tier) {
   }
 }
 
-export function toLocal(date: string) {
-  return format(new Date(date), "yyyy-MM-dd HH:mm:ss")
+export function toLocal(date: string, short?: boolean) {
+  return format(new Date(date), short ? "yyyy-MM-dd" : "yyyy-MM-dd HH:mm:ss")
 }
 
 export function formatTime(seconds: number) {
@@ -99,6 +99,12 @@ export function formatTime(seconds: number) {
   timeParts.push(remainingSeconds.padStart(6, "0"))
 
   return timeParts.join(":")
+}
+
+export function seperateThousands(num: number) {
+  return Math.floor(num)
+    .toString()
+    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
 }
 
 export function getWrHistory(records: Run[]) {

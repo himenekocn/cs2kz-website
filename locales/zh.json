@@ -92,6 +92,7 @@
   },
   "profile": {
     "info": {
+      "joinedOn": "加入日期",
       "hours": "记录时长",
       "worldRank": "世界排名",
       "rating": "评分",

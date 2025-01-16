@@ -5,7 +5,7 @@ export function useProfile() {
 
   const loading = ref(false)
   const error = ref(null)
-  const profile = ref<Profile>()
+  const profile = ref<Profile | null>(null)
 
   const query = reactive<ProfileQuery>({
     player_id: "",
@@ -21,11 +21,9 @@ export function useProfile() {
       profile.value = await $api(`/players/${query.player_id}/profile`, {
         query: { mode: query.mode },
       })
-
-      console.log("profile data", profile.value)
     } catch (err) {
       console.error(err)
-      profile.value = undefined
+      profile.value = null
     } finally {
       loading.value = false
     }

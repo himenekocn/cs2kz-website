@@ -2,11 +2,9 @@
 import type { Mode } from "~/types"
 import SteamID from "steamid"
 
-const route = useRoute()
+// const route = useRoute()
 
-const { query: recordQuery } = useRecords()
-
-const { query: profileQuery } = useProfile()
+const { query, profile } = useProfile()
 
 const mode = ref<Mode>("classic")
 
@@ -22,18 +20,19 @@ definePageMeta({
   },
 })
 
-profileQuery.player_id = route.params.steam_id as string
+// query.player_id = route.params.steam_id as string
+
+query.player_id = "76648292156514919"
 
 function onModeChange(index: number) {
   const newMode = index === 0 ? "classic" : "vanilla"
   mode.value = newMode
-  recordQuery.mode = newMode
-  profileQuery.mode = newMode
+  query.mode = newMode
 }
 </script>
 <template>
   <Main>
-    <div class="max-w-5xl mx-auto text-gray-300">
+    <div v-if="profile" class="max-w-5xl mx-auto text-gray-300">
       <UTabs
         class="mb-6"
         :items="[{ label: $t('common.mode.ckz') }, { label: $t('common.mode.vnl') }]"
@@ -44,13 +43,15 @@ function onModeChange(index: number) {
         :default-index="0"
         @change="onModeChange" />
 
-      <ProfileCard :mode="mode" class="mb-10" />
+      <ProfileCard :profile="profile" class="mb-10" />
 
-      <ProfileCompletion :mode="mode" class="mb-10" />
+      <ProfileCompletion class="mb-10" />
 
-      <ProfileRuns class="mb-10" />
+      <ProfileRuns :mode="mode" class="mb-10" />
 
-      <ProfileHistory :mode="mode" class="mb-10" />
+      <ProfileHistory class="mb-10" />
     </div>
+
+    <div v-else class="text-xl text-gray-300">No Data</div>
   </Main>
 </template>
