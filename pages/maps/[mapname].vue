@@ -13,7 +13,7 @@ const activeCourseName = ref<string>()
 
 const { records, loading: loadingRecords, query } = useRecords()
 
-const { records: playerRecords, query: playerQuery } = useRecords()
+const { records: playerRecords, query: playerQuery, total } = useRecords()
 
 const map = ref<Map | null>(null)
 
@@ -68,7 +68,7 @@ async function getMap() {
 
     query.sort_by = "time"
     query.sort_order = "ascending"
-    query.limit = 50
+    query.limit = 100
 
     query.map = map.value.name
     query.course = course.value.name
@@ -127,7 +127,11 @@ async function getMap() {
               v-if="playerRecord && playerRecord.player.id !== worldRecord?.player.id"
               :record="playerRecord"
               class="mt-2" />
-            <CourseInfoRanking :records="records" :loading="loadingRecords" />
+            <CourseInfoRanking
+              v-model:limit="query.limit"
+              :total="total"
+              :records="records"
+              :loading="loadingRecords" />
           </div>
         </div>
       </div>

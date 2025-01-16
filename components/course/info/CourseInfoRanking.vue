@@ -2,13 +2,16 @@
 import type { Record } from "~/types"
 
 const props = defineProps<{
-  records: Record[] | null
+  records: Record[]
   loading: boolean
+  total: number
 }>()
 
 const { t } = useI18n()
 
 const { expand, toggleSelect } = useExpand()
+
+const limit = defineModel<number>("limit", { required: true })
 
 const columns = computed(() => {
   return [
@@ -99,6 +102,19 @@ const rows = computed(() => {
         </template>
       </UTable>
     </UCard>
+
+    <div class="flex items-center gap-2 mt-2">
+      <span
+        v-if="records.length < total"
+        class="text-green-600 hover:text-green-400 cursor-pointer"
+        @click="limit += 100"
+        >Show more</span
+      >
+      <span v-if="records.length > 100" class="text-gray-400">-</span>
+      <span v-if="records.length > 100" class="text-gray-600 hover:text-gray-400 cursor-pointer" @click="limit -= 100"
+        >Show less</span
+      >
+    </div>
   </div>
 </template>
 
