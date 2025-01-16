@@ -32,42 +32,46 @@ function convertTier(tier: Tier) {
       class="animate-fade-in w-64 h-auto rounded-l-md" >
 
     <div :style="{ backgroundImage: `url(${course.img})` }" class="info">
-      <div class="flex gap-1 items-center">
-        <IconMap :width="1" />
-        <p class="text-gray-100 font-medium text-lg">{{ course.map }}</p>
-      </div>
-      <div class="flex gap-1 items-center">
-        <IconCourse width="1rem" />
-        <p class="text-gray-300">{{ course.name }}</p>
-      </div>
+      <div>
+        <div class="flex gap-1 items-center">
+          <IconMap :width="1" />
+          <p class="text-gray-100 font-medium">{{ course.map }}</p>
+        </div>
+        <div class="flex gap-1 items-center">
+          <IconCourse width="1rem" />
+          <p class="text-gray-300">{{ course.name }}</p>
+        </div>
 
-      <div class="flex items-center text-sm">
-        <span class="text-gray-400 mr-1">{{ $t("map.madeBy") }}:</span>
-        <div v-for="(mapper, index) in course.mappers" :key="mapper.id">
-          <NuxtLink :to="`/profile/${mapper.id}`" class="text-cyan-600 hover:text-cyan-400">
-            {{ mapper.name }}
-          </NuxtLink>
-          <span v-if="index < course.mappers.length - 1" class="text-gray-400 mr-1"> , </span>
+        <div class="flex flex-wrap items-center text-sm">
+          <span class="text-gray-400 mr-1">{{ $t("map.madeBy") }}:</span>
+          <div v-for="(mapper, index) in course.mappers" :key="mapper.id">
+            <NuxtLink :to="`/profile/${mapper.id}`" class="text-cyan-600 hover:text-cyan-400">
+              {{ mapper.name }}
+            </NuxtLink>
+            <span v-if="index < course.mappers.length - 1" class="text-gray-400 mr-1"> , </span>
+          </div>
         </div>
       </div>
 
-      <div class="flex items-center gap-1 mt-6">
-        <IconDate />
-        <span class="text-xs text-gray-200 leading-[14px]">
-          {{ toLocal(course.created_on).slice(0, 10) }}
-        </span>
-      </div>
-
-      <div class="flex items-center gap-2 mt-1">
-        <div
-          :class="course.state === 'ranked' ? 'text-green-400 bg-green-300/20' : 'text-gray-300'"
-          class="px-1 text-xs border rounded-sm">
-          {{ $t(`map.filterState.${course.state}`) }}
+      <div>
+        <div class="flex items-center gap-1">
+          <IconDate />
+          <span class="text-xs text-gray-200 leading-[14px]">
+            {{ toLocal(course.created_on).slice(0, 10) }}
+          </span>
         </div>
 
-        <p :style="{ color: getTierColor(course.tier as string) }" class="font-semibold">
-          {{ $t(`common.tier.${convertTier(course.tier)}`) }}
-        </p>
+        <div class="flex items-center gap-2 mt-1">
+          <div
+            :class="course.state === 'ranked' ? 'text-green-400 bg-green-300/20' : 'text-gray-300'"
+            class="px-1 text-xs border rounded-sm">
+            {{ $t(`map.filterState.${course.state}`) }}
+          </div>
+
+          <p :style="{ color: getTierColor(course.tier as string) }" class="font-semibold">
+            {{ $t(`common.tier.${convertTier(course.tier)}`) }}
+          </p>
+        </div>
       </div>
     </div>
   </div>
@@ -80,6 +84,7 @@ function convertTier(tier: Tier) {
   padding: 0.1rem 0.5rem;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   border-top-right-radius: 0.375rem;
   border-bottom-right-radius: 0.375rem;
   position: relative;
