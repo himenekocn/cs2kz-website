@@ -24,7 +24,39 @@ export function useRecords() {
     offset: 0,
   })
 
-  watch(query, getRecords)
+  let skipOffsetWatcher = false
+
+  watch(
+    () => [
+      query.mode,
+      query.has_teleports,
+      query.top,
+      query.player,
+      query.map,
+      query.course,
+      query.server,
+      query.styles,
+      query.sort_by,
+      query.sort_order,
+      query.limit,
+    ],
+    () => {
+      skipOffsetWatcher = true
+      query.offset = 0
+      getRecords()
+    },
+  )
+
+  watch(
+    () => query.offset,
+    () => {
+      if (skipOffsetWatcher) {
+        skipOffsetWatcher = false
+        return
+      }
+      getRecords()
+    },
+  )
 
   async function getRecords() {
     try {
