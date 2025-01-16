@@ -14,6 +14,7 @@ getRecords()
     <RecordTable
       v-model:sort-by="query.sort_by"
       v-model:sort-order="query.sort_order"
+      class="mt-8"
       detailed
       :query="query"
       :loading="loading"

@@ -84,78 +84,76 @@ function goToCourse(row: TableRow) {
 </script>
 
 <template>
-  <div class="mt-8">
-    <UCard :ui="{ body: { padding: '' } }">
-      <UTable
-        v-model:expand="expand"
-        v-model:sort="sort"
-        :loading="loading"
-        :ui="{
-          th: { size: 'text-base', padding: 'py-2' },
-          td: { size: 'text-base', padding: 'py-2' },
-          tr: { base: 'hover:bg-gray-800 transition ease-in' },
-        }"
-        :columns="columns"
-        :rows="records"
-        @select="toggleSelect"
-        @update:sort="onSort">
-        <template #map-data="{ row }">
-          <span class="text-slate-300 font-semibold text-lg hover:text-slate-200" @click.stop="goToCourse(row)">
-            {{ row.map.name }}
-          </span>
-        </template>
+  <UCard :ui="{ body: { padding: '' } }">
+    <UTable
+      v-model:expand="expand"
+      v-model:sort="sort"
+      :loading="loading"
+      :ui="{
+        th: { size: 'text-base', padding: 'py-2' },
+        td: { size: 'text-base', padding: 'py-2' },
+        tr: { base: 'hover:bg-gray-800 transition ease-in' },
+      }"
+      :columns="columns"
+      :rows="records"
+      @select="toggleSelect"
+      @update:sort="onSort">
+      <template #map-data="{ row }">
+        <span class="text-slate-300 font-semibold text-lg hover:text-slate-200" @click.stop="goToCourse(row)">
+          {{ row.map.name }}
+        </span>
+      </template>
 
-        <template #course-data="{ row }">
-          <span class="text-lg hover:text-slate-300" @click.stop="goToCourse(row)">
-            {{ row.course.name }}
-          </span>
-        </template>
+      <template #course-data="{ row }">
+        <span class="text-lg hover:text-slate-300" @click.stop="goToCourse(row)">
+          {{ row.course.name }}
+        </span>
+      </template>
 
-        <template #tier-data="{ row }">
-          <span :style="{ color: getTierColor(row.course.tier) }" class="text-lg font-medium">
-            {{ getNumTier(row.course.tier) }}
-          </span>
-        </template>
+      <template #tier-data="{ row }">
+        <span :style="{ color: getTierColor(row.course.tier) }" class="text-lg font-medium">
+          {{ getNumTier(row.course.tier) }}
+        </span>
+      </template>
 
-        <template v-if="detailed" #player-data="{ row }">
-          <span
-            class="text-cyan-600 whitespace-nowrap hover:text-cyan-400"
-            @click.stop="navigateTo(`/profile/${row.player.id}`)">
-            {{ row.player.name }}
-          </span>
-        </template>
+      <template v-if="detailed" #player-data="{ row }">
+        <span
+          class="text-cyan-600 whitespace-nowrap hover:text-cyan-400"
+          @click.stop="navigateTo(`/profile/${row.player.id}`)">
+          {{ row.player.name }}
+        </span>
+      </template>
 
-        <template #time-data="{ row }">
-          <div class="flex items-start gap-1">
-            <span class="text-slate-300">{{ formatTime(row.time) }}</span>
-            <div
-              class="flex justify-center items-center text-gray-100 text-[10px] leading-3 rounded-sm px-1"
-              :class="{ 'bg-yellow-600': row.teleports > 0, 'bg-blue-600': row.teleports === 0 }">
-              {{ row.teleports > 0 ? "TP" : "PRO" }}
-            </div>
+      <template #time-data="{ row }">
+        <div class="flex items-start gap-1">
+          <span class="text-slate-300">{{ formatTime(row.time) }}</span>
+          <div
+            class="flex justify-center items-center text-gray-100 text-[10px] leading-3 rounded-sm px-1"
+            :class="{ 'bg-yellow-600': row.teleports > 0, 'bg-blue-600': row.teleports === 0 }">
+            {{ row.teleports > 0 ? "TP" : "PRO" }}
           </div>
-        </template>
+        </div>
+      </template>
 
-        <template #nub_rank-data="{ row }">
-          <span class="">{{ row.nub_rank }}</span>
-        </template>
+      <template #nub_rank-data="{ row }">
+        <span class="">{{ row.nub_rank }}</span>
+      </template>
 
-        <template #pro_rank-data="{ row }">
-          <span class="">{{ row.pro_rank }}</span>
-        </template>
+      <template #pro_rank-data="{ row }">
+        <span class="">{{ row.pro_rank }}</span>
+      </template>
 
-        <template #submitted_at-data="{ row }">
-          <span class="whitespace-nowrap">{{ toLocal(row.submitted_at) }}</span>
-        </template>
+      <template #submitted_at-data="{ row }">
+        <span class="whitespace-nowrap">{{ toLocal(row.submitted_at) }}</span>
+      </template>
 
-        <template #expand="{ row }">
-          <div class="p-4">
-            <RecordDetail detailed :record="row as Record" />
-          </div>
-        </template>
-      </UTable>
-    </UCard>
-  </div>
+      <template #expand="{ row }">
+        <div class="p-4">
+          <RecordDetail detailed :record="row as Record" />
+        </div>
+      </template>
+    </UTable>
+  </UCard>
 </template>
 
 <style scoped>

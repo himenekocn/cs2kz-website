@@ -30,7 +30,7 @@ watch(
       }">
       <RecordQuery v-model:query="query" />
 
-      <div v-if="total > 0" class="mx-auto py-3 border-b border-gray-700">
+      <div v-if="total > 0" class="mx-auto py-3">
         <PageHelper v-model:limit="query.limit!" v-model:offset="query.offset!" :total="total" @refresh="getRecords" />
       </div>
 
