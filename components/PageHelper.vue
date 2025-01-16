@@ -8,19 +8,11 @@ const offset = defineModel<number>("offset", { required: true })
 
 defineEmits(["refresh"])
 
-const currentPage = ref(1)
+const currentPage = computed(() => Math.floor(offset.value / limit.value) + 1)
 const totalPages = computed(() => Math.ceil(props.total / limit.value))
 const start = computed(() => (currentPage.value - 1) * limit.value)
 const end = computed(() => {
-  const max = currentPage.value * limit.value
-  if (max > props.total) {
-    return props.total
-  }
-  if (currentPage.value === totalPages.value) {
-    return props.total
-  }
-
-  return max
+  return Math.min(currentPage.value * limit.value, props.total)
 })
 
 const lmt = ref("30")
@@ -31,23 +23,21 @@ watch(lmt, (lmt) => {
 
 function prevPage() {
   if (currentPage.value > 1) {
-    currentPage.value--
     offset.value -= limit.value
   }
 }
 
 function nextPage() {
-  currentPage.value++
-  offset.value += limit.value
+  if (currentPage.value < totalPages.value) {
+    offset.value += limit.value
+  }
 }
 
 function firstPage() {
-  currentPage.value = 1
   offset.value = 0
 }
 
 function lastPage() {
-  currentPage.value = totalPages.value
   offset.value = (totalPages.value - 1) * limit.value
 }
 </script>
@@ -61,8 +51,7 @@ function lastPage() {
         variant="ghost"
         color="gray"
         :ui="{ padding: { sm: 'px-2 py-1' } }"
-        @click="prevPage"
-      >
+        @click="prevPage">
         <IconLeftRounded />
       </UButton>
       <p>
@@ -73,8 +62,7 @@ function lastPage() {
         variant="ghost"
         color="gray"
         :ui="{ padding: { sm: 'px-2 py-1' } }"
-        @click="nextPage"
-      >
+        @click="nextPage">
         <IconRightRounded />
       </UButton>
       <UButton variant="solid" color="gray" @click="lastPage">
