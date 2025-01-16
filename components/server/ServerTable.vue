@@ -13,7 +13,7 @@ const columns = computed(() => {
     { key: "name", label: t("servers.title.name") },
     { key: "host", label: t("servers.title.ipAddress") },
     { key: "owner", label: t("servers.title.owner") },
-    { key: "approved_at", label: t("servers.title.createdOn") },
+    { key: "approved_at", label: t("servers.title.approvedOn") },
   ]
 })
 

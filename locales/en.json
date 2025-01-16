@@ -159,7 +159,7 @@
       "ipAddress": "IP",
       "owner": "Owner",
       "ping": "Ping",
-      "createdOn": "Creation Date"
+      "approvedOn": "Approved On"
     }
   }
 }

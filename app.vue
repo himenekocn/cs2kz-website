@@ -19,11 +19,12 @@ async function verifySession() {
           player.value = null
         }
       },
+
       credentials: "include",
     })
     setTimeout(verifySession, 1000 * 25)
   } catch (error) {
-    console.log(error)
+    console.error(error)
   }
 }
 </script>

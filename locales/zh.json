@@ -159,7 +159,7 @@
       "ipAddress": "IP",
       "owner": "所有者",
       "ping": "延迟",
-      "createdOn": "创建日期"
+      "approvedOn": "上线日期"
     }
   }
 }
