@@ -47,8 +47,6 @@ export interface CourseQuery {
   tier?: Tier
   sort_by: "map" | "tier" | "created_on"
   sort_order: "ascending" | "descending"
-  created_after: string | null
-  created_before: string | null
   limit: number
   offset: number
 }

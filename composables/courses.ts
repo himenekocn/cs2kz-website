@@ -18,8 +18,6 @@ export function useCourses() {
     has_teleports: "overall",
     sort_by: "map",
     sort_order: "ascending",
-    created_after: null,
-    created_before: null,
     limit: 30,
     offset: 0,
   })
@@ -27,28 +25,35 @@ export function useCourses() {
   const debouncedUpdate = debounce({ delay: 300 }, update)
 
   watch(
-    () => ({ ...query }),
-    async (newQuery, oldQuery) => {
-      if (newQuery.mode !== oldQuery.mode || newQuery.has_teleports !== oldQuery.has_teleports) {
+    () => [query.mode, query.has_teleports, query.name, query.tier, query.sort_by, query.sort_order, query.limit],
+    async ([newMode, newTeleports, newName], [oldMode, oldTeleports, oldName]) => {
+      query.offset = 0
+      if (newMode !== oldMode || newTeleports !== oldTeleports) {
         await getCourses()
         update(query)
-      } else if (newQuery.name !== oldQuery.name) {
+      } else if (newName !== oldName) {
         debouncedUpdate(query)
       } else {
         update(query)
       }
     },
-    { deep: true },
+  )
+
+  watch(
+    () => query.offset,
+    () => {
+      update(query)
+    },
   )
 
   function update(query: CourseQuery) {
-    if (allCourses.value !== null && allCourses.value.length > 0) {
+    if (allCourses.value.length > 0) {
       const searched = search(allCourses.value, query.name)
       const tiered = matchTier(searched, query.tier)
       const sorted = sort(tiered, query.sort_order, query.sort_by)
-      // TODO: date filter
-      const paginated = sorted.slice(query.offset, query.limit)
+      const paginated = sorted.slice(query.offset, query.offset + query.limit)
       courses.value = paginated
+      total.value = courses.value.length
     }
   }
 
