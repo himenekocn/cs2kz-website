@@ -1,20 +1,34 @@
 <script setup lang="ts">
-import type { Profile, PlayerSteam } from "~/types"
+import type { Mode, PlayerSteam } from "~/types"
+
+const props = defineProps<{
+  mode: Mode
+}>()
 
 const { $api } = useNuxtApp()
 
-const props = defineProps<{
-  profile: Profile
-}>()
+const route = useRoute()
+
+const { query, profile } = useProfile()
 
 const avatarUrl = ref("")
 const profileUrl = ref("")
+
+// query.player_id = "76648292156514919"
+query.player_id = route.params.steam_id as string
+
+watch(
+  () => props.mode,
+  (mode) => {
+    query.mode = mode
+  },
+)
 
 getSteamProfile()
 
 async function getSteamProfile() {
   try {
-    const player: PlayerSteam | undefined = await $api(`/players/${props.profile.id}/steam-profile`)
+    const player: PlayerSteam | undefined = await $api(`/players/${route.params.steam_id}/steam-profile`)
     avatarUrl.value = player?.avatar_url.replace(/_medium/, "_full") || ""
     profileUrl.value = player?.profile_url || ""
   } catch (error) {
@@ -24,7 +38,7 @@ async function getSteamProfile() {
 </script>
 
 <template>
-  <div class="flex gap-2 lg:gap-4 p-4 border border-gray-700 rounded-md lg:text-lg">
+  <div v-if="profile" class="flex gap-2 lg:gap-4 p-4 border border-gray-700 rounded-md lg:text-lg">
     <img
       onerror="this.onerror = null; this.src = '/img/cs2kz_medium.jpg'"
       :src="avatarUrl"

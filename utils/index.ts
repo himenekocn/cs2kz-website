@@ -118,3 +118,77 @@ export function getWrHistory(records: Run[]) {
 
   return history.reverse()
 }
+
+// completions stats
+// the records are already filtered by `top=true` `mode` and `has_teleports`
+export function calcRanksAndPointsDist(runs: Run[], type: "overall" | "pro") {
+  let records = runs
+  if (type === "overall") {
+    // this won't be needed when the api is able to filter them
+    records = records.filter((record) => record.nub_rank !== null)
+  }
+
+  const wrs = records.filter((record) => (type === "overall" ? record.nub_rank === 1 : record.pro_rank === 1)).length
+
+  const top20 = records.filter((record) =>
+    type === "overall" ? record.nub_rank! <= 20 : record.pro_rank! <= 20,
+  ).length
+
+  const top50 = records.filter((record) =>
+    type === "overall" ? record.nub_rank! <= 50 : record.pro_rank! <= 50,
+  ).length
+
+  const top100 = records.filter((record) =>
+    type === "overall" ? record.nub_rank! <= 100 : record.pro_rank! <= 100,
+  ).length
+
+  const pointsDist = Array.from({ length: 10 }, (_, i) => {
+    const lower = i * 1000
+    const upper = lower + 1000
+    return records.filter((record) => {
+      if (type === "overall") {
+        return record.nub_points! > lower && record.nub_points! <= upper
+      } else {
+        return record.pro_points! > lower && record.pro_points! <= upper
+      }
+    }).length
+  })
+
+  return {
+    wrs,
+    top20,
+    top50,
+    top100,
+    pointsDist,
+  }
+}
+
+// the runs have either teleports or no teleports
+export function calcCompletedCourses(runs: Run[]) {
+  const tiers = ["very-easy", "easy", "medium", "advanced", "hard", "very-hard", "extreme", "death"]
+
+  return tiers.map((tier) => {
+    return runs.filter((record) => record.course.tier === tier).length
+  })
+
+  // const avgPoints = tiers.map((tier) => {
+  //   const recordsInTier = runs.filter((record) => record.course.tier === tier)
+  //   if (recordsInTier.length > 0) {
+  //     const totalPoints = recordsInTier.reduce((acc, record) => {
+  //       return acc + (record.teleports > 0 ? record.nub_points! : record.pro_points!)
+  //     }, 0)
+
+  //     return Math.floor(totalPoints / recordsInTier.length)
+  //   } else {
+  //     return 0
+  //   }
+  // })
+}
+
+export function calcTotalCourses(courses: CourseExt[]) {
+  const tiers = ["very-easy", "easy", "medium", "advanced", "hard", "very-hard", "extreme", "death"]
+
+  return tiers.map((tier) => {
+    return courses.filter((course) => course.tier === tier).length
+  })
+}

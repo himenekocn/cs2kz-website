@@ -23,6 +23,7 @@
     },
     "teleports": {
       "overall": "Overall",
+      "tp": "TP",
       "pro": "Pro"
     },
     "sortBy": {
@@ -106,8 +107,9 @@
       "wrs": "WRs",
       "top20": "Top 20",
       "top50": "Top 50",
-      "coursesDist": "Courses Distribution",
-      "pointsDist": "Points Distribution"
+      "top100": "Top 100",
+      "ranksAndPoints": "Ranks and Points Distribution",
+      "coursesDist": "Courses Distribution"
     },
     "runs": {
       "title": "Runs"

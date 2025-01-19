@@ -23,6 +23,7 @@
     },
     "teleports": {
       "overall": "总体",
+      "tp": "读点",
       "pro": "裸跳"
     },
     "sortBy": {
@@ -106,8 +107,9 @@
       "wrs": "世界纪录",
       "top20": "前20",
       "top50": "前50",
-      "coursesDist": "关卡分布",
-      "pointsDist": "积分分布"
+      "top100": "前100",
+      "ranksAndPoints": "排名和积分分布",
+      "coursesDist": "关卡分布"
     },
     "runs": {
       "title": "记录"

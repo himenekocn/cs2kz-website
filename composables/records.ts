@@ -61,11 +61,13 @@ export function useRecords() {
   async function getRecords() {
     try {
       loading.value = true
+
       const transformedQuery = {
         ...toRaw(query),
-        has_teleports: query.has_teleports === "overall" ? null : false,
+        has_teleports: query.has_teleports === "overall" ? null : query.has_teleports === "pro" ? true : false,
         styles: query.styles.length === 0 ? null : query.styles,
       }
+
       const data: RecordResponse | undefined = await $api("/records", {
         query: validQuery(transformedQuery),
       })

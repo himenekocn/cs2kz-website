@@ -1,37 +1,72 @@
 <script setup lang="ts">
 import { Chart, LinearScale, CategoryScale, BarElement, BarController, Colors, Tooltip } from "chart.js"
 
+const props = defineProps<{
+  pointsDist: number[]
+}>()
+
 Chart.register(CategoryScale, LinearScale, BarElement, BarController, Colors, Tooltip)
 
 const chart = ref<Chart | null>(null)
 
-const datasets = [
-  {
-    label: "Count",
-    data: [120, 342, 261, 188, 102, 95, 74, 32, 30, 21, 10],
-    backgroundColor: [
-      "#4CAF50",
-      "#8BC34A",
-      "#CDDC39",
-      "#FFEB3B",
-      "#FFC107",
-      "#FF9800",
-      "#FF5722",
-      "#F44336",
-      "#E91E63",
-      "#9C27B0",
-      "#673AB7",
-    ],
-  },
-]
+// const datasets: { label: string; data: number[]; backgroundColor: string[] }[] = [
+//   {
+//     label: "Count",
+//     data: [],
+//     backgroundColor: [
+//       "#4CAF50",
+//       "#8BC34A",
+//       "#CDDC39",
+//       "#FFEB3B",
+//       "#FFC107",
+//       "#FF9800",
+//       "#FF5722",
+//       "#F44336",
+//       "#E91E63",
+//       "#9C27B0",
+//       "#673AB7",
+//     ],
+//   },
+// ]
+
+// watch(
+//   () => props.pointsDist,
+//   (dist) => {
+//     if (chart.value) {
+//       chart.value.data.datasets[0]!.data = dist
+//       chart.value.update()
+//     }
+//   },
+// )
 
 onMounted(() => {
   const chartElement = document.getElementById("points-chart") as HTMLCanvasElement
+
+  console.log("dist", props.pointsDist)
+
   chart.value = new Chart(chartElement, {
     type: "bar",
     data: {
       labels: ["0-1000", "1000+", "2000+", "3000+", "4000+", "5000+", "6000+", "7000+", "8000+", "9000+", "WRs"],
-      datasets,
+      datasets: [
+        {
+          label: "Count",
+          data: props.pointsDist,
+          backgroundColor: [
+            "#4CAF50",
+            "#8BC34A",
+            "#CDDC39",
+            "#FFEB3B",
+            "#FFC107",
+            "#FF9800",
+            "#FF5722",
+            "#F44336",
+            "#E91E63",
+            "#9C27B0",
+            "#673AB7",
+          ],
+        },
+      ],
     },
     options: {
       responsive: true,

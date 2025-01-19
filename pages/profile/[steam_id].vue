@@ -2,12 +2,6 @@
 import type { Mode } from "~/types"
 import SteamID from "steamid"
 
-// const route = useRoute()
-
-const { query, profile } = useProfile()
-
-const mode = ref<Mode>("classic")
-
 definePageMeta({
   validate: async (route) => {
     try {
@@ -20,19 +14,16 @@ definePageMeta({
   },
 })
 
-// query.player_id = route.params.steam_id as string
-
-query.player_id = "76648292156514919"
+const mode = ref<Mode>("classic")
 
 function onModeChange(index: number) {
   const newMode = index === 0 ? "classic" : "vanilla"
   mode.value = newMode
-  query.mode = newMode
 }
 </script>
 <template>
   <Main>
-    <div v-if="profile" class="max-w-5xl mx-auto text-gray-300">
+    <div class="max-w-5xl mx-auto text-gray-300">
       <UTabs
         class="mb-6"
         :items="[{ label: $t('common.mode.ckz') }, { label: $t('common.mode.vnl') }]"
@@ -43,15 +34,13 @@ function onModeChange(index: number) {
         :default-index="0"
         @change="onModeChange" />
 
-      <ProfileCard :profile="profile" class="mb-10" />
+      <ProfileCard :mode="mode" class="mb-10" />
 
-      <ProfileCompletion class="mb-10" />
+      <ProfileCompletion :mode="mode" class="mb-10" />
 
       <ProfileRuns :mode="mode" class="mb-10" />
 
-      <ProfileHistory class="mb-10" />
+      <!-- <ProfileHistory class="mb-10" /> -->
     </div>
-
-    <div v-else class="text-xl text-gray-300">No Data</div>
   </Main>
 </template>

@@ -57,7 +57,7 @@ export type RecordResponse = paths["/records"]["get"]["responses"]["200"]["conte
 
 export interface RecordQuery {
   mode: Mode
-  has_teleports: "overall" | "pro"
+  has_teleports: "overall" | "tp" | "pro"
   top: boolean
   max_rank?: number
   player: string

@@ -1,35 +1,58 @@
 <script setup lang="ts">
 import { Chart, LinearScale, CategoryScale, BarElement, BarController, Colors, Tooltip } from "chart.js"
 
+const props = defineProps<{
+  completedCourses: number[]
+  totalCourses: number[]
+}>()
+
 Chart.register(CategoryScale, LinearScale, BarElement, BarController, Colors, Tooltip)
 
 const chart = ref<Chart | null>(null)
 
-const datasets = [
-  {
-    label: "Finished",
-    data: [60, 176, 43, 101, 66, 43, 21, 5],
-    backgroundColor: "#bfbfbf",
-  },
-  {
-    label: "Total",
-    data: [120, 342, 261, 188, 102, 95, 74, 32],
-    backgroundColor: "rgb(171, 171, 171, 0.3)",
-  },
-  {
-    label: "Average Points",
-    data: [433, 176, 43, 101, 66, 43, 21, 5],
-    hidden: true,
-  },
-]
+// const datasets: { label: string; data: number[]; backgroundColor?: string; hidden?: boolean }[] = [
+//   {
+//     label: "Completed",
+//     data: [0, 0, 0, 0, 0, 0, 0, 0],
+//     backgroundColor: "#bfbfbf",
+//   },
+//   {
+//     label: "Total",
+//     data: [0, 0, 0, 0, 0, 0, 0, 0],
+//     backgroundColor: "rgb(171, 171, 171, 0.3)",
+//   },
+// ]
+
+// watch(
+//   () => [props.completedCourses, props.totalCourses],
+//   ([completed, total]) => {
+//     if (chart.value) {
+//       chart.value.data.datasets[0]!.data = completed as number[]
+//       chart.value.data.datasets[1]!.data = total as number[]
+//       chart.value.update()
+//     }
+//   },
+// )
 
 onMounted(() => {
   const chartElement = document.getElementById("maps-chart") as HTMLCanvasElement
+
   chart.value = new Chart(chartElement, {
     type: "bar",
     data: {
       labels: ["Very Easy", "Easy", "Medium", "Advanced", "Hard", "Very Hard", "Extreme", "Death"],
-      datasets,
+      datasets: [
+        {
+          label: "Completed",
+          data: props.completedCourses,
+          backgroundColor: "#bfbfbf",
+        },
+        {
+          label: "Total",
+          data: props.totalCourses,
+          backgroundColor: "rgb(171, 171, 171, 0.3)",
+        },
+      ],
     },
     options: {
       responsive: true,
