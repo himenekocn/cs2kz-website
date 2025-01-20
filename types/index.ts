@@ -29,6 +29,8 @@ export type CourseFilters = components["schemas"]["CourseFilters"]
 
 export type Course = components["schemas"]["Course"]
 
+export type Teleports = "overall" | "tp" | "pro"
+
 export interface CourseExt {
   id: string
   map: string
@@ -57,7 +59,7 @@ export type RecordResponse = paths["/records"]["get"]["responses"]["200"]["conte
 
 export interface RecordQuery {
   mode: Mode
-  has_teleports: "overall" | "tp" | "pro"
+  has_teleports: Teleports
   top: boolean
   max_rank?: number
   player: string

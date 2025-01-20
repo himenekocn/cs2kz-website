@@ -8,7 +8,7 @@ defineProps<{
 </script>
 
 <template>
-  <div class="flex flex-wrap pb-2 mb-4 border-b border-gray-800 gap-x-8 gap-y-0 lg:gap-y-8">
+  <div class="flex flex-wrap mb-4 gap-x-8 gap-y-0 lg:gap-y-8">
     <div class="flex">
       <span class="mr-1 text-gray-400">{{ $t("profile.completion.wrs") }}:</span>
       <span class="font-semibold text-yellow-400">{{ wrs }}</span>

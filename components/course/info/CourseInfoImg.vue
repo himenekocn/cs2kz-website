@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import type { Course, Mode } from "~/types"
+import type { Course, Teleports, Mode } from "~/types"
 
 const props = defineProps<{
   course: Course
   mode: Mode
-  hasTeleports: "overall" | "pro"
+  hasTeleports: Teleports
 }>()
 
 const tier = computed(() =>

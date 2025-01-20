@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import type { Mode } from "~/types"
 
+const route = useRoute()
+
 const props = defineProps<{
   mode: Mode
 }>()
@@ -11,11 +13,9 @@ const { records: rankPointsRecords, query: rankPointsQuery } = useRecords()
 const { records: completionRecords, query: completionQuery } = useRecords()
 // to calculate total courses
 // the query takes tp/pro
-const { courses, query: courseQuery } = useCourses()
+const { courses, query: courseQuery, getCourses } = useCourses()
 
-const ranksAndPoints = computed(() =>
-  calcRanksAndPointsDist(rankPointsRecords.value, rankPointsQuery.has_teleports as "overall" | "pro"),
-)
+const ranksAndPoints = computed(() => calcRanksAndPointsDist(rankPointsRecords.value))
 
 const completedCourses = computed(() => calcCompletedCourses(completionRecords.value))
 
@@ -39,12 +39,14 @@ watch(
 
 initQuery()
 
+getCourses()
+
 function initQuery() {
-  rankPointsQuery.player = "marion_voluptas"
+  rankPointsQuery.player = route.params.steam_id as string
   rankPointsQuery.limit = 100000
 
   completionQuery.has_teleports = "tp"
-  completionQuery.player = "marion_voluptas"
+  completionQuery.player = route.params.steam_id as string
   completionQuery.limit = 100000
 
   courseQuery.limit = 100000
@@ -54,7 +56,7 @@ function initQuery() {
 <template>
   <div class="text-gray-300">
     <!-- title -->
-    <p class="text-3xl font-semibold">
+    <p class="text-3xl font-semibold mb-2">
       {{ $t("profile.completion.title") }}
     </p>
 
@@ -63,7 +65,7 @@ function initQuery() {
       <div class="gap-4 p-4 border border-gray-800 rounded-md mb-4">
         <div class="flex items-center gap-4 mb-4">
           <p class="text-xl font-medium">
-            {{ $t("profile.completion.ranksAndPoints") }}
+            {{ $t("profile.completion.ranks") }}
           </p>
           <USelectMenu
             v-model="rankPointsQuery.has_teleports"
@@ -80,6 +82,10 @@ function initQuery() {
           :top20="ranksAndPoints.top20"
           :top50="ranksAndPoints.top50"
           :top100="ranksAndPoints.top100" />
+        <p class="text-xl font-medium">
+          {{ $t("profile.completion.pointsDist") }}
+        </p>
+
         <ProfileChartPoints :points-dist="ranksAndPoints.pointsDist" />
       </div>
 

@@ -64,7 +64,7 @@ export function useRecords() {
 
       const transformedQuery = {
         ...toRaw(query),
-        has_teleports: query.has_teleports === "overall" ? null : query.has_teleports === "pro" ? true : false,
+        has_teleports: query.has_teleports === "overall" ? null : query.has_teleports === "pro" ? false : true,
         styles: query.styles.length === 0 ? null : query.styles,
       }
 

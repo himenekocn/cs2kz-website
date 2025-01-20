@@ -121,11 +121,17 @@ export function getWrHistory(records: Run[]) {
 
 // completions stats
 // the records are already filtered by `top=true` `mode` and `has_teleports`
-export function calcRanksAndPointsDist(runs: Run[], type: "overall" | "pro") {
+export function calcRanksAndPointsDist(runs: Run[]) {
   let records = runs
-  if (type === "overall") {
-    // this won't be needed when the api is able to filter them
+
+  let type: string
+  // if there's tp runs then we're calculating ranks and points from nub runs
+  // this won't be needed when the api is able to filter them
+  if (records.some((record) => record.teleports > 0)) {
+    type = "overall"
     records = records.filter((record) => record.nub_rank !== null)
+  } else {
+    type = "pro"
   }
 
   const wrs = records.filter((record) => (type === "overall" ? record.nub_rank === 1 : record.pro_rank === 1)).length

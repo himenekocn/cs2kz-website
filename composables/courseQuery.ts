@@ -1,9 +1,9 @@
-import type { Mode } from "~/types"
+import type { Mode, Teleports } from "~/types"
 
 interface SavedCourseQuery {
   course: string
   mode: Mode
-  has_teleports: "overall" | "pro"
+  has_teleports: Teleports
 }
 
 export const useCourseQuery = () =>

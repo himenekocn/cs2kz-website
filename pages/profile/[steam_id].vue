@@ -38,7 +38,7 @@ function onModeChange(index: number) {
 
       <ProfileCompletion :mode="mode" class="mb-10" />
 
-      <ProfileRuns :mode="mode" class="mb-10" />
+      <!-- <ProfileRuns :mode="mode" class="mb-10" /> -->
 
       <!-- <ProfileHistory class="mb-10" /> -->
     </div>

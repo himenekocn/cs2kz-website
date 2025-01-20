@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import type { MapState, Mode } from "~/types"
+import type { MapState, Teleports, Mode } from "~/types"
 
 const mode = defineModel<Mode>("mode")
-const hasTeleports = defineModel<"overall" | "pro">("hasTeleports")
+const hasTeleports = defineModel<Teleports>("hasTeleports")
 
 defineProps<{
   name: string

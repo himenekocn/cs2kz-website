@@ -108,7 +108,8 @@
       "top20": "前20",
       "top50": "前50",
       "top100": "前100",
-      "ranksAndPoints": "排名和积分分布",
+      "ranks": "排名",
+      "pointsDist": "分数分布",
       "coursesDist": "关卡分布"
     },
     "runs": {

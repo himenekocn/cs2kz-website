@@ -14,7 +14,6 @@ const { query, profile } = useProfile()
 const avatarUrl = ref("")
 const profileUrl = ref("")
 
-// query.player_id = "76648292156514919"
 query.player_id = route.params.steam_id as string
 
 watch(
