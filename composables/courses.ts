@@ -52,8 +52,8 @@ export function useCourses() {
       const tiered = matchTier(searched, query.tier)
       const sorted = sort(tiered, query.sort_order, query.sort_by)
       const paginated = sorted.slice(query.offset, query.offset + query.limit)
+      total.value = sorted.length
       courses.value = paginated
-      total.value = courses.value.length
     }
   }
 
