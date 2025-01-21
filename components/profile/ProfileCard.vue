@@ -1,27 +1,16 @@
 <script setup lang="ts">
-import type { Mode, PlayerSteam } from "~/types"
+import type { Profile, PlayerSteam } from "~/types"
 
-const props = defineProps<{
-  mode: Mode
+defineProps<{
+  profile: Profile
 }>()
-
-const { $api } = useNuxtApp()
 
 const route = useRoute()
 
-const { query, profile } = useProfile()
+const { $api } = useNuxtApp()
 
 const avatarUrl = ref("")
 const profileUrl = ref("")
-
-query.player_id = route.params.steam_id as string
-
-watch(
-  () => props.mode,
-  (mode) => {
-    query.mode = mode
-  },
-)
 
 getSteamProfile()
 
@@ -37,7 +26,7 @@ async function getSteamProfile() {
 </script>
 
 <template>
-  <div v-if="profile" class="flex gap-2 lg:gap-4 p-4 border border-gray-700 rounded-md lg:text-lg">
+  <div class="flex gap-2 lg:gap-4 p-4 border border-gray-700 rounded-md lg:text-lg">
     <img
       onerror="this.onerror = null; this.src = '/img/cs2kz_medium.jpg'"
       :src="avatarUrl"
