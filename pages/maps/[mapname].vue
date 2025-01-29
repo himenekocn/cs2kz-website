@@ -92,13 +92,14 @@ async function getMap() {
 
       <div v-else-if="map && course">
         <CourseInfoHeader
+          v-model:active-course-name="activeCourseName"
           v-model:mode="query.mode"
           v-model:has-teleports="query.has_teleports"
           :name="map.name"
+          :courses="courseNames"
           :state="map.state" />
 
         <div class="border border-gray-700 rounded-md mt-2">
-          <CourseInfoNames v-model:active-course-name="activeCourseName" :names="courseNames!" />
           <CourseInfoImg :course="course" :mode="query.mode" :has-teleports="query.has_teleports" />
         </div>
 

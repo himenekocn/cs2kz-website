@@ -4,10 +4,15 @@ import type { MapState, Teleports, Mode } from "~/types"
 const mode = defineModel<Mode>("mode")
 const hasTeleports = defineModel<Teleports>("hasTeleports")
 
-defineProps<{
+const props = defineProps<{
   name: string
   state: MapState
+  courses: string[]
 }>()
+
+const courseOptions = props.courses.map((course) => ({ name: course, value: course }))
+
+const activeCourseName = defineModel<string>("activeCourseName")
 
 const stateColorMap = {
   approved: "text-green-400 bg-green-300/50",
@@ -28,6 +33,11 @@ const stateColorMap = {
     <div class="flex items-center gap-2 md:ml-6">
       <p class="text-gray-200 text-lg">{{ `${$t("map.filters")}:` }}</p>
       <div class="flex items-center gap-2">
+        <USelectMenu
+          v-model="activeCourseName"
+          :options="courseOptions"
+          value-attribute="value"
+          option-attribute="name" />
         <USelectMenu
           v-model="mode"
           :options="[
