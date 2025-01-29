@@ -76,7 +76,14 @@ const rows = computed(() => {
         </template>
 
         <template #time-data="{ row }">
-          <span class="text-slate-300">{{ formatTime(row.time) }}</span>
+          <div class="flex items-start gap-1">
+            <span class="text-slate-300">{{ formatTime(row.time) }}</span>
+            <div
+              class="flex justify-center items-center text-gray-100 text-[10px] leading-3 rounded-sm px-1"
+              :class="{ 'bg-yellow-600': row.teleports > 0, 'bg-blue-600': row.teleports === 0 }">
+              {{ row.teleports > 0 ? "TP" : "PRO" }}
+            </div>
+          </div>
         </template>
 
         <template #nub_points-data="{ row }">
@@ -85,10 +92,6 @@ const rows = computed(() => {
 
         <template #pro_points-data="{ row }">
           {{ row.pro_points ? Math.floor(row.pro_points) : "-" }}
-        </template>
-
-        <template #teleports-data="{ row }">
-          {{ row.teleports }}
         </template>
 
         <template #submitted_at-data="{ row }">

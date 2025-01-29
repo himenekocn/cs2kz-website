@@ -12,7 +12,7 @@ defineProps<{
     <div class="flex">
       <span class="mr-1 text-gray-400">{{ $t("profile.completion.wrs") }}:</span>
       <span class="font-semibold text-yellow-400">{{ wrs }}</span>
-      <IconMedal class="w-5 h-5" />
+      <IconMedalFirst class="w-5 h-5" />
     </div>
 
     <div>

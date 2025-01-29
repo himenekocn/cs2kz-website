@@ -136,11 +136,17 @@ function goToCourse(row: TableRow) {
       </template>
 
       <template #nub_rank-data="{ row }">
-        <span class="">{{ row.nub_rank }}</span>
+        <IconMedalFirst v-if="row.nub_rank === 1" />
+        <IconMedalSecond v-else-if="row.nub_rank === 2" />
+        <IconMedalThird v-else-if="row.nub_rank === 3" />
+        <span v-else>{{ row.nub_rank || "-" }}</span>
       </template>
 
       <template #pro_rank-data="{ row }">
-        <span class="">{{ row.pro_rank }}</span>
+        <IconMedalFirst v-if="row.pro_rank === 1" />
+        <IconMedalSecond v-else-if="row.pro_rank === 2" />
+        <IconMedalThird v-else-if="row.pro_rank === 3" />
+        <span v-else>{{ row.pro_rank || "-" }}</span>
       </template>
 
       <template #submitted_at-data="{ row }">

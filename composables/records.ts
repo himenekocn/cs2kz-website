@@ -33,6 +33,7 @@ export function useRecords() {
       query.mode,
       query.has_teleports,
       query.top,
+      query.max_rank,
       query.player,
       query.map,
       query.course,
