@@ -28,8 +28,8 @@ function connect(ip: string) {
     <UCard :ui="{ body: { padding: '' } }">
       <UTable
         :ui="{
-          th: { size: 'text-base', padding: 'py-2' },
-          td: { size: 'text-base', padding: 'py-2' },
+          th: { base: 'text-nowrap', size: 'text-base', padding: 'py-2' },
+          td: { base: 'text-nowrap', size: 'text-base', padding: 'py-2' },
           tr: { base: 'hover:bg-gray-800 transition ease-in' },
         }"
         :loading="loading"
