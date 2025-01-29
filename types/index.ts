@@ -55,6 +55,8 @@ export interface CourseQuery {
 
 export type Record = components["schemas"]["Record"]
 
+export type RecordWithImproved = { timeImproved: number } & Record
+
 export type RecordResponse = paths["/records"]["get"]["responses"]["200"]["content"]["application/json"]
 
 export interface RecordQuery {

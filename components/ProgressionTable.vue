@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Record, RecordQuery, RecordResponse } from "~/types"
+import type { RecordWithImproved, RecordQuery, RecordResponse } from "~/types"
 
 const props = defineProps<{
   query: RecordQuery
@@ -7,7 +7,7 @@ const props = defineProps<{
 
 const { $api } = useNuxtApp()
 
-const history = ref<Record[]>([])
+const history = ref<RecordWithImproved[]>([])
 
 const loading = ref(false)
 
@@ -16,6 +16,7 @@ const rows = computed(() => {
     player: record.player.name,
     player_id: record.player.id,
     time: formatTime(record.time),
+    timeImproved: record.timeImproved,
     server: record.server.name,
     created_on: toLocal(record.submitted_at),
   }))
@@ -109,6 +110,12 @@ getWrProgression()
           class="py-2 px-2 lg:px-0 text-cyan-600 text-lg whitespace-nowrap hover:text-cyan-400">
           {{ row.player }}
         </NuxtLink>
+      </template>
+      <template #time-data="{ row }">
+        <div class="flex items-center gap-2">
+          <span>{{ row.time }}</span>
+          <span v-if="row.timeImproved > 0" class="text-green-600">{{ `(+${formatTime(row.timeImproved)})` }}</span>
+        </div>
       </template>
     </UTable>
   </UCard>

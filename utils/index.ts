@@ -1,4 +1,4 @@
-import type { CourseExt, Record as Run, Tier } from "~/types"
+import type { CourseExt, Record as Run, RecordWithImproved, Tier } from "~/types"
 import { format } from "date-fns"
 
 export function validQuery(query: Record<string, unknown>) {
@@ -97,21 +97,16 @@ export function seperateThousands(num: number) {
 }
 
 export function getWrHistory(records: Run[]) {
-  // will remove this part when api is able to sort them
-  const sorted = records.sort((a, b) => {
-    return new Date(b.submitted_at).getTime() - new Date(a.submitted_at).getTime()
-  })
+  const history: RecordWithImproved[] = []
 
-  const history: Run[] = []
-
-  sorted.forEach((record) => {
+  records.forEach((record) => {
     const len = history.length
     if (len === 0) {
-      history.push(record)
+      history.push({ ...record, timeImproved: 0 })
     } else {
       const last = history[len - 1] as Run
       if (record.time <= last.time) {
-        history.push(record)
+        history.push({ ...record, timeImproved: last.time - record.time })
       }
     }
   })
