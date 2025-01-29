@@ -92,6 +92,7 @@
     }
   },
   "profile": {
+    "notFound": "未找到该玩家",
     "info": {
       "joinedOn": "加入日期",
       "hours": "记录时长",

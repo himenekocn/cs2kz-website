@@ -36,7 +36,7 @@ getProfile()
     </div>
     <div v-if="!loading && !profile" class="flex px-4 py-2 items-center bg-orange-400/40 gap-2 rounded-lg">
       <IconWarning />
-      <p class="flex-1 text-amber-400">Profile Not Found</p>
+      <p class="flex-1 text-amber-400">{{ $t("profile.notFound") }}</p>
     </div>
   </Main>
 </template>

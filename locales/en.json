@@ -92,6 +92,7 @@
     }
   },
   "profile": {
+    "notFound": "Profile Not Found",
     "info": {
       "joinedOn": "Joined on",
       "hours": "hrs on record",
