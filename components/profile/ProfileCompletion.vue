@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import type { Mode } from "~/types"
 
-const route = useRoute()
-
 const props = defineProps<{
   mode: Mode
 }>()
@@ -42,11 +40,9 @@ initQuery()
 getCourses()
 
 function initQuery() {
-  rankPointsQuery.player = route.params.steam_id as string
   rankPointsQuery.limit = 100000
 
   completionQuery.has_teleports = "tp"
-  completionQuery.player = route.params.steam_id as string
   completionQuery.limit = 100000
 
   courseQuery.limit = 100000

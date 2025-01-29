@@ -1,11 +1,7 @@
 <script setup lang="ts">
 import type { Mode } from "~/types"
 
-const route = useRoute()
-
-const { query, profile, loading } = useProfile()
-
-query.player_id = route.params.steam_id as string
+const { query, profile, loading, getProfile } = useProfile()
 
 const mode = ref<Mode>("classic")
 
@@ -14,6 +10,8 @@ function onModeChange(index: number) {
   query.mode = newMode
   mode.value = newMode
 }
+
+getProfile()
 </script>
 <template>
   <Main>

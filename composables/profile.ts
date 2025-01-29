@@ -3,12 +3,14 @@ import type { Profile, ProfileQuery } from "~/types"
 export function useProfile() {
   const { $api } = useNuxtApp()
 
+  const route = useRoute()
+
   const loading = ref(false)
   const error = ref(null)
   const profile = ref<Profile | null>(null)
 
   const query = reactive<ProfileQuery>({
-    player_id: "",
+    player_id: (route.params.steam_id as string) || "",
     mode: "classic",
   })
 

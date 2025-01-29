@@ -1,15 +1,11 @@
 <script setup lang="ts">
 import type { Mode } from "~/types"
 
-const route = useRoute()
-
 const props = defineProps<{
   mode: Mode
 }>()
 
 const { records, loading, query, total, getRecords } = useRecords()
-
-query.player = route.params.steam_id as string
 
 watch(
   () => props.mode,
@@ -17,6 +13,8 @@ watch(
     query.mode = mode
   },
 )
+
+getRecords()
 </script>
 
 <template>

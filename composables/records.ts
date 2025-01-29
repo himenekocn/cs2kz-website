@@ -3,6 +3,8 @@ import type { Record, RecordQuery, RecordResponse } from "~/types"
 export function useRecords() {
   const { $api } = useNuxtApp()
 
+  const route = useRoute()
+
   const loading = ref(false)
   const records = ref<Record[]>([])
 
@@ -13,7 +15,7 @@ export function useRecords() {
     mode: "classic",
     has_teleports: "overall",
     top: true,
-    player: "",
+    player: (route.params.steam_id as string) || "",
     map: "",
     course: "",
     server: "",
