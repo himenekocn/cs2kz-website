@@ -143,14 +143,14 @@ export function calcRanksAndPointsDist(runs: Run[]) {
     type === "overall" ? record.nub_rank! <= 100 : record.pro_rank! <= 100,
   ).length
 
-  const pointsDist = Array.from({ length: 10 }, (_, i) => {
+  const pointsDist = Array.from({ length: 11 }, (_, i) => {
     const lower = i * 1000
     const upper = lower + 1000
     return records.filter((record) => {
       if (type === "overall") {
-        return record.nub_points! > lower && record.nub_points! <= upper
+        return record.nub_points! >= lower && record.nub_points! < upper
       } else {
-        return record.pro_points! > lower && record.pro_points! <= upper
+        return record.pro_points! >= lower && record.pro_points! < upper
       }
     }).length
   })
