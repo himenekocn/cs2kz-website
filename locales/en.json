@@ -111,7 +111,7 @@
       "top100": "Top 100",
       "ranks": "Ranks",
       "pointsDist": "Points Distribution",
-      "coursesDist": "Courses Distribution"
+      "completionByTier": "Completion by Tier"
     },
     "runs": {
       "title": "Runs"

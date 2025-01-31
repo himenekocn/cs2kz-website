@@ -89,7 +89,7 @@ function initQuery() {
       <div class="gap-4 p-4 border border-gray-800 rounded-md">
         <div class="flex items-center gap-4 mb-2">
           <p class="text-xl font-medium">
-            {{ $t("profile.completion.coursesDist") }}
+            {{ $t("profile.completion.completionByTier") }}
           </p>
           <USelectMenu
             v-model="completionQuery.has_teleports"

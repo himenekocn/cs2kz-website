@@ -111,7 +111,7 @@
       "top100": "前100",
       "ranks": "排名",
       "pointsDist": "分数分布",
-      "coursesDist": "关卡分布"
+      "completionByTier": "难度完成情况"
     },
     "runs": {
       "title": "记录"
