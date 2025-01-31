@@ -79,21 +79,6 @@ export type Server = components["schemas"]["Server"]
 
 export type ServerResponse = paths["/servers"]["get"]["responses"]["200"]["content"]["application/json"]
 
-export interface ServerWithInfo extends Server {
-  info: ServerInfo | null
-}
-
-export interface ServerInfo {
-  name: string
-  map: string
-  players: { online: number; max: number; bots: number }
-  hasPassword: boolean
-  VAC: boolean
-  version: string
-  ping: number
-  connection: "good" | "mid" | "bad"
-}
-
 export interface ServerQuery {
   name: string
   host: string
