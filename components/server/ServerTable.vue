@@ -36,12 +36,12 @@ function connect(ip: string) {
         :columns="columns"
         :rows="servers">
         <template #name-data="{ row }">
-          <p>{{ row.name }}</p>
+          <span class="italic">{{ row.name }}</span>
         </template>
 
         <template #host-data="{ row }">
           <div class="inline-flex items-center gap-2">
-            <p>{{ `${row.host}:${row.port}` }}</p>
+            <span>{{ `${row.host}:${row.port}` }}</span>
             <UButton
               variant="ghost"
               :ui="{
@@ -61,7 +61,7 @@ function connect(ip: string) {
         </template>
 
         <template #approved_at-data="{ row }">
-          <p>{{ toLocal(row.approved_at) }}</p>
+          <span>{{ toLocal(row.approved_at) }}</span>
         </template>
       </UTable>
     </UCard>

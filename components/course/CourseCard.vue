@@ -29,7 +29,7 @@ function convertTier(tier: Tier) {
       :src="course.img"
       onerror="this.onerror = null; this.src = '/img/cs2kz_medium.jpg'"
       loading="lazy"
-      class="animate-fade-in w-64 h-auto rounded-l-md" >
+      class="animate-fade-in w-64 h-auto rounded-l-md" />
 
     <div :style="{ backgroundImage: `url(${course.img})` }" class="info">
       <div>
@@ -48,7 +48,7 @@ function convertTier(tier: Tier) {
             <NuxtLink :to="`/profile/${mapper.id}`" class="text-cyan-600 hover:text-cyan-400">
               {{ mapper.name }}
             </NuxtLink>
-            <span v-if="index < course.mappers.length - 1" class="text-gray-400 mr-1"> , </span>
+            <span v-if="index < course.mappers.length - 1" class="text-gray-400 mr-1">,</span>
           </div>
         </div>
       </div>

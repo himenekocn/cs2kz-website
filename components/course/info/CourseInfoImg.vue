@@ -41,7 +41,7 @@ const stateColorMap = {
         <NuxtLink :to="`/profile/${mapper.id}`" class="text-cyan-500 hover:text-cyan-400">
           {{ mapper.name }}
         </NuxtLink>
-        <span v-if="index < course.mappers.length - 1" class="text-gray-300 mr-1"> , </span>
+        <span v-if="index < course.mappers.length - 1" class="text-gray-300 mr-1">,</span>
       </div>
     </div>
 
