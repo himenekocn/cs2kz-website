@@ -31,12 +31,10 @@ async function getAvatar() {
     :class="wr && 'ring-2 ring-yellow-200'">
     <div class="relative">
       <NuxtLink :to="`/profile/${record.player.id}`">
-        <img
+        <TheImage
           :src="avatarUrl"
-          onerror="this.onerror = null; this.src = '/img/cs2kz_medium.jpg'"
-          loading="lazy"
-          class="rounded-md w-20 h-20 object-cover"
-          :class="wr ? 'ring-2 ring-yellow-200' : 'ring-2 ring-slate-200'" />
+          class="w-20 h-auto object-cover rounded-md ring-2"
+          :class="wr ? 'ring-yellow-200' : 'ring-slate-400'" />
       </NuxtLink>
       <IconMedalFirst class="w-6 h-6 absolute top-[2px] left-[2px]" />
     </div>

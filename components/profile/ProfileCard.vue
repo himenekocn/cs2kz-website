@@ -27,10 +27,7 @@ async function getSteamProfile() {
 
 <template>
   <div class="flex gap-2 lg:gap-4 p-4 border border-gray-700 rounded-md lg:text-lg">
-    <img
-      onerror="this.onerror = null; this.src = '/img/cs2kz_medium.jpg'"
-      :src="avatarUrl"
-      class="w-24 h-24 lg:w-32 lg:h-32 object-cover rounded-md ring-2 ring-blue-400/30" />
+    <TheImage :src="avatarUrl" class="w-24 h-24 lg:w-32 lg:h-32 rounded-md ring-1 ring-slate-400" />
 
     <div class="flex flex-col gap-2 lg:gap-5">
       <div class="flex items-center gap-1">

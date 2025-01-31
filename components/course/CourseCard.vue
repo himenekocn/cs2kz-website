@@ -25,12 +25,7 @@ function convertTier(tier: Tier) {
   <div
     class="card w-max flex items-center rounded-md ring ring-blue-600/20 hover:ring-blue-600/70 hover:ring-4 transition ease-in cursor-pointer"
     @click="goToCourse()">
-    <img
-      :src="course.img"
-      onerror="this.onerror = null; this.src = '/img/cs2kz_medium.jpg'"
-      loading="lazy"
-      class="animate-fade-in w-64 h-auto rounded-l-md" />
-
+    <TheImage class="w-64 h-36" :src="course.img" />
     <div :style="{ backgroundImage: `url(${course.img})` }" class="info">
       <div>
         <div class="flex gap-1 items-center">
