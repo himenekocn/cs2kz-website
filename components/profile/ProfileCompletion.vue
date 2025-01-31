@@ -61,7 +61,7 @@ function initQuery() {
       <div class="gap-4 p-4 border border-gray-800 rounded-md mb-4">
         <div class="flex items-center gap-4 mb-4">
           <p class="text-xl font-medium">
-            {{ $t("profile.completion.ranks") }}
+            {{ $t("profile.completion.topRecords") }}
           </p>
           <USelectMenu
             v-model="rankPointsQuery.has_teleports"

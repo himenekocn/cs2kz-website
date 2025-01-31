@@ -109,7 +109,7 @@
       "top20": "前20",
       "top50": "前50",
       "top100": "前100",
-      "ranks": "排名",
+      "topRecords": "Top 记录",
       "pointsDist": "分数分布",
       "completionByTier": "难度完成情况"
     },
