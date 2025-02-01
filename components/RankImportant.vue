@@ -1,12 +1,20 @@
 <script setup lang="ts">
-import type { Record, PlayerSteam } from "~/types"
+import type { Record, PlayerSteam, Teleports } from "~/types"
 
 const { $api } = useNuxtApp()
 
 const props = defineProps<{
+  hasTeleports: Teleports
   record: Record
-  wr?: boolean
 }>()
+
+const wr = computed(() => {
+  if (props.hasTeleports === "overall") {
+    return props.record.nub_rank === 1
+  } else {
+    return props.record.pro_rank === 1
+  }
+})
 
 const emits = defineEmits(["toggle"])
 
@@ -49,7 +57,7 @@ async function getAvatar() {
         >
       </div>
       <p class="relative text-slate-300 text-lg">
-        {{ wr ? "#1" : `#${Math.ceil(Math.random() * 1000)}` }}
+        {{ `#${hasTeleports === "overall" ? record.nub_rank : record.pro_rank}` }}
       </p>
     </div>
 

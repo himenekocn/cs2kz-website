@@ -121,13 +121,14 @@ async function getMap() {
             <RankImportant
               v-if="worldRecord"
               :record="worldRecord"
-              wr
+              :has-teleports="query.has_teleports"
               @toggle="showWrProgression = !showWrProgression" />
             <ProgressionTable v-if="showWrProgression" :query="query" class="mt-2" />
             <RankImportant
               v-if="playerRecord && playerRecord.player.id !== worldRecord?.player.id"
               :record="playerRecord"
-              class="mt-2" />
+              :has-teleports="query.has_teleports" />
+            class="mt-2" />
             <CourseRanking v-model:limit="query.limit" :total="total" :records="records" :loading="loadingRecords" />
           </div>
         </div>
