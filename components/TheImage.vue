@@ -5,27 +5,22 @@ const props = defineProps<{
   src: string
 }>()
 
-const { isLoading, error } = useImage({ src: props.src })
+let _loading = ref()
+let _error = ref()
+
+function loadImage() {
+  const { isLoading, error } = useImage({ src: props.src })
+  /* eslint-disable */
+  _loading = isLoading
+  _error = error
+  /* eslint-enable */
+}
+
+watch(() => props.src, loadImage, { immediate: true })
 </script>
 
 <template>
-  <img v-if="!isLoading && !error" :src="props.src" loading="lazy" />
+  <img v-if="!_loading && !_error" :src="props.src" loading="lazy" />
 
-  <img v-else src="~/assets/img/fallback.jpg" loading="lazy" class="map-img" />
+  <img v-else src="~/assets/img/fallback.jpg" loading="lazy" class="animate-fade-in" />
 </template>
-
-<style scoped>
-@keyframes img-enter {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-.map-img {
-  animation: img-enter 0.25s ease;
-  animation-fill-mode: forwards;
-  opacity: 0;
-}
-</style>
