@@ -82,7 +82,7 @@ function initQuery() {
           {{ $t("profile.completion.pointsDist") }}
         </p>
 
-        <ProfileChartPoints :points-dist="ranksAndPoints.pointsDist" />
+        <ProfileChartPointsDist :points-dist="ranksAndPoints.pointsDist" />
       </div>
 
       <!-- completed courses -->
@@ -101,7 +101,7 @@ function initQuery() {
             option-attribute="name" />
         </div>
 
-        <ProfileChartCourses :completed-courses="completedCourses" :total-courses="totalCourses" />
+        <ProfileChartCompletionByTier :completed-courses="completedCourses" :total-courses="totalCourses" />
       </div>
     </div>
   </div>

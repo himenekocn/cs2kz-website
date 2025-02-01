@@ -8,7 +8,7 @@ getServers()
     <ServerQuery v-model:query="query" />
 
     <div v-if="total > 0" class="px-4 py-2 mt-8 border border-gray-700 rounded-md lg:mx-auto lg:w-max">
-      <PageHelper v-model:limit="query.limit" v-model:offset="query.offset" :total="total" @refresh="getServers" />
+      <Pagination v-model:limit="query.limit" v-model:offset="query.offset" :total="total" @refresh="getServers" />
     </div>
 
     <ServerTable :loading="loading" :error="error" :servers="servers" />

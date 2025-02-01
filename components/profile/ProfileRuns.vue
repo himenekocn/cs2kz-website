@@ -28,7 +28,7 @@ getRecords()
       <RecordQuery v-model:query="query" />
 
       <div v-if="total > 0" class="mx-auto py-3">
-        <PageHelper v-model:limit="query.limit!" v-model:offset="query.offset!" :total="total" @refresh="getRecords" />
+        <Pagination v-model:limit="query.limit!" v-model:offset="query.offset!" :total="total" @refresh="getRecords" />
       </div>
 
       <RecordTable

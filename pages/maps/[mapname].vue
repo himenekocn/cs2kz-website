@@ -91,7 +91,7 @@ async function getMap() {
       </div>
 
       <div v-else-if="map && course">
-        <CourseInfoHeader
+        <CourseHeader
           v-model:active-course-name="activeCourseName"
           v-model:mode="query.mode"
           v-model:has-teleports="query.has_teleports"
@@ -100,7 +100,7 @@ async function getMap() {
           :state="map.state" />
 
         <div class="border border-gray-700 rounded-md mt-2">
-          <CourseInfoImg :map="map" :course="course" :mode="query.mode" :has-teleports="query.has_teleports" />
+          <CourseImage :map="map" :course="course" :mode="query.mode" :has-teleports="query.has_teleports" />
         </div>
 
         <div class="mt-6">
@@ -118,21 +118,17 @@ async function getMap() {
             <IconLoading />
           </div>
           <div v-else class="mt-2">
-            <RankHighlighted
+            <RankImportant
               v-if="worldRecord"
               :record="worldRecord"
               wr
               @toggle="showWrProgression = !showWrProgression" />
             <ProgressionTable v-if="showWrProgression" :query="query" class="mt-2" />
-            <RankHighlighted
+            <RankImportant
               v-if="playerRecord && playerRecord.player.id !== worldRecord?.player.id"
               :record="playerRecord"
               class="mt-2" />
-            <CourseInfoRanking
-              v-model:limit="query.limit"
-              :total="total"
-              :records="records"
-              :loading="loadingRecords" />
+            <CourseRanking v-model:limit="query.limit" :total="total" :records="records" :loading="loadingRecords" />
           </div>
         </div>
       </div>

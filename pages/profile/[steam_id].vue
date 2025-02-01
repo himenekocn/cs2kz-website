@@ -26,7 +26,7 @@ getProfile()
         :default-index="0"
         @change="onModeChange" />
 
-      <ProfileCard :profile="profile" class="mb-10" />
+      <ProfilePlayer :profile="profile" class="mb-10" />
 
       <ProfileCompletion :mode="mode" class="mb-10" />
 
