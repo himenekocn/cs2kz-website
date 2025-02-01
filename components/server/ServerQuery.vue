@@ -19,17 +19,17 @@ watch(ip, (ip) => {
     class="lg:w-max mx-auto p-2 lg:p-4 flex flex-wrap items-center lg:justify-center gap-2 lg:gap-8 border border-gray-700 rounded-md">
     <UInput v-model="query.name" :placeholder="$t('servers.query.name')">
       <template #trailing>
-        <IconMap />
+        <IconServer />
       </template>
     </UInput>
     <UInput v-model="ip" :placeholder="$t('servers.query.ipAddress')">
       <template #trailing>
-        <IconPlayer />
+        <IconInternet />
       </template>
     </UInput>
-    <UInput v-model="query.ownedBy" :placeholder="$t('servers.query.ownedBy')">
+    <UInput v-model="query.owned_by" :placeholder="$t('servers.query.ownedBy')">
       <template #trailing>
-        <IconServer />
+        <IconPlayer />
       </template>
     </UInput>
   </div>

@@ -73,7 +73,7 @@ function initQuery() {
             option-attribute="name" />
         </div>
 
-        <ProfileRanks
+        <ProfileTopRecords
           :wrs="ranksAndPoints.wrs"
           :top20="ranksAndPoints.top20"
           :top50="ranksAndPoints.top50"
