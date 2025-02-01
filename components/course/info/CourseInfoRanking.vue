@@ -87,11 +87,11 @@ const rows = computed(() => {
         </template>
 
         <template #nub_points-data="{ row }">
-          {{ row.nub_points ? Math.floor(row.nub_points) : "-" }}
+          {{ row.nub_points ? seperateThousands(row.nub_points) : "-" }}
         </template>
 
         <template #pro_points-data="{ row }">
-          {{ row.pro_points ? Math.floor(row.pro_points) : "-" }}
+          {{ row.pro_points ? seperateThousands(row.pro_points) : "-" }}
         </template>
 
         <template #submitted_at-data="{ row }">

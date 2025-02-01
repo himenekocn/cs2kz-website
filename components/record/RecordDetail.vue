@@ -9,7 +9,10 @@ defineProps<{
 
 <template>
   <div class="flex items-center gap-3 text-gray-300">
-    <TheImage v-if="detailed" src="" class="w-64 h-36 rounded-md ring-1 ring-slate-400" />
+    <TheImage
+      v-if="detailed"
+      :src="`https://github.com/jonahbearde/cs2kz-images/raw/public/webp/medium/${record.map.name}/1.webp`"
+      class="w-64 h-36 rounded-md ring-1 ring-slate-400" />
     <div class="grid grid-cols-[1fr_1fr_1fr_1fr] gap-x-10 gap-y-3">
       <div v-if="detailed" class="grid-item">
         <p class="item-key">{{ $t("records.title.map") }}:</p>
@@ -66,7 +69,7 @@ defineProps<{
 
       <div class="grid-item">
         <p class="item-key">{{ $t("records.title.nubPoints") }}:</p>
-        <p>{{ record.nub_points ? Math.floor(record.nub_points) : "-" }}</p>
+        <p>{{ record.nub_points ? seperateThousands(record.nub_points) : "-" }}</p>
       </div>
 
       <div class="grid-item">
@@ -76,7 +79,7 @@ defineProps<{
 
       <div class="grid-item">
         <p class="item-key">{{ $t("records.title.proPoints") }}:</p>
-        <p>{{ record.pro_points ? Math.floor(record.pro_points) : "-" }}</p>
+        <p>{{ record.pro_points ? seperateThousands(record.pro_points) : "-" }}</p>
       </div>
     </div>
   </div>

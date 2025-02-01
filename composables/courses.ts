@@ -82,7 +82,7 @@ export function useCourses() {
 
       if (data) {
         const res = data.values.flatMap((map) =>
-          map.courses.map((course) => {
+          map.courses.map((course, index) => {
             return {
               id: uuidv4(),
               name: course.name,
@@ -94,7 +94,7 @@ export function useCourses() {
               state: course.filters[query.mode].state,
               mappers: course.mappers,
               created_on: map.approved_at,
-              img: "",
+              img: `https://github.com/jonahbearde/cs2kz-images/raw/public/webp/medium/${map.name}/${index + 1}.webp`,
             }
           }),
         )

@@ -100,7 +100,7 @@ async function getMap() {
           :state="map.state" />
 
         <div class="border border-gray-700 rounded-md mt-2">
-          <CourseInfoImg :course="course" :mode="query.mode" :has-teleports="query.has_teleports" />
+          <CourseInfoImg :map="map" :course="course" :mode="query.mode" :has-teleports="query.has_teleports" />
         </div>
 
         <div class="mt-6">

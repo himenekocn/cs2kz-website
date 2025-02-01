@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import type { Course, Teleports, Mode } from "~/types"
+import type { Course, Map, Teleports, Mode } from "~/types"
 
 const props = defineProps<{
   course: Course
+  map: Map
   mode: Mode
   hasTeleports: Teleports
 }>()
@@ -23,6 +24,10 @@ const stateColorMap = {
   pending: "text-gray-400 bg-gray-400",
 }
 
+const backgroundImage = computed(
+  () => `url('https://github.com/jonahbearde/cs2kz-images/raw/public/webp/full/${props.map.name}/1.webp')`,
+)
+
 // TODO: tags
 // const tags = ["slide", "bhop", "strafe"]
 </script>
@@ -30,7 +35,7 @@ const stateColorMap = {
 <template>
   <div
     :style="{
-      backgroundImage: `url('~/assets/img/cs2kz_full.jpg')`,
+      backgroundImage,
     }"
     class="animate-fade-in info">
     <p class="text-2xl text-gray-100 font-medium">{{ course.name }}</p>
