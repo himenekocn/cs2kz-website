@@ -595,6 +595,8 @@ export interface components {
           /** @enum {string} */
           type: "admin"
         }
+    /** @description an MD5 checksum */
+    Checksum: string
     Course: {
       /** @description The course's name. */
       name: string
@@ -643,7 +645,8 @@ export interface components {
       id: number
       /** @description The course's name. */
       name: string
-      tier: components["schemas"]["CourseFilterTier"]
+      nub_tier: components["schemas"]["CourseFilterTier"]
+      pro_tier: components["schemas"]["CourseFilterTier"]
     }
     CourseUpdate: {
       /** @description The index of the course to update.
@@ -840,6 +843,11 @@ export interface components {
        *     You must specify at least 1 course. */
       courses: components["schemas"]["NewCourse"][]
     }
+    NewMode: {
+      mode: components["schemas"]["Mode"]
+      linux_checksum: components["schemas"]["Checksum"]
+      windows_checksum: components["schemas"]["Checksum"]
+    }
     NewPluginVersion: {
       /**
        * @description A SemVer version.
@@ -848,6 +856,14 @@ export interface components {
       version: string
       /** @description The git revision associated with the release commit / tag. */
       git_revision: components["schemas"]["GitRevision"]
+      /** @description Checksum of the plugin binary on Linux */
+      linux_checksum: components["schemas"]["Checksum"]
+      /** @description Checksum of the plugin binary on Windows */
+      windows_checksum: components["schemas"]["Checksum"]
+      /** @description Whether this release invalidates all previous releases */
+      is_cutoff: boolean
+      modes: components["schemas"]["NewMode"][]
+      styles: components["schemas"]["NewStyle"][]
     }
     NewServer: {
       /** @description The server's name.
@@ -863,6 +879,11 @@ export interface components {
       port: number
       /** @description The ID of the user who owns this server. */
       owner_id: components["schemas"]["SteamId64"]
+    }
+    NewStyle: {
+      style: components["schemas"]["Style"]
+      linux_checksum: components["schemas"]["Checksum"]
+      windows_checksum: components["schemas"]["Checksum"]
     }
     NewUnban: {
       /** @description The reason for the unban. */
@@ -1239,6 +1260,8 @@ export interface components {
       /** Format: uri */
       avatar_url: string
     }
+    /** @enum {string} */
+    Style: "auto-bhop"
     Styles: "auto-bhop"[]
     /**
      * Format: date-time
