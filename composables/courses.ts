@@ -94,7 +94,7 @@ export function useCourses() {
               state: course.filters[query.mode].state,
               mappers: course.mappers,
               created_on: map.approved_at,
-              img: `https://github.com/jonahbearde/cs2kz-images/raw/public/webp/medium/${map.name}/${index + 1}.webp`,
+              img: `https://github.com/kzglobalteam/cs2kz-images/raw/public/webp/medium/${map.name}/${index + 1}.webp`,
             }
           }),
         )

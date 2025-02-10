@@ -25,7 +25,7 @@ const stateColorMap = {
 }
 
 const backgroundImage = computed(
-  () => `url('https://github.com/jonahbearde/cs2kz-images/raw/public/webp/full/${props.map.name}/1.webp')`,
+  () => `url('https://github.com/kzglobalteam/cs2kz-images/raw/public/webp/full/${props.map.name}/1.webp')`,
 )
 
 // TODO: tags
@@ -37,7 +37,8 @@ const backgroundImage = computed(
     :style="{
       backgroundImage,
     }"
-    class="animate-fade-in info">
+    class="animate-fade-in info"
+  >
     <p class="text-2xl text-gray-100 font-medium">{{ course.name }}</p>
 
     <div class="flex items-center">
