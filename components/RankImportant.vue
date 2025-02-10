@@ -61,12 +61,12 @@ async function getAvatar() {
 
     <div class="flex items-center gap-4 ml-6">
       <div>
-        <p class="text-gray-400">Time</p>
+        <p class="text-gray-400">{{ $t("records.title.time") }}</p>
         <p class="text-gray-100 w-20">{{ formatTime(record.time) }}</p>
       </div>
 
       <div>
-        <p class="text-gray-400">Date</p>
+        <p class="text-gray-400">{{ $t("records.title.date") }}</p>
         <p class="text-gray-100 italic whitespace-nowrap w-32">
           {{ toLocal(record.submitted_at) }}
         </p>

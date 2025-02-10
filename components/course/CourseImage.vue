@@ -42,7 +42,7 @@ const backgroundImage = computed(
     <p class="text-2xl text-gray-100 font-medium">{{ course.name }}</p>
 
     <div class="flex items-center">
-      <span class="text-gray-300 mr-1">{{ $t("map.madeBy") }}</span>
+      <span class="text-gray-300 mr-2">{{ `${$t("map.madeBy")}:` }}</span>
       <div v-for="(mapper, index) in course.mappers" :key="mapper.id">
         <NuxtLink :to="`/profile/${mapper.id}`" class="text-cyan-500 hover:text-cyan-400">
           {{ mapper.name }}

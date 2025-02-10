@@ -135,19 +135,19 @@
   },
   "map": {
     "state": {
-      "approved": "已全球",
+      "approved": "全球",
       "inTesting": "测试中",
       "invalid": "无效"
     },
-    "filters": "筛选器",
+    "filters": "筛选",
     "styles": "风格",
     "madeBy": "作者",
     "tags": "标签",
     "rating": "评分",
     "tier": "难度",
     "filterState": {
-      "ranked": "计入排名",
-      "unranked": "不计排名",
+      "ranked": "排位关卡",
+      "unranked": "不计排位",
       "pending": "待处理"
     },
     "courseRanking": "关卡排名"
