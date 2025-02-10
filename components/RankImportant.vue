@@ -35,16 +35,12 @@ async function getAvatar() {
 
 <template>
   <div
-    class="overflow-x-auto flex items-center gap-4 p-3 bg-gray-800 border border-gray-700 rounded-md"
+    class="overflow-x-auto flex items-center gap-4 p-3 bg-gradient-to-r from-yellow-400/15 via-yellow-500/15 to-yellow-600/15 border border-gray-700 rounded-md"
     :class="wr && 'ring-2 ring-yellow-200'"
   >
     <div class="relative">
       <NuxtLink :to="`/profile/${record.player.id}`">
-        <TheImage
-          :src="avatarUrl"
-          class="w-20 h-20 object-cover rounded-md ring-2"
-          :class="wr ? 'ring-yellow-200' : 'ring-slate-400'"
-        />
+        <TheImage :src="avatarUrl" class="w-20 h-20 object-cover rounded-md ring-1 ring-slate-400" />
       </NuxtLink>
       <IconMedalFirst v-if="wr" class="w-6 h-6 absolute top-[2px] left-[2px]" />
     </div>
@@ -53,7 +49,7 @@ async function getAvatar() {
       <div class="flex w-36">
         <NuxtLink
           :to="`/profile/${record.player.id}`"
-          :class="wr ? 'text-yellow-500 hover:text-yellow-300' : 'text-blue-400 hover:text-blue-300'"
+          :class="wr ? 'text-yellow-600 hover:text-yellow-400' : 'text-cyan-600 hover:text-cyan-400'"
           class="text-xl font-medium whitespace-nowrap"
           >{{ record.player.name }}</NuxtLink
         >
