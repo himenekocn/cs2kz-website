@@ -40,22 +40,24 @@ const navigation = computed(() => {
     },
     {
       localePath: "nav.servers",
-      path: "/servers",
+      path: "https://himeneko.cn/query",
     },
   ]
 
-  if (player.value) {
+  //if (player.value) {
     routes.splice(2, 0, {
       localePath: "nav.profile",
-      path: `/profile/${player.value.id}`,
+      //path: `/profile/${player.value.id}`,
+      path: `https://himeneko.cn/user?lookkz`,
     })
-  }
+  //}
 
   return routes
 })
 
 function signIn() {
-  const url = `${config.public.apiBase}/auth/web/login?redirect_to=${location.origin}`
+  //const url = `${config.public.apiBase}/auth/web/login?redirect_to=${location.origin}`
+  const url = `https://himeneko.cn/user`
   navigateTo(url, { external: true })
 }
 
