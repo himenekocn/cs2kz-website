@@ -46,6 +46,7 @@ watch(
               beginAtZero: true,
               ticks: {
                 color: "#ababab",
+                precision: 0,
               },
               grid: {
                 color: "rgb(69, 69, 69, 0.5)",
