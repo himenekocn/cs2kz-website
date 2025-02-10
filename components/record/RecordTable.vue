@@ -97,7 +97,8 @@ function goToCourse(row: TableRow) {
       :columns="columns"
       :rows="records"
       @select="toggleSelect"
-      @update:sort="onSort">
+      @update:sort="onSort"
+    >
       <template #map-data="{ row }">
         <span class="text-slate-300 font-semibold text-lg hover:text-slate-200" @click.stop="goToCourse(row)">
           {{ row.map.name }}
@@ -111,15 +112,19 @@ function goToCourse(row: TableRow) {
       </template>
 
       <template #tier-data="{ row }">
-        <span :style="{ color: getTierColor(row.course.tier) }" class="text-lg font-medium">
-          {{ getNumTier(row.course.tier) }}
+        <span
+          :style="{ color: getTierColor(row.teleports > 0 ? row.course.nub_tier : row.course.pro_tier) }"
+          class="text-lg font-medium"
+        >
+          {{ getNumTier(row.teleports > 0 ? row.course.nub_tier : row.course.pro_tier) }}
         </span>
       </template>
 
       <template v-if="detailed" #player-data="{ row }">
         <span
           class="text-cyan-600 whitespace-nowrap hover:text-cyan-400"
-          @click.stop="navigateTo(`/profile/${row.player.id}`)">
+          @click.stop="navigateTo(`/profile/${row.player.id}`)"
+        >
           {{ row.player.name }}
         </span>
       </template>
@@ -129,7 +134,8 @@ function goToCourse(row: TableRow) {
           <span class="text-slate-300">{{ formatTime(row.time) }}</span>
           <div
             class="flex justify-center items-center text-gray-100 text-[10px] leading-3 rounded-sm px-1"
-            :class="{ 'bg-yellow-600': row.teleports > 0, 'bg-blue-600': row.teleports === 0 }">
+            :class="{ 'bg-yellow-600': row.teleports > 0, 'bg-blue-600': row.teleports === 0 }"
+          >
             {{ row.teleports > 0 ? "TP" : "PRO" }}
           </div>
         </div>
