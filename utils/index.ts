@@ -169,7 +169,8 @@ export function calcCompletedCourses(runs: Run[]) {
   const tiers = ["very-easy", "easy", "medium", "advanced", "hard", "very-hard", "extreme", "death"]
 
   return tiers.map((tier) => {
-    return runs.filter((record) => record.course.tier === tier).length
+    return runs.filter((record) => tier === (record.teleports > 0 ? record.course.nub_tier : record.course.pro_tier))
+      .length
   })
 
   // const avgPoints = tiers.map((tier) => {
