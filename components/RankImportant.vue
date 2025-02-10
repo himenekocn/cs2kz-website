@@ -36,15 +36,17 @@ async function getAvatar() {
 <template>
   <div
     class="overflow-x-auto flex items-center gap-4 p-3 bg-gray-800 border border-gray-700 rounded-md"
-    :class="wr && 'ring-2 ring-yellow-200'">
+    :class="wr && 'ring-2 ring-yellow-200'"
+  >
     <div class="relative">
       <NuxtLink :to="`/profile/${record.player.id}`">
         <TheImage
           :src="avatarUrl"
           class="w-20 h-20 object-cover rounded-md ring-2"
-          :class="wr ? 'ring-yellow-200' : 'ring-slate-400'" />
+          :class="wr ? 'ring-yellow-200' : 'ring-slate-400'"
+        />
       </NuxtLink>
-      <IconMedalFirst class="w-6 h-6 absolute top-[2px] left-[2px]" />
+      <IconMedalFirst v-if="wr" class="w-6 h-6 absolute top-[2px] left-[2px]" />
     </div>
 
     <div>
@@ -80,7 +82,8 @@ async function getAvatar() {
           color="gray"
           :ui="{ color: { gray: { ghost: 'dark:hover:bg-yellow-400/10' } } }"
           square
-          @click="emits('toggle')">
+          @click="emits('toggle')"
+        >
           <IconChart />
         </UButton>
       </UTooltip>
