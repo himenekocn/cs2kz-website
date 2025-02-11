@@ -156,7 +156,9 @@ function goToCourse(row: TableRow) {
       </template>
 
       <template #submitted_at-data="{ row }">
-        <span class="whitespace-nowrap">{{ toLocal(row.submitted_at) }}</span>
+        <UTooltip :text="toLocal(row.submitted_at)">
+          <span class="whitespace-nowrap">{{ toLocalDistance(row.submitted_at) }}</span>
+        </UTooltip>
       </template>
 
       <template #expand="{ row }">

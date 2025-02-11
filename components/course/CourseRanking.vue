@@ -62,7 +62,8 @@ const rows = computed(() => {
         }"
         :columns="columns"
         :rows="rows"
-        @select="toggleSelect">
+        @select="toggleSelect"
+      >
         <template #rank-data="{ row }">
           {{ row.rank }}
         </template>
@@ -70,7 +71,8 @@ const rows = computed(() => {
         <template #player-data="{ row }">
           <span
             class="py-2 px-2 lg:px-0 text-cyan-600 whitespace-nowrap hover:text-cyan-400"
-            @click.stop="navigateTo(`/profile/${row.player.id}`)">
+            @click.stop="navigateTo(`/profile/${row.player.id}`)"
+          >
             {{ row.player.name }}
           </span>
         </template>
@@ -80,7 +82,8 @@ const rows = computed(() => {
             <span class="text-slate-300">{{ formatTime(row.time) }}</span>
             <div
               class="flex justify-center items-center text-gray-100 text-[10px] leading-3 rounded-sm px-1"
-              :class="{ 'bg-yellow-600': row.teleports > 0, 'bg-blue-600': row.teleports === 0 }">
+              :class="{ 'bg-yellow-600': row.teleports > 0, 'bg-blue-600': row.teleports === 0 }"
+            >
               {{ row.teleports > 0 ? "TP" : "PRO" }}
             </div>
           </div>
@@ -95,7 +98,9 @@ const rows = computed(() => {
         </template>
 
         <template #submitted_at-data="{ row }">
-          {{ toLocal(row.submitted_at) }}
+          <UTooltip :text="toLocal(row.submitted_at)">
+            {{ toLocalDistance(row.submitted_at) }}
+          </UTooltip>
         </template>
 
         <template #expand="{ row }">

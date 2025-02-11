@@ -72,7 +72,9 @@ async function getAvatar() {
       <div>
         <p class="text-gray-400">{{ $t("records.title.date") }}</p>
         <p class="text-gray-100 italic whitespace-nowrap w-32">
-          {{ toLocal(record.submitted_at) }}
+          <UTooltip :text="toLocal(record.submitted_at)">
+            {{ toLocalDistance(record.submitted_at) }}
+          </UTooltip>
         </p>
       </div>
 

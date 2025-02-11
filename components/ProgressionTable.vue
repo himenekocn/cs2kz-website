@@ -18,7 +18,8 @@ const rows = computed(() => {
     time: formatTime(record.time),
     timeImproved: record.timeImproved,
     server: record.server.name,
-    created_on: toLocal(record.submitted_at),
+    date: toLocal(record.submitted_at),
+    dateDistance: toLocalDistance(record.submitted_at),
   }))
 })
 
@@ -55,7 +56,7 @@ const columns = [
     label: "Server",
   },
   {
-    key: "created_on",
+    key: "date",
     label: "Date",
   },
 ]
@@ -96,7 +97,8 @@ getWrProgression()
       body: { padding: '' },
       divide: 'divide-y divide-gray-800',
       header: { padding: 'py-2' },
-    }">
+    }"
+  >
     <template #header>
       <div class="flex justify-center">
         <p class="text-gray-300">WR Progression</p>
@@ -107,7 +109,8 @@ getWrProgression()
       <template #player-data="{ row }">
         <NuxtLink
           :to="`/profile/${row.player_id}`"
-          class="py-2 px-2 lg:px-0 text-cyan-600 text-lg whitespace-nowrap hover:text-cyan-400">
+          class="py-2 px-2 lg:px-0 text-cyan-600 text-lg whitespace-nowrap hover:text-cyan-400"
+        >
           {{ row.player }}
         </NuxtLink>
       </template>
@@ -116,6 +119,11 @@ getWrProgression()
           <span>{{ row.time }}</span>
           <span v-if="row.timeImproved > 0" class="text-green-600">{{ `(+${formatTime(row.timeImproved)})` }}</span>
         </div>
+      </template>
+      <template #date-data="{ row }">
+        <UTooltip :text="row.date">
+          {{ row.dateDistance }}
+        </UTooltip>
       </template>
     </UTable>
   </UCard>

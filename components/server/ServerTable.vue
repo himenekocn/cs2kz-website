@@ -34,7 +34,8 @@ function connect(ip: string) {
         }"
         :loading="loading"
         :columns="columns"
-        :rows="servers">
+        :rows="servers"
+      >
         <template #name-data="{ row }">
           <span class="italic">{{ row.name }}</span>
         </template>
@@ -48,7 +49,8 @@ function connect(ip: string) {
                 padding: { sm: 'p-1' },
                 variant: { ghost: 'dark:hover:bg-green-400/40' },
               }"
-              @click="connect(`${row.host}:${row.port}`)">
+              @click="connect(`${row.host}:${row.port}`)"
+            >
               <IconConnect />
             </UButton>
           </div>
@@ -61,7 +63,9 @@ function connect(ip: string) {
         </template>
 
         <template #approved_at-data="{ row }">
-          <span>{{ toLocal(row.approved_at) }}</span>
+          <UTooltip :text="toLocal(row.approved_at)">
+            <span>{{ toLocalDistance(row.approved_at) }}</span>
+          </UTooltip>
         </template>
       </UTable>
     </UCard>
