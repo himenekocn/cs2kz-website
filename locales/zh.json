@@ -46,9 +46,9 @@
     "signOutAll": "退出所有网站",
     "tooltip": {
       "locale": "切换语言",
-      "login": "Steam登录",
-      "discord": "Discord",
-      "github": "Github",
+      "login": "HIME登录",
+      "discord": "CS2KZ Discord",
+      "github": "CS2KZ Github",
       "docs": "文档",
       "dashboard": "仪表盘"
     }
@@ -143,19 +143,19 @@
   },
   "map": {
     "state": {
-      "approved": "全球",
+      "approved": "已全球",
       "inTesting": "测试中",
       "invalid": "无效"
     },
-    "filters": "筛选",
+    "filters": "筛选器",
     "styles": "风格",
     "madeBy": "作者",
     "tags": "标签",
     "rating": "评分",
     "tier": "难度",
     "filterState": {
-      "ranked": "排位关卡",
-      "unranked": "不计排位",
+      "ranked": "计入排名",
+      "unranked": "不计排名",
       "pending": "待处理"
     },
     "courseRanking": "关卡排名"
