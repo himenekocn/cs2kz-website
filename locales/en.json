@@ -46,9 +46,9 @@
     "signOutAll": "Sign out from all websites",
     "tooltip": {
       "locale": "Switch language",
-      "login": "Login through Steam",
-      "discord": "Discord",
-      "github": "Github",
+      "login": "Login through HIME",
+      "discord": "CS2KZ Discord",
+      "github": "CS2KZ Github",
       "docs": "Documentation",
       "dashboard": "Dashboard"
     }
