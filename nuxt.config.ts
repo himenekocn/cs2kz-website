@@ -1,7 +1,7 @@
 export default defineNuxtConfig({
   app: {
     head: {
-      title: "CS2KZ",
+      title: "CS2KZ 社区加速镜像站",
     },
   },
 
