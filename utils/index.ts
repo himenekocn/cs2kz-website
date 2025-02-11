@@ -1,5 +1,5 @@
 import type { CourseExt, Record as Run, RecordWithImproved, Tier } from "~/types"
-import { format } from "date-fns"
+import { format, formatDistanceToNow } from "date-fns"
 
 export function validQuery(query: Record<string, unknown>) {
   return Object.fromEntries(Object.entries(query).filter(([_, value]) => value !== "" && value !== null))
@@ -68,6 +68,10 @@ export function transformTier(tier: Tier) {
 
 export function toLocal(date: string, short?: boolean) {
   return format(new Date(date), short ? "yyyy-MM-dd" : "yyyy-MM-dd HH:mm:ss")
+}
+
+export function toLocalDistance(date: string) {
+  return formatDistanceToNow(new Date(date), { addSuffix: true })
 }
 
 export function formatTime(seconds: number) {
@@ -169,21 +173,9 @@ export function calcCompletedCourses(runs: Run[]) {
   const tiers = ["very-easy", "easy", "medium", "advanced", "hard", "very-hard", "extreme", "death"]
 
   return tiers.map((tier) => {
-    return runs.filter((record) => record.course.tier === tier).length
+    return runs.filter((record) => tier === (record.teleports > 0 ? record.course.nub_tier : record.course.pro_tier))
+      .length
   })
-
-  // const avgPoints = tiers.map((tier) => {
-  //   const recordsInTier = runs.filter((record) => record.course.tier === tier)
-  //   if (recordsInTier.length > 0) {
-  //     const totalPoints = recordsInTier.reduce((acc, record) => {
-  //       return acc + (record.teleports > 0 ? record.nub_points! : record.pro_points!)
-  //     }, 0)
-
-  //     return Math.floor(totalPoints / recordsInTier.length)
-  //   } else {
-  //     return 0
-  //   }
-  // })
 }
 
 export function calcTotalCourses(courses: CourseExt[]) {

@@ -1,7 +1,7 @@
 export default defineNuxtConfig({
   app: {
     head: {
-      title: "CS2 KZ",
+      title: "CS2KZ",
     },
   },
 
