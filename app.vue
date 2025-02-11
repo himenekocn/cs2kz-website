@@ -37,7 +37,7 @@ async function verifySession() {
 
     <NuxtPage />
 
-    <div class="h-[300px]" />
+    <div class="h-[0px]" />
   </div>
 </template>
 
