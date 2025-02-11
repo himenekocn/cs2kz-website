@@ -57,7 +57,7 @@ const navigation = computed(() => {
 
 function signIn() {
   //const url = `${config.public.apiBase}/auth/web/login?redirect_to=${location.origin}`
-  const url = `https://himeneko.cn/user`
+  const url = `https://himeneko.cn/user?refer=https://cs2kz.himeneko.cn`
   navigateTo(url, { external: true })
 }
 
