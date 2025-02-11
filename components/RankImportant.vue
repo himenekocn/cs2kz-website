@@ -35,8 +35,12 @@ async function getAvatar() {
 
 <template>
   <div
-    class="overflow-x-auto flex items-center gap-4 p-3 bg-gradient-to-r from-yellow-400/15 via-yellow-500/15 to-yellow-600/15 border border-gray-700 rounded-md"
-    :class="wr && 'ring-2 ring-yellow-200'"
+    class="overflow-x-auto flex items-center gap-4 p-3 rounded-md ring-2"
+    :class="
+      wr
+        ? 'ring-yellow-200 animate-dynamic-gradient bg-[length:600%_600%] bg-gradient-to-br from-yellow-400/20  via-indigo-400/20 to-yellow-400/20 '
+        : 'ring-gray-700'
+    "
   >
     <div class="relative">
       <NuxtLink :to="`/profile/${record.player.id}`">
@@ -86,3 +90,22 @@ async function getAvatar() {
     </div>
   </div>
 </template>
+
+<style scoped>
+.dynamic-gradient {
+  background-size: 600% 600%;
+  animation: grad ease 5s infinite;
+}
+
+@keyframes grad {
+  0% {
+    background-position: 0 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0 50%;
+  }
+}
+</style>
