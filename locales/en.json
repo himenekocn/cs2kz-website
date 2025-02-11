@@ -43,7 +43,15 @@
     "servers": "Servers",
     "jumpstats": "Jumpstats",
     "signOut": "Sign out",
-    "signOutAll": "Sign out from all websites"
+    "signOutAll": "Sign out from all websites",
+    "tooltip": {
+      "locale": "Switch language",
+      "login": "Login through Steam",
+      "discord": "Discord",
+      "github": "Github",
+      "docs": "Documentation",
+      "dashboard": "Dashboard"
+    }
   },
   "pagination": {
     "first": "first",

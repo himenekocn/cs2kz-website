@@ -70,7 +70,8 @@ function signOut() {
 <template>
   <div class="h-12 border-b border-gray-700">
     <header
-      class="h-full xl:max-w-7xl px-2 md:px-6 lg:mx-auto grid grid-cols-2 lg:grid-cols-3 items-center bg-gray-900">
+      class="h-full xl:max-w-7xl px-2 md:px-6 lg:mx-auto grid grid-cols-2 lg:grid-cols-3 items-center bg-gray-900"
+    >
       <!-- logo -->
       <div class="flex items-center">
         <nuxt-link to="/">
@@ -86,7 +87,8 @@ function signOut() {
               variant="ghost"
               :to="item.path"
               :ui="{ font: 'font-medium' }"
-              active-class="bg-primary bg-opacity-30">
+              active-class="bg-primary bg-opacity-30"
+            >
               {{ $t(item.localePath) }}
             </UButton>
           </li>
@@ -104,15 +106,17 @@ function signOut() {
         </UButton>
 
         <!-- login -->
-        <UButton v-if="player" variant="ghost" color="gray">
+        <UButton v-if="player" variant="ghost" color="gray" @click="navigateTo(`/profile/${player.id}`)">
           <UDropdown :items="options" mode="hover" :popper="{ placement: 'bottom-start' }">
             <PlayerAvatar :avatar-url="player.avatar_url" :username="player.name" />
           </UDropdown>
         </UButton>
 
-        <UButton v-else variant="ghost" color="gray" @click="signIn">
-          <IconSteam />
-        </UButton>
+        <UTooltip v-else :text="$t('nav.tooltip.login')">
+          <UButton variant="ghost" color="gray" @click="signIn">
+            <IconSteam />
+          </UButton>
+        </UTooltip>
 
         <UButton square variant="ghost" color="gray" class="lg:hidden" @click="openNavigation = true">
           <IconBars />
