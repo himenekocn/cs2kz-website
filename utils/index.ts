@@ -1,5 +1,5 @@
 import type { CourseExt, Record as Run, RecordWithImproved, Tier } from "~/types"
-import { format, formatDistanceToNow } from "date-fns"
+import { format, formatDistanceToNowStrict } from "date-fns"
 
 export function validQuery(query: Record<string, unknown>) {
   return Object.fromEntries(Object.entries(query).filter(([_, value]) => value !== "" && value !== null))
@@ -71,7 +71,7 @@ export function toLocal(date: string, short?: boolean) {
 }
 
 export function toLocalDistance(date: string) {
-  return formatDistanceToNow(new Date(date), { addSuffix: true })
+  return formatDistanceToNowStrict(new Date(date), { addSuffix: true })
 }
 
 export function formatTime(seconds: number) {
