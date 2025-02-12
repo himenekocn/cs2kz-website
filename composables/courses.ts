@@ -89,7 +89,7 @@ export function useCourses() {
         )
 
         allCourses.value = res
-        courses.value = res.slice(query.offset, query.limit)
+        update(query)
 
         total.value = res.length
       } else {
