@@ -36,8 +36,6 @@ async function verifySession() {
     <TheHeader />
 
     <NuxtPage />
-
-    <div class="h-[300px]" />
   </div>
 </template>
 

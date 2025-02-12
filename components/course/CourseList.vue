@@ -6,6 +6,8 @@ defineProps<{
   loading: boolean
   query: CourseQuery
 }>()
+
+const emits = defineEmits(["infinite"])
 </script>
 
 <template>
@@ -13,11 +15,12 @@ defineProps<{
     <div v-if="loading" class="flex justify-center">
       <IconLoading class="inline" />
     </div>
-    <div
-      v-else-if="courses.length > 0"
-      class="mx-auto w-max grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-10 xl:place-items-center">
-      <CourseCard v-for="course in courses" :key="course.id" :query="query" :course="course" />
-    </div>
+
+    <InfiniteScroller v-else-if="courses.length > 0" @infinite="emits('infinite')">
+      <div class="mx-auto w-max grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-10 xl:place-items-center">
+        <CourseCard v-for="course in courses" :key="course.id" :query="query" :course="course" />
+      </div>
+    </InfiniteScroller>
 
     <div v-else class="flex justify-center">
       <p class="text-gray-500">

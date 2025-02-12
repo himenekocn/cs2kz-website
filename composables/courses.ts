@@ -24,27 +24,16 @@ export function useCourses() {
 
   const debouncedUpdate = debounce({ delay: 300 }, update)
 
-  watch(
-    () => [query.mode, query.has_teleports, query.name, query.tier, query.sort_by, query.sort_order, query.limit],
-    async ([newMode, newTeleports, newName], [oldMode, oldTeleports, oldName]) => {
-      query.offset = 0
-      if (newMode !== oldMode || newTeleports !== oldTeleports) {
-        await getCourses()
-        update(query)
-      } else if (newName !== oldName) {
-        debouncedUpdate(query)
-      } else {
-        update(query)
-      }
-    },
-  )
-
-  watch(
-    () => query.offset,
-    () => {
-      update(query)
-    },
-  )
+  watch(query, async (newQuery, oldQuery) => {
+    if (newQuery.mode !== oldQuery.mode || newQuery.has_teleports !== oldQuery.has_teleports) {
+      await getCourses()
+      update(newQuery)
+    } else if (newQuery.name !== oldQuery.name) {
+      debouncedUpdate(newQuery)
+    } else {
+      update(newQuery)
+    }
+  })
 
   function update(query: CourseQuery) {
     if (allCourses.value.length > 0) {
@@ -52,7 +41,7 @@ export function useCourses() {
       const tiered = matchTier(searched, query.tier)
       const sorted = sort(tiered, query.sort_order, query.sort_by)
       const paginated = sorted.slice(query.offset, query.offset + query.limit)
-      total.value = sorted.length
+      total.value = paginated.length
       courses.value = paginated
     }
   }
@@ -100,7 +89,7 @@ export function useCourses() {
         )
 
         allCourses.value = res
-        courses.value = res
+        courses.value = res.slice(query.offset, query.limit)
 
         total.value = res.length
       } else {

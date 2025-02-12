@@ -16,7 +16,7 @@ export default defineNuxtConfig({
     port: 5173,
   },
 
-  devtools: { enabled: false },
+  devtools: { enabled: true },
   modules: ["@nuxt/ui", "@nuxtjs/i18n", "@nuxt/fonts", "@nuxt/eslint"],
 
   colorMode: {

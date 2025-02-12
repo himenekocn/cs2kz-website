@@ -1,4 +1,4 @@
-# CS2 KZ Website
+# CS2KZ Website
 
 This project provides a website that communicates with the [CS2KZ API](https://github.com/KZGlobalTeam/cs2kz-api). You can view records, maps, courses, player profile and servers on this website. It's built with [Nuxt](https://nuxt.com/) and [TailwindCSS](https://v3.tailwindcss.com/).
 
