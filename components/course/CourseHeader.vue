@@ -7,6 +7,7 @@ const hasTeleports = defineModel<Teleports>("hasTeleports")
 const props = defineProps<{
   name: string
   state: MapState
+  workshopId: number
   courses: string[]
 }>()
 
@@ -28,6 +29,18 @@ const stateColorMap = {
       <div :class="stateColorMap[state]" class="px-2 rounded-sm">
         {{ $t(`map.state.${state}`) }}
       </div>
+      <UButton
+        square
+        variant="ghost"
+        @click="
+          navigateTo(`https://steamcommunity.com/sharedfiles/filedetails/?id=${workshopId}`, {
+            external: true,
+            open: { target: '_blank' },
+          })
+        "
+      >
+        <IconSteam class="w-5 h-5" />
+      </UButton>
     </div>
 
     <div class="flex items-center gap-2 md:ml-6">
@@ -37,7 +50,8 @@ const stateColorMap = {
           v-model="activeCourseName"
           :options="courseOptions"
           value-attribute="value"
-          option-attribute="name" />
+          option-attribute="name"
+        />
         <USelectMenu
           v-model="mode"
           :options="[
@@ -45,7 +59,8 @@ const stateColorMap = {
             { name: $t('common.mode.vnl'), value: 'vanilla' },
           ]"
           value-attribute="value"
-          option-attribute="name" />
+          option-attribute="name"
+        />
         <USelectMenu
           v-model="hasTeleports"
           :options="[
@@ -53,7 +68,8 @@ const stateColorMap = {
             { name: $t('common.teleports.pro'), value: 'pro' },
           ]"
           value-attribute="value"
-          option-attribute="name" />
+          option-attribute="name"
+        />
       </div>
     </div>
   </div>

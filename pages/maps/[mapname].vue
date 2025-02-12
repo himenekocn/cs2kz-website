@@ -95,6 +95,7 @@ async function getMap() {
           v-model:active-course-name="activeCourseName"
           v-model:mode="query.mode"
           v-model:has-teleports="query.has_teleports"
+          :workshop-id="map.workshop_id"
           :name="map.name"
           :courses="courseNames"
           :state="map.state"
