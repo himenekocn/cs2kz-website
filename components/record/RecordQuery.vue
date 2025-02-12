@@ -25,6 +25,7 @@ function onModeChange(index: number) {
 
 <template>
   <div
+    class="text-gray-300"
     :class="
       detailed
         ? 'p-2 lg:p-4 grid grid-cols-1 lg:grid-cols-4 gap-2 lg:gap-8 border border-gray-700 rounded-md'
