@@ -13,7 +13,17 @@ const { records: completionRecords, query: completionQuery } = useRecords()
 // the query takes tp/pro
 const { courses, query: courseQuery, getCourses } = useCourses()
 
-const ranksAndPoints = computed(() => calcRanksAndPointsDist(rankPointsRecords.value))
+const ranksAndPoints = ref()
+
+watch(
+  rankPointsRecords,
+  (records) => {
+    ranksAndPoints.value = calcRanksAndPointsDist(records, rankPointsQuery.has_teleports)
+  },
+  { immediate: true },
+)
+
+// const ranksAndPoints = computed(() => calcRanksAndPointsDist(rankPointsRecords.value))
 
 const completedCourses = computed(() => calcCompletedCourses(completionRecords.value))
 
@@ -70,14 +80,16 @@ function initQuery() {
               { name: $t('common.teleports.pro'), value: 'pro' },
             ]"
             value-attribute="value"
-            option-attribute="name" />
+            option-attribute="name"
+          />
         </div>
 
         <ProfileTopRecords
           :wrs="ranksAndPoints.wrs"
           :top20="ranksAndPoints.top20"
           :top50="ranksAndPoints.top50"
-          :top100="ranksAndPoints.top100" />
+          :top100="ranksAndPoints.top100"
+        />
         <p class="text-xl font-medium">
           {{ $t("profile.completion.pointsDist") }}
         </p>
@@ -98,7 +110,8 @@ function initQuery() {
               { name: $t('common.teleports.pro'), value: 'pro' },
             ]"
             value-attribute="value"
-            option-attribute="name" />
+            option-attribute="name"
+          />
         </div>
 
         <ProfileChartCompletionByTier :completed-courses="completedCourses" :total-courses="totalCourses" />

@@ -1,4 +1,4 @@
-import type { CourseExt, Record as Run, RecordWithImproved, Tier } from "~/types"
+import type { CourseExt, Record as Run, RecordWithImproved, Tier, Teleports } from "~/types"
 import { format, formatDistanceToNowStrict } from "date-fns"
 import { zhCN } from "date-fns/locale"
 
@@ -123,39 +123,22 @@ export function getWrHistory(records: Run[]) {
   return history.reverse()
 }
 
-// completions stats
-// the records are already filtered by `top=true` `mode` and `has_teleports`
-export function calcRanksAndPointsDist(runs: Run[]) {
-  let records = runs
+// top records and points distribution
+export function calcRanksAndPointsDist(runs: Run[], type: Teleports) {
+  const wrs = runs.filter((record) => (type === "overall" ? record.nub_rank === 1 : record.pro_rank === 1)).length
 
-  let type: string
-  // if there's tp runs then we're calculating ranks and points from nub runs
-  // this won't be needed when the api is able to filter them
-  if (records.some((record) => record.teleports > 0)) {
-    type = "overall"
-    records = records.filter((record) => record.nub_rank !== null)
-  } else {
-    type = "pro"
-  }
+  const top20 = runs.filter((record) => (type === "overall" ? record.nub_rank! <= 20 : record.pro_rank! <= 20)).length
 
-  const wrs = records.filter((record) => (type === "overall" ? record.nub_rank === 1 : record.pro_rank === 1)).length
+  const top50 = runs.filter((record) => (type === "overall" ? record.nub_rank! <= 50 : record.pro_rank! <= 50)).length
 
-  const top20 = records.filter((record) =>
-    type === "overall" ? record.nub_rank! <= 20 : record.pro_rank! <= 20,
-  ).length
-
-  const top50 = records.filter((record) =>
-    type === "overall" ? record.nub_rank! <= 50 : record.pro_rank! <= 50,
-  ).length
-
-  const top100 = records.filter((record) =>
+  const top100 = runs.filter((record) =>
     type === "overall" ? record.nub_rank! <= 100 : record.pro_rank! <= 100,
   ).length
 
   const pointsDist = Array.from({ length: 11 }, (_, i) => {
     const lower = i * 1000
     const upper = lower + 1000
-    return records.filter((record) => {
+    return runs.filter((record) => {
       if (type === "overall") {
         return record.nub_points! >= lower && record.nub_points! < upper
       } else {
@@ -173,7 +156,7 @@ export function calcRanksAndPointsDist(runs: Run[]) {
   }
 }
 
-// the runs have either teleports or no teleports
+// completion by tier
 export function calcCompletedCourses(runs: Run[]) {
   const tiers = ["very-easy", "easy", "medium", "advanced", "hard", "very-hard", "extreme", "death"]
 
