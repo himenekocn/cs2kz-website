@@ -26,9 +26,11 @@ function onModeChange(index: number) {
 <template>
   <div
     :class="
-      detailed &&
-      'p-2 lg:p-4 grid grid-cols-1 lg:grid-cols-4 gap-2 lg:gap-8 border border-gray-700 rounded-md text-gray-300'
-    ">
+      detailed
+        ? 'p-2 lg:p-4 grid grid-cols-1 lg:grid-cols-4 gap-2 lg:gap-8 border border-gray-700 rounded-md'
+        : 'border border-gray-700 rounded-md mb-2'
+    "
+  >
     <UTabs
       v-if="detailed"
       :items="[{ label: $t('common.mode.ckz') }, { label: $t('common.mode.vnl') }]"
@@ -37,14 +39,16 @@ function onModeChange(index: number) {
         wrapper: 'relative space-y-0',
       }"
       :default-index="0"
-      @change="onModeChange" />
+      @change="onModeChange"
+    />
 
     <div
       :class="
         detailed
           ? 'col-span-3 flex items-center flex-wrap lg:justify-end gap-2 lg:gap-4'
-          : 'px-2 py-3 flex items-center flex-wrap gap-2 border-b border-gray-800'
-      ">
+          : 'px-2 py-3 flex items-center flex-wrap gap-2'
+      "
+    >
       <div class="hidden lg:flex items-center gap-2">
         <p>{{ $t("records.query.pbOnly") }}</p>
         <UToggle v-model="query.top" size="lg" />
@@ -57,7 +61,8 @@ function onModeChange(index: number) {
           { name: $t('common.teleports.pro'), value: 'pro' },
         ]"
         value-attribute="value"
-        option-attribute="name" />
+        option-attribute="name"
+      />
 
       <USelectMenu
         v-model="query.max_rank"
@@ -71,7 +76,8 @@ function onModeChange(index: number) {
         ]"
         :placeholder="$t('records.query.maxRank.placeholder')"
         value-attribute="value"
-        option-attribute="name" />
+        option-attribute="name"
+      />
 
       <USelectMenu
         v-model="query.styles"
@@ -79,7 +85,8 @@ function onModeChange(index: number) {
         multiple
         :placeholder="$t('records.query.styles')"
         value-attribute="value"
-        option-attribute="name" />
+        option-attribute="name"
+      />
 
       <UInput v-model="query.map" :placeholder="$t('records.query.map')">
         <template #trailing>

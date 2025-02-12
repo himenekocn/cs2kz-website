@@ -17,27 +17,7 @@ export function useServers() {
     offset: 0,
   })
 
-  let skipOffsetWatcher = false
-
-  watch(
-    () => [query.name, query.host, query.owned_by, query.limit],
-    () => {
-      skipOffsetWatcher = true
-      query.offset = 0
-      getServers()
-    },
-  )
-
-  watch(
-    () => query.offset,
-    () => {
-      if (skipOffsetWatcher) {
-        skipOffsetWatcher = false
-        return
-      }
-      getServers()
-    },
-  )
+  watch(query, getServers)
 
   async function getServers() {
     try {

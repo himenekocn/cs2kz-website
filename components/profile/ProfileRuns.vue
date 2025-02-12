@@ -5,7 +5,7 @@ const props = defineProps<{
   mode: Mode
 }>()
 
-const { records, loading, query, total, getRecords } = useRecords()
+const { records, loading, query, getRecords } = useRecords()
 
 watch(
   () => props.mode,
@@ -15,28 +15,27 @@ watch(
 )
 
 getRecords()
+
+function loadRecords() {
+  if (records.value.length > 0) {
+    query.limit += 30
+  }
+}
 </script>
 
 <template>
   <div>
     <p class="text-3xl text-gray-300 font-semibold mb-2">{{ $t("profile.runs.title") }}</p>
-
-    <UCard
-      :ui="{
-        body: { padding: '' },
-      }">
+    <InfiniteScroller @infinite="loadRecords">
       <RecordQuery v-model:query="query" />
-
-      <div v-if="total > 0" class="mx-auto py-3">
-        <Pagination v-model:limit="query.limit!" v-model:offset="query.offset!" :total="total" @refresh="getRecords" />
-      </div>
 
       <RecordTable
         v-model:sort-by="query.sort_by"
         v-model:sort-order="query.sort_order"
         :query="query"
         :loading="loading"
-        :records="records" />
-    </UCard>
+        :records="records"
+      />
+    </InfiniteScroller>
   </div>
 </template>
