@@ -26,7 +26,7 @@ function loadRecords() {
 <template>
   <div>
     <p class="text-3xl text-gray-300 font-semibold mb-2">{{ $t("profile.runs.title") }}</p>
-    <InfiniteScroller @infinite="loadRecords">
+    <InfiniteScroller :loading="loading" :has-data="records.length > 0" @infinite="loadRecords">
       <RecordQuery v-model:query="query" />
 
       <RecordTable

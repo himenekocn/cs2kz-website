@@ -13,7 +13,7 @@ function loadServers() {
   <Main class="lg:w-2/3 mx-auto">
     <ServerQuery v-model:query="query" />
 
-    <InfiniteScroller @infinite="loadServers">
+    <InfiniteScroller :loading="loading" :has-data="servers.length > 0" @infinite="loadServers">
       <ServerTable :loading="loading" :error="error" :servers="servers" />
     </InfiniteScroller>
   </Main>

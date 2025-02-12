@@ -1,6 +1,11 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue"
 
+defineProps<{
+  hasData: boolean
+  loading: boolean
+}>()
+
 const emits = defineEmits(["infinite"])
 
 const scroller = ref<Element | null>(null)
@@ -25,6 +30,8 @@ onMounted(() => {
 <template>
   <div ref="scroller" class="scroller">
     <slot></slot>
-    <div ref="endOfScroller"></div>
+    <div ref="endOfScroller" class="flex justify-center mt-2">
+      <IconLoading v-if="hasData && loading" />
+    </div>
   </div>
 </template>

@@ -13,7 +13,7 @@ function loadRecords() {
   <Main>
     <RecordQuery v-model:query="query" detailed />
 
-    <InfiniteScroller @infinite="loadRecords">
+    <InfiniteScroller :has-data="records.length > 0" :loading="loading" @infinite="loadRecords">
       <RecordTable
         v-model:sort-by="query.sort_by"
         v-model:sort-order="query.sort_order"
