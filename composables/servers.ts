@@ -1,4 +1,5 @@
 import type { Server, ServerResponse, ServerQuery } from "~/types"
+import { debounce } from "radash"
 
 export function useServers() {
   const { $api } = useNuxtApp()
@@ -17,7 +18,11 @@ export function useServers() {
     offset: 0,
   })
 
-  watch(query, getServers)
+  const debouncedUpdate = debounce({ delay: 300 }, getServers)
+
+  watch([() => query.name, () => query.host, () => query.owned_by], debouncedUpdate)
+
+  watch([() => query.limit, () => query.offset], getServers)
 
   async function getServers() {
     try {

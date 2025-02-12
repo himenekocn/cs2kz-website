@@ -24,18 +24,13 @@ export function useCourses() {
 
   const debouncedUpdate = debounce({ delay: 300 }, update)
 
-  watch(query, async (newQuery, oldQuery) => {
-    if (newQuery.mode !== oldQuery.mode || newQuery.has_teleports !== oldQuery.has_teleports) {
-      await getCourses()
-      update(newQuery)
-    } else if (newQuery.name !== oldQuery.name) {
-      debouncedUpdate(newQuery)
-    } else {
-      update(newQuery)
-    }
-  })
+  watch([() => query.name], debouncedUpdate)
 
-  function update(query: CourseQuery) {
+  watch([() => query.mode, () => query.has_teleports], getCourses)
+
+  watch([() => query.tier, () => query.sort_by, () => query.sort_order, () => query.limit, () => query.offset], update)
+
+  function update() {
     if (allCourses.value.length > 0) {
       const searched = search(allCourses.value, query.name)
       const tiered = matchTier(searched, query.tier)
@@ -89,7 +84,7 @@ export function useCourses() {
         )
 
         allCourses.value = res
-        update(query)
+        update()
 
         total.value = res.length
       } else {

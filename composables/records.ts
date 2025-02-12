@@ -1,4 +1,5 @@
 import type { Record, RecordQuery, RecordResponse } from "~/types"
+import { debounce } from "radash"
 
 export function useRecords() {
   const { $api } = useNuxtApp()
@@ -26,7 +27,24 @@ export function useRecords() {
     offset: 0,
   })
 
-  watch(query, getRecords)
+  const debouncedUpdate = debounce({ delay: 300 }, getRecords)
+
+  watch([() => query.player, () => query.map, () => query.course, () => query.server], debouncedUpdate)
+
+  watch(
+    [
+      () => query.mode,
+      () => query.has_teleports,
+      () => query.top,
+      () => query.max_rank,
+      () => query.styles,
+      () => query.sort_by,
+      () => query.sort_order,
+      () => query.limit,
+      () => query.offset,
+    ],
+    getRecords,
+  )
 
   async function getRecords() {
     try {
