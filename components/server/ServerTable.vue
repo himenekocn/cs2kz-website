@@ -8,6 +8,8 @@ defineProps<{
   loading: boolean
 }>()
 
+const { locale } = useI18n()
+
 const columns = computed(() => {
   return [
     { key: "name", label: t("servers.title.name") },
@@ -64,7 +66,7 @@ function connect(ip: string) {
 
         <template #approved_at-data="{ row }">
           <UTooltip :text="toLocal(row.approved_at)">
-            <span>{{ toLocalDistance(row.approved_at) }}</span>
+            <span>{{ toLocalDistance(row.approved_at, locale) }}</span>
           </UTooltip>
         </template>
       </UTable>

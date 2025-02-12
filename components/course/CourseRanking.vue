@@ -7,7 +7,7 @@ const props = defineProps<{
   total: number
 }>()
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
 
 const { expand, toggleSelect } = useExpand()
 
@@ -99,7 +99,7 @@ const rows = computed(() => {
 
         <template #submitted_at-data="{ row }">
           <UTooltip :text="toLocal(row.submitted_at)">
-            {{ toLocalDistance(row.submitted_at) }}
+            {{ toLocalDistance(row.submitted_at, locale) }}
           </UTooltip>
         </template>
 

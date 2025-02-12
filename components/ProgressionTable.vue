@@ -7,6 +7,8 @@ const props = defineProps<{
 
 const { $api } = useNuxtApp()
 
+const { locale } = useI18n()
+
 const history = ref<RecordWithImproved[]>([])
 
 const loading = ref(false)
@@ -19,7 +21,7 @@ const rows = computed(() => {
     timeImproved: record.timeImproved,
     server: record.server.name,
     date: toLocal(record.submitted_at),
-    dateDistance: toLocalDistance(record.submitted_at),
+    dateDistance: toLocalDistance(record.submitted_at, locale.value),
   }))
 })
 

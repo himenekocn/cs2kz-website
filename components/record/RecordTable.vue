@@ -15,7 +15,7 @@ const sortOrder = defineModel<"ascending" | "descending">("sortOrder", {
   required: true,
 })
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
 
 const { expand, toggleSelect } = useExpand()
 
@@ -157,7 +157,7 @@ function goToCourse(row: TableRow) {
 
       <template #submitted_at-data="{ row }">
         <UTooltip :text="toLocal(row.submitted_at)">
-          <span class="whitespace-nowrap">{{ toLocalDistance(row.submitted_at) }}</span>
+          <span class="whitespace-nowrap">{{ toLocalDistance(row.submitted_at, locale) }}</span>
         </UTooltip>
       </template>
 

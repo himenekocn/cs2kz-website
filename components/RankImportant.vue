@@ -8,6 +8,8 @@ const props = defineProps<{
   record: Record
 }>()
 
+const { locale } = useI18n()
+
 const wr = computed(() => {
   if (props.hasTeleports === "overall") {
     return props.record.nub_rank === 1
@@ -73,7 +75,7 @@ async function getAvatar() {
         <p class="text-gray-400">{{ $t("records.title.date") }}</p>
         <p class="text-gray-100 italic whitespace-nowrap w-32">
           <UTooltip :text="toLocal(record.submitted_at)">
-            {{ toLocalDistance(record.submitted_at) }}
+            {{ toLocalDistance(record.submitted_at, locale) }}
           </UTooltip>
         </p>
       </div>

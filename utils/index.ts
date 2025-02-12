@@ -1,5 +1,6 @@
 import type { CourseExt, Record as Run, RecordWithImproved, Tier } from "~/types"
 import { format, formatDistanceToNowStrict } from "date-fns"
+import { zhCN } from "date-fns/locale"
 
 export function validQuery(query: Record<string, unknown>) {
   return Object.fromEntries(Object.entries(query).filter(([_, value]) => value !== "" && value !== null))
@@ -70,8 +71,12 @@ export function toLocal(date: string, short?: boolean) {
   return format(new Date(date), short ? "yyyy-MM-dd" : "yyyy-MM-dd HH:mm:ss")
 }
 
-export function toLocalDistance(date: string) {
-  return formatDistanceToNowStrict(new Date(date), { addSuffix: true })
+export function toLocalDistance(date: string, locale: string) {
+  if (locale === "en") {
+    return formatDistanceToNowStrict(new Date(date), { addSuffix: true })
+  } else if (locale === "zh") {
+    return formatDistanceToNowStrict(new Date(date), { addSuffix: true, locale: zhCN })
+  }
 }
 
 export function formatTime(seconds: number) {
