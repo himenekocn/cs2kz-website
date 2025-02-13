@@ -157,11 +157,11 @@ export function calcRanksAndPointsDist(runs: Run[], type: LeaderboardType) {
 }
 
 // completion by tier
-export function calcCompletedCourses(runs: Run[]) {
+export function calcCompletedCourses(runs: Run[], type: LeaderboardType) {
   const tiers = ["very-easy", "easy", "medium", "advanced", "hard", "very-hard", "extreme", "death"]
 
   return tiers.map((tier) => {
-    return runs.filter((record) => tier === (record.teleports > 0 ? record.course.nub_tier : record.course.pro_tier))
+    return runs.filter((record) => tier === (type === "overall" ? record.course.nub_tier : record.course.pro_tier))
       .length
   })
 }
