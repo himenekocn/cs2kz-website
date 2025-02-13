@@ -52,6 +52,7 @@ export function useRecords() {
 
       const transformedQuery = {
         ...toRaw(query),
+        leaderboardType: null,
         has_teleports: query.leaderboardType === "overall" ? null : false,
         styles: query.styles.length === 0 ? null : query.styles,
       }
