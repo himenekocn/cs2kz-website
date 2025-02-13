@@ -58,6 +58,10 @@ const columns = computed(() => {
       label: t("records.title.date"),
       sortable: true,
     },
+    {
+      key: "server",
+      label: t("records.title.server"),
+    },
   ]
 
   if (props.detailed) {
@@ -159,6 +163,10 @@ function goToCourse(row: TableRow) {
         <UTooltip :text="toLocal(row.submitted_at)">
           <span class="whitespace-nowrap">{{ toLocalDistance(row.submitted_at, locale) }}</span>
         </UTooltip>
+      </template>
+
+      <template #server-data="{ row }">
+        <span class="italic">{{ row.server.name }}</span>
       </template>
 
       <template #expand="{ row }">
