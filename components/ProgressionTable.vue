@@ -70,7 +70,7 @@ async function getWrProgression() {
     const data: RecordResponse | undefined = await $api("/records", {
       query: validQuery({
         ...toRaw(props.query),
-        has_teleports: props.query.has_teleports === "overall" ? null : false,
+        has_teleports: props.query.leaderboardType === "overall" ? null : false,
         sort_by: "submission-date",
         sort_order: "ascending",
         limit: 100000,

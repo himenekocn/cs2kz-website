@@ -1,4 +1,4 @@
-import type { CourseExt, Record as Run, RecordWithImproved, Tier, Teleports } from "~/types"
+import type { CourseExt, Record as Run, RecordWithImproved, Tier, LeaderboardType } from "~/types"
 import { format, formatDistanceToNowStrict } from "date-fns"
 import { zhCN } from "date-fns/locale"
 
@@ -124,7 +124,7 @@ export function getWrHistory(records: Run[]) {
 }
 
 // top records and points distribution
-export function calcRanksAndPointsDist(runs: Run[], type: Teleports) {
+export function calcRanksAndPointsDist(runs: Run[], type: LeaderboardType) {
   const wrs = runs.filter((record) => (type === "overall" ? record.nub_rank === 1 : record.pro_rank === 1)).length
 
   const top20 = runs.filter((record) => (type === "overall" ? record.nub_rank! <= 20 : record.pro_rank! <= 20)).length

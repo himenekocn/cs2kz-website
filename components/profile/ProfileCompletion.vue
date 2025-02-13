@@ -18,7 +18,7 @@ const ranksAndPoints = ref()
 watch(
   rankPointsRecords,
   (records) => {
-    ranksAndPoints.value = calcRanksAndPointsDist(records, rankPointsQuery.has_teleports)
+    ranksAndPoints.value = calcRanksAndPointsDist(records, rankPointsQuery.leaderboardType)
   },
   { immediate: true },
 )
@@ -39,9 +39,9 @@ watch(
 )
 
 watch(
-  () => completionQuery.has_teleports,
-  (has_teleports) => {
-    courseQuery.has_teleports = has_teleports === "tp" ? "overall" : "pro"
+  () => completionQuery.leaderboardType,
+  (type) => {
+    courseQuery.leaderboardType = type
   },
 )
 
@@ -51,10 +51,7 @@ getCourses()
 
 function initQuery() {
   rankPointsQuery.limit = 100000
-
-  completionQuery.has_teleports = "tp"
   completionQuery.limit = 100000
-
   courseQuery.limit = 100000
 }
 </script>
@@ -74,10 +71,10 @@ function initQuery() {
             {{ $t("profile.completion.topRecords") }}
           </p>
           <USelectMenu
-            v-model="rankPointsQuery.has_teleports"
+            v-model="rankPointsQuery.leaderboardType"
             :options="[
-              { name: $t('common.teleports.overall'), value: 'overall' },
-              { name: $t('common.teleports.pro'), value: 'pro' },
+              { name: $t('common.leaderboardType.overall'), value: 'overall' },
+              { name: $t('common.leaderboardType.pro'), value: 'pro' },
             ]"
             value-attribute="value"
             option-attribute="name"
@@ -104,10 +101,10 @@ function initQuery() {
             {{ $t("profile.completion.completionByTier") }}
           </p>
           <USelectMenu
-            v-model="completionQuery.has_teleports"
+            v-model="completionQuery.leaderboardType"
             :options="[
-              { name: $t('common.teleports.tp'), value: 'tp' },
-              { name: $t('common.teleports.pro'), value: 'pro' },
+              { name: $t('common.leaderboardType.tp'), value: 'tp' },
+              { name: $t('common.leaderboardType.pro'), value: 'pro' },
             ]"
             value-attribute="value"
             option-attribute="name"

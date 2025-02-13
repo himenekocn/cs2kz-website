@@ -15,7 +15,7 @@ export function useCourses() {
   const query = reactive<CourseQuery>({
     name: "",
     mode: "classic",
-    has_teleports: "overall",
+    leaderboardType: "overall",
     sort_by: "map",
     sort_order: "ascending",
     limit: 30,
@@ -26,7 +26,7 @@ export function useCourses() {
 
   watch([() => query.name], debouncedUpdate)
 
-  watch([() => query.mode, () => query.has_teleports], getCourses)
+  watch([() => query.mode, () => query.leaderboardType], getCourses)
 
   watch([() => query.tier, () => query.sort_by, () => query.sort_order, () => query.limit, () => query.offset], update)
 
@@ -72,7 +72,7 @@ export function useCourses() {
               name: course.name,
               map: map.name,
               tier:
-                query.has_teleports === "overall"
+                query.leaderboardType === "overall"
                   ? course.filters[query.mode].nub_tier
                   : course.filters[query.mode].pro_tier,
               state: course.filters[query.mode].state,

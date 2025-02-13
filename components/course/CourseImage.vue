@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import type { Course, Map, Teleports, Mode } from "~/types"
+import type { Course, Map, LeaderboardType, Mode } from "~/types"
 
 const props = defineProps<{
   course: Course
   map: Map
   mode: Mode
-  hasTeleports: Teleports
+  leaderboardType: LeaderboardType
 }>()
 
 const tier = computed(() =>
-  props.hasTeleports === "overall"
+  props.leaderboardType === "overall"
     ? props.course.filters[props.mode].nub_tier
     : props.course.filters[props.mode].pro_tier,
 )

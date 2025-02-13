@@ -56,10 +56,10 @@ function onModeChange(index: number) {
       </div>
 
       <USelectMenu
-        v-model="query.has_teleports"
+        v-model="query.leaderboardType"
         :options="[
-          { name: $t('common.teleports.overall'), value: 'overall' },
-          { name: $t('common.teleports.pro'), value: 'pro' },
+          { name: $t('common.leaderboardType.overall'), value: 'overall' },
+          { name: $t('common.leaderboardType.pro'), value: 'pro' },
         ]"
         value-attribute="value"
         option-attribute="name"

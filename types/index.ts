@@ -29,7 +29,7 @@ export type CourseFilters = components["schemas"]["CourseFilters"]
 
 export type Course = components["schemas"]["Course"]
 
-export type Teleports = "overall" | "tp" | "pro"
+export type LeaderboardType = "overall" | "pro"
 
 export interface CourseExt {
   id: string
@@ -45,7 +45,7 @@ export interface CourseExt {
 export interface CourseQuery {
   name: string
   mode: Mode
-  has_teleports: "overall" | "pro"
+  leaderboardType: LeaderboardType
   tier?: Tier
   sort_by: "map" | "tier" | "created_on"
   sort_order: "ascending" | "descending"
@@ -61,7 +61,7 @@ export type RecordResponse = paths["/records"]["get"]["responses"]["200"]["conte
 
 export interface RecordQuery {
   mode: Mode
-  has_teleports: Teleports
+  leaderboardType: LeaderboardType
   top: boolean
   max_rank?: number
   player: string

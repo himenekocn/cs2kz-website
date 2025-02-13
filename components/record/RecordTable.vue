@@ -78,7 +78,7 @@ function onSort(sort: { column: "submitted_at" | "time"; direction: "asc" | "des
 function goToCourse(row: TableRow) {
   courseQuery.value.course = row.course.name
   courseQuery.value.mode = props.query.mode
-  courseQuery.value.has_teleports = props.query.has_teleports
+  courseQuery.value.leaderboardType = props.query.leaderboardType
   navigateTo(`/maps/${row.map.name}`)
 }
 </script>

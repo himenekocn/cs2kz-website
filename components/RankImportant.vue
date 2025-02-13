@@ -1,17 +1,17 @@
 <script setup lang="ts">
-import type { Record, PlayerSteam, Teleports } from "~/types"
+import type { Record, PlayerSteam, LeaderboardType } from "~/types"
 
 const { $api } = useNuxtApp()
 
 const props = defineProps<{
-  hasTeleports: Teleports
+  leaderboardType: LeaderboardType
   record: Record
 }>()
 
 const { locale } = useI18n()
 
 const wr = computed(() => {
-  if (props.hasTeleports === "overall") {
+  if (props.leaderboardType === "overall") {
     return props.record.nub_rank === 1
   } else {
     return props.record.pro_rank === 1
@@ -61,7 +61,7 @@ async function getAvatar() {
         >
       </div>
       <p class="relative text-slate-300 text-lg">
-        {{ `#${hasTeleports === "overall" ? record.nub_rank : record.pro_rank}` }}
+        {{ `#${leaderboardType === "overall" ? record.nub_rank : record.pro_rank}` }}
       </p>
     </div>
 

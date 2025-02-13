@@ -11,7 +11,7 @@ const props = defineProps<{
 function goToCourse() {
   courseQuery.value.course = props.course.name
   courseQuery.value.mode = props.query.mode
-  courseQuery.value.has_teleports = props.query.has_teleports
+  courseQuery.value.leaderboardType = props.query.leaderboardType
   navigateTo(`/maps/${props.course.map}`)
 }
 
@@ -24,7 +24,8 @@ function convertTier(tier: Tier) {
 <template>
   <div
     class="card w-max flex items-center rounded-md ring ring-blue-600/20 hover:ring-blue-600/70 hover:ring-4 transition ease-in cursor-pointer"
-    @click="goToCourse()">
+    @click="goToCourse()"
+  >
     <TheImage class="w-64 h-36" :src="course.img" />
     <div :style="{ backgroundImage: `url(${course.img})` }" class="info">
       <div>
@@ -59,7 +60,8 @@ function convertTier(tier: Tier) {
         <div class="flex items-center gap-2 mt-1">
           <div
             :class="course.state === 'ranked' ? 'text-green-400 bg-green-300/20' : 'text-gray-300'"
-            class="px-1 text-xs border rounded-sm">
+            class="px-1 text-xs border rounded-sm"
+          >
             {{ $t(`map.filterState.${course.state}`) }}
           </div>
 

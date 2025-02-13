@@ -21,9 +21,8 @@
       "normal": "普通",
       "autoBhop": "自动连跳"
     },
-    "teleports": {
+    "leaderboardType": {
       "overall": "总体",
-      "tp": "读点",
       "pro": "裸跳"
     },
     "sortBy": {

@@ -73,7 +73,7 @@ async function getMap() {
     query.map = map.value.name
     query.course = course.value.name
     query.mode = courseQuery.value.mode
-    query.has_teleports = courseQuery.value.has_teleports
+    query.leaderboardType = courseQuery.value.leaderboardType
   } catch (error) {
     console.error(error)
     map.value = null
@@ -94,7 +94,7 @@ async function getMap() {
         <CourseHeader
           v-model:active-course-name="activeCourseName"
           v-model:mode="query.mode"
-          v-model:has-teleports="query.has_teleports"
+          v-model:leaderboard-type="query.leaderboardType"
           :workshop-id="map.workshop_id"
           :name="map.name"
           :courses="courseNames"
@@ -102,7 +102,7 @@ async function getMap() {
         />
 
         <div class="border border-gray-700 rounded-md mt-2">
-          <CourseImage :map="map" :course="course" :mode="query.mode" :has-teleports="query.has_teleports" />
+          <CourseImage :map="map" :course="course" :mode="query.mode" :leaderboard-type="query.leaderboardType" />
         </div>
 
         <div class="mt-6">
@@ -124,14 +124,14 @@ async function getMap() {
             <RankImportant
               v-if="worldRecord"
               :record="worldRecord"
-              :has-teleports="query.has_teleports"
+              :leaderboard-type="query.leaderboardType"
               @toggle="showWrProgression = !showWrProgression"
             />
             <ProgressionTable v-if="showWrProgression" :query="query" class="mt-2" />
             <RankImportant
               v-if="playerRecord && playerRecord.player.id !== worldRecord?.player.id"
               :record="playerRecord"
-              :has-teleports="query.has_teleports"
+              :leaderboard-type="query.leaderboardType"
               class="mt-2"
             />
             <CourseRanking v-model:limit="query.limit" :total="total" :records="records" :loading="loadingRecords" />

@@ -22,16 +22,18 @@ function toggleOrder() {
         wrapper: 'relative space-y-0',
       }"
       :default-index="0"
-      @change="onModeChange" />
+      @change="onModeChange"
+    />
     <div class="col-span-3 flex items-center flex-wrap lg:justify-end gap-2 lg:gap-4">
       <USelectMenu
-        v-model="query.has_teleports"
+        v-model="query.leaderboardType"
         :options="[
-          { name: $t('common.teleports.overall'), value: 'overall' },
-          { name: $t('common.teleports.pro'), value: 'pro' },
+          { name: $t('common.leaderboardType.overall'), value: 'overall' },
+          { name: $t('common.leaderboardType.pro'), value: 'pro' },
         ]"
         value-attribute="value"
-        option-attribute="name" />
+        option-attribute="name"
+      />
       <USelectMenu
         v-model="query.tier"
         :options="[
@@ -50,7 +52,8 @@ function toggleOrder() {
         value-attribute="value"
         option-attribute="name"
         :placeholder="$t('courses.query.selectTier')"
-        :leading="true">
+        :leading="true"
+      >
         <!-- <template #label>
           <span v-if="query.tier !== 'all'">
             {{ $t(`common.tier.${query.tier}`) }}
@@ -67,7 +70,8 @@ function toggleOrder() {
           "
           color="gray"
           variant="solid"
-          @click="toggleOrder" />
+          @click="toggleOrder"
+        />
         <USelectMenu
           v-model="query.sort_by"
           :options="[
@@ -76,7 +80,8 @@ function toggleOrder() {
             { name: $t('common.sortBy.createdOn'), value: 'created_on' },
           ]"
           value-attribute="value"
-          option-attribute="name" />
+          option-attribute="name"
+        />
       </UButtonGroup>
       <UInput v-model="query.name" :placeholder="$t('courses.query.searchby')">
         <template #trailing>

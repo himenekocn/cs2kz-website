@@ -21,9 +21,8 @@
       "normal": "Normal",
       "autoBhop": "Auto Bhop"
     },
-    "teleports": {
+    "leaderboardType": {
       "overall": "Overall",
-      "tp": "TP",
       "pro": "Pro"
     },
     "sortBy": {

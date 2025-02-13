@@ -1,14 +1,14 @@
-import type { Mode, Teleports } from "~/types"
+import type { Mode, LeaderboardType } from "~/types"
 
 interface SavedCourseQuery {
   course: string
   mode: Mode
-  has_teleports: Teleports
+  leaderboardType: LeaderboardType
 }
 
 export const useCourseQuery = () =>
   useState<SavedCourseQuery>("courseQuery", () => ({
     course: "",
     mode: "classic",
-    has_teleports: "overall",
+    leaderboardType: "overall",
   }))

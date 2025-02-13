@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import type { MapState, Teleports, Mode } from "~/types"
+import type { MapState, LeaderboardType, Mode } from "~/types"
 
 const mode = defineModel<Mode>("mode")
-const hasTeleports = defineModel<Teleports>("hasTeleports")
+const leaderboardType = defineModel<LeaderboardType>("leaderboardType")
 
 const props = defineProps<{
   name: string
@@ -62,10 +62,10 @@ const stateColorMap = {
           option-attribute="name"
         />
         <USelectMenu
-          v-model="hasTeleports"
+          v-model="leaderboardType"
           :options="[
-            { name: $t('common.teleports.overall'), value: 'overall' },
-            { name: $t('common.teleports.pro'), value: 'pro' },
+            { name: $t('common.leaderboardType.overall'), value: 'overall' },
+            { name: $t('common.leaderboardType.pro'), value: 'pro' },
           ]"
           value-attribute="value"
           option-attribute="name"
