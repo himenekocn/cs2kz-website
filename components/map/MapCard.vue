@@ -17,10 +17,8 @@ function goToCourse(name: string) {
 </script>
 
 <template>
-  <div
-    class="card-container relative w-max rounded-md ring ring-blue-600/20 hover:ring-blue-600 hover:ring-4 cursor-pointer"
-  >
-    <div class="flex items-center" @click="goToCourse('Main')">
+  <div class="card-container relative w-max rounded-md ring ring-blue-600/20 hover:ring-blue-600 hover:ring-4">
+    <div class="flex items-center">
       <TheImage
         class="w-64 h-36"
         :src="`https://github.com/kzglobalteam/cs2kz-images/raw/public/webp/medium/${map.name}/1.webp`"

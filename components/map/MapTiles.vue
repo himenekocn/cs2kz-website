@@ -37,22 +37,9 @@ const transformedMaps = computed(() =>
 </script>
 
 <template>
-  <div class="overflow-x-auto mt-8 py-4 px-1">
-    <div v-if="loading" class="flex justify-center">
-      <IconLoading class="inline" />
-    </div>
-
-    <div
-      v-else-if="transformedMaps.length > 0"
-      class="mx-auto w-max grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-10 xl:place-items-center"
-    >
+  <div class="mt-8 p-1 mx-auto w-max">
+    <div class="grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-10 xl:place-items-center">
       <MapCard v-for="map in transformedMaps" :key="map.id" :query="query" :map="map" />
-    </div>
-
-    <div v-else class="flex justify-center">
-      <p class="text-gray-500">
-        {{ $t("common.noData") }}
-      </p>
     </div>
   </div>
 </template>
