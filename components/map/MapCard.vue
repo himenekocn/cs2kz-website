@@ -76,7 +76,7 @@ function goToCourse(name: string) {
     </div>
 
     <div
-      class="expandable-area absolute top-full left-0 w-full max-h-0 transition ease-in overflow-hidden z-10 rounded-bl-md rounded-br-md bg-gray-800"
+      class="expandable-area hidden absolute top-full left-0 w-full overflow-hidden z-10 rounded-bl-md rounded-br-md bg-gray-800"
     >
       <div class="p-1">
         <div
@@ -161,8 +161,8 @@ function goToCourse(name: string) {
 }
 
 .card-container:hover .expandable-area {
+  display: block;
   border-top: 1px solid #4b5563;
-  max-height: 500px;
   box-shadow:
     4px 4px 0 0 rgba(37, 99, 235, 0.7),
     /* 右下阴影 */ -4px 4px 0 0 rgba(37, 99, 235, 0.7),
