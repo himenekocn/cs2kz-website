@@ -37,6 +37,7 @@
   "nav": {
     "home": "Home",
     "records": "Records",
+    "maps": "Maps",
     "courses": "Courses",
     "profile": "Profile",
     "servers": "Servers",
@@ -92,10 +93,10 @@
       "date": "Date"
     }
   },
-  "courses": {
+  "maps": {
     "query": {
       "selectTier": "Select Tier",
-      "searchby": "Course, Map"
+      "searchby": "Map"
     }
   },
   "profile": {

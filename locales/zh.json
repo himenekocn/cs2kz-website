@@ -38,6 +38,7 @@
     "home": "首页",
     "records": "记录",
     "courses": "关卡",
+    "maps": "地图",
     "profile": "个人资料",
     "servers": "服务器",
     "jumpstats": "跳跃数据",
@@ -92,10 +93,10 @@
       "date": "日期"
     }
   },
-  "courses": {
+  "maps": {
     "query": {
       "selectTier": "选择难度",
-      "searchby": "关卡, 地图"
+      "searchby": "地图"
     }
   },
   "profile": {

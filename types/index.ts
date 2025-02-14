@@ -31,15 +31,31 @@ export type Course = components["schemas"]["Course"]
 
 export type LeaderboardType = "overall" | "pro"
 
+export interface MapQuery {
+  name: string
+  state: MapState
+  mode: Mode
+  leaderboardType: LeaderboardType
+  tier?: Tier
+  limit: number
+  offset: number
+}
+
+export interface MapCard {
+  id: number
+  name: string
+  state: MapState
+  mappers: Player[]
+  courses: CourseExt[]
+  approved_at: string
+}
+
 export interface CourseExt {
-  id: string
-  map: string
   name: string
   tier: Tier
+  tierNo: number
+  tierColor: string
   state: CourseFilterState
-  mappers: Player[]
-  created_on: string
-  img: string
 }
 
 export interface CourseQuery {

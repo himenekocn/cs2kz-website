@@ -49,11 +49,11 @@ const colorMap = new Map([
 ])
 
 export function getNumTier(tier: string) {
-  return tierMap.get(tier)
+  return tierMap.get(tier) as number
 }
 
 export function getTierColor(tier: string) {
-  return colorMap.get(tier)
+  return colorMap.get(tier) as string
 }
 
 export function transformTier(tier: Tier) {

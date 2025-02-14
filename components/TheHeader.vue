@@ -35,8 +35,8 @@ const navigation = computed(() => {
       path: "/records",
     },
     {
-      localePath: "nav.courses",
-      path: "/courses",
+      localePath: "nav.maps",
+      path: "/maps",
     },
     {
       localePath: "nav.servers",
