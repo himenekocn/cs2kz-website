@@ -12,7 +12,7 @@ getMaps()
       <IconLoading class="inline" />
     </div>
 
-    <div v-else-if="maps.length > 0" class="overflow-x-auto">
+    <div v-else-if="maps.length > 0" class="overflow-y-visible">
       <MapTiles :query="query" :loading="loading" :maps="maps" />
     </div>
 

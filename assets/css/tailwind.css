@@ -18,3 +18,7 @@ html::-webkit-scrollbar-thumb {
 html::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+
+body {
+  background-color: rgb(24, 24, 27);
+}
