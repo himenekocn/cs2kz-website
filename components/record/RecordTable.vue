@@ -58,16 +58,16 @@ const columns = computed(() => {
       label: t("records.title.date"),
       sortable: true,
     },
-    {
-      key: "server",
-      label: t("records.title.server"),
-    },
   ]
 
   if (props.detailed) {
     cols.splice(3, 0, {
       key: "player",
       label: t("records.title.player"),
+    })
+    cols.push({
+      key: "server",
+      label: t("records.title.server"),
     })
   }
 
@@ -124,7 +124,7 @@ function goToCourse(row: TableRow) {
         </span>
       </template>
 
-      <template v-if="detailed" #player-data="{ row }">
+      <template #player-data="{ row }">
         <span
           class="text-cyan-600 whitespace-nowrap hover:text-cyan-400"
           @click.stop="navigateTo(`/profile/${row.player.id}`)"
