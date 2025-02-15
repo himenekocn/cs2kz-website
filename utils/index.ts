@@ -1,4 +1,4 @@
-import type { CourseExt, Record as Run, RecordWithImproved, Tier, LeaderboardType } from "~/types"
+import type { CourseInfo, Record as Run, RecordWithImproved, Tier, LeaderboardType } from "~/types"
 import { format, formatDistanceToNowStrict } from "date-fns"
 import { zhCN } from "date-fns/locale"
 
@@ -6,7 +6,7 @@ export function validQuery(query: Record<string, unknown>) {
   return Object.fromEntries(Object.entries(query).filter(([_, value]) => value !== "" && value !== null))
 }
 
-export function sort<T extends CourseExt>(data: T[], order: "ascending" | "descending", orderBy: keyof T) {
+export function sort<T extends CourseInfo>(data: T[], order: "ascending" | "descending", orderBy: keyof T) {
   const ord = order === "ascending" ? 1 : -1
   if (!orderBy) return data
 
@@ -166,7 +166,7 @@ export function calcCompletedCourses(runs: Run[], type: LeaderboardType) {
   })
 }
 
-export function calcTotalCourses(courses: CourseExt[]) {
+export function calcTotalCourses(courses: CourseInfo[]) {
   const tiers = ["very-easy", "easy", "medium", "advanced", "hard", "very-hard", "extreme", "death"]
 
   return tiers.map((tier) => {

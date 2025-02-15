@@ -58,6 +58,17 @@ export interface CourseExt {
   state: CourseFilterState
 }
 
+export interface CourseInfo {
+  id: string
+  map: string
+  name: string
+  tier: Tier
+  state: CourseFilterState
+  mappers: Player[]
+  created_on: string
+  img: string
+}
+
 export interface CourseQuery {
   name: string
   mode: Mode
