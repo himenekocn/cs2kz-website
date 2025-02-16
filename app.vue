@@ -35,6 +35,10 @@ async function verifySession() {
 
     <TheHeader />
 
+    <div class="p-2 mx-2 lg:mx-auto lg:w-max mt-8 rounded-md text-slate-800 bg-orange-400/70">
+      {{ $t("common.testingAlert") }}
+    </div>
+
     <NuxtPage />
   </div>
 </template>
