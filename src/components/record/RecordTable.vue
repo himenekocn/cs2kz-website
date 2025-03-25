@@ -47,7 +47,10 @@ const columns = computed(() => {
           'span',
           {
             class: 'text-slate-300 font-semibold text-lg hover:text-slate-200 cursor-pointer',
-            onClick: () => goToCourse(row),
+            onClick: (e: Event) => {
+              e.stopPropagation()
+              goToCourse(row)
+            },
           },
           row.original.map.name,
         )
@@ -59,7 +62,13 @@ const columns = computed(() => {
       cell: ({ row }) => {
         return h(
           'span',
-          { class: 'text-lg hover:text-slate-300 cursor-pointer', onClick: () => goToCourse(row) },
+          {
+            class: 'text-lg hover:text-slate-300 cursor-pointer',
+            onClick: (e: Event) => {
+              e.stopPropagation()
+              goToCourse(row)
+            },
+          },
           row.original.course.name,
         )
       },
@@ -167,7 +176,10 @@ const columns = computed(() => {
           'span',
           {
             class: 'text-cyan-600 whitespace-nowrap hover:text-cyan-400 cursor-pointer',
-            onClick: () => router.push(`/profile/${row.original.player.id}`),
+            onClick: (e: Event) => {
+              e.stopPropagation()
+              router.push(`/profile/${row.original.player.id}`)
+            },
           },
           row.original.player.name,
         )

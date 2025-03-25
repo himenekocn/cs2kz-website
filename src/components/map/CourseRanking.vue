@@ -39,7 +39,10 @@ const columns = computed(() => {
           'span',
           {
             class: 'text-cyan-600 whitespace-nowrap hover:text-cyan-400 cursor-pointer',
-            onClick: () => router.push(`/profile/${row.original.player.id}`),
+            onClick: (e: Event) => {
+              e.stopPropagation()
+              router.push(`/profile/${row.original.player.id}`)
+            },
           },
           row.original.player.name,
         )
