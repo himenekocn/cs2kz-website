@@ -1,15 +1,39 @@
-# CS2KZ Website
+# website-vue
 
-This project provides a website that communicates with the [CS2KZ API](https://github.com/KZGlobalTeam/cs2kz-api). You can view records, maps, courses, player profile and servers on this website. It's built with [Nuxt](https://nuxt.com/) and [TailwindCSS](https://v3.tailwindcss.com/).
+This template should help get you started developing with Vue 3 in Vite.
 
-## Development Setup
+## Recommended IDE Setup
 
-Set up the [API](https://github.com/KZGlobalTeam/cs2kz-api) following the instructions there.
+[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
 
-Make sure your `Nodejs` version is on `20` or later. Install `pnpm` if you don't have it.
+## Type Support for `.vue` Imports in TS
 
-Clone this project and run `pnpm i` to install dependencies.
+TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
 
-Make a copy of `.env.example` and rename it to `.env`, put the url of the API (e.g. `http://127.0.0.1:42069`) after the environment variable `NUXT_PUBLIC_API_BASE`.
+## Customize configuration
 
-Run `pnpm dev` and go to `http://127.0.0.1:5173` in your browser when it's ready.
+See [Vite Configuration Reference](https://vite.dev/config/).
+
+## Project Setup
+
+```sh
+pnpm install
+```
+
+### Compile and Hot-Reload for Development
+
+```sh
+pnpm dev
+```
+
+### Type-Check, Compile and Minify for Production
+
+```sh
+pnpm build
+```
+
+### Lint with [ESLint](https://eslint.org/)
+
+```sh
+pnpm lint
+```

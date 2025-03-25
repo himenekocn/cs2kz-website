@@ -1,0 +1,179 @@
+{
+  "common": {
+    "testingAlert": "该网站和KZ插件目前正处于测试阶段。在开发过程中，所有的记录和数据都可能在某一时间点被清除，请知悉。",
+    "mode": {
+      "ckz": "CKZ",
+      "vnl": "VNL"
+    },
+    "tier": {
+      "all": "所有难度",
+      "veryEasy": "非常简单",
+      "easy": "简单",
+      "medium": "中等",
+      "advanced": "高级",
+      "hard": "困难",
+      "veryHard": "非常困难",
+      "extreme": "极限",
+      "death": "死亡",
+      "unfeasible": "不可行",
+      "impossible": "不可能"
+    },
+    "style": {
+      "normal": "普通",
+      "autoBhop": "自动连跳"
+    },
+    "leaderboardType": {
+      "overall": "总体",
+      "pro": "裸跳"
+    },
+    "sortBy": {
+      "date": "日期",
+      "time": "用时",
+      "map": "地图",
+      "tier": "难度",
+      "createdOn": "发布日期"
+    },
+    "noData": "无数据"
+  },
+  "nav": {
+    "home": "首页",
+    "records": "记录",
+    "courses": "关卡",
+    "maps": "地图",
+    "profile": "个人资料",
+    "servers": "服务器",
+    "jumpstats": "跳跃数据",
+    "signOut": "退出登录",
+    "signOutAll": "退出所有网站",
+    "tooltip": {
+      "locale": "切换语言",
+      "login": "Steam登录",
+      "discord": "Discord",
+      "github": "Github",
+      "docs": "文档",
+      "dashboard": "仪表盘"
+    }
+  },
+  "pagination": {
+    "first": "首页",
+    "last": "尾页",
+    "page": "页",
+    "refresh": "刷新"
+  },
+  "records": {
+    "query": {
+      "pbOnly": "仅PB",
+      "map": "地图",
+      "course": "关卡",
+      "player": "玩家",
+      "server": "服务器",
+      "styles": "选择风格",
+      "maxRank": {
+        "placeholder": "选择排名",
+        "all": "全部",
+        "wr": "世界纪录",
+        "top10": "前10",
+        "top20": "前20",
+        "top50": "前50",
+        "top100": "前100"
+      }
+    },
+    "title": {
+      "rank": "排名",
+      "map": "地图",
+      "course": "关卡",
+      "tier": "难度",
+      "player": "玩家",
+      "time": "用时",
+      "nubRank": "总排名",
+      "nubPoints": "总积分",
+      "proRank": "裸跳排名",
+      "proPoints": "裸跳积分",
+      "server": "服务器",
+      "teleports": "读点次数",
+      "date": "日期"
+    }
+  },
+  "maps": {
+    "query": {
+      "selectTier": "选择难度",
+      "searchby": "地图"
+    }
+  },
+  "profile": {
+    "notFound": "未找到该玩家",
+    "info": {
+      "joinedOn": "加入日期",
+      "hours": "记录时长",
+      "worldRank": "世界排名",
+      "rating": "评分",
+      "coursesFinished": "完成关卡"
+    },
+    "completion": {
+      "finished": "已完成",
+      "total": "总计",
+      "average": "平均",
+      "title": "完成情况",
+      "wrs": "世界纪录",
+      "top20": "前20",
+      "top50": "前50",
+      "top100": "前100",
+      "topRecords": "Top 记录",
+      "pointsDist": "分数分布",
+      "completionByTier": "难度完成情况"
+    },
+    "runs": {
+      "title": "记录"
+    },
+    "history": {
+      "title": "历史记录",
+      "playHistory": "游玩历史",
+      "mostPlayedCourse": "最常玩关卡",
+      "chartFilter": {
+        "week": "周",
+        "month": "月",
+        "year": "年"
+      },
+      "course": "关卡",
+      "map": "地图",
+      "mostPlayedFilter": {
+        "time": "用时",
+        "runs": "次数"
+      }
+    }
+  },
+  "map": {
+    "state": {
+      "approved": "全球",
+      "inTesting": "测试中",
+      "invalid": "无效"
+    },
+    "filters": "筛选",
+    "styles": "风格",
+    "madeBy": "作者",
+    "tags": "标签",
+    "rating": "评分",
+    "nubTier": "存点难度",
+    "proTier": "裸跳难度",
+    "filterState": {
+      "ranked": "排位关卡",
+      "unranked": "不计排位",
+      "pending": "待处理"
+    },
+    "courseRanking": "关卡排名"
+  },
+  "servers": {
+    "query": {
+      "name": "名称",
+      "ipAddress": "IP",
+      "ownedBy": "所有者"
+    },
+    "title": {
+      "name": "名称",
+      "ipAddress": "IP",
+      "owner": "所有者",
+      "ping": "延迟",
+      "approvedOn": "上线日期"
+    }
+  }
+}

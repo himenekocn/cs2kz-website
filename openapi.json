@@ -1,0 +1,2035 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "CS2KZ API",
+    "description": "This is the description :)",
+    "contact": { "name": "AlphaKeks", "email": "alphakeks@dawn.sh" },
+    "license": { "name": "GPL-3.0", "url": "https://www.gnu.org/licenses/gpl-3.0.en.html" },
+    "version": "0.0.0"
+  },
+  "servers": [
+    { "url": "http://127.0.0.1:42069", "description": "local dev server" },
+    { "url": "https://staging.cs2kz.org", "description": "staging server" },
+    { "url": "https://api.cs2kz.org", "description": "production instance" }
+  ],
+  "paths": {
+    "/plugin/versions": {
+      "get": {
+        "tags": ["cs2kz-metamod"],
+        "summary": "Returns the latest cs2kz-metamod releases.",
+        "operationId": "get_plugin_versions",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "query",
+            "description": "Only include versions that meet this SemVer requirement.",
+            "required": false,
+            "schema": { "type": "string" },
+            "example": "^1.0.0"
+          },
+          { "name": "limit", "in": "query", "required": false, "schema": { "$ref": "#/components/schemas/Limit" } },
+          { "name": "offset", "in": "query", "required": false, "schema": { "$ref": "#/components/schemas/Offset" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Paginated_PluginVersion" } } }
+          },
+          "400": { "description": "invalid query parameters" }
+        }
+      },
+      "post": {
+        "tags": ["cs2kz-metamod"],
+        "summary": "Notifies the API that a new version of cs2kz-metamod has been released.",
+        "operationId": "publish_plugin_version",
+        "requestBody": {
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/NewPluginVersion" } } },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/PublishedPluginVersion" } } }
+          },
+          "401": { "description": "" },
+          "409": { "description": "The submitted version already exists or is older than the current latest version." },
+          "422": { "description": "invalid request body" }
+        }
+      }
+    },
+    "/plugin/versions/{version}": {
+      "get": {
+        "tags": ["cs2kz-metamod"],
+        "summary": "Returns metadata about the release of a specific cs2kz-metamod version.",
+        "operationId": "get_plugin_version",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "path",
+            "description": "a SemVer version or git revision",
+            "required": true,
+            "schema": { "$ref": "#/components/schemas/PluginVersionIdentifier" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/PluginVersion" } } }
+          },
+          "400": { "description": "invalid path parameter" },
+          "404": { "description": "" }
+        }
+      }
+    },
+    "/users": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "Returns all users with permissions.",
+        "operationId": "get_users",
+        "parameters": [
+          {
+            "name": "permissions",
+            "in": "query",
+            "description": "Only include users with these permissions.",
+            "required": false,
+            "schema": { "$ref": "#/components/schemas/Permissions" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Paginated_User" } } }
+          },
+          "400": { "description": "invalid query parameters" }
+        }
+      }
+    },
+    "/users/{user_id}": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "Returns the user with the specified ID.",
+        "operationId": "get_user",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "description": "the user's SteamID",
+            "required": true,
+            "schema": { "$ref": "#/components/schemas/SteamId64" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/User" } } }
+          },
+          "400": { "description": "invalid path parameters" },
+          "404": { "description": "" }
+        }
+      }
+    },
+    "/users/{user_id}/email": {
+      "put": {
+        "tags": ["Users"],
+        "summary": "Updates a user's email address.",
+        "operationId": "update_user_email",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "description": "the user's SteamID",
+            "required": true,
+            "schema": { "$ref": "#/components/schemas/SteamId64" }
+          }
+        ],
+        "requestBody": {
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/UpdateUserEmailPayload" } } },
+          "required": true
+        },
+        "responses": {
+          "204": { "description": "" },
+          "400": { "description": "invalid path parameters" },
+          "401": { "description": "" },
+          "404": { "description": "" },
+          "422": { "description": "invalid request body" }
+        }
+      },
+      "delete": {
+        "tags": ["Users"],
+        "summary": "Deletes a user's email address.",
+        "operationId": "delete_user_email",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "description": "the user's SteamID",
+            "required": true,
+            "schema": { "$ref": "#/components/schemas/SteamId64" }
+          }
+        ],
+        "responses": {
+          "204": { "description": "" },
+          "400": { "description": "invalid path parameters" },
+          "401": { "description": "" },
+          "404": { "description": "" }
+        }
+      }
+    },
+    "/users/{user_id}/permissions": {
+      "put": {
+        "tags": ["Users"],
+        "summary": "Update a user's permissions.",
+        "description": "This will **replace their current permissions**!",
+        "operationId": "update_user_permissions",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "description": "the user's SteamID",
+            "required": true,
+            "schema": { "$ref": "#/components/schemas/SteamId64" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/UpdateUserPermissionsPayload" } }
+          },
+          "required": true
+        },
+        "responses": {
+          "204": { "description": "" },
+          "400": { "description": "invalid path parameters" },
+          "401": { "description": "" },
+          "404": { "description": "" },
+          "422": { "description": "invalid request body" }
+        }
+      }
+    },
+    "/auth/cs2": {
+      "get": {
+        "tags": ["CS2 Server Authentication"],
+        "summary": "Establishes a WebSocket connection with the requesting CS2 server.",
+        "operationId": "cs2_server_auth",
+        "responses": { "101": { "description": "" }, "401": { "description": "" } }
+      }
+    },
+    "/auth/web": {
+      "get": {
+        "tags": ["User Authentication"],
+        "summary": "Returns information about your current session.",
+        "operationId": "get_current_session",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/SessionInfo" } } }
+          },
+          "401": { "description": "" }
+        }
+      }
+    },
+    "/auth/web/login": {
+      "get": {
+        "tags": ["User Authentication"],
+        "summary": "Login with Steam.",
+        "description": "This endpoint will redirect you to Steam's login page.\n\nAfterwards you will be redirected back here, and optionally to another URL if you specify the\n`redirect_to` query parameter.",
+        "operationId": "user_login",
+        "parameters": [
+          {
+            "name": "redirect_to",
+            "in": "query",
+            "description": "URL you wish to be redirected to after the login process is complete.",
+            "required": false,
+            "schema": { "type": "string", "format": "uri" }
+          }
+        ],
+        "responses": { "303": { "description": "Redirect to Steam's login page." } }
+      }
+    },
+    "/auth/web/logout": {
+      "get": {
+        "tags": ["User Authentication"],
+        "summary": "Expires your current session immediately.",
+        "operationId": "user_logout",
+        "responses": { "200": { "description": "" }, "401": { "description": "" } }
+      }
+    },
+    "/servers": {
+      "get": {
+        "tags": ["CS2 Servers"],
+        "summary": "Returns the most recently approved CS2 servers.",
+        "operationId": "get_servers",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "description": "Only include servers whose name matches this value.",
+            "required": false,
+            "schema": { "type": "string", "minLength": 1 }
+          },
+          {
+            "name": "host",
+            "in": "query",
+            "description": "Only include servers whose host matches this value.",
+            "required": false,
+            "schema": { "$ref": "#/components/schemas/ServerHost" }
+          },
+          {
+            "name": "owned_by",
+            "in": "query",
+            "description": "Only include servers owned by this user.",
+            "required": false,
+            "schema": { "$ref": "#/components/schemas/SteamId64" }
+          },
+          { "name": "limit", "in": "query", "required": false, "schema": { "$ref": "#/components/schemas/Limit" } },
+          { "name": "offset", "in": "query", "required": false, "schema": { "$ref": "#/components/schemas/Offset" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Paginated_Server" } } }
+          },
+          "400": { "description": "invalid query parameters" }
+        }
+      },
+      "post": {
+        "tags": ["CS2 Servers"],
+        "summary": "Approves a new CS2 server.",
+        "description": "This will generate an access key which allows the server to submit records, jumpstats, etc.",
+        "operationId": "approve_server",
+        "requestBody": {
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/NewServer" } } },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/CreatedServer" } } }
+          },
+          "401": { "description": "" },
+          "409": { "description": "The server's name or host+port combination is already in use." },
+          "422": { "description": "invalid request body" }
+        }
+      }
+    },
+    "/servers/{server}": {
+      "get": {
+        "tags": ["CS2 Servers"],
+        "summary": "Returns the CS2 server with the specified ID / name.",
+        "description": "If you specify a name, it does not have to be an exact match, although exact matches will be\npreferred.",
+        "operationId": "get_server",
+        "parameters": [
+          {
+            "name": "server",
+            "in": "path",
+            "description": "a server ID or name",
+            "required": true,
+            "schema": { "$ref": "#/components/schemas/ServerIdentifier" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Server" } } }
+          },
+          "400": { "description": "invalid path parameters" },
+          "404": { "description": "" }
+        }
+      }
+    },
+    "/servers/{server_id}": {
+      "patch": {
+        "tags": ["CS2 Servers"],
+        "summary": "Updates a server's metadata.",
+        "operationId": "update_server",
+        "parameters": [
+          {
+            "name": "server_id",
+            "in": "path",
+            "description": "the server's ID",
+            "required": true,
+            "schema": { "type": "integer", "format": "u-int16", "minimum": 0 }
+          }
+        ],
+        "requestBody": {
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ServerUpdate" } } },
+          "required": true
+        },
+        "responses": {
+          "204": { "description": "" },
+          "401": { "description": "" },
+          "404": { "description": "" },
+          "409": { "description": "The specified name or host+port combination is already in use." },
+          "422": { "description": "invalid request body" }
+        }
+      }
+    },
+    "/servers/{server_id}/access-key": {
+      "put": {
+        "tags": ["CS2 Servers"],
+        "summary": "Generates a new access key for a server and invalidates the old one.",
+        "description": "A successful request to this endpoint will also terminate the server's open WebSocket\nconnection, if any.",
+        "operationId": "refresh_server_access_key",
+        "parameters": [
+          {
+            "name": "server_id",
+            "in": "path",
+            "description": "the server's ID",
+            "required": true,
+            "schema": { "type": "integer", "format": "u-int16", "minimum": 0 }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/CreatedAccessKey" } } }
+          },
+          "401": { "description": "" },
+          "404": { "description": "" }
+        }
+      },
+      "delete": {
+        "tags": ["CS2 Servers"],
+        "summary": "Deletes a server's access key.",
+        "description": "A successful request to this endpoint will also terminate the server's open WebSocket\nconnection, if any.",
+        "operationId": "delete_server_access_key",
+        "parameters": [
+          {
+            "name": "server_id",
+            "in": "path",
+            "description": "the server's ID",
+            "required": true,
+            "schema": { "type": "integer", "format": "u-int16", "minimum": 0 }
+          }
+        ],
+        "responses": { "204": { "description": "" }, "401": { "description": "" }, "404": { "description": "" } }
+      }
+    },
+    "/players": {
+      "get": {
+        "tags": ["Players"],
+        "summary": "Returns CS2 players.",
+        "operationId": "get_players",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "description": "Only include players whose name matches this value.",
+            "required": false,
+            "schema": { "type": "string" }
+          },
+          { "name": "limit", "in": "query", "required": false, "schema": { "$ref": "#/components/schemas/Limit" } },
+          { "name": "offset", "in": "query", "required": false, "schema": { "$ref": "#/components/schemas/Offset" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Paginated_Player" } } }
+          },
+          "400": { "description": "invalid query parameters" }
+        }
+      }
+    },
+    "/players/{player}": {
+      "get": {
+        "tags": ["Players"],
+        "summary": "Returns the player with the specified ID / name.",
+        "operationId": "get_player",
+        "parameters": [
+          {
+            "name": "player",
+            "in": "path",
+            "description": "a SteamID or name",
+            "required": true,
+            "schema": { "$ref": "#/components/schemas/PlayerIdentifier" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Player" } } }
+          },
+          "400": { "description": "invalid path parameters" },
+          "404": { "description": "" }
+        }
+      }
+    },
+    "/players/{player_id}/profile": {
+      "get": {
+        "tags": ["Players"],
+        "summary": "Returns a player's profile information.",
+        "operationId": "get_player_profile",
+        "parameters": [
+          {
+            "name": "player_id",
+            "in": "path",
+            "description": "the player's SteamID",
+            "required": true,
+            "schema": { "type": "integer", "format": "u-int64", "minimum": 0 }
+          },
+          { "name": "mode", "in": "query", "required": true, "schema": { "$ref": "#/components/schemas/Mode" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Player" } } }
+          },
+          "400": { "description": "invalid path parameters" },
+          "404": { "description": "" }
+        }
+      }
+    },
+    "/players/{player_id}/steam-profile": {
+      "get": {
+        "tags": ["Players"],
+        "summary": "Returns a player's Steam profile.",
+        "operationId": "get_player_steam_profile",
+        "parameters": [
+          {
+            "name": "player_id",
+            "in": "path",
+            "description": "the player's SteamID",
+            "required": true,
+            "schema": { "$ref": "#/components/schemas/SteamId" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/SteamUser" } } }
+          },
+          "400": { "description": "invalid path parameters" },
+          "404": { "description": "" },
+          "502": { "description": "Steam returned an error" }
+        }
+      }
+    },
+    "/players/{player_id}/preferences": {
+      "get": {
+        "tags": ["Players"],
+        "summary": "Returns a player's cs2kz-metamod preferences.",
+        "operationId": "get_player_preferences",
+        "parameters": [
+          {
+            "name": "player_id",
+            "in": "path",
+            "description": "the player's SteamID",
+            "required": true,
+            "schema": { "type": "integer", "format": "u-int64", "minimum": 0 }
+          }
+        ],
+        "responses": {
+          "200": { "description": "", "content": { "application/json": { "schema": { "type": "object" } } } },
+          "400": { "description": "invalid path parameters" },
+          "404": { "description": "" }
+        }
+      },
+      "put": {
+        "tags": ["Players"],
+        "summary": "Replaces a player's cs2kz-metamod preferences.",
+        "operationId": "update_player_preferences",
+        "parameters": [
+          {
+            "name": "player_id",
+            "in": "path",
+            "description": "the player's SteamID",
+            "required": true,
+            "schema": { "type": "integer", "format": "u-int64", "minimum": 0 }
+          }
+        ],
+        "responses": {
+          "204": { "description": "" },
+          "400": { "description": "invalid path parameters" },
+          "401": { "description": "" },
+          "404": { "description": "" }
+        }
+      }
+    },
+    "/maps": {
+      "get": {
+        "tags": ["Maps"],
+        "summary": "Returns the latest KZ maps.",
+        "operationId": "get_maps",
+        "parameters": [
+          {
+            "name": "workshop_id",
+            "in": "query",
+            "description": "Only include maps with this Steam Workshop ID.\n\nAs multiple versions of the same map are represented as different maps, a request may\nreturn multiple values (multiple versions of the same map with the same workshop ID).",
+            "required": false,
+            "schema": { "type": "integer", "format": "u-int32", "minimum": 0 }
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "description": "Only include maps whose name matches this value.",
+            "required": false,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "state",
+            "in": "query",
+            "description": "Only include maps currently in this state.",
+            "required": false,
+            "schema": { "$ref": "#/components/schemas/MapState" }
+          },
+          { "name": "limit", "in": "query", "required": false, "schema": { "$ref": "#/components/schemas/Limit" } },
+          { "name": "offset", "in": "query", "required": false, "schema": { "$ref": "#/components/schemas/Offset" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Paginated_Map" } } }
+          },
+          "400": { "description": "invalid query parameters" }
+        }
+      },
+      "put": {
+        "tags": ["Maps"],
+        "summary": "Approves a new map.",
+        "operationId": "approve_map",
+        "requestBody": {
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/NewMap" } } },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ApprovedMap" } } }
+          },
+          "401": { "description": "" },
+          "422": { "description": "invalid request body" }
+        }
+      }
+    },
+    "/maps/{map}": {
+      "get": {
+        "tags": ["Maps"],
+        "summary": "Returns the map with the specified ID / name.",
+        "operationId": "get_map",
+        "parameters": [
+          {
+            "name": "map",
+            "in": "path",
+            "description": "a map ID or name",
+            "required": true,
+            "schema": { "$ref": "#/components/schemas/MapIdentifier" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Map" } } }
+          },
+          "400": { "description": "invalid path parameters" },
+          "404": { "description": "" }
+        }
+      }
+    },
+    "/maps/{map_id}": {
+      "patch": {
+        "tags": ["Maps"],
+        "summary": "Updates a map in-place.",
+        "description": "This endpoint is used for simple metadata changes. Gameplay changes should be communicated\nthrough a separate version, i.e. `PUT /maps`.",
+        "operationId": "update_map",
+        "parameters": [
+          {
+            "name": "map_id",
+            "in": "path",
+            "description": "the map's ID",
+            "required": true,
+            "schema": { "type": "integer", "format": "u-int16", "minimum": 0 }
+          }
+        ],
+        "requestBody": {
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/MapUpdate" } } },
+          "required": true
+        },
+        "responses": {
+          "204": { "description": "" },
+          "400": { "description": "invalid path parameters" },
+          "401": { "description": "" },
+          "409": { "description": "" },
+          "422": { "description": "invalid request body" }
+        }
+      }
+    },
+    "/jumpstats": {
+      "get": {
+        "tags": ["Jumpstats"],
+        "summary": "Returns the latest jumpstats.",
+        "operationId": "get_jumpstats",
+        "parameters": [
+          { "name": "limit", "in": "query", "required": false, "schema": { "$ref": "#/components/schemas/Limit" } },
+          { "name": "offset", "in": "query", "required": false, "schema": { "$ref": "#/components/schemas/Offset" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Paginated_Jumpstat" } } }
+          },
+          "400": { "description": "invalid query parameters" }
+        }
+      }
+    },
+    "/jumpstats/{jumpstat_id}": {
+      "get": {
+        "tags": ["Jumpstats"],
+        "summary": "Returns the jumpstat with the specified ID.",
+        "operationId": "get_jumpstat",
+        "parameters": [
+          {
+            "name": "jumpstat_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "format": "u-int32", "minimum": 0 }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Jumpstat" } } }
+          },
+          "400": { "description": "invalid path parameters" },
+          "404": { "description": "" }
+        }
+      }
+    },
+    "/jumpstats/{jumpstat_id}/replay": {
+      "get": {
+        "tags": ["Jumpstats"],
+        "summary": "Returns the replay file for a specific jumpstat.",
+        "operationId": "get_jumpstat_replay",
+        "parameters": [
+          {
+            "name": "jumpstat_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "format": "u-int32", "minimum": 0 }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ReplayFile" } } }
+          },
+          "400": { "description": "invalid path parameters" },
+          "404": { "description": "" }
+        }
+      }
+    },
+    "/records": {
+      "get": {
+        "tags": ["Records"],
+        "summary": "Returns the latest records.",
+        "operationId": "get_records",
+        "parameters": [
+          {
+            "name": "top",
+            "in": "query",
+            "description": "Only include PBs.",
+            "required": false,
+            "schema": { "type": "boolean" }
+          },
+          {
+            "name": "player",
+            "in": "query",
+            "description": "Only include records set by this player.",
+            "required": false,
+            "schema": { "$ref": "#/components/schemas/PlayerIdentifier" }
+          },
+          {
+            "name": "server",
+            "in": "query",
+            "description": "Only include records set on this server.",
+            "required": false,
+            "schema": { "$ref": "#/components/schemas/ServerIdentifier" }
+          },
+          {
+            "name": "map",
+            "in": "query",
+            "description": "Only include records set on this map.",
+            "required": false,
+            "schema": { "$ref": "#/components/schemas/MapIdentifier" }
+          },
+          {
+            "name": "course",
+            "in": "query",
+            "description": "Only include records set on this course.",
+            "required": false,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "mode",
+            "in": "query",
+            "description": "Only include records set on this mode.",
+            "required": false,
+            "schema": { "$ref": "#/components/schemas/Mode" }
+          },
+          {
+            "name": "has_teleports",
+            "in": "query",
+            "description": "Restrict the results to records that (do not) have teleports.",
+            "required": false,
+            "schema": { "type": "boolean" }
+          },
+          {
+            "name": "max_rank",
+            "in": "query",
+            "description": "The highest rank that any record should have.\n\nThis can be used, for example, to query world records only (`max_rank=1`).",
+            "required": false,
+            "schema": { "type": "integer", "format": "u-int32", "minimum": 1 }
+          },
+          {
+            "name": "sort_by",
+            "in": "query",
+            "description": "Which value to sort the results by.\n\nDefaults to 'submission-date'.",
+            "required": false,
+            "schema": { "$ref": "#/components/schemas/Records_SortBy" }
+          },
+          {
+            "name": "sort_order",
+            "in": "query",
+            "description": "Which direction to sort the results in.",
+            "required": false,
+            "schema": { "$ref": "#/components/schemas/Records_SortOrder" }
+          },
+          { "name": "limit", "in": "query", "required": false, "schema": { "$ref": "#/components/schemas/Limit" } },
+          { "name": "offset", "in": "query", "required": false, "schema": { "$ref": "#/components/schemas/Offset" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Paginated_Record" } } }
+          },
+          "400": { "description": "invalid query parameters" }
+        }
+      }
+    },
+    "/records/{record_id}": {
+      "get": {
+        "tags": ["Records"],
+        "summary": "Returns the record with the specified ID.",
+        "operationId": "get_record",
+        "parameters": [
+          {
+            "name": "record_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "format": "u-int32", "minimum": 0 }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Record" } } }
+          },
+          "400": { "description": "invalid path parameters" },
+          "404": { "description": "" }
+        }
+      }
+    },
+    "/records/{record_id}/replay": {
+      "get": {
+        "tags": ["Records"],
+        "summary": "Returns the replay file for a specific record.",
+        "operationId": "get_record_replay",
+        "parameters": [
+          {
+            "name": "record_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "format": "u-int32", "minimum": 0 }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ReplayFile" } } }
+          },
+          "400": { "description": "invalid path parameters" },
+          "404": { "description": "" }
+        }
+      }
+    },
+    "/bans": {
+      "get": {
+        "tags": ["Player Bans"],
+        "summary": "Returns the latest player bans.",
+        "operationId": "get_bans",
+        "parameters": [
+          {
+            "name": "player",
+            "in": "query",
+            "description": "Only include bans for this player.",
+            "required": false,
+            "schema": { "$ref": "#/components/schemas/PlayerIdentifier" }
+          },
+          {
+            "name": "banned_by",
+            "in": "query",
+            "description": "Only include bans issued by this user.",
+            "required": false,
+            "schema": { "$ref": "#/components/schemas/SteamId64" }
+          },
+          {
+            "name": "reason",
+            "in": "query",
+            "description": "Only include bans with this reason.",
+            "required": false,
+            "schema": { "$ref": "#/components/schemas/BanReason" }
+          },
+          { "name": "limit", "in": "query", "required": false, "schema": { "$ref": "#/components/schemas/Limit" } },
+          { "name": "offset", "in": "query", "required": false, "schema": { "$ref": "#/components/schemas/Offset" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Paginated_Ban" } } }
+          },
+          "400": { "description": "invalid query parameters" }
+        }
+      },
+      "post": {
+        "tags": ["Player Bans"],
+        "summary": "Bans a player.",
+        "operationId": "create_ban",
+        "requestBody": {
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/NewBan" } } },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/CreatedBan" } } }
+          },
+          "401": { "description": "" },
+          "409": { "description": "the player is already banned" },
+          "422": { "description": "invalid request body" }
+        }
+      }
+    },
+    "/bans/{ban_id}": {
+      "get": {
+        "tags": ["Player Bans"],
+        "summary": "Returns the ban with the specified ID.",
+        "operationId": "get_ban",
+        "parameters": [
+          {
+            "name": "ban_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "format": "u-int32", "minimum": 0 }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Ban" } } }
+          },
+          "400": { "description": "invalid path parameters" },
+          "404": { "description": "" }
+        }
+      },
+      "delete": {
+        "tags": ["Player Bans"],
+        "summary": "Reverts a ban and creates an unban.",
+        "operationId": "delete_ban",
+        "parameters": [
+          {
+            "name": "ban_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "format": "u-int32", "minimum": 0 }
+          }
+        ],
+        "requestBody": {
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/NewUnban" } } },
+          "required": true
+        },
+        "responses": {
+          "204": { "description": "" },
+          "400": { "description": "invalid path parameters" },
+          "401": { "description": "" },
+          "404": { "description": "" },
+          "422": { "description": "invalid request body" }
+        }
+      },
+      "patch": {
+        "tags": ["Player Bans"],
+        "summary": "Updates an active ban.",
+        "operationId": "update_ban",
+        "parameters": [
+          {
+            "name": "ban_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "format": "u-int32", "minimum": 0 }
+          }
+        ],
+        "requestBody": {
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/BanUpdate" } } },
+          "required": true
+        },
+        "responses": {
+          "204": { "description": "" },
+          "400": { "description": "invalid path parameters" },
+          "401": { "description": "" },
+          "404": { "description": "" },
+          "422": { "description": "invalid request body" }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AccessKey": {
+        "type": "string",
+        "format": "ulid",
+        "description": "an opaque access key",
+        "examples": ["01JG9X9ZMAKCNXH19VMXZ7BC08"]
+      },
+      "ApprovedMap": {
+        "type": "object",
+        "required": ["map_id"],
+        "properties": { "map_id": { "type": "integer", "format": "u-int16", "minimum": 1 } }
+      },
+      "Ban": {
+        "type": "object",
+        "required": ["id", "player", "banned_by", "reason", "created_at"],
+        "properties": {
+          "id": { "type": "integer", "format": "u-int32", "minimum": 1 },
+          "player": { "$ref": "#/components/schemas/PlayerInfo" },
+          "banned_by": { "$ref": "#/components/schemas/BannedBy" },
+          "reason": { "$ref": "#/components/schemas/BanReason" },
+          "unban": {
+            "oneOf": [
+              { "type": "null" },
+              { "$ref": "#/components/schemas/Unban", "description": "The unban corresponding to this ban, if any." }
+            ]
+          },
+          "created_at": { "$ref": "#/components/schemas/Timestamp" }
+        }
+      },
+      "BanReason": { "type": "string", "enum": ["macro", "auto-bhop", "auto-strafe"] },
+      "BanUpdate": {
+        "type": "object",
+        "properties": {
+          "reason": { "oneOf": [{ "type": "null" }, { "$ref": "#/components/schemas/BanReason" }] },
+          "expires_at": { "oneOf": [{ "type": "null" }, { "$ref": "#/components/schemas/Timestamp" }] }
+        }
+      },
+      "BannedBy": {
+        "oneOf": [
+          {
+            "type": "object",
+            "description": "The ban was issued by the Anti-Cheat on a CS2 server.",
+            "required": ["id", "type"],
+            "properties": {
+              "id": {
+                "type": "integer",
+                "format": "u-int16",
+                "description": "The ban was issued by the Anti-Cheat on a CS2 server.",
+                "minimum": 0
+              },
+              "type": { "type": "string", "enum": ["server"] }
+            }
+          },
+          {
+            "type": "object",
+            "description": "The ban was issued by an admin.",
+            "required": ["id", "type"],
+            "properties": {
+              "id": { "$ref": "#/components/schemas/SteamId64", "description": "The ban was issued by an admin." },
+              "type": { "type": "string", "enum": ["admin"] }
+            }
+          }
+        ]
+      },
+      "Checksum": {
+        "type": "string",
+        "description": "an MD5 checksum",
+        "examples": ["ba29b1da0f9c28e2a9e072aba46cf040"],
+        "maxLength": 32,
+        "minLength": 32
+      },
+      "Course": {
+        "type": "object",
+        "required": ["name", "mappers", "filters"],
+        "properties": {
+          "name": { "type": "string", "description": "The course's name." },
+          "description": { "type": ["string", "null"], "description": "A brief description of the course." },
+          "mappers": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/PlayerInfo" },
+            "description": "A list of players who have contributed to the creation of this course."
+          },
+          "filters": { "$ref": "#/components/schemas/CourseFilters", "description": "The filters for this course." }
+        }
+      },
+      "CourseFilter": {
+        "type": "object",
+        "required": ["nub_tier", "pro_tier", "state"],
+        "properties": {
+          "nub_tier": {
+            "$ref": "#/components/schemas/CourseFilterTier",
+            "description": "The difficulty level of this filter when teleports are allowed."
+          },
+          "pro_tier": {
+            "$ref": "#/components/schemas/CourseFilterTier",
+            "description": "The difficulty level of this filter when no teleports are allowed."
+          },
+          "state": {
+            "$ref": "#/components/schemas/CourseFilterState",
+            "description": "The initial state the course should be in."
+          },
+          "notes": {
+            "type": ["string", "null"],
+            "description": "Any additional notes on this filter (e.g. tiering justifications)."
+          }
+        }
+      },
+      "CourseFilterState": { "type": "string", "enum": ["unranked", "pending", "ranked"] },
+      "CourseFilterTier": {
+        "type": "string",
+        "enum": [
+          "very-easy",
+          "easy",
+          "medium",
+          "advanced",
+          "hard",
+          "very-hard",
+          "extreme",
+          "death",
+          "unfeasible",
+          "impossible"
+        ]
+      },
+      "CourseFilters": {
+        "type": "object",
+        "required": ["vanilla", "classic"],
+        "properties": {
+          "vanilla": { "$ref": "#/components/schemas/CourseFilter", "description": "The filter for the VNL mode." },
+          "classic": { "$ref": "#/components/schemas/CourseFilter", "description": "The filter for the CKZ mode." }
+        }
+      },
+      "CourseInfo": {
+        "type": "object",
+        "required": ["id", "name", "nub_tier", "pro_tier"],
+        "properties": {
+          "id": { "type": "integer", "format": "u-int16", "description": "The course's ID.", "minimum": 1 },
+          "name": { "type": "string", "description": "The course's name." },
+          "nub_tier": { "$ref": "#/components/schemas/CourseFilterTier" },
+          "pro_tier": { "$ref": "#/components/schemas/CourseFilterTier" }
+        }
+      },
+      "CourseUpdate": {
+        "type": "object",
+        "required": ["idx"],
+        "properties": {
+          "idx": {
+            "type": "integer",
+            "description": "The index of the course to update.\n\nCourses are 1-indexed and always returned in-order by the API.",
+            "minimum": 0
+          },
+          "name": { "type": ["string", "null"], "description": "A new name." },
+          "description": { "type": ["string", "null"], "description": "A new description." },
+          "added_mappers": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/SteamId" },
+            "description": "SteamIDs to add to the course's mapper list."
+          },
+          "deleted_mappers": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/SteamId" },
+            "description": "SteamIDs to remove from the course's mapper list."
+          },
+          "filter_updates": {
+            "$ref": "#/components/schemas/FilterUpdates",
+            "description": "Updates to the course's filters."
+          }
+        }
+      },
+      "CreatedAccessKey": {
+        "type": "object",
+        "required": ["access_key"],
+        "properties": {
+          "access_key": { "$ref": "#/components/schemas/AccessKey", "description": "The server's new access key." }
+        }
+      },
+      "CreatedBan": {
+        "type": "object",
+        "required": ["ban_id"],
+        "properties": { "ban_id": { "type": "integer", "format": "u-int32", "minimum": 1 } }
+      },
+      "CreatedServer": {
+        "type": "object",
+        "required": ["server_id", "access_key"],
+        "properties": {
+          "server_id": { "type": "integer", "format": "u-int16", "minimum": 1 },
+          "access_key": { "$ref": "#/components/schemas/AccessKey", "description": "The server's access key." }
+        }
+      },
+      "FilterUpdate": {
+        "type": "object",
+        "properties": {
+          "nub_tier": {
+            "oneOf": [
+              { "type": "null" },
+              {
+                "$ref": "#/components/schemas/CourseFilterTier",
+                "description": "A new tier for records with teleports."
+              }
+            ]
+          },
+          "pro_tier": {
+            "oneOf": [
+              { "type": "null" },
+              {
+                "$ref": "#/components/schemas/CourseFilterTier",
+                "description": "A new tier for records without teleports."
+              }
+            ]
+          },
+          "state": {
+            "oneOf": [
+              { "type": "null" },
+              { "$ref": "#/components/schemas/CourseFilterState", "description": "A new state." }
+            ]
+          },
+          "notes": {
+            "type": ["string", "null"],
+            "description": "New notes.\n\nIf you specify this, the old notes will be **replaced**!"
+          }
+        }
+      },
+      "FilterUpdates": {
+        "type": "object",
+        "properties": {
+          "vanilla": { "oneOf": [{ "type": "null" }, { "$ref": "#/components/schemas/FilterUpdate" }] },
+          "classic": { "oneOf": [{ "type": "null" }, { "$ref": "#/components/schemas/FilterUpdate" }] }
+        }
+      },
+      "GitRevision": {
+        "type": "string",
+        "description": "a git revision",
+        "examples": ["24bfd2242fc46340c95574468d78af687dea0e93"],
+        "maxLength": 40,
+        "minLength": 40
+      },
+      "JumpType": {
+        "type": "string",
+        "enum": ["long-jump", "bhop", "multi-bhop", "weird-jump", "ladder-jump", "ladderhop", "jumpbug", "fall"]
+      },
+      "Jumpstat": {
+        "type": "object",
+        "required": [
+          "id",
+          "player",
+          "server",
+          "mode",
+          "styles",
+          "jump_type",
+          "time",
+          "strafes",
+          "distance",
+          "sync",
+          "pre",
+          "max",
+          "overlap",
+          "bad_angles",
+          "dead_air",
+          "height",
+          "airpath",
+          "deviation",
+          "average_width",
+          "submitted_at"
+        ],
+        "properties": {
+          "id": { "type": "integer", "format": "u-int32", "minimum": 1 },
+          "player": { "$ref": "#/components/schemas/PlayerInfo" },
+          "server": { "$ref": "#/components/schemas/ServerInfo" },
+          "mode": { "$ref": "#/components/schemas/Mode" },
+          "styles": { "$ref": "#/components/schemas/Styles" },
+          "jump_type": { "$ref": "#/components/schemas/JumpType" },
+          "time": { "type": "number", "format": "double", "description": "Airtime in seconds." },
+          "strafes": { "type": "integer", "format": "u-int8", "minimum": 0 },
+          "distance": { "type": "number", "format": "float" },
+          "sync": { "type": "number", "format": "float" },
+          "pre": { "type": "number", "format": "float" },
+          "max": { "type": "number", "format": "float" },
+          "overlap": { "type": "number", "format": "float" },
+          "bad_angles": { "type": "number", "format": "float" },
+          "dead_air": { "type": "number", "format": "float" },
+          "height": { "type": "number", "format": "float" },
+          "airpath": { "type": "number", "format": "float" },
+          "deviation": { "type": "number", "format": "float" },
+          "average_width": { "type": "number", "format": "float" },
+          "submitted_at": { "$ref": "#/components/schemas/Timestamp" }
+        }
+      },
+      "Limit": { "type": "integer", "format": "u-int64" },
+      "Map": {
+        "type": "object",
+        "required": ["id", "workshop_id", "name", "state", "vpk_checksum", "mappers", "courses", "approved_at"],
+        "properties": {
+          "id": { "type": "integer", "format": "u-int16", "description": "The map's ID in the API.", "minimum": 1 },
+          "workshop_id": {
+            "type": "integer",
+            "format": "u-int32",
+            "description": "The map's ID on the Steam Workshop.",
+            "minimum": 0
+          },
+          "name": { "type": "string", "description": "The map's name." },
+          "description": { "type": ["string", "null"], "description": "A brief description of the map." },
+          "state": { "$ref": "#/components/schemas/MapState", "description": "The state the map is currently in." },
+          "vpk_checksum": { "type": "string", "description": "A checksum of the map's `.vpk` file." },
+          "mappers": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/PlayerInfo" },
+            "description": "A list of players who have contributed to the creation of this map."
+          },
+          "courses": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/Course" },
+            "description": "A list of courses present on the map."
+          },
+          "approved_at": { "$ref": "#/components/schemas/Timestamp", "description": "When this map was approved." }
+        }
+      },
+      "MapIdentifier": {
+        "oneOf": [
+          { "type": "string", "title": "name", "examples": ["kz_checkmate"] },
+          { "type": "integer", "title": "id", "format": "u-int16", "examples": ["69"] }
+        ]
+      },
+      "MapInfo": {
+        "type": "object",
+        "required": ["id", "name"],
+        "properties": {
+          "id": { "type": "integer", "format": "u-int16", "description": "The map's ID.", "minimum": 1 },
+          "name": { "type": "string", "description": "The map's name." }
+        }
+      },
+      "MapState": { "type": "string", "enum": ["invalid", "in-testing", "approved"] },
+      "MapUpdate": {
+        "type": "object",
+        "properties": {
+          "workshop_id": {
+            "type": ["integer", "null"],
+            "format": "u-int32",
+            "description": "A new workshop ID.\n\nThis field is used for updating 3 things:\n   - the map's workshop ID\n   - the map's name\n   - the map's vpk checksum",
+            "minimum": 0
+          },
+          "description": { "type": ["string", "null"], "description": "A new description." },
+          "state": {
+            "oneOf": [{ "type": "null" }, { "$ref": "#/components/schemas/MapState", "description": "A new state." }]
+          },
+          "added_mappers": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/SteamId" },
+            "description": "SteamIDs to add to the map's mapper list."
+          },
+          "deleted_mappers": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/SteamId" },
+            "description": "SteamIDs to remove from the map's mapper list."
+          },
+          "course_updates": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/CourseUpdate" },
+            "description": "Updates to individual courses."
+          }
+        }
+      },
+      "Mode": { "type": "string", "enum": ["vanilla", "classic"] },
+      "NewBan": {
+        "type": "object",
+        "required": ["player_id", "reason"],
+        "properties": {
+          "player_id": { "$ref": "#/components/schemas/SteamId", "description": "The player that should be banned." },
+          "player_ip": {
+            "type": ["string", "null"],
+            "format": "ipv4",
+            "description": "The player's IP address.\n\nIf left unspecified, the player's last known IP address will be used instead."
+          },
+          "reason": { "$ref": "#/components/schemas/BanReason", "description": "The reason for the ban." }
+        }
+      },
+      "NewCourse": {
+        "type": "object",
+        "required": ["name", "mappers", "filters"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The course's name.\n\nThis has to be unique across all courses belonging to this map."
+          },
+          "description": { "type": ["string", "null"], "description": "A brief description of the course." },
+          "mappers": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/SteamId" },
+            "description": "A list of SteamIDs of players who have contributed to the creation of this course.\n\nYou must specify at least 1 player."
+          },
+          "filters": { "$ref": "#/components/schemas/CourseFilters", "description": "The filters for this course." }
+        }
+      },
+      "NewMap": {
+        "type": "object",
+        "required": ["workshop_id", "state", "mappers", "courses"],
+        "properties": {
+          "workshop_id": {
+            "type": "integer",
+            "format": "u-int32",
+            "description": "The ID of the map's Steam workshop item.",
+            "minimum": 0
+          },
+          "description": { "type": ["string", "null"], "description": "A brief description of the map." },
+          "state": {
+            "$ref": "#/components/schemas/MapState",
+            "description": "The initial state the map should be in."
+          },
+          "mappers": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/SteamId" },
+            "description": "A list of SteamIDs of players who have contributed to the creation of this map.\n\nYou must specify at least 1 player."
+          },
+          "courses": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/NewCourse" },
+            "description": "A list of courses present on the map.\n\nYou must specify at least 1 course."
+          }
+        }
+      },
+      "NewMode": {
+        "type": "object",
+        "required": ["mode", "linux_checksum", "windows_checksum"],
+        "properties": {
+          "mode": { "$ref": "#/components/schemas/Mode" },
+          "linux_checksum": { "$ref": "#/components/schemas/Checksum" },
+          "windows_checksum": { "$ref": "#/components/schemas/Checksum" }
+        }
+      },
+      "NewPluginVersion": {
+        "type": "object",
+        "required": ["version", "git_revision", "linux_checksum", "windows_checksum", "is_cutoff", "modes", "styles"],
+        "properties": {
+          "version": { "type": "string", "description": "A SemVer version.", "example": "1.23.456-dev" },
+          "git_revision": {
+            "$ref": "#/components/schemas/GitRevision",
+            "description": "The git revision associated with the release commit / tag."
+          },
+          "linux_checksum": {
+            "$ref": "#/components/schemas/Checksum",
+            "description": "Checksum of the plugin binary on Linux"
+          },
+          "windows_checksum": {
+            "$ref": "#/components/schemas/Checksum",
+            "description": "Checksum of the plugin binary on Windows"
+          },
+          "is_cutoff": { "type": "boolean", "description": "Whether this release invalidates all previous releases" },
+          "modes": { "type": "array", "items": { "$ref": "#/components/schemas/NewMode" } },
+          "styles": { "type": "array", "items": { "$ref": "#/components/schemas/NewStyle" } }
+        }
+      },
+      "NewServer": {
+        "type": "object",
+        "required": ["name", "host", "port", "owner_id"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The server's name.\n\nThis has to be a unique value and will be displayed in UIs.",
+            "minLength": 1
+          },
+          "host": { "$ref": "#/components/schemas/ServerHost", "description": "The server's IP address / domain." },
+          "port": {
+            "type": "integer",
+            "format": "u-int16",
+            "description": "The server's connection port.",
+            "minimum": 0
+          },
+          "owner_id": {
+            "$ref": "#/components/schemas/SteamId64",
+            "description": "The ID of the user who owns this server."
+          }
+        }
+      },
+      "NewStyle": {
+        "type": "object",
+        "required": ["style", "linux_checksum", "windows_checksum"],
+        "properties": {
+          "style": { "$ref": "#/components/schemas/Style" },
+          "linux_checksum": { "$ref": "#/components/schemas/Checksum" },
+          "windows_checksum": { "$ref": "#/components/schemas/Checksum" }
+        }
+      },
+      "NewUnban": {
+        "type": "object",
+        "required": ["reason"],
+        "properties": { "reason": { "type": "string", "description": "The reason for the unban." } }
+      },
+      "Offset": { "type": "integer", "format": "int64" },
+      "Paginated_Ban": {
+        "type": "object",
+        "required": ["total", "values"],
+        "properties": {
+          "total": {
+            "type": "integer",
+            "format": "u-int64",
+            "description": "The total number of values available for fetching.\n\nDifferent endpoints have different hard-limits on how many values they will return at\na time. They usually also have an `offset` query parameter you can use to fetch the next\nset of values. You can use `total` to infer when you can stop making requests.",
+            "minimum": 0
+          },
+          "values": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["id", "player", "banned_by", "reason", "created_at"],
+              "properties": {
+                "id": { "type": "integer", "format": "u-int32", "minimum": 1 },
+                "player": { "$ref": "#/components/schemas/PlayerInfo" },
+                "banned_by": { "$ref": "#/components/schemas/BannedBy" },
+                "reason": { "$ref": "#/components/schemas/BanReason" },
+                "unban": {
+                  "oneOf": [
+                    { "type": "null" },
+                    {
+                      "$ref": "#/components/schemas/Unban",
+                      "description": "The unban corresponding to this ban, if any."
+                    }
+                  ]
+                },
+                "created_at": { "$ref": "#/components/schemas/Timestamp" }
+              }
+            },
+            "description": "The values returned for this request."
+          }
+        }
+      },
+      "Paginated_Jumpstat": {
+        "type": "object",
+        "required": ["total", "values"],
+        "properties": {
+          "total": {
+            "type": "integer",
+            "format": "u-int64",
+            "description": "The total number of values available for fetching.\n\nDifferent endpoints have different hard-limits on how many values they will return at\na time. They usually also have an `offset` query parameter you can use to fetch the next\nset of values. You can use `total` to infer when you can stop making requests.",
+            "minimum": 0
+          },
+          "values": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "id",
+                "player",
+                "server",
+                "mode",
+                "styles",
+                "jump_type",
+                "time",
+                "strafes",
+                "distance",
+                "sync",
+                "pre",
+                "max",
+                "overlap",
+                "bad_angles",
+                "dead_air",
+                "height",
+                "airpath",
+                "deviation",
+                "average_width",
+                "submitted_at"
+              ],
+              "properties": {
+                "id": { "type": "integer", "format": "u-int32", "minimum": 1 },
+                "player": { "$ref": "#/components/schemas/PlayerInfo" },
+                "server": { "$ref": "#/components/schemas/ServerInfo" },
+                "mode": { "$ref": "#/components/schemas/Mode" },
+                "styles": { "$ref": "#/components/schemas/Styles" },
+                "jump_type": { "$ref": "#/components/schemas/JumpType" },
+                "time": { "type": "number", "format": "double", "description": "Airtime in seconds." },
+                "strafes": { "type": "integer", "format": "u-int8", "minimum": 0 },
+                "distance": { "type": "number", "format": "float" },
+                "sync": { "type": "number", "format": "float" },
+                "pre": { "type": "number", "format": "float" },
+                "max": { "type": "number", "format": "float" },
+                "overlap": { "type": "number", "format": "float" },
+                "bad_angles": { "type": "number", "format": "float" },
+                "dead_air": { "type": "number", "format": "float" },
+                "height": { "type": "number", "format": "float" },
+                "airpath": { "type": "number", "format": "float" },
+                "deviation": { "type": "number", "format": "float" },
+                "average_width": { "type": "number", "format": "float" },
+                "submitted_at": { "$ref": "#/components/schemas/Timestamp" }
+              }
+            },
+            "description": "The values returned for this request."
+          }
+        }
+      },
+      "Paginated_Map": {
+        "type": "object",
+        "required": ["total", "values"],
+        "properties": {
+          "total": {
+            "type": "integer",
+            "format": "u-int64",
+            "description": "The total number of values available for fetching.\n\nDifferent endpoints have different hard-limits on how many values they will return at\na time. They usually also have an `offset` query parameter you can use to fetch the next\nset of values. You can use `total` to infer when you can stop making requests.",
+            "minimum": 0
+          },
+          "values": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["id", "workshop_id", "name", "state", "vpk_checksum", "mappers", "courses", "approved_at"],
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "format": "u-int16",
+                  "description": "The map's ID in the API.",
+                  "minimum": 1
+                },
+                "workshop_id": {
+                  "type": "integer",
+                  "format": "u-int32",
+                  "description": "The map's ID on the Steam Workshop.",
+                  "minimum": 0
+                },
+                "name": { "type": "string", "description": "The map's name." },
+                "description": { "type": ["string", "null"], "description": "A brief description of the map." },
+                "state": {
+                  "$ref": "#/components/schemas/MapState",
+                  "description": "The state the map is currently in."
+                },
+                "vpk_checksum": { "type": "string", "description": "A checksum of the map's `.vpk` file." },
+                "mappers": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/PlayerInfo" },
+                  "description": "A list of players who have contributed to the creation of this map."
+                },
+                "courses": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/Course" },
+                  "description": "A list of courses present on the map."
+                },
+                "approved_at": {
+                  "$ref": "#/components/schemas/Timestamp",
+                  "description": "When this map was approved."
+                }
+              }
+            },
+            "description": "The values returned for this request."
+          }
+        }
+      },
+      "Paginated_Player": {
+        "type": "object",
+        "required": ["total", "values"],
+        "properties": {
+          "total": {
+            "type": "integer",
+            "format": "u-int64",
+            "description": "The total number of values available for fetching.\n\nDifferent endpoints have different hard-limits on how many values they will return at\na time. They usually also have an `offset` query parameter you can use to fetch the next\nset of values. You can use `total` to infer when you can stop making requests.",
+            "minimum": 0
+          },
+          "values": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["id", "name", "first_joined_at"],
+              "properties": {
+                "id": { "$ref": "#/components/schemas/SteamId", "description": "The player's SteamID." },
+                "name": { "type": "string", "description": "The player's name on Steam." },
+                "first_joined_at": {
+                  "$ref": "#/components/schemas/Timestamp",
+                  "description": "When this player first joined an approved CS2 server."
+                }
+              }
+            },
+            "description": "The values returned for this request."
+          }
+        }
+      },
+      "Paginated_PluginVersion": {
+        "type": "object",
+        "required": ["total", "values"],
+        "properties": {
+          "total": {
+            "type": "integer",
+            "format": "u-int64",
+            "description": "The total number of values available for fetching.\n\nDifferent endpoints have different hard-limits on how many values they will return at\na time. They usually also have an `offset` query parameter you can use to fetch the next\nset of values. You can use `total` to infer when you can stop making requests.",
+            "minimum": 0
+          },
+          "values": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["id", "version", "git_revision", "published_at"],
+              "properties": {
+                "id": { "type": "integer", "format": "u-int16", "minimum": 1 },
+                "version": { "type": "string", "description": "A SemVer version.", "example": "1.23.456-dev" },
+                "git_revision": {
+                  "$ref": "#/components/schemas/GitRevision",
+                  "description": "The git revision associated with the release commit / tag of this version."
+                },
+                "published_at": {
+                  "$ref": "#/components/schemas/Timestamp",
+                  "description": "When this version was published."
+                }
+              }
+            },
+            "description": "The values returned for this request."
+          }
+        }
+      },
+      "Paginated_Record": {
+        "type": "object",
+        "required": ["total", "values"],
+        "properties": {
+          "total": {
+            "type": "integer",
+            "format": "u-int64",
+            "description": "The total number of values available for fetching.\n\nDifferent endpoints have different hard-limits on how many values they will return at\na time. They usually also have an `offset` query parameter you can use to fetch the next\nset of values. You can use `total` to infer when you can stop making requests.",
+            "minimum": 0
+          },
+          "values": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "id",
+                "player",
+                "server",
+                "map",
+                "course",
+                "mode",
+                "styles",
+                "teleports",
+                "time",
+                "submitted_at"
+              ],
+              "properties": {
+                "id": { "type": "integer", "format": "u-int32", "minimum": 1 },
+                "player": { "$ref": "#/components/schemas/PlayerInfo" },
+                "server": { "$ref": "#/components/schemas/ServerInfo" },
+                "map": { "$ref": "#/components/schemas/MapInfo" },
+                "course": { "$ref": "#/components/schemas/CourseInfo" },
+                "mode": { "$ref": "#/components/schemas/Mode" },
+                "styles": { "$ref": "#/components/schemas/Styles" },
+                "teleports": { "type": "integer", "format": "u-int32", "minimum": 0 },
+                "time": { "type": "number", "format": "double", "description": "Time in seconds." },
+                "nub_rank": { "type": ["integer", "null"], "format": "u-int32", "minimum": 0 },
+                "nub_points": { "type": ["number", "null"], "format": "double" },
+                "pro_rank": { "type": ["integer", "null"], "format": "u-int32", "minimum": 0 },
+                "pro_points": { "type": ["number", "null"], "format": "double" },
+                "submitted_at": { "$ref": "#/components/schemas/Timestamp" }
+              }
+            },
+            "description": "The values returned for this request."
+          }
+        }
+      },
+      "Paginated_Server": {
+        "type": "object",
+        "required": ["total", "values"],
+        "properties": {
+          "total": {
+            "type": "integer",
+            "format": "u-int64",
+            "description": "The total number of values available for fetching.\n\nDifferent endpoints have different hard-limits on how many values they will return at\na time. They usually also have an `offset` query parameter you can use to fetch the next\nset of values. You can use `total` to infer when you can stop making requests.",
+            "minimum": 0
+          },
+          "values": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["id", "name", "host", "port", "owner", "approved_at"],
+              "properties": {
+                "id": { "type": "integer", "format": "u-int16", "minimum": 1 },
+                "name": { "type": "string" },
+                "host": {
+                  "$ref": "#/components/schemas/ServerHost",
+                  "description": "The server's IP address / domain."
+                },
+                "port": { "type": "integer", "format": "u-int16", "minimum": 0 },
+                "owner": { "$ref": "#/components/schemas/UserInfo", "description": "The user who owns this server." },
+                "approved_at": {
+                  "$ref": "#/components/schemas/Timestamp",
+                  "description": "When this server was approved by the API."
+                }
+              }
+            },
+            "description": "The values returned for this request."
+          }
+        }
+      },
+      "Paginated_User": {
+        "type": "object",
+        "required": ["total", "values"],
+        "properties": {
+          "total": {
+            "type": "integer",
+            "format": "u-int64",
+            "description": "The total number of values available for fetching.\n\nDifferent endpoints have different hard-limits on how many values they will return at\na time. They usually also have an `offset` query parameter you can use to fetch the next\nset of values. You can use `total` to infer when you can stop making requests.",
+            "minimum": 0
+          },
+          "values": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["id", "name", "permissions", "registered_at"],
+              "properties": {
+                "id": { "$ref": "#/components/schemas/SteamId64", "description": "The user's SteamID." },
+                "name": {
+                  "type": "string",
+                  "description": "The user's last-known name on Steam.",
+                  "example": "AlphaKeks"
+                },
+                "permissions": {
+                  "$ref": "#/components/schemas/Permissions",
+                  "description": "The user's API permissions."
+                },
+                "registered_at": {
+                  "$ref": "#/components/schemas/Timestamp",
+                  "description": "When this user was registered to the API."
+                }
+              }
+            },
+            "description": "The values returned for this request."
+          }
+        }
+      },
+      "Permissions": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "description": "user permission",
+          "enum": ["user-permissions", "servers", "map-pool", "player-bans"],
+          "examples": ["servers", "player-bans"]
+        }
+      },
+      "Player": {
+        "type": "object",
+        "required": ["id", "name", "first_joined_at"],
+        "properties": {
+          "id": { "$ref": "#/components/schemas/SteamId", "description": "The player's SteamID." },
+          "name": { "type": "string", "description": "The player's name on Steam." },
+          "first_joined_at": {
+            "$ref": "#/components/schemas/Timestamp",
+            "description": "When this player first joined an approved CS2 server."
+          }
+        }
+      },
+      "PlayerIdentifier": {
+        "oneOf": [
+          { "type": "string", "title": "name", "examples": ["AlphaKeks"] },
+          { "type": "string", "description": "a SteamID", "examples": ["STEAM_1:1:161178172"] }
+        ]
+      },
+      "PlayerInfo": {
+        "type": "object",
+        "required": ["id", "name"],
+        "properties": {
+          "id": { "$ref": "#/components/schemas/SteamId", "description": "The player's SteamID." },
+          "name": { "type": "string", "description": "The player's name on Steam." }
+        }
+      },
+      "PluginVersion": {
+        "type": "object",
+        "required": ["id", "version", "git_revision", "published_at"],
+        "properties": {
+          "id": { "type": "integer", "format": "u-int16", "minimum": 1 },
+          "version": { "type": "string", "description": "A SemVer version.", "example": "1.23.456-dev" },
+          "git_revision": {
+            "$ref": "#/components/schemas/GitRevision",
+            "description": "The git revision associated with the release commit / tag of this version."
+          },
+          "published_at": {
+            "$ref": "#/components/schemas/Timestamp",
+            "description": "When this version was published."
+          }
+        }
+      },
+      "PluginVersionIdentifier": {
+        "oneOf": [
+          { "type": "string", "title": "semver", "description": "a SemVer identifier", "examples": ["1.23.456-dev"] },
+          {
+            "type": "string",
+            "description": "a git revision",
+            "examples": ["24bfd2242fc46340c95574468d78af687dea0e93"],
+            "maxLength": 40,
+            "minLength": 40
+          }
+        ]
+      },
+      "PublishedPluginVersion": {
+        "type": "object",
+        "required": ["plugin_version_id"],
+        "properties": { "plugin_version_id": { "type": "integer", "format": "u-int16", "minimum": 1 } }
+      },
+      "Record": {
+        "type": "object",
+        "required": ["id", "player", "server", "map", "course", "mode", "styles", "teleports", "time", "submitted_at"],
+        "properties": {
+          "id": { "type": "integer", "format": "u-int32", "minimum": 1 },
+          "player": { "$ref": "#/components/schemas/PlayerInfo" },
+          "server": { "$ref": "#/components/schemas/ServerInfo" },
+          "map": { "$ref": "#/components/schemas/MapInfo" },
+          "course": { "$ref": "#/components/schemas/CourseInfo" },
+          "mode": { "$ref": "#/components/schemas/Mode" },
+          "styles": { "$ref": "#/components/schemas/Styles" },
+          "teleports": { "type": "integer", "format": "u-int32", "minimum": 0 },
+          "time": { "type": "number", "format": "double", "description": "Time in seconds." },
+          "nub_rank": { "type": ["integer", "null"], "format": "u-int32", "minimum": 0 },
+          "nub_points": { "type": ["number", "null"], "format": "double" },
+          "pro_rank": { "type": ["integer", "null"], "format": "u-int32", "minimum": 0 },
+          "pro_points": { "type": ["number", "null"], "format": "double" },
+          "submitted_at": { "$ref": "#/components/schemas/Timestamp" }
+        }
+      },
+      "Records_SortBy": { "type": "string", "enum": ["submission-date", "time"] },
+      "Records_SortOrder": { "type": "string", "enum": ["ascending", "descending"] },
+      "ReplayFile": { "type": "object", "format": "binary", "contentMediaType": "application/octet-stream" },
+      "Server": {
+        "type": "object",
+        "required": ["id", "name", "host", "port", "owner", "approved_at"],
+        "properties": {
+          "id": { "type": "integer", "format": "u-int16", "minimum": 1 },
+          "name": { "type": "string" },
+          "host": { "$ref": "#/components/schemas/ServerHost", "description": "The server's IP address / domain." },
+          "port": { "type": "integer", "format": "u-int16", "minimum": 0 },
+          "owner": { "$ref": "#/components/schemas/UserInfo", "description": "The user who owns this server." },
+          "approved_at": {
+            "$ref": "#/components/schemas/Timestamp",
+            "description": "When this server was approved by the API."
+          }
+        }
+      },
+      "ServerHost": {
+        "type": "string",
+        "format": "hostname",
+        "description": "an IPv4/IPv6 address or domain",
+        "examples": ["255.255.255.255", "::1", "example.org"]
+      },
+      "ServerIdentifier": {
+        "oneOf": [
+          { "type": "string", "title": "name", "examples": ["Alpha's KZ"] },
+          { "type": "integer", "title": "id", "format": "u-int16", "examples": ["69"] }
+        ]
+      },
+      "ServerInfo": {
+        "type": "object",
+        "required": ["id", "name"],
+        "properties": {
+          "id": { "type": "integer", "format": "u-int16", "description": "The server's ID.", "minimum": 1 },
+          "name": { "type": "string", "description": "The server's name." }
+        }
+      },
+      "ServerUpdate": {
+        "type": "object",
+        "properties": {
+          "name": { "type": ["string", "null"], "description": "A new name." },
+          "host": {
+            "oneOf": [
+              { "type": "null" },
+              { "$ref": "#/components/schemas/ServerHost", "description": "A new host IP / domain." }
+            ]
+          },
+          "port": { "type": ["integer", "null"], "format": "u-int16", "description": "A new port.", "minimum": 0 },
+          "owner_id": {
+            "oneOf": [{ "type": "null" }, { "$ref": "#/components/schemas/SteamId64", "description": "A new owner." }]
+          }
+        }
+      },
+      "SessionInfo": {
+        "type": "object",
+        "required": ["created_at", "expires_at"],
+        "properties": {
+          "created_at": { "$ref": "#/components/schemas/Timestamp", "description": "When your session was created." },
+          "expires_at": { "$ref": "#/components/schemas/Timestamp", "description": "When your session will expire." }
+        }
+      },
+      "SteamId": { "type": "string", "description": "a SteamID", "examples": ["STEAM_1:1:161178172"] },
+      "SteamId64": {
+        "type": "string",
+        "format": "u-int64",
+        "description": "a 64-bit SteamID",
+        "examples": ["76561198282622073"]
+      },
+      "SteamUser": {
+        "type": "object",
+        "required": ["id", "name", "profile_url", "avatar_url"],
+        "properties": {
+          "id": { "$ref": "#/components/schemas/SteamId" },
+          "name": { "type": "string" },
+          "profile_url": { "type": "string", "format": "uri" },
+          "avatar_url": { "type": "string", "format": "uri" }
+        }
+      },
+      "Style": { "type": "string", "enum": ["auto-bhop"] },
+      "Styles": { "type": "array", "items": { "type": "string", "enum": ["auto-bhop"] } },
+      "Timestamp": {
+        "type": "string",
+        "format": "date-time",
+        "description": "a UTC timestamp",
+        "examples": ["1970-01-01T00:00:00Z"]
+      },
+      "Unban": {
+        "type": "object",
+        "required": ["admin_id", "reason", "created_at"],
+        "properties": {
+          "admin_id": { "$ref": "#/components/schemas/SteamId64" },
+          "reason": { "type": "string" },
+          "created_at": { "$ref": "#/components/schemas/Timestamp" }
+        }
+      },
+      "UpdateUserEmailPayload": {
+        "type": "object",
+        "required": ["email"],
+        "properties": { "email": { "type": "string", "format": "email", "description": "The new email address." } }
+      },
+      "UpdateUserPermissionsPayload": {
+        "type": "object",
+        "required": ["permissions"],
+        "properties": {
+          "permissions": { "$ref": "#/components/schemas/Permissions", "description": "The new permissions." }
+        }
+      },
+      "User": {
+        "type": "object",
+        "required": ["id", "name", "permissions", "registered_at"],
+        "properties": {
+          "id": { "$ref": "#/components/schemas/SteamId64", "description": "The user's SteamID." },
+          "name": { "type": "string", "description": "The user's last-known name on Steam.", "example": "AlphaKeks" },
+          "permissions": { "$ref": "#/components/schemas/Permissions", "description": "The user's API permissions." },
+          "registered_at": {
+            "$ref": "#/components/schemas/Timestamp",
+            "description": "When this user was registered to the API."
+          }
+        }
+      },
+      "UserInfo": {
+        "type": "object",
+        "required": ["id", "name"],
+        "properties": {
+          "id": { "$ref": "#/components/schemas/SteamId64", "description": "The user's SteamID." },
+          "name": { "type": "string", "description": "The user's last-known name on Steam." }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "cs2kz-metamod",
+      "description": "used by GitHub Actions in [`KZGlobalTeam/cs2kz-metamod`](https://github.com/KZGlobalTeam/cs2kz-metamod)"
+    },
+    { "name": "Users" },
+    { "name": "User Authentication", "description": "OpenID 2.0 authentication with Steam" },
+    { "name": "CS2 Servers", "description": "CS2 servers running the cs2kz-metamod plugin" },
+    { "name": "CS2 Server Authentication" },
+    { "name": "Players" },
+    { "name": "Maps" },
+    { "name": "Jumpstats" },
+    { "name": "Records" },
+    { "name": "Player Bans" }
+  ],
+  "externalDocs": { "url": "https://docs.cs2kz.org/api", "description": "High-Level documentation" }
+}

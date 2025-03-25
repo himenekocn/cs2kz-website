@@ -1,0 +1,179 @@
+{
+  "common": {
+    "testingAlert": "This website and cs2kz plugin are currently in the testing phase. Please be aware that all records and data may be wiped at any time as part of ongoing development.",
+    "mode": {
+      "ckz": "CKZ",
+      "vnl": "VNL"
+    },
+    "tier": {
+      "all": "All",
+      "veryEasy": "Very Easy",
+      "easy": "Easy",
+      "medium": "Medium",
+      "advanced": "Advanced",
+      "hard": "Hard",
+      "veryHard": "Very Hard",
+      "extreme": "Extreme",
+      "death": "Death",
+      "unfeasible": "Unfeasbile",
+      "impossible": "Impossible"
+    },
+    "style": {
+      "normal": "Normal",
+      "autoBhop": "Auto Bhop"
+    },
+    "leaderboardType": {
+      "overall": "Overall",
+      "pro": "Pro"
+    },
+    "sortBy": {
+      "date": "Date",
+      "time": "Time",
+      "map": "Map",
+      "tier": "Tier",
+      "createdOn": "Release Date"
+    },
+    "noData": "No Data"
+  },
+  "nav": {
+    "home": "Home",
+    "records": "Records",
+    "maps": "Maps",
+    "courses": "Courses",
+    "profile": "Profile",
+    "servers": "Servers",
+    "jumpstats": "Jumpstats",
+    "signOut": "Sign out",
+    "signOutAll": "Sign out from all websites",
+    "tooltip": {
+      "locale": "Switch language",
+      "login": "Login through Steam",
+      "discord": "Discord",
+      "github": "Github",
+      "docs": "Documentation",
+      "dashboard": "Dashboard"
+    }
+  },
+  "pagination": {
+    "first": "first",
+    "last": "last",
+    "page": "page",
+    "refresh": "Refresh"
+  },
+  "records": {
+    "query": {
+      "pbOnly": "PB only",
+      "map": "Map",
+      "course": "Course",
+      "player": "Player",
+      "server": "Server",
+      "styles": "Select style",
+      "maxRank": {
+        "placeholder": "Select rank",
+        "all": "All",
+        "wr": "World Record",
+        "top10": "Top 10",
+        "top20": "Top 20",
+        "top50": "Top 50",
+        "top100": "Top 100"
+      }
+    },
+    "title": {
+      "rank": "Rank",
+      "map": "Map",
+      "course": "Course",
+      "tier": "Tier",
+      "player": "Player",
+      "time": "Time",
+      "nubRank": "Overall Rank",
+      "nubPoints": "Overall Pts",
+      "proRank": "Pro Rank",
+      "proPoints": "Pro Pts",
+      "server": "Server",
+      "teleports": "TPs",
+      "date": "Date"
+    }
+  },
+  "maps": {
+    "query": {
+      "selectTier": "Select Tier",
+      "searchby": "Map"
+    }
+  },
+  "profile": {
+    "notFound": "Profile Not Found",
+    "info": {
+      "joinedOn": "Joined on",
+      "hours": "hrs on record",
+      "worldRank": "World Rank",
+      "rating": "Rating",
+      "coursesFinished": "Courses Finished"
+    },
+    "completion": {
+      "finished": "Finished",
+      "total": "Total",
+      "average": "Average",
+      "title": "Completion",
+      "wrs": "WRs",
+      "top20": "Top 20",
+      "top50": "Top 50",
+      "top100": "Top 100",
+      "topRecords": "Top Records",
+      "pointsDist": "Points Distribution",
+      "completionByTier": "Completion by Tier"
+    },
+    "runs": {
+      "title": "Runs"
+    },
+    "history": {
+      "title": "History",
+      "playHistory": "Play History",
+      "mostPlayedCourse": "Most Played Course",
+      "chartFilter": {
+        "week": "Week",
+        "month": "Month",
+        "year": "Year"
+      },
+      "course": "Course",
+      "map": "Map",
+      "mostPlayedFilter": {
+        "time": "Time",
+        "runs": "Runs"
+      }
+    }
+  },
+  "map": {
+    "state": {
+      "approved": "Approved",
+      "inTesting": "Testing",
+      "invalid": "Invalid"
+    },
+    "filters": "Filters",
+    "styles": "Styles",
+    "madeBy": "made by",
+    "tags": "Tags",
+    "rating": "Rating",
+    "nubTier": "NUB Tier",
+    "proTier": "PRO Tier",
+    "filterState": {
+      "ranked": "RANKED",
+      "unranked": "UNRANKED",
+      "pending": "PENDING"
+    },
+    "courseRanking": "Course Ranking"
+  },
+  "servers": {
+    "query": {
+      "name": "Name",
+      "ipAddress": "IP",
+      "ownedBy": "Owner"
+    },
+    "title": {
+      "name": "Name",
+      "ipAddress": "IP",
+      "owner": "Owner",
+      "ping": "Ping",
+      "approvedOn": "Approved On"
+    }
+  }
+}

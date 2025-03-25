@@ -4,7 +4,7 @@
  */
 
 export interface paths {
-  "/plugin/versions": {
+  '/plugin/versions': {
     parameters: {
       query?: never
       header?: never
@@ -12,17 +12,17 @@ export interface paths {
       cookie?: never
     }
     /** Returns the latest cs2kz-metamod releases. */
-    get: operations["get_plugin_versions"]
+    get: operations['get_plugin_versions']
     put?: never
     /** Notifies the API that a new version of cs2kz-metamod has been released. */
-    post: operations["publish_plugin_version"]
+    post: operations['publish_plugin_version']
     delete?: never
     options?: never
     head?: never
     patch?: never
     trace?: never
   }
-  "/plugin/versions/{version}": {
+  '/plugin/versions/{version}': {
     parameters: {
       query?: never
       header?: never
@@ -30,7 +30,7 @@ export interface paths {
       cookie?: never
     }
     /** Returns metadata about the release of a specific cs2kz-metamod version. */
-    get: operations["get_plugin_version"]
+    get: operations['get_plugin_version']
     put?: never
     post?: never
     delete?: never
@@ -39,7 +39,7 @@ export interface paths {
     patch?: never
     trace?: never
   }
-  "/users": {
+  '/users': {
     parameters: {
       query?: never
       header?: never
@@ -47,7 +47,7 @@ export interface paths {
       cookie?: never
     }
     /** Returns all users with permissions. */
-    get: operations["get_users"]
+    get: operations['get_users']
     put?: never
     post?: never
     delete?: never
@@ -56,7 +56,7 @@ export interface paths {
     patch?: never
     trace?: never
   }
-  "/users/{user_id}": {
+  '/users/{user_id}': {
     parameters: {
       query?: never
       header?: never
@@ -64,7 +64,7 @@ export interface paths {
       cookie?: never
     }
     /** Returns the user with the specified ID. */
-    get: operations["get_user"]
+    get: operations['get_user']
     put?: never
     post?: never
     delete?: never
@@ -73,7 +73,7 @@ export interface paths {
     patch?: never
     trace?: never
   }
-  "/users/{user_id}/email": {
+  '/users/{user_id}/email': {
     parameters: {
       query?: never
       header?: never
@@ -82,16 +82,16 @@ export interface paths {
     }
     get?: never
     /** Updates a user's email address. */
-    put: operations["update_user_email"]
+    put: operations['update_user_email']
     post?: never
     /** Deletes a user's email address. */
-    delete: operations["delete_user_email"]
+    delete: operations['delete_user_email']
     options?: never
     head?: never
     patch?: never
     trace?: never
   }
-  "/users/{user_id}/permissions": {
+  '/users/{user_id}/permissions': {
     parameters: {
       query?: never
       header?: never
@@ -103,7 +103,7 @@ export interface paths {
      * Update a user's permissions.
      * @description This will **replace their current permissions**!
      */
-    put: operations["update_user_permissions"]
+    put: operations['update_user_permissions']
     post?: never
     delete?: never
     options?: never
@@ -111,7 +111,7 @@ export interface paths {
     patch?: never
     trace?: never
   }
-  "/auth/cs2": {
+  '/auth/cs2': {
     parameters: {
       query?: never
       header?: never
@@ -119,7 +119,7 @@ export interface paths {
       cookie?: never
     }
     /** Establishes a WebSocket connection with the requesting CS2 server. */
-    get: operations["cs2_server_auth"]
+    get: operations['cs2_server_auth']
     put?: never
     post?: never
     delete?: never
@@ -128,7 +128,7 @@ export interface paths {
     patch?: never
     trace?: never
   }
-  "/auth/web": {
+  '/auth/web': {
     parameters: {
       query?: never
       header?: never
@@ -136,7 +136,7 @@ export interface paths {
       cookie?: never
     }
     /** Returns information about your current session. */
-    get: operations["get_current_session"]
+    get: operations['get_current_session']
     put?: never
     post?: never
     delete?: never
@@ -145,7 +145,7 @@ export interface paths {
     patch?: never
     trace?: never
   }
-  "/auth/web/login": {
+  '/auth/web/login': {
     parameters: {
       query?: never
       header?: never
@@ -159,7 +159,7 @@ export interface paths {
      *     Afterwards you will be redirected back here, and optionally to another URL if you specify the
      *     `redirect_to` query parameter.
      */
-    get: operations["user_login"]
+    get: operations['user_login']
     put?: never
     post?: never
     delete?: never
@@ -168,7 +168,7 @@ export interface paths {
     patch?: never
     trace?: never
   }
-  "/auth/web/logout": {
+  '/auth/web/logout': {
     parameters: {
       query?: never
       header?: never
@@ -176,7 +176,7 @@ export interface paths {
       cookie?: never
     }
     /** Expires your current session immediately. */
-    get: operations["user_logout"]
+    get: operations['user_logout']
     put?: never
     post?: never
     delete?: never
@@ -185,7 +185,7 @@ export interface paths {
     patch?: never
     trace?: never
   }
-  "/servers": {
+  '/servers': {
     parameters: {
       query?: never
       header?: never
@@ -193,20 +193,20 @@ export interface paths {
       cookie?: never
     }
     /** Returns the most recently approved CS2 servers. */
-    get: operations["get_servers"]
+    get: operations['get_servers']
     put?: never
     /**
      * Approves a new CS2 server.
      * @description This will generate an access key which allows the server to submit records, jumpstats, etc.
      */
-    post: operations["approve_server"]
+    post: operations['approve_server']
     delete?: never
     options?: never
     head?: never
     patch?: never
     trace?: never
   }
-  "/servers/{server}": {
+  '/servers/{server}': {
     parameters: {
       query?: never
       header?: never
@@ -218,7 +218,7 @@ export interface paths {
      * @description If you specify a name, it does not have to be an exact match, although exact matches will be
      *     preferred.
      */
-    get: operations["get_server"]
+    get: operations['get_server']
     put?: never
     post?: never
     delete?: never
@@ -227,7 +227,7 @@ export interface paths {
     patch?: never
     trace?: never
   }
-  "/servers/{server_id}": {
+  '/servers/{server_id}': {
     parameters: {
       query?: never
       header?: never
@@ -241,10 +241,10 @@ export interface paths {
     options?: never
     head?: never
     /** Updates a server's metadata. */
-    patch: operations["update_server"]
+    patch: operations['update_server']
     trace?: never
   }
-  "/servers/{server_id}/access-key": {
+  '/servers/{server_id}/access-key': {
     parameters: {
       query?: never
       header?: never
@@ -257,20 +257,20 @@ export interface paths {
      * @description A successful request to this endpoint will also terminate the server's open WebSocket
      *     connection, if any.
      */
-    put: operations["refresh_server_access_key"]
+    put: operations['refresh_server_access_key']
     post?: never
     /**
      * Deletes a server's access key.
      * @description A successful request to this endpoint will also terminate the server's open WebSocket
      *     connection, if any.
      */
-    delete: operations["delete_server_access_key"]
+    delete: operations['delete_server_access_key']
     options?: never
     head?: never
     patch?: never
     trace?: never
   }
-  "/players": {
+  '/players': {
     parameters: {
       query?: never
       header?: never
@@ -278,7 +278,7 @@ export interface paths {
       cookie?: never
     }
     /** Returns CS2 players. */
-    get: operations["get_players"]
+    get: operations['get_players']
     put?: never
     post?: never
     delete?: never
@@ -287,7 +287,7 @@ export interface paths {
     patch?: never
     trace?: never
   }
-  "/players/{player}": {
+  '/players/{player}': {
     parameters: {
       query?: never
       header?: never
@@ -295,7 +295,7 @@ export interface paths {
       cookie?: never
     }
     /** Returns the player with the specified ID / name. */
-    get: operations["get_player"]
+    get: operations['get_player']
     put?: never
     post?: never
     delete?: never
@@ -304,7 +304,7 @@ export interface paths {
     patch?: never
     trace?: never
   }
-  "/players/{player_id}/profile": {
+  '/players/{player_id}/profile': {
     parameters: {
       query?: never
       header?: never
@@ -312,7 +312,7 @@ export interface paths {
       cookie?: never
     }
     /** Returns a player's profile information. */
-    get: operations["get_player_profile"]
+    get: operations['get_player_profile']
     put?: never
     post?: never
     delete?: never
@@ -321,7 +321,7 @@ export interface paths {
     patch?: never
     trace?: never
   }
-  "/players/{player_id}/steam-profile": {
+  '/players/{player_id}/steam-profile': {
     parameters: {
       query?: never
       header?: never
@@ -329,7 +329,7 @@ export interface paths {
       cookie?: never
     }
     /** Returns a player's Steam profile. */
-    get: operations["get_player_steam_profile"]
+    get: operations['get_player_steam_profile']
     put?: never
     post?: never
     delete?: never
@@ -338,7 +338,7 @@ export interface paths {
     patch?: never
     trace?: never
   }
-  "/players/{player_id}/preferences": {
+  '/players/{player_id}/preferences': {
     parameters: {
       query?: never
       header?: never
@@ -346,9 +346,9 @@ export interface paths {
       cookie?: never
     }
     /** Returns a player's cs2kz-metamod preferences. */
-    get: operations["get_player_preferences"]
+    get: operations['get_player_preferences']
     /** Replaces a player's cs2kz-metamod preferences. */
-    put: operations["update_player_preferences"]
+    put: operations['update_player_preferences']
     post?: never
     delete?: never
     options?: never
@@ -356,7 +356,7 @@ export interface paths {
     patch?: never
     trace?: never
   }
-  "/maps": {
+  '/maps': {
     parameters: {
       query?: never
       header?: never
@@ -364,9 +364,9 @@ export interface paths {
       cookie?: never
     }
     /** Returns the latest KZ maps. */
-    get: operations["get_maps"]
+    get: operations['get_maps']
     /** Approves a new map. */
-    put: operations["approve_map"]
+    put: operations['approve_map']
     post?: never
     delete?: never
     options?: never
@@ -374,7 +374,7 @@ export interface paths {
     patch?: never
     trace?: never
   }
-  "/maps/{map}": {
+  '/maps/{map}': {
     parameters: {
       query?: never
       header?: never
@@ -382,7 +382,7 @@ export interface paths {
       cookie?: never
     }
     /** Returns the map with the specified ID / name. */
-    get: operations["get_map"]
+    get: operations['get_map']
     put?: never
     post?: never
     delete?: never
@@ -391,7 +391,7 @@ export interface paths {
     patch?: never
     trace?: never
   }
-  "/maps/{map_id}": {
+  '/maps/{map_id}': {
     parameters: {
       query?: never
       header?: never
@@ -409,10 +409,10 @@ export interface paths {
      * @description This endpoint is used for simple metadata changes. Gameplay changes should be communicated
      *     through a separate version, i.e. `PUT /maps`.
      */
-    patch: operations["update_map"]
+    patch: operations['update_map']
     trace?: never
   }
-  "/jumpstats": {
+  '/jumpstats': {
     parameters: {
       query?: never
       header?: never
@@ -420,7 +420,7 @@ export interface paths {
       cookie?: never
     }
     /** Returns the latest jumpstats. */
-    get: operations["get_jumpstats"]
+    get: operations['get_jumpstats']
     put?: never
     post?: never
     delete?: never
@@ -429,7 +429,7 @@ export interface paths {
     patch?: never
     trace?: never
   }
-  "/jumpstats/{jumpstat_id}": {
+  '/jumpstats/{jumpstat_id}': {
     parameters: {
       query?: never
       header?: never
@@ -437,7 +437,7 @@ export interface paths {
       cookie?: never
     }
     /** Returns the jumpstat with the specified ID. */
-    get: operations["get_jumpstat"]
+    get: operations['get_jumpstat']
     put?: never
     post?: never
     delete?: never
@@ -446,7 +446,7 @@ export interface paths {
     patch?: never
     trace?: never
   }
-  "/jumpstats/{jumpstat_id}/replay": {
+  '/jumpstats/{jumpstat_id}/replay': {
     parameters: {
       query?: never
       header?: never
@@ -454,7 +454,7 @@ export interface paths {
       cookie?: never
     }
     /** Returns the replay file for a specific jumpstat. */
-    get: operations["get_jumpstat_replay"]
+    get: operations['get_jumpstat_replay']
     put?: never
     post?: never
     delete?: never
@@ -463,7 +463,7 @@ export interface paths {
     patch?: never
     trace?: never
   }
-  "/records": {
+  '/records': {
     parameters: {
       query?: never
       header?: never
@@ -471,7 +471,7 @@ export interface paths {
       cookie?: never
     }
     /** Returns the latest records. */
-    get: operations["get_records"]
+    get: operations['get_records']
     put?: never
     post?: never
     delete?: never
@@ -480,7 +480,7 @@ export interface paths {
     patch?: never
     trace?: never
   }
-  "/records/{record_id}": {
+  '/records/{record_id}': {
     parameters: {
       query?: never
       header?: never
@@ -488,7 +488,7 @@ export interface paths {
       cookie?: never
     }
     /** Returns the record with the specified ID. */
-    get: operations["get_record"]
+    get: operations['get_record']
     put?: never
     post?: never
     delete?: never
@@ -497,7 +497,7 @@ export interface paths {
     patch?: never
     trace?: never
   }
-  "/records/{record_id}/replay": {
+  '/records/{record_id}/replay': {
     parameters: {
       query?: never
       header?: never
@@ -505,7 +505,7 @@ export interface paths {
       cookie?: never
     }
     /** Returns the replay file for a specific record. */
-    get: operations["get_record_replay"]
+    get: operations['get_record_replay']
     put?: never
     post?: never
     delete?: never
@@ -514,7 +514,7 @@ export interface paths {
     patch?: never
     trace?: never
   }
-  "/bans": {
+  '/bans': {
     parameters: {
       query?: never
       header?: never
@@ -522,17 +522,17 @@ export interface paths {
       cookie?: never
     }
     /** Returns the latest player bans. */
-    get: operations["get_bans"]
+    get: operations['get_bans']
     put?: never
     /** Bans a player. */
-    post: operations["create_ban"]
+    post: operations['create_ban']
     delete?: never
     options?: never
     head?: never
     patch?: never
     trace?: never
   }
-  "/bans/{ban_id}": {
+  '/bans/{ban_id}': {
     parameters: {
       query?: never
       header?: never
@@ -540,15 +540,15 @@ export interface paths {
       cookie?: never
     }
     /** Returns the ban with the specified ID. */
-    get: operations["get_ban"]
+    get: operations['get_ban']
     put?: never
     post?: never
     /** Reverts a ban and creates an unban. */
-    delete: operations["delete_ban"]
+    delete: operations['delete_ban']
     options?: never
     head?: never
     /** Updates an active ban. */
-    patch: operations["update_ban"]
+    patch: operations['update_ban']
     trace?: never
   }
 }
@@ -567,17 +567,17 @@ export interface components {
     Ban: {
       /** Format: u-int32 */
       id: number
-      player: components["schemas"]["PlayerInfo"]
-      banned_by: components["schemas"]["BannedBy"]
-      reason: components["schemas"]["BanReason"]
-      unban?: null | components["schemas"]["Unban"]
-      created_at: components["schemas"]["Timestamp"]
+      player: components['schemas']['PlayerInfo']
+      banned_by: components['schemas']['BannedBy']
+      reason: components['schemas']['BanReason']
+      unban?: null | components['schemas']['Unban']
+      created_at: components['schemas']['Timestamp']
     }
     /** @enum {string} */
-    BanReason: "macro" | "auto-bhop" | "auto-strafe"
+    BanReason: 'macro' | 'auto-bhop' | 'auto-strafe'
     BanUpdate: {
-      reason?: null | components["schemas"]["BanReason"]
-      expires_at?: null | components["schemas"]["Timestamp"]
+      reason?: null | components['schemas']['BanReason']
+      expires_at?: null | components['schemas']['Timestamp']
     }
     BannedBy:
       | {
@@ -587,13 +587,13 @@ export interface components {
            */
           id: number
           /** @enum {string} */
-          type: "server"
+          type: 'server'
         }
       | {
           /** @description The ban was issued by an admin. */
-          id: components["schemas"]["SteamId64"]
+          id: components['schemas']['SteamId64']
           /** @enum {string} */
-          type: "admin"
+          type: 'admin'
         }
     /** @description an MD5 checksum */
     Checksum: string
@@ -603,39 +603,39 @@ export interface components {
       /** @description A brief description of the course. */
       description?: string | null
       /** @description A list of players who have contributed to the creation of this course. */
-      mappers: components["schemas"]["PlayerInfo"][]
+      mappers: components['schemas']['PlayerInfo'][]
       /** @description The filters for this course. */
-      filters: components["schemas"]["CourseFilters"]
+      filters: components['schemas']['CourseFilters']
     }
     CourseFilter: {
       /** @description The difficulty level of this filter when teleports are allowed. */
-      nub_tier: components["schemas"]["CourseFilterTier"]
+      nub_tier: components['schemas']['CourseFilterTier']
       /** @description The difficulty level of this filter when no teleports are allowed. */
-      pro_tier: components["schemas"]["CourseFilterTier"]
+      pro_tier: components['schemas']['CourseFilterTier']
       /** @description The initial state the course should be in. */
-      state: components["schemas"]["CourseFilterState"]
+      state: components['schemas']['CourseFilterState']
       /** @description Any additional notes on this filter (e.g. tiering justifications). */
       notes?: string | null
     }
     /** @enum {string} */
-    CourseFilterState: "unranked" | "pending" | "ranked"
+    CourseFilterState: 'unranked' | 'pending' | 'ranked'
     /** @enum {string} */
     CourseFilterTier:
-      | "very-easy"
-      | "easy"
-      | "medium"
-      | "advanced"
-      | "hard"
-      | "very-hard"
-      | "extreme"
-      | "death"
-      | "unfeasible"
-      | "impossible"
+      | 'very-easy'
+      | 'easy'
+      | 'medium'
+      | 'advanced'
+      | 'hard'
+      | 'very-hard'
+      | 'extreme'
+      | 'death'
+      | 'unfeasible'
+      | 'impossible'
     CourseFilters: {
       /** @description The filter for the VNL mode. */
-      vanilla: components["schemas"]["CourseFilter"]
+      vanilla: components['schemas']['CourseFilter']
       /** @description The filter for the CKZ mode. */
-      classic: components["schemas"]["CourseFilter"]
+      classic: components['schemas']['CourseFilter']
     }
     CourseInfo: {
       /**
@@ -645,8 +645,8 @@ export interface components {
       id: number
       /** @description The course's name. */
       name: string
-      nub_tier: components["schemas"]["CourseFilterTier"]
-      pro_tier: components["schemas"]["CourseFilterTier"]
+      nub_tier: components['schemas']['CourseFilterTier']
+      pro_tier: components['schemas']['CourseFilterTier']
     }
     CourseUpdate: {
       /** @description The index of the course to update.
@@ -658,15 +658,15 @@ export interface components {
       /** @description A new description. */
       description?: string | null
       /** @description SteamIDs to add to the course's mapper list. */
-      added_mappers?: components["schemas"]["SteamId"][]
+      added_mappers?: components['schemas']['SteamId'][]
       /** @description SteamIDs to remove from the course's mapper list. */
-      deleted_mappers?: components["schemas"]["SteamId"][]
+      deleted_mappers?: components['schemas']['SteamId'][]
       /** @description Updates to the course's filters. */
-      filter_updates?: components["schemas"]["FilterUpdates"]
+      filter_updates?: components['schemas']['FilterUpdates']
     }
     CreatedAccessKey: {
       /** @description The server's new access key. */
-      access_key: components["schemas"]["AccessKey"]
+      access_key: components['schemas']['AccessKey']
     }
     CreatedBan: {
       /** Format: u-int32 */
@@ -676,33 +676,33 @@ export interface components {
       /** Format: u-int16 */
       server_id: number
       /** @description The server's access key. */
-      access_key: components["schemas"]["AccessKey"]
+      access_key: components['schemas']['AccessKey']
     }
     FilterUpdate: {
-      nub_tier?: null | components["schemas"]["CourseFilterTier"]
-      pro_tier?: null | components["schemas"]["CourseFilterTier"]
-      state?: null | components["schemas"]["CourseFilterState"]
+      nub_tier?: null | components['schemas']['CourseFilterTier']
+      pro_tier?: null | components['schemas']['CourseFilterTier']
+      state?: null | components['schemas']['CourseFilterState']
       /** @description New notes.
        *
        *     If you specify this, the old notes will be **replaced**! */
       notes?: string | null
     }
     FilterUpdates: {
-      vanilla?: null | components["schemas"]["FilterUpdate"]
-      classic?: null | components["schemas"]["FilterUpdate"]
+      vanilla?: null | components['schemas']['FilterUpdate']
+      classic?: null | components['schemas']['FilterUpdate']
     }
     /** @description a git revision */
     GitRevision: string
     /** @enum {string} */
-    JumpType: "long-jump" | "bhop" | "multi-bhop" | "weird-jump" | "ladder-jump" | "ladderhop" | "jumpbug" | "fall"
+    JumpType: 'long-jump' | 'bhop' | 'multi-bhop' | 'weird-jump' | 'ladder-jump' | 'ladderhop' | 'jumpbug' | 'fall'
     Jumpstat: {
       /** Format: u-int32 */
       id: number
-      player: components["schemas"]["PlayerInfo"]
-      server: components["schemas"]["ServerInfo"]
-      mode: components["schemas"]["Mode"]
-      styles: components["schemas"]["Styles"]
-      jump_type: components["schemas"]["JumpType"]
+      player: components['schemas']['PlayerInfo']
+      server: components['schemas']['ServerInfo']
+      mode: components['schemas']['Mode']
+      styles: components['schemas']['Styles']
+      jump_type: components['schemas']['JumpType']
       /**
        * Format: double
        * @description Airtime in seconds.
@@ -732,7 +732,7 @@ export interface components {
       deviation: number
       /** Format: float */
       average_width: number
-      submitted_at: components["schemas"]["Timestamp"]
+      submitted_at: components['schemas']['Timestamp']
     }
     /** Format: u-int64 */
     Limit: number
@@ -752,15 +752,15 @@ export interface components {
       /** @description A brief description of the map. */
       description?: string | null
       /** @description The state the map is currently in. */
-      state: components["schemas"]["MapState"]
+      state: components['schemas']['MapState']
       /** @description A checksum of the map's `.vpk` file. */
       vpk_checksum: string
       /** @description A list of players who have contributed to the creation of this map. */
-      mappers: components["schemas"]["PlayerInfo"][]
+      mappers: components['schemas']['PlayerInfo'][]
       /** @description A list of courses present on the map. */
-      courses: components["schemas"]["Course"][]
+      courses: components['schemas']['Course'][]
       /** @description When this map was approved. */
-      approved_at: components["schemas"]["Timestamp"]
+      approved_at: components['schemas']['Timestamp']
     }
     MapIdentifier: string | number
     MapInfo: {
@@ -773,7 +773,7 @@ export interface components {
       name: string
     }
     /** @enum {string} */
-    MapState: "invalid" | "in-testing" | "approved"
+    MapState: 'invalid' | 'in-testing' | 'approved'
     MapUpdate: {
       /**
        * Format: u-int32
@@ -787,19 +787,19 @@ export interface components {
       workshop_id?: number | null
       /** @description A new description. */
       description?: string | null
-      state?: null | components["schemas"]["MapState"]
+      state?: null | components['schemas']['MapState']
       /** @description SteamIDs to add to the map's mapper list. */
-      added_mappers?: components["schemas"]["SteamId"][]
+      added_mappers?: components['schemas']['SteamId'][]
       /** @description SteamIDs to remove from the map's mapper list. */
-      deleted_mappers?: components["schemas"]["SteamId"][]
+      deleted_mappers?: components['schemas']['SteamId'][]
       /** @description Updates to individual courses. */
-      course_updates?: components["schemas"]["CourseUpdate"][]
+      course_updates?: components['schemas']['CourseUpdate'][]
     }
     /** @enum {string} */
-    Mode: "vanilla" | "classic"
+    Mode: 'vanilla' | 'classic'
     NewBan: {
       /** @description The player that should be banned. */
-      player_id: components["schemas"]["SteamId"]
+      player_id: components['schemas']['SteamId']
       /**
        * Format: ipv4
        * @description The player's IP address.
@@ -808,7 +808,7 @@ export interface components {
        */
       player_ip?: string | null
       /** @description The reason for the ban. */
-      reason: components["schemas"]["BanReason"]
+      reason: components['schemas']['BanReason']
     }
     NewCourse: {
       /** @description The course's name.
@@ -820,9 +820,9 @@ export interface components {
       /** @description A list of SteamIDs of players who have contributed to the creation of this course.
        *
        *     You must specify at least 1 player. */
-      mappers: components["schemas"]["SteamId"][]
+      mappers: components['schemas']['SteamId'][]
       /** @description The filters for this course. */
-      filters: components["schemas"]["CourseFilters"]
+      filters: components['schemas']['CourseFilters']
     }
     NewMap: {
       /**
@@ -833,20 +833,20 @@ export interface components {
       /** @description A brief description of the map. */
       description?: string | null
       /** @description The initial state the map should be in. */
-      state: components["schemas"]["MapState"]
+      state: components['schemas']['MapState']
       /** @description A list of SteamIDs of players who have contributed to the creation of this map.
        *
        *     You must specify at least 1 player. */
-      mappers: components["schemas"]["SteamId"][]
+      mappers: components['schemas']['SteamId'][]
       /** @description A list of courses present on the map.
        *
        *     You must specify at least 1 course. */
-      courses: components["schemas"]["NewCourse"][]
+      courses: components['schemas']['NewCourse'][]
     }
     NewMode: {
-      mode: components["schemas"]["Mode"]
-      linux_checksum: components["schemas"]["Checksum"]
-      windows_checksum: components["schemas"]["Checksum"]
+      mode: components['schemas']['Mode']
+      linux_checksum: components['schemas']['Checksum']
+      windows_checksum: components['schemas']['Checksum']
     }
     NewPluginVersion: {
       /**
@@ -855,15 +855,15 @@ export interface components {
        */
       version: string
       /** @description The git revision associated with the release commit / tag. */
-      git_revision: components["schemas"]["GitRevision"]
+      git_revision: components['schemas']['GitRevision']
       /** @description Checksum of the plugin binary on Linux */
-      linux_checksum: components["schemas"]["Checksum"]
+      linux_checksum: components['schemas']['Checksum']
       /** @description Checksum of the plugin binary on Windows */
-      windows_checksum: components["schemas"]["Checksum"]
+      windows_checksum: components['schemas']['Checksum']
       /** @description Whether this release invalidates all previous releases */
       is_cutoff: boolean
-      modes: components["schemas"]["NewMode"][]
-      styles: components["schemas"]["NewStyle"][]
+      modes: components['schemas']['NewMode'][]
+      styles: components['schemas']['NewStyle'][]
     }
     NewServer: {
       /** @description The server's name.
@@ -871,19 +871,19 @@ export interface components {
        *     This has to be a unique value and will be displayed in UIs. */
       name: string
       /** @description The server's IP address / domain. */
-      host: components["schemas"]["ServerHost"]
+      host: components['schemas']['ServerHost']
       /**
        * Format: u-int16
        * @description The server's connection port.
        */
       port: number
       /** @description The ID of the user who owns this server. */
-      owner_id: components["schemas"]["SteamId64"]
+      owner_id: components['schemas']['SteamId64']
     }
     NewStyle: {
-      style: components["schemas"]["Style"]
-      linux_checksum: components["schemas"]["Checksum"]
-      windows_checksum: components["schemas"]["Checksum"]
+      style: components['schemas']['Style']
+      linux_checksum: components['schemas']['Checksum']
+      windows_checksum: components['schemas']['Checksum']
     }
     NewUnban: {
       /** @description The reason for the unban. */
@@ -905,11 +905,11 @@ export interface components {
       values: {
         /** Format: u-int32 */
         id: number
-        player: components["schemas"]["PlayerInfo"]
-        banned_by: components["schemas"]["BannedBy"]
-        reason: components["schemas"]["BanReason"]
-        unban?: null | components["schemas"]["Unban"]
-        created_at: components["schemas"]["Timestamp"]
+        player: components['schemas']['PlayerInfo']
+        banned_by: components['schemas']['BannedBy']
+        reason: components['schemas']['BanReason']
+        unban?: null | components['schemas']['Unban']
+        created_at: components['schemas']['Timestamp']
       }[]
     }
     Paginated_Jumpstat: {
@@ -926,11 +926,11 @@ export interface components {
       values: {
         /** Format: u-int32 */
         id: number
-        player: components["schemas"]["PlayerInfo"]
-        server: components["schemas"]["ServerInfo"]
-        mode: components["schemas"]["Mode"]
-        styles: components["schemas"]["Styles"]
-        jump_type: components["schemas"]["JumpType"]
+        player: components['schemas']['PlayerInfo']
+        server: components['schemas']['ServerInfo']
+        mode: components['schemas']['Mode']
+        styles: components['schemas']['Styles']
+        jump_type: components['schemas']['JumpType']
         /**
          * Format: double
          * @description Airtime in seconds.
@@ -960,7 +960,7 @@ export interface components {
         deviation: number
         /** Format: float */
         average_width: number
-        submitted_at: components["schemas"]["Timestamp"]
+        submitted_at: components['schemas']['Timestamp']
       }[]
     }
     Paginated_Map: {
@@ -990,15 +990,15 @@ export interface components {
         /** @description A brief description of the map. */
         description?: string | null
         /** @description The state the map is currently in. */
-        state: components["schemas"]["MapState"]
+        state: components['schemas']['MapState']
         /** @description A checksum of the map's `.vpk` file. */
         vpk_checksum: string
         /** @description A list of players who have contributed to the creation of this map. */
-        mappers: components["schemas"]["PlayerInfo"][]
+        mappers: components['schemas']['PlayerInfo'][]
         /** @description A list of courses present on the map. */
-        courses: components["schemas"]["Course"][]
+        courses: components['schemas']['Course'][]
         /** @description When this map was approved. */
-        approved_at: components["schemas"]["Timestamp"]
+        approved_at: components['schemas']['Timestamp']
       }[]
     }
     Paginated_Player: {
@@ -1014,11 +1014,11 @@ export interface components {
       /** @description The values returned for this request. */
       values: {
         /** @description The player's SteamID. */
-        id: components["schemas"]["SteamId"]
+        id: components['schemas']['SteamId']
         /** @description The player's name on Steam. */
         name: string
         /** @description When this player first joined an approved CS2 server. */
-        first_joined_at: components["schemas"]["Timestamp"]
+        first_joined_at: components['schemas']['Timestamp']
       }[]
     }
     Paginated_PluginVersion: {
@@ -1041,9 +1041,9 @@ export interface components {
          */
         version: string
         /** @description The git revision associated with the release commit / tag of this version. */
-        git_revision: components["schemas"]["GitRevision"]
+        git_revision: components['schemas']['GitRevision']
         /** @description When this version was published. */
-        published_at: components["schemas"]["Timestamp"]
+        published_at: components['schemas']['Timestamp']
       }[]
     }
     Paginated_Record: {
@@ -1060,12 +1060,12 @@ export interface components {
       values: {
         /** Format: u-int32 */
         id: number
-        player: components["schemas"]["PlayerInfo"]
-        server: components["schemas"]["ServerInfo"]
-        map: components["schemas"]["MapInfo"]
-        course: components["schemas"]["CourseInfo"]
-        mode: components["schemas"]["Mode"]
-        styles: components["schemas"]["Styles"]
+        player: components['schemas']['PlayerInfo']
+        server: components['schemas']['ServerInfo']
+        map: components['schemas']['MapInfo']
+        course: components['schemas']['CourseInfo']
+        mode: components['schemas']['Mode']
+        styles: components['schemas']['Styles']
         /** Format: u-int32 */
         teleports: number
         /**
@@ -1081,7 +1081,7 @@ export interface components {
         pro_rank?: number | null
         /** Format: double */
         pro_points?: number | null
-        submitted_at: components["schemas"]["Timestamp"]
+        submitted_at: components['schemas']['Timestamp']
       }[]
     }
     Paginated_Server: {
@@ -1100,13 +1100,13 @@ export interface components {
         id: number
         name: string
         /** @description The server's IP address / domain. */
-        host: components["schemas"]["ServerHost"]
+        host: components['schemas']['ServerHost']
         /** Format: u-int16 */
         port: number
         /** @description The user who owns this server. */
-        owner: components["schemas"]["UserInfo"]
+        owner: components['schemas']['UserInfo']
         /** @description When this server was approved by the API. */
-        approved_at: components["schemas"]["Timestamp"]
+        approved_at: components['schemas']['Timestamp']
       }[]
     }
     Paginated_User: {
@@ -1122,31 +1122,31 @@ export interface components {
       /** @description The values returned for this request. */
       values: {
         /** @description The user's SteamID. */
-        id: components["schemas"]["SteamId64"]
+        id: components['schemas']['SteamId64']
         /**
          * @description The user's last-known name on Steam.
          * @example AlphaKeks
          */
         name: string
         /** @description The user's API permissions. */
-        permissions: components["schemas"]["Permissions"]
+        permissions: components['schemas']['Permissions']
         /** @description When this user was registered to the API. */
-        registered_at: components["schemas"]["Timestamp"]
+        registered_at: components['schemas']['Timestamp']
       }[]
     }
-    Permissions: ("user-permissions" | "servers" | "map-pool" | "player-bans")[]
+    Permissions: ('user-permissions' | 'servers' | 'map-pool' | 'player-bans')[]
     Player: {
       /** @description The player's SteamID. */
-      id: components["schemas"]["SteamId"]
+      id: components['schemas']['SteamId']
       /** @description The player's name on Steam. */
       name: string
       /** @description When this player first joined an approved CS2 server. */
-      first_joined_at: components["schemas"]["Timestamp"]
+      first_joined_at: components['schemas']['Timestamp']
     }
     PlayerIdentifier: string
     PlayerInfo: {
       /** @description The player's SteamID. */
-      id: components["schemas"]["SteamId"]
+      id: components['schemas']['SteamId']
       /** @description The player's name on Steam. */
       name: string
     }
@@ -1159,9 +1159,9 @@ export interface components {
        */
       version: string
       /** @description The git revision associated with the release commit / tag of this version. */
-      git_revision: components["schemas"]["GitRevision"]
+      git_revision: components['schemas']['GitRevision']
       /** @description When this version was published. */
-      published_at: components["schemas"]["Timestamp"]
+      published_at: components['schemas']['Timestamp']
     }
     PluginVersionIdentifier: string
     PublishedPluginVersion: {
@@ -1171,12 +1171,12 @@ export interface components {
     Record: {
       /** Format: u-int32 */
       id: number
-      player: components["schemas"]["PlayerInfo"]
-      server: components["schemas"]["ServerInfo"]
-      map: components["schemas"]["MapInfo"]
-      course: components["schemas"]["CourseInfo"]
-      mode: components["schemas"]["Mode"]
-      styles: components["schemas"]["Styles"]
+      player: components['schemas']['PlayerInfo']
+      server: components['schemas']['ServerInfo']
+      map: components['schemas']['MapInfo']
+      course: components['schemas']['CourseInfo']
+      mode: components['schemas']['Mode']
+      styles: components['schemas']['Styles']
       /** Format: u-int32 */
       teleports: number
       /**
@@ -1192,12 +1192,12 @@ export interface components {
       pro_rank?: number | null
       /** Format: double */
       pro_points?: number | null
-      submitted_at: components["schemas"]["Timestamp"]
+      submitted_at: components['schemas']['Timestamp']
     }
     /** @enum {string} */
-    Records_SortBy: "submission-date" | "time"
+    Records_SortBy: 'submission-date' | 'time'
     /** @enum {string} */
-    Records_SortOrder: "ascending" | "descending"
+    Records_SortOrder: 'ascending' | 'descending'
     /** Format: binary */
     ReplayFile: Record<string, never>
     Server: {
@@ -1205,13 +1205,13 @@ export interface components {
       id: number
       name: string
       /** @description The server's IP address / domain. */
-      host: components["schemas"]["ServerHost"]
+      host: components['schemas']['ServerHost']
       /** Format: u-int16 */
       port: number
       /** @description The user who owns this server. */
-      owner: components["schemas"]["UserInfo"]
+      owner: components['schemas']['UserInfo']
       /** @description When this server was approved by the API. */
-      approved_at: components["schemas"]["Timestamp"]
+      approved_at: components['schemas']['Timestamp']
     }
     /**
      * Format: hostname
@@ -1231,19 +1231,19 @@ export interface components {
     ServerUpdate: {
       /** @description A new name. */
       name?: string | null
-      host?: null | components["schemas"]["ServerHost"]
+      host?: null | components['schemas']['ServerHost']
       /**
        * Format: u-int16
        * @description A new port.
        */
       port?: number | null
-      owner_id?: null | components["schemas"]["SteamId64"]
+      owner_id?: null | components['schemas']['SteamId64']
     }
     SessionInfo: {
       /** @description When your session was created. */
-      created_at: components["schemas"]["Timestamp"]
+      created_at: components['schemas']['Timestamp']
       /** @description When your session will expire. */
-      expires_at: components["schemas"]["Timestamp"]
+      expires_at: components['schemas']['Timestamp']
     }
     /** @description a SteamID */
     SteamId: string
@@ -1253,7 +1253,7 @@ export interface components {
      */
     SteamId64: string
     SteamUser: {
-      id: components["schemas"]["SteamId"]
+      id: components['schemas']['SteamId']
       name: string
       /** Format: uri */
       profile_url: string
@@ -1261,17 +1261,17 @@ export interface components {
       avatar_url: string
     }
     /** @enum {string} */
-    Style: "auto-bhop"
-    Styles: "auto-bhop"[]
+    Style: 'auto-bhop'
+    Styles: 'auto-bhop'[]
     /**
      * Format: date-time
      * @description a UTC timestamp
      */
     Timestamp: string
     Unban: {
-      admin_id: components["schemas"]["SteamId64"]
+      admin_id: components['schemas']['SteamId64']
       reason: string
-      created_at: components["schemas"]["Timestamp"]
+      created_at: components['schemas']['Timestamp']
     }
     UpdateUserEmailPayload: {
       /**
@@ -1282,24 +1282,24 @@ export interface components {
     }
     UpdateUserPermissionsPayload: {
       /** @description The new permissions. */
-      permissions: components["schemas"]["Permissions"]
+      permissions: components['schemas']['Permissions']
     }
     User: {
       /** @description The user's SteamID. */
-      id: components["schemas"]["SteamId64"]
+      id: components['schemas']['SteamId64']
       /**
        * @description The user's last-known name on Steam.
        * @example AlphaKeks
        */
       name: string
       /** @description The user's API permissions. */
-      permissions: components["schemas"]["Permissions"]
+      permissions: components['schemas']['Permissions']
       /** @description When this user was registered to the API. */
-      registered_at: components["schemas"]["Timestamp"]
+      registered_at: components['schemas']['Timestamp']
     }
     UserInfo: {
       /** @description The user's SteamID. */
-      id: components["schemas"]["SteamId64"]
+      id: components['schemas']['SteamId64']
       /** @description The user's last-known name on Steam. */
       name: string
     }
@@ -1320,8 +1320,8 @@ export interface operations {
          * @example ^1.0.0
          */
         version?: string
-        limit?: components["schemas"]["Limit"]
-        offset?: components["schemas"]["Offset"]
+        limit?: components['schemas']['Limit']
+        offset?: components['schemas']['Offset']
       }
       header?: never
       path?: never
@@ -1334,7 +1334,7 @@ export interface operations {
           [name: string]: unknown
         }
         content: {
-          "application/json": components["schemas"]["Paginated_PluginVersion"]
+          'application/json': components['schemas']['Paginated_PluginVersion']
         }
       }
       /** @description invalid query parameters */
@@ -1355,7 +1355,7 @@ export interface operations {
     }
     requestBody: {
       content: {
-        "application/json": components["schemas"]["NewPluginVersion"]
+        'application/json': components['schemas']['NewPluginVersion']
       }
     }
     responses: {
@@ -1364,7 +1364,7 @@ export interface operations {
           [name: string]: unknown
         }
         content: {
-          "application/json": components["schemas"]["PublishedPluginVersion"]
+          'application/json': components['schemas']['PublishedPluginVersion']
         }
       }
       401: {
@@ -1395,7 +1395,7 @@ export interface operations {
       header?: never
       path: {
         /** @description a SemVer version or git revision */
-        version: components["schemas"]["PluginVersionIdentifier"]
+        version: components['schemas']['PluginVersionIdentifier']
       }
       cookie?: never
     }
@@ -1406,7 +1406,7 @@ export interface operations {
           [name: string]: unknown
         }
         content: {
-          "application/json": components["schemas"]["PluginVersion"]
+          'application/json': components['schemas']['PluginVersion']
         }
       }
       /** @description invalid path parameter */
@@ -1428,7 +1428,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Only include users with these permissions. */
-        permissions?: components["schemas"]["Permissions"]
+        permissions?: components['schemas']['Permissions']
       }
       header?: never
       path?: never
@@ -1441,7 +1441,7 @@ export interface operations {
           [name: string]: unknown
         }
         content: {
-          "application/json": components["schemas"]["Paginated_User"]
+          'application/json': components['schemas']['Paginated_User']
         }
       }
       /** @description invalid query parameters */
@@ -1459,7 +1459,7 @@ export interface operations {
       header?: never
       path: {
         /** @description the user's SteamID */
-        user_id: components["schemas"]["SteamId64"]
+        user_id: components['schemas']['SteamId64']
       }
       cookie?: never
     }
@@ -1470,7 +1470,7 @@ export interface operations {
           [name: string]: unknown
         }
         content: {
-          "application/json": components["schemas"]["User"]
+          'application/json': components['schemas']['User']
         }
       }
       /** @description invalid path parameters */
@@ -1494,13 +1494,13 @@ export interface operations {
       header?: never
       path: {
         /** @description the user's SteamID */
-        user_id: components["schemas"]["SteamId64"]
+        user_id: components['schemas']['SteamId64']
       }
       cookie?: never
     }
     requestBody: {
       content: {
-        "application/json": components["schemas"]["UpdateUserEmailPayload"]
+        'application/json': components['schemas']['UpdateUserEmailPayload']
       }
     }
     responses: {
@@ -1544,7 +1544,7 @@ export interface operations {
       header?: never
       path: {
         /** @description the user's SteamID */
-        user_id: components["schemas"]["SteamId64"]
+        user_id: components['schemas']['SteamId64']
       }
       cookie?: never
     }
@@ -1583,13 +1583,13 @@ export interface operations {
       header?: never
       path: {
         /** @description the user's SteamID */
-        user_id: components["schemas"]["SteamId64"]
+        user_id: components['schemas']['SteamId64']
       }
       cookie?: never
     }
     requestBody: {
       content: {
-        "application/json": components["schemas"]["UpdateUserPermissionsPayload"]
+        'application/json': components['schemas']['UpdateUserPermissionsPayload']
       }
     }
     responses: {
@@ -1664,7 +1664,7 @@ export interface operations {
           [name: string]: unknown
         }
         content: {
-          "application/json": components["schemas"]["SessionInfo"]
+          'application/json': components['schemas']['SessionInfo']
         }
       }
       401: {
@@ -1725,11 +1725,11 @@ export interface operations {
         /** @description Only include servers whose name matches this value. */
         name?: string
         /** @description Only include servers whose host matches this value. */
-        host?: components["schemas"]["ServerHost"]
+        host?: components['schemas']['ServerHost']
         /** @description Only include servers owned by this user. */
-        owned_by?: components["schemas"]["SteamId64"]
-        limit?: components["schemas"]["Limit"]
-        offset?: components["schemas"]["Offset"]
+        owned_by?: components['schemas']['SteamId64']
+        limit?: components['schemas']['Limit']
+        offset?: components['schemas']['Offset']
       }
       header?: never
       path?: never
@@ -1742,7 +1742,7 @@ export interface operations {
           [name: string]: unknown
         }
         content: {
-          "application/json": components["schemas"]["Paginated_Server"]
+          'application/json': components['schemas']['Paginated_Server']
         }
       }
       /** @description invalid query parameters */
@@ -1763,7 +1763,7 @@ export interface operations {
     }
     requestBody: {
       content: {
-        "application/json": components["schemas"]["NewServer"]
+        'application/json': components['schemas']['NewServer']
       }
     }
     responses: {
@@ -1772,7 +1772,7 @@ export interface operations {
           [name: string]: unknown
         }
         content: {
-          "application/json": components["schemas"]["CreatedServer"]
+          'application/json': components['schemas']['CreatedServer']
         }
       }
       401: {
@@ -1803,7 +1803,7 @@ export interface operations {
       header?: never
       path: {
         /** @description a server ID or name */
-        server: components["schemas"]["ServerIdentifier"]
+        server: components['schemas']['ServerIdentifier']
       }
       cookie?: never
     }
@@ -1814,7 +1814,7 @@ export interface operations {
           [name: string]: unknown
         }
         content: {
-          "application/json": components["schemas"]["Server"]
+          'application/json': components['schemas']['Server']
         }
       }
       /** @description invalid path parameters */
@@ -1844,7 +1844,7 @@ export interface operations {
     }
     requestBody: {
       content: {
-        "application/json": components["schemas"]["ServerUpdate"]
+        'application/json': components['schemas']['ServerUpdate']
       }
     }
     responses: {
@@ -1899,7 +1899,7 @@ export interface operations {
           [name: string]: unknown
         }
         content: {
-          "application/json": components["schemas"]["CreatedAccessKey"]
+          'application/json': components['schemas']['CreatedAccessKey']
         }
       }
       401: {
@@ -1953,8 +1953,8 @@ export interface operations {
       query?: {
         /** @description Only include players whose name matches this value. */
         name?: string
-        limit?: components["schemas"]["Limit"]
-        offset?: components["schemas"]["Offset"]
+        limit?: components['schemas']['Limit']
+        offset?: components['schemas']['Offset']
       }
       header?: never
       path?: never
@@ -1967,7 +1967,7 @@ export interface operations {
           [name: string]: unknown
         }
         content: {
-          "application/json": components["schemas"]["Paginated_Player"]
+          'application/json': components['schemas']['Paginated_Player']
         }
       }
       /** @description invalid query parameters */
@@ -1985,7 +1985,7 @@ export interface operations {
       header?: never
       path: {
         /** @description a SteamID or name */
-        player: components["schemas"]["PlayerIdentifier"]
+        player: components['schemas']['PlayerIdentifier']
       }
       cookie?: never
     }
@@ -1996,7 +1996,7 @@ export interface operations {
           [name: string]: unknown
         }
         content: {
-          "application/json": components["schemas"]["Player"]
+          'application/json': components['schemas']['Player']
         }
       }
       /** @description invalid path parameters */
@@ -2017,7 +2017,7 @@ export interface operations {
   get_player_profile: {
     parameters: {
       query: {
-        mode: components["schemas"]["Mode"]
+        mode: components['schemas']['Mode']
       }
       header?: never
       path: {
@@ -2033,7 +2033,7 @@ export interface operations {
           [name: string]: unknown
         }
         content: {
-          "application/json": components["schemas"]["Player"]
+          'application/json': components['schemas']['Player']
         }
       }
       /** @description invalid path parameters */
@@ -2057,7 +2057,7 @@ export interface operations {
       header?: never
       path: {
         /** @description the player's SteamID */
-        player_id: components["schemas"]["SteamId"]
+        player_id: components['schemas']['SteamId']
       }
       cookie?: never
     }
@@ -2068,7 +2068,7 @@ export interface operations {
           [name: string]: unknown
         }
         content: {
-          "application/json": components["schemas"]["SteamUser"]
+          'application/json': components['schemas']['SteamUser']
         }
       }
       /** @description invalid path parameters */
@@ -2110,7 +2110,7 @@ export interface operations {
           [name: string]: unknown
         }
         content: {
-          "application/json": Record<string, never>
+          'application/json': Record<string, never>
         }
       }
       /** @description invalid path parameters */
@@ -2178,9 +2178,9 @@ export interface operations {
         /** @description Only include maps whose name matches this value. */
         name?: string
         /** @description Only include maps currently in this state. */
-        state?: components["schemas"]["MapState"]
-        limit?: components["schemas"]["Limit"]
-        offset?: components["schemas"]["Offset"]
+        state?: components['schemas']['MapState']
+        limit?: components['schemas']['Limit']
+        offset?: components['schemas']['Offset']
       }
       header?: never
       path?: never
@@ -2193,7 +2193,7 @@ export interface operations {
           [name: string]: unknown
         }
         content: {
-          "application/json": components["schemas"]["Paginated_Map"]
+          'application/json': components['schemas']['Paginated_Map']
         }
       }
       /** @description invalid query parameters */
@@ -2214,7 +2214,7 @@ export interface operations {
     }
     requestBody: {
       content: {
-        "application/json": components["schemas"]["NewMap"]
+        'application/json': components['schemas']['NewMap']
       }
     }
     responses: {
@@ -2223,7 +2223,7 @@ export interface operations {
           [name: string]: unknown
         }
         content: {
-          "application/json": components["schemas"]["ApprovedMap"]
+          'application/json': components['schemas']['ApprovedMap']
         }
       }
       401: {
@@ -2247,7 +2247,7 @@ export interface operations {
       header?: never
       path: {
         /** @description a map ID or name */
-        map: components["schemas"]["MapIdentifier"]
+        map: components['schemas']['MapIdentifier']
       }
       cookie?: never
     }
@@ -2258,7 +2258,7 @@ export interface operations {
           [name: string]: unknown
         }
         content: {
-          "application/json": components["schemas"]["Map"]
+          'application/json': components['schemas']['Map']
         }
       }
       /** @description invalid path parameters */
@@ -2288,7 +2288,7 @@ export interface operations {
     }
     requestBody: {
       content: {
-        "application/json": components["schemas"]["MapUpdate"]
+        'application/json': components['schemas']['MapUpdate']
       }
     }
     responses: {
@@ -2329,8 +2329,8 @@ export interface operations {
   get_jumpstats: {
     parameters: {
       query?: {
-        limit?: components["schemas"]["Limit"]
-        offset?: components["schemas"]["Offset"]
+        limit?: components['schemas']['Limit']
+        offset?: components['schemas']['Offset']
       }
       header?: never
       path?: never
@@ -2343,7 +2343,7 @@ export interface operations {
           [name: string]: unknown
         }
         content: {
-          "application/json": components["schemas"]["Paginated_Jumpstat"]
+          'application/json': components['schemas']['Paginated_Jumpstat']
         }
       }
       /** @description invalid query parameters */
@@ -2371,7 +2371,7 @@ export interface operations {
           [name: string]: unknown
         }
         content: {
-          "application/json": components["schemas"]["Jumpstat"]
+          'application/json': components['schemas']['Jumpstat']
         }
       }
       /** @description invalid path parameters */
@@ -2405,7 +2405,7 @@ export interface operations {
           [name: string]: unknown
         }
         content: {
-          "application/json": components["schemas"]["ReplayFile"]
+          'application/json': components['schemas']['ReplayFile']
         }
       }
       /** @description invalid path parameters */
@@ -2429,15 +2429,15 @@ export interface operations {
         /** @description Only include PBs. */
         top?: boolean
         /** @description Only include records set by this player. */
-        player?: components["schemas"]["PlayerIdentifier"]
+        player?: components['schemas']['PlayerIdentifier']
         /** @description Only include records set on this server. */
-        server?: components["schemas"]["ServerIdentifier"]
+        server?: components['schemas']['ServerIdentifier']
         /** @description Only include records set on this map. */
-        map?: components["schemas"]["MapIdentifier"]
+        map?: components['schemas']['MapIdentifier']
         /** @description Only include records set on this course. */
         course?: string
         /** @description Only include records set on this mode. */
-        mode?: components["schemas"]["Mode"]
+        mode?: components['schemas']['Mode']
         /** @description Restrict the results to records that (do not) have teleports. */
         has_teleports?: boolean
         /** @description The highest rank that any record should have.
@@ -2447,11 +2447,11 @@ export interface operations {
         /** @description Which value to sort the results by.
          *
          *     Defaults to 'submission-date'. */
-        sort_by?: components["schemas"]["Records_SortBy"]
+        sort_by?: components['schemas']['Records_SortBy']
         /** @description Which direction to sort the results in. */
-        sort_order?: components["schemas"]["Records_SortOrder"]
-        limit?: components["schemas"]["Limit"]
-        offset?: components["schemas"]["Offset"]
+        sort_order?: components['schemas']['Records_SortOrder']
+        limit?: components['schemas']['Limit']
+        offset?: components['schemas']['Offset']
       }
       header?: never
       path?: never
@@ -2464,7 +2464,7 @@ export interface operations {
           [name: string]: unknown
         }
         content: {
-          "application/json": components["schemas"]["Paginated_Record"]
+          'application/json': components['schemas']['Paginated_Record']
         }
       }
       /** @description invalid query parameters */
@@ -2492,7 +2492,7 @@ export interface operations {
           [name: string]: unknown
         }
         content: {
-          "application/json": components["schemas"]["Record"]
+          'application/json': components['schemas']['Record']
         }
       }
       /** @description invalid path parameters */
@@ -2526,7 +2526,7 @@ export interface operations {
           [name: string]: unknown
         }
         content: {
-          "application/json": components["schemas"]["ReplayFile"]
+          'application/json': components['schemas']['ReplayFile']
         }
       }
       /** @description invalid path parameters */
@@ -2548,13 +2548,13 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Only include bans for this player. */
-        player?: components["schemas"]["PlayerIdentifier"]
+        player?: components['schemas']['PlayerIdentifier']
         /** @description Only include bans issued by this user. */
-        banned_by?: components["schemas"]["SteamId64"]
+        banned_by?: components['schemas']['SteamId64']
         /** @description Only include bans with this reason. */
-        reason?: components["schemas"]["BanReason"]
-        limit?: components["schemas"]["Limit"]
-        offset?: components["schemas"]["Offset"]
+        reason?: components['schemas']['BanReason']
+        limit?: components['schemas']['Limit']
+        offset?: components['schemas']['Offset']
       }
       header?: never
       path?: never
@@ -2567,7 +2567,7 @@ export interface operations {
           [name: string]: unknown
         }
         content: {
-          "application/json": components["schemas"]["Paginated_Ban"]
+          'application/json': components['schemas']['Paginated_Ban']
         }
       }
       /** @description invalid query parameters */
@@ -2588,7 +2588,7 @@ export interface operations {
     }
     requestBody: {
       content: {
-        "application/json": components["schemas"]["NewBan"]
+        'application/json': components['schemas']['NewBan']
       }
     }
     responses: {
@@ -2597,7 +2597,7 @@ export interface operations {
           [name: string]: unknown
         }
         content: {
-          "application/json": components["schemas"]["CreatedBan"]
+          'application/json': components['schemas']['CreatedBan']
         }
       }
       401: {
@@ -2638,7 +2638,7 @@ export interface operations {
           [name: string]: unknown
         }
         content: {
-          "application/json": components["schemas"]["Ban"]
+          'application/json': components['schemas']['Ban']
         }
       }
       /** @description invalid path parameters */
@@ -2667,7 +2667,7 @@ export interface operations {
     }
     requestBody: {
       content: {
-        "application/json": components["schemas"]["NewUnban"]
+        'application/json': components['schemas']['NewUnban']
       }
     }
     responses: {
@@ -2716,7 +2716,7 @@ export interface operations {
     }
     requestBody: {
       content: {
-        "application/json": components["schemas"]["BanUpdate"]
+        'application/json': components['schemas']['BanUpdate']
       }
     }
     responses: {
