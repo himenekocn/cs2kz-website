@@ -108,7 +108,7 @@ async function getMap() {
       <IconLoading />
     </div>
 
-    <div v-else-if="map && course" class="overflow-x-auto">
+    <div v-else-if="map && course" class="overflow-x-auto p-1">
       <div class="flex flex-col xl:flex-row items-start gap-4">
         <!-- TODO: use course index -->
         <TheImage
