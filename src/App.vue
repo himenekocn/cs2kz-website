@@ -37,6 +37,10 @@ async function verifySession() {
 <template>
   <UApp>
     <TheHeader />
+    <div class="px-2 lg:px-10 mt-4">
+      <UAlert :description="$t('common.testingAlert')" color="warning" variant="subtle" close />
+    </div>
+
     <Suspense>
       <RouterView />
     </Suspense>

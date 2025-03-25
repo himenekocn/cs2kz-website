@@ -17,7 +17,7 @@ getSteamProfile()
 
 async function getSteamProfile() {
   try {
-    const player: PlayerSteam | undefined = await api.get(`/players/${route.params.steamId}/steam-profile`)
+    const { data: player } = await api.get<PlayerSteam | undefined>(`/players/${route.params.steamId}/steam-profile`)
     avatarUrl.value = player?.avatar_url.replace(/_medium/, '_full') || ''
     profileUrl.value = player?.profile_url || ''
   } catch (error) {

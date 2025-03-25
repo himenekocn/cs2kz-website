@@ -1,12 +1,24 @@
 <script setup lang="ts">
 import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 const props = defineProps<{
   completedCourses: number[]
   totalCourses: number[]
 }>()
 
-const labels = ['Very Easy', 'Easy', 'Medium', 'Advanced', 'Hard', 'Very Hard', 'Extreme', 'Death']
+const { t } = useI18n()
+
+const labels = computed(() => [
+  t('common.tier.veryEasy'),
+  t('common.tier.easy'),
+  t('common.tier.medium'),
+  t('common.tier.advanced'),
+  t('common.tier.hard'),
+  t('common.tier.veryHard'),
+  t('common.tier.extreme'),
+  t('common.tier.death'),
+])
 const labelColors = ['#4CAF50', '#8BC34A', '#FFEB3B', '#FF9800', '#FF5722', '#F44336', '#9C27B0', '#673AB7']
 
 const completionPercentages = computed(() => {
