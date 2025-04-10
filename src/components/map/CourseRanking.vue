@@ -6,7 +6,7 @@ import { useI18n } from 'vue-i18n'
 import { useExpand } from '@/composables/expand'
 import { useRouter } from 'vue-router'
 import type { TableColumn } from '@nuxt/ui'
-import { formatTime, seperateThousands, toLocal, toLocalDistance } from '@/utils'
+import { formatTime, isNubRecord, seperateThousands, toLocal, toLocalDistance } from '@/utils'
 
 defineProps<{
   records: Record[]
@@ -57,9 +57,9 @@ const columns = computed(() => {
           h(
             'div',
             {
-              class: `flex justify-center items-center text-gray-100 text-[10px] leading-3 rounded-sm px-1 ${row.original.teleports > 0 ? 'bg-yellow-600' : 'bg-blue-600'}`,
+              class: `flex justify-center items-center text-gray-100 text-[10px] leading-3 rounded-sm px-1 ${isNubRecord(row.original) ? 'bg-yellow-600' : 'bg-blue-600'}`,
             },
-            row.original.teleports > 0 ? 'TP' : 'PRO',
+            isNubRecord(row.original) ? 'TP' : 'PRO',
           ),
         ])
       },
