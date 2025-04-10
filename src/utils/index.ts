@@ -53,6 +53,10 @@ const tierColorMap = new Map([
   ['impossible', '#d1d1d1'],
 ])
 
+export function isNubRecord(record: Run): boolean {
+  return record.teleports > 0
+}
+
 export function getTierNumber(tier: string) {
   return tierNumberMap.get(tier) as number
 }

@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import type { Record } from '@/types'
-import { getTierColor, getTierNumber, formatTime, toLocal, seperateThousands } from '@/utils'
+import { getTierColor, getTierNumber, formatTime, toLocal, seperateThousands, isNubRecord } from '@/utils'
 
 const filterTier = computed(() => {
-  const key = props.record.teleports > 0 ? 'nub_tier' : 'pro_tier'
+  const key = isNubRecord(props.record) ? 'nub_tier' : 'pro_tier'
   return props.record.course[key]
 })
 

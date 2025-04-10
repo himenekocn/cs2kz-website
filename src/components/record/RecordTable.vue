@@ -7,7 +7,7 @@ import { useExpand } from '@/composables/expand'
 import { useRouter } from 'vue-router'
 import { useCourseQueryStore } from '@/stores/course-query'
 import type { TableColumn, TableRow } from '@nuxt/ui'
-import { getTierNumber, formatTime, toLocal, toLocalDistance, getTierColor } from '@/utils'
+import { getTierNumber, formatTime, toLocal, toLocalDistance, getTierColor, isNubRecord } from '@/utils'
 
 const props = defineProps<{
   detailed?: boolean
@@ -77,7 +77,7 @@ const columns = computed(() => {
       accessorKey: 'tier',
       header: t('records.title.tier'),
       cell: ({ row }) => {
-        const tier = row.original.teleports > 0 ? row.original.course.nub_tier : row.original.course.pro_tier
+        const tier = isNubRecord(row.original) ? row.original.course.nub_tier : row.original.course.pro_tier
         const tierNumber = getTierNumber(tier)
         const tierColor = getTierColor(tier)
 
@@ -105,9 +105,9 @@ const columns = computed(() => {
           h(
             'div',
             {
-              class: `flex justify-center items-center text-gray-100 text-[10px] leading-3 rounded-sm px-1 ${row.original.teleports > 0 ? 'bg-yellow-600' : 'bg-blue-600'}`,
+              class: `flex justify-center items-center text-gray-100 text-[10px] leading-3 rounded-sm px-1 ${isNubRecord(row.original) ? 'bg-yellow-600' : 'bg-blue-600'}`,
             },
-            row.original.teleports > 0 ? 'TP' : 'PRO',
+            isNubRecord(row.original) ? 'TP' : 'PRO',
           ),
         ])
       },
