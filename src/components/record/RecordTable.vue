@@ -77,7 +77,7 @@ const columns = computed(() => {
       accessorKey: 'tier',
       header: t('records.title.tier'),
       cell: ({ row }) => {
-        const tier = row.original.teleports > 0 ? row.original.course.pro_tier : row.original.course.nub_tier
+        const tier = row.original.teleports > 0 ? row.original.course.nub_tier : row.original.course.pro_tier
         const tierNumber = getTierNumber(tier)
         const tierColor = getTierColor(tier)
 
