@@ -22,7 +22,10 @@ export function useProfile(playerId: string) {
       const { data } = await api.get(`/players/${query.player_id}/profile`, {
         params: { mode: query.mode },
       })
-      profile.value = data
+
+      if (data) {
+        profile.value = { ...data, rating: data.rating * 0.1 }
+      }
     } catch (err) {
       console.error(err)
       profile.value = null

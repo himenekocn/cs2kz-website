@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { api, toLocal, seperateThousands } from '@/utils'
+import { api, toLocal, seperateThousands, getRankByRating } from '@/utils'
 import type { Profile, PlayerSteam } from '@/types'
 import { useRoute } from 'vue-router'
 
@@ -39,15 +39,29 @@ async function getSteamProfile() {
       </div>
 
       <p>
-        <span class="text-gray-400">{{ $t('profile.info.joinedOn') }}: </span>
-        <span class="font-semibold mr-1">{{ toLocal(profile.first_joined_at, true) }}</span>
+        <span class="text-gray-400 mr-1">{{ $t('profile.info.joinedOn') }}: </span>
+        <span class="font-semibold">{{ toLocal(profile.first_joined_at, true) }}</span>
       </p>
 
-      <div>
-        <span class="mr-1 text-gray-400">{{ $t('profile.info.rating') }}:</span>
-        <span class="font-medium">
-          {{ seperateThousands(profile.rating) }}
-        </span>
+      <div class="flex items-center gap-2">
+        <span class="text-gray-400">{{ $t('profile.info.rank') }}:</span>
+
+        <div class="flex items-center gap-1">
+          <div
+            :style="{
+              color: getRankByRating(profile.rating)[1],
+              backgroundColor: `${getRankByRating(profile.rating)[1]}20`,
+              border: `1px solid ${getRankByRating(profile.rating)[1]}`,
+            }"
+            class="flex justify-center items-center px-1 font-semibold text-sm rounded-md"
+          >
+            {{ getRankByRating(profile.rating)[0] }}
+          </div>
+          <span class="text-gray-600">/</span>
+          <span class="font-medium">
+            {{ seperateThousands(profile.rating) }}
+          </span>
+        </div>
       </div>
     </div>
   </div>

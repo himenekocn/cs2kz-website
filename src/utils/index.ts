@@ -182,3 +182,15 @@ export function calcTotalCourses(courses: CourseInfo[]) {
     return courses.filter((course) => course.tier === tier).length
   })
 }
+
+export function getRankByRating(rating: number) {
+  if (rating >= 35000) return ['Legend', '#ffb800']
+  if (rating >= 30000) return ['Master', '#e4af3a']
+  if (rating >= 25000) return ['Pro', '#ff4141']
+  if (rating >= 20000) return ['Expert', '#d32de6']
+  if (rating >= 15000) return ['Skilled', '#bb82f0']
+  if (rating >= 10000) return ['Regular', '#4c6aff']
+  if (rating >= 5000) return ['Casual', '#5f99d9']
+  if (rating > 0) return ['Beginner', '#d1d1d1']
+  return ['New', '#cbcbcb']
+}
