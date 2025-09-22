@@ -21,8 +21,8 @@ const mapStateColorMap = {
 
 const filterStateColorMap = {
   ranked: 'text-white bg-green-600',
-  unranked: 'text-gray-400 bg-gray-400',
-  pending: 'text-gray-400 bg-gray-400',
+  unranked: 'text-gray-400 bg-gray-600',
+  pending: 'text-gray-400 bg-gray-600',
 }
 
 const activeCourseName = ref<string>()
