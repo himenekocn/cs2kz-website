@@ -33,6 +33,14 @@ const course = ref<Course | null>(null)
 
 const loading = ref(false)
 
+const activeCourseNumber = computed(() => {
+  if (map.value && course.value) {
+    return map.value.courses.findIndex((c) => c.name === course.value?.name) + 1
+  } else {
+    return 0
+  }
+})
+
 const worldRecord = computed(() => (records.value.length > 0 ? records.value[0] : null))
 const playerRecord = computed(() => {
   if (playerStore.player) {
@@ -113,7 +121,7 @@ async function getMap() {
         <!-- TODO: use course index -->
         <TheImage
           class="rounded-md ring-1 ring-blue-600/40"
-          :src="`https://github.com/kzglobalteam/cs2kz-images/raw/public/webp/medium/${map.name}/1.webp`"
+          :src="`https://github.com/kzglobalteam/cs2kz-images/raw/public/webp/medium/${map.name}/${activeCourseNumber}.webp`"
         />
 
         <div class="flex flex-col justify-between">
