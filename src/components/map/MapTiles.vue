@@ -29,8 +29,7 @@ const transformedMaps = computed(() =>
               state: course.filters[props.query.mode].state,
             }
           })
-          .filter((course) => (props.query.tier === undefined ? true : course.tier === props.query.tier))
-          .sort((a, b) => a.tierNo - b.tierNo),
+          .filter((course) => (props.query.tier === undefined ? true : course.tier === props.query.tier)),
         approved_at: map.approved_at,
       }
     })
