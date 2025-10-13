@@ -82,6 +82,6 @@ const columns = computed(() => {
 
 <template>
   <UCard>
-    <UTable class="mt-4 lg:mt-6" :data="servers" :columns :loading> </UTable>
+    <UTable :data="servers" :columns :loading> </UTable>
   </UCard>
 </template>
