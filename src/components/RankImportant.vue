@@ -7,6 +7,7 @@ import { useI18n } from 'vue-i18n'
 const props = defineProps<{
   leaderboardType: LeaderboardType
   record: Record
+  total: number
 }>()
 
 const { locale } = useI18n()
@@ -66,8 +67,12 @@ async function getAvatar(steamId: string) {
           >{{ record.player.name }}</RouterLink
         >
       </div>
-      <p class="relative text-slate-300 text-lg">
-        {{ `#${leaderboardType === 'overall' ? record.nub_rank : record.pro_rank}` }}
+      <p class="relative">
+        <span class="text-slate-300 text-lg">{{
+          `#${leaderboardType === 'overall' ? record.nub_rank : record.pro_rank}`
+        }}</span>
+        <span class="mx-1 text-slate-500">/</span>
+        <span class="text-slate-300 text-lg">{{ total }}</span>
       </p>
     </div>
 

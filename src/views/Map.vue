@@ -55,6 +55,7 @@ await getMap()
 const {
   records,
   loading: loadingRecords,
+  total,
   query,
 } = useRecords({
   sort_by: 'time',
@@ -232,10 +233,16 @@ async function getMap() {
 
       <!-- ranking -->
       <div class="mt-2 px-1">
-        <RankImportant v-if="worldRecord" :record="worldRecord" :leaderboard-type="query.leaderboardType" />
+        <RankImportant
+          v-if="worldRecord"
+          :record="worldRecord"
+          :total="total"
+          :leaderboard-type="query.leaderboardType"
+        />
         <RankImportant
           v-if="playerRecord && playerRecord.player.id !== worldRecord?.player.id"
           :record="playerRecord"
+          :total="total"
           :leaderboard-type="query.leaderboardType"
           class="mt-2"
         />
