@@ -14,7 +14,7 @@ export function useMaps(initialQuery: Partial<MapQuery> = {}) {
     mode: 'classic',
     state: 'approved',
     leaderboardType: 'overall',
-    limit: 30,
+    limit: 99999,
     offset: 0,
   }
 
