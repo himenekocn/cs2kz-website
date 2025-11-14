@@ -48,7 +48,7 @@ const completionPercentages = computed(() => {
         </div>
         <!-- Values display -->
         <span
-          class="ml-2 font-bold text-sm w-10"
+          class="ml-2 font-bold text-sm w-12"
           :class="completedCourses[index] > 0 ? 'text-gray-400' : 'text-gray-600'"
         >
           {{ completedCourses[index] }} / {{ total }}
