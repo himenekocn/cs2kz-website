@@ -64,7 +64,9 @@ export function useCourses(initialQuery: Partial<CourseQuery> = {}) {
       loading.value = true
 
       // fetch all maps at once and do pagination on the frontend
-      const { data } = await api.get<MapResponse | undefined>('/maps')
+      const { data } = await api.get<MapResponse | undefined>('/maps', {
+        params: { state: 'approved'}
+      })
 
       if (data) {
         const res = data.values.flatMap((map) =>
