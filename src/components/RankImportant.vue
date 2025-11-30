@@ -90,12 +90,6 @@ async function getAvatar(steamId: string) {
           </UTooltip>
         </p>
       </div>
-
-      <UTooltip v-if="wr" text="WR Progression">
-        <UButton variant="ghost" color="info" square @click="emits('toggle')">
-          <IconChart />
-        </UButton>
-      </UTooltip>
     </div>
   </div>
 </template>
