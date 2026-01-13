@@ -12,7 +12,7 @@ export function useServers() {
     name: '',
     host: '',
     owned_by: '',
-    limit: 30,
+    limit: 9999,
     offset: 0,
   })
 
