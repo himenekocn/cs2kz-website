@@ -555,6 +555,20 @@ export interface paths {
 export type webhooks = Record<string, never>
 export interface components {
   schemas: {
+    A2SInfo: {
+      /** @description The map the server is currently hosting. */
+      current_map: string
+      /**
+       * Format: u-int8
+       * @description The number of players currently playing on the server.
+       */
+      num_players: number
+      /**
+       * Format: u-int8
+       * @description The maximum number of players that can join the server.
+       */
+      max_players: number
+    }
     /**
      * Format: ulid
      * @description an opaque access key
@@ -1107,6 +1121,7 @@ export interface components {
         owner: components['schemas']['UserInfo']
         /** @description When this server was approved by the API. */
         approved_at: components['schemas']['Timestamp']
+        a2s_info?: null | components['schemas']['A2SInfo']
       }[]
     }
     Paginated_User: {
@@ -1212,6 +1227,7 @@ export interface components {
       owner: components['schemas']['UserInfo']
       /** @description When this server was approved by the API. */
       approved_at: components['schemas']['Timestamp']
+      a2s_info?: null | components['schemas']['A2SInfo']
     }
     /**
      * Format: hostname

@@ -24,14 +24,9 @@ watch(ip, (ip) => {
         <IconServer />
       </template>
     </UInput>
-    <UInput v-model="ip" :placeholder="$t('servers.query.ipAddress')">
-      <template #trailing>
-        <IconInternet />
-      </template>
-    </UInput>
     <UInput v-model="query.owned_by" :placeholder="$t('servers.query.ownedBy')">
       <template #trailing>
-        <IconPlayer />
+        <IconAdmin />
       </template>
     </UInput>
   </div>
