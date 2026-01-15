@@ -1,16 +1,15 @@
 <script setup lang="ts">
-import type { Server, ServerQuery } from '@/types'
+import type { RunningServer, ServerQuery } from '@/types'
 
 const props = defineProps<{
-  server: Server
+  server: RunningServer
   query: ServerQuery
 }>()
 
 const toast = useToast()
 
 async function copyServerIp() {
-  const serverIp = `${props.server.host}:${props.server.port}`
-  await navigator.clipboard.writeText(serverIp)
+  await navigator.clipboard.writeText(`${props.server.host}:${props.server.port}`)
   toast.add({
     title: 'Server IP copied to clipboard',
     color: 'success',
@@ -23,20 +22,56 @@ async function copyServerIp() {
 <template>
   <div class="rounded-md ring-2 ring-gray-700">
     <TheImage
-      class="w-80 h-45 rounded-tl-md rounded-tr-md cursor-pointer"
-      :src="`https://github.com/kzglobalteam/cs2kz-images/raw/public/webp/medium/${server.a2s_info!.current_map}/1.webp`"
+      class="w-64 h-36 rounded-tl-md rounded-tr-md"
+      :src="`https://github.com/kzglobalteam/cs2kz-images/raw/public/webp/medium/${server.current_map.name}/1.webp`"
     ></TheImage>
 
-    <div class="text-muted p-2">
-      <div class="flex justify-between items-center">
-        <UTooltip :text="server.name" :content="{ side: 'top' }">
-          <p class="italic max-w-56 truncate">{{ server.name }}</p>
+    <div class="text-sm text-muted p-2">
+      <div class="flex items-center gap-1">
+        <UTooltip v-if="server.country" :text="server.country.name" :content="{ side: 'top' }">
+          <img
+            class="w-5 h-auto"
+            :alt="server.country.name"
+            :src="`https://purecatamphetamine.github.io/country-flag-icons/3x2/${server.country.code.toUpperCase()}.svg`"
+          />
         </UTooltip>
+        <UTooltip :text="server.name" :content="{ side: 'top' }">
+          <p class="italic max-w-54 truncate">{{ server.name }}</p>
+        </UTooltip>
+      </div>
+
+      <div class="mt-1 flex items-center justify-between gap-1">
+        <div class="flex items-center gap-1">
+          <RouterLink
+            class="text-base font-semibold text-slate-300 hover:text-slate-200"
+            :to="`/maps/${server.current_map.name}`"
+            >{{ server.current_map.name }}</RouterLink
+          >
+          <div
+            v-if="server.current_map.isGlobal"
+            class="flex justify-center items-center rounded-sm text-green-400 bg-green-300/20"
+          >
+            <IconYes />
+          </div>
+        </div>
+
+        <span>{{ server.num_players }} / {{ server.max_players }}</span>
+      </div>
+
+      <div class="mt-1 flex items-center justify-between">
+        <div class="flex items-center gap-1">
+          <IconAdmin />
+          <RouterLink class="text-cyan-600 whitespace-nowrap hover:text-cyan-400" :to="`/profile/${server.owner.id}`">
+            {{ server.owner.name }}
+          </RouterLink>
+        </div>
+
         <div class="flex items-center">
-          <UButton variant="ghost" square class="cursor-pointer" @click="copyServerIp">
+          <UButton size="xs" variant="ghost" square class="cursor-pointer" @click="copyServerIp">
             <IconCopy />
           </UButton>
           <UButton
+            size="xs"
             variant="ghost"
             square
             :to="`steam://rungameid/730//+connect ${server.host}:${server.port}`"
@@ -45,22 +80,6 @@ async function copyServerIp() {
             <IconConnect />
           </UButton>
         </div>
-      </div>
-
-      <div class="flex items-center justify-between gap-1">
-        <RouterLink
-          class="text-lg font-semibold text-slate-300 hover:text-slate-200"
-          :to="`/maps/${server.a2s_info!.current_map}`"
-          >{{ server.a2s_info!.current_map }}</RouterLink
-        >
-        <span>{{ server.a2s_info!.num_players }} / {{ server.a2s_info!.max_players }}</span>
-      </div>
-
-      <div class="flex items-center gap-1 mt-1">
-        <IconAdmin />
-        <RouterLink class="text-cyan-600 whitespace-nowrap hover:text-cyan-400" :to="`/profile/${server.owner.id}`">
-          {{ server.owner.name }}
-        </RouterLink>
       </div>
     </div>
   </div>

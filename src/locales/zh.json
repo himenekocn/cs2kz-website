@@ -166,8 +166,16 @@
   "servers": {
     "query": {
       "name": "名称",
+      "map": "地图",
       "ipAddress": "IP",
-      "ownedBy": "所有者"
+      "ownedBy": "所有者",
+      "globalMapsOnly": "仅选择全球图",
+      "sort": {
+        "name": "服务器名称",
+        "playerCount": "在线玩家数",
+        "date": "创建日期"
+      },
+      "selectCountry": "选择国家"
     },
     "title": {
       "name": "名称",

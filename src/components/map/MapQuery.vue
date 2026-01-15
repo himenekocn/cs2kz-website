@@ -24,6 +24,8 @@ const query = defineModel<MapQuery>('query', { required: true })
       </UButtonGroup>
 
       <USelect
+        variant="outline"
+        color="neutral"
         v-model="query.tier"
         :items="[
           { label: t('common.tier.all'), value: undefined },

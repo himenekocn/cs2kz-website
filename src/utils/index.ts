@@ -11,7 +11,7 @@ export function validQuery(query: Record<string, unknown>) {
   return Object.fromEntries(Object.entries(query).filter(([_, value]) => value !== '' && value !== null))
 }
 
-export function sort<T extends CourseInfo>(data: T[], order: 'ascending' | 'descending', orderBy: keyof T) {
+export function sort<T>(data: T[], order: 'ascending' | 'descending', orderBy: keyof T) {
   const ord = order === 'ascending' ? 1 : -1
   if (!orderBy) return data
 

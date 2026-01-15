@@ -104,14 +104,44 @@ export interface RecordQuery {
 
 export type Server = components['schemas']['Server']
 
+export interface RunningServer {
+  id: number
+  name: string
+  host: string
+  port: number
+  owner: {
+    id: string
+    name: string
+  }
+  country: { name: string; code: string } | null
+  approved_at: string
+  current_map: {
+    name: string
+    // as in whether it's in the API
+    isGlobal: boolean
+  }
+  num_players: number
+  max_players: number
+}
+
 export type ServerResponse = paths['/servers']['get']['responses']['200']['content']['application/json']
 
 export interface ServerQuery {
   name: string
-  host: string
-  owned_by: string
-  limit: number
-  offset: number
+  map: string
+  owner: string
+  country_codes: string[]
+  globalMapOnly: boolean
+  sortBy: 'name' | 'num_players' | 'approved_at'
+  sortOrder: 'ascending' | 'descending'
+}
+
+export interface GeoData {
+  ip: string
+  country: string
+  country_code: string
+  region: string | null
+  city: string | null
 }
 
 export interface Profile {

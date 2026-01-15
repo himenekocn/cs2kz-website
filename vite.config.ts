@@ -17,6 +17,11 @@ export default defineConfig({
         colors: {
           primary: 'blue',
         },
+        button: {
+          slots: {
+            base: 'cursor-pointer',
+          },
+        },
         tabs: {
           slots: {
             root: 'w-48',

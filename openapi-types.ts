@@ -558,6 +558,7 @@ export interface components {
     A2SInfo: {
       /** @description The map the server is currently hosting. */
       current_map: string
+      current_map_info?: null | components['schemas']['ServerMapInfo']
       /**
        * Format: u-int8
        * @description The number of players currently playing on the server.
@@ -1243,6 +1244,15 @@ export interface components {
       id: number
       /** @description The server's name. */
       name: string
+    }
+    ServerMapInfo: {
+      /**
+       * Format: u-int32
+       * @description The map's ID on the Steam workshop.
+       */
+      workshop_id: number
+      /** @description The map's state in the API. */
+      global_state: components['schemas']['MapState']
     }
     ServerUpdate: {
       /** @description A new name. */

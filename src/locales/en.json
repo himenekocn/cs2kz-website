@@ -166,8 +166,16 @@
   "servers": {
     "query": {
       "name": "Name",
+      "map": "Map",
       "ipAddress": "IP",
-      "ownedBy": "Owner"
+      "ownedBy": "Owner",
+      "globalMapsOnly": "Global Maps Only",
+      "sort": {
+        "name": "Name",
+        "playerCount": "Player Count",
+        "date": "Date"
+      },
+      "selectCountry": "Select Country"
     },
     "title": {
       "name": "Name",

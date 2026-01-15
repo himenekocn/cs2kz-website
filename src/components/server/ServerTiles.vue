@@ -1,22 +1,17 @@
 <script setup lang="ts">
-import type { Server, ServerQuery } from '@/types'
-import { computed } from 'vue'
+import type { RunningServer, ServerQuery } from '@/types'
 
-const props = defineProps<{
-  servers: Server[]
+defineProps<{
+  servers: RunningServer[]
   loading: boolean
   query: ServerQuery
 }>()
-
-const activeServers = computed(() => {
-  return props.servers.filter((server) => server.a2s_info !== null)
-})
 </script>
 
 <template>
   <div class="mt-8 p-1 mx-auto w-max">
-    <div class="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-4 gap-4 lg:gap-10 lg:place-items-center">
-      <ServerCard v-for="server in activeServers" :key="server.id" :query="query" :server="server" />
+    <div class="grid grid-cols-1 lg:grid-cols-3 2xl:grid-cols-6 gap-4 lg:gap-10 lg:place-items-center">
+      <ServerCard v-for="server in servers" :key="server.id" :query="query" :server="server" />
     </div>
   </div>
 </template>

@@ -12,9 +12,9 @@ const props = defineProps<{
 
 const route = useRoute()
 
-const { records, query: completionQuery } = useRecords({ player: route.params.steamId as string, limit: 99999 })
+const { records, query: completionQuery } = useRecords({ player: route.params.steamId as string, limit: 10000 })
 
-const { courses, query: courseQuery } = useCourses({ limit: 99999 })
+const { courses, query: courseQuery } = useCourses({ limit: 10000 })
 
 const ranksAndPoints = ref()
 const completedCourses = ref()
