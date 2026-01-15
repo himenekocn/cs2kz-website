@@ -18,9 +18,9 @@ export function useServers() {
     map: '',
     owner: '',
     country_codes: [],
-    globalMapOnly: false,
-    sortBy: 'name',
-    sortOrder: 'ascending',
+    globalMapOnly: true,
+    sortBy: 'num_players',
+    sortOrder: 'descending',
   })
 
   // 防抖查询字段
@@ -138,9 +138,9 @@ export function useServers() {
     query.map = ''
     query.owner = ''
     query.country_codes = []
-    query.globalMapOnly = false
-    query.sortBy = 'name'
-    query.sortOrder = 'ascending'
+    query.globalMapOnly = true
+    query.sortBy = 'num_players'
+    query.sortOrder = 'descending'
   }
 
   getServers()

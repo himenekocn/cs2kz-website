@@ -72,8 +72,8 @@ const emits = defineEmits(['resetQuery'])
         v-model="query.sortBy"
         :ui="{ base: 'w-32' }"
         :items="[
-          { label: $t('servers.query.sort.name'), value: 'name' },
           { label: $t('servers.query.sort.playerCount'), value: 'num_players' },
+          { label: $t('servers.query.sort.name'), value: 'name' },
           { label: $t('servers.query.sort.date'), value: 'approved_at' },
         ]"
       />
