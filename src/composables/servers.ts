@@ -11,13 +11,12 @@ export function useServers() {
 
   const runningServers = ref<RunningServer[]>([])
 
-  const availableCountries = ref<{ name: string; code: string; occurences: number }[]>([])
+  const availableRegions = ref<{ name: string; code: string }[]>([])
 
   const query = reactive<ServerQuery>({
     name: '',
     map: '',
     owner: '',
-    country_codes: [],
     globalMapOnly: true,
     sortBy: 'num_players',
     sortOrder: 'descending',
@@ -48,7 +47,7 @@ export function useServers() {
         server.name.toLowerCase().includes(debouncedQuery.name.toLowerCase()) &&
         server.owner.name.toLowerCase().includes(debouncedQuery.owner.toLowerCase()) &&
         server.current_map.name.toLowerCase().includes(debouncedQuery.map.toLowerCase()) &&
-        (query.country_codes.length === 0 ? true : query.country_codes.includes(server.country!.code)) &&
+        (query.region_code === undefined ? true : query.region_code === server.region!.code) &&
         (query.globalMapOnly ? server.current_map.isGlobal : true),
     )
 
@@ -75,6 +74,7 @@ export function useServers() {
             port: server.port,
             owner: server.owner,
             country: null,
+            region: null,
             approved_at: server.approved_at,
             current_map: {
               name: server.a2s_info!.current_map,
@@ -104,27 +104,22 @@ export function useServers() {
       if (data) {
         runningServers.value.forEach((server, index) => {
           server.country = { name: data[index].country, code: data[index].country_code }
+          server.region = { name: data[index].region_name, code: data[index].region_code }
         })
-        availableCountries.value = data
-          .reduce(
-            (acc, item) => {
-              const existing = acc.find((i) => i.code === item.country_code)
-              if (existing) {
-                existing.occurences++
-              } else {
-                acc.push({ name: item.country, code: item.country_code, occurences: 1 })
-              }
-              return acc
-            },
-            [] as { name: string; code: string; occurences: number }[],
+        // deduplicate regions and sort by occurences
+        availableRegions.value = data
+          .map((item) => ({ name: item.region_name, code: item.region_code }))
+          .filter((item, index, arr) => arr.findIndex((i) => i.code === item.code) === index)
+          .sort(
+            (a, b) =>
+              data.filter((i) => i.region_code === b.code).length - data.filter((i) => i.region_code === a.code).length,
           )
-          .sort((a, b) => b.occurences - a.occurences)
       } else {
-        availableCountries.value = []
+        availableRegions.value = []
       }
     } catch (err) {
       console.error(err)
-      availableCountries.value = []
+      availableRegions.value = []
     }
   }
 
@@ -137,7 +132,7 @@ export function useServers() {
     query.name = ''
     query.map = ''
     query.owner = ''
-    query.country_codes = []
+    query.region_code = undefined
     query.globalMapOnly = true
     query.sortBy = 'num_players'
     query.sortOrder = 'descending'
@@ -148,7 +143,7 @@ export function useServers() {
   return {
     resetQuery,
     servers,
-    availableCountries,
+    availableRegions,
     loading,
     error,
     query,

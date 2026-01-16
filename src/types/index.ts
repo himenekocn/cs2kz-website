@@ -114,6 +114,7 @@ export interface RunningServer {
     name: string
   }
   country: { name: string; code: string } | null
+  region: { name: string; code: string } | null
   approved_at: string
   current_map: {
     name: string
@@ -130,7 +131,7 @@ export interface ServerQuery {
   name: string
   map: string
   owner: string
-  country_codes: string[]
+  region_code?: string
   globalMapOnly: boolean
   sortBy: 'name' | 'num_players' | 'approved_at'
   sortOrder: 'ascending' | 'descending'
@@ -142,6 +143,8 @@ export interface GeoData {
   country_code: string
   region: string | null
   city: string | null
+  region_name: string
+  region_code: string
 }
 
 export interface Profile {

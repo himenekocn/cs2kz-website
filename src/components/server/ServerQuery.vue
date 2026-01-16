@@ -4,7 +4,7 @@ import type { ServerQuery } from '@/types'
 const query = defineModel<ServerQuery>('query', { required: true })
 
 defineProps<{
-  availableCountries: { name: string; code: string; occurences: number }[]
+  availableRegions: { name: string; code: string }[]
 }>()
 
 const emits = defineEmits(['resetQuery'])
@@ -35,26 +35,14 @@ const emits = defineEmits(['resetQuery'])
     </UInput>
 
     <USelect
-      v-if="availableCountries.length > 0"
-      v-model="query.country_codes"
-      multiple
-      :items="availableCountries"
+      v-if="availableRegions.length > 0"
+      v-model="query.region_code"
+      :items="availableRegions"
       label-key="name"
       value-key="code"
-      :placeholder="$t('servers.query.selectCountry')"
+      :placeholder="$t('servers.query.selectRegion')"
       :ui="{ content: 'min-w-fit' }"
     >
-      <template #item-label="{ item }">
-        <span>{{ item.name }}</span>
-        <span class="text-slate-400 ml-1">{{ `(${item.occurences})` }}</span>
-      </template>
-      <template #item-leading="{ item }">
-        <img
-          class="w-5 h-auto"
-          :alt="item.name"
-          :src="`https://purecatamphetamine.github.io/country-flag-icons/3x2/${item.code.toUpperCase()}.svg`"
-        />
-      </template>
     </USelect>
 
     <UButtonGroup orientation="horizontal">
