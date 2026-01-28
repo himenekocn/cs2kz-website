@@ -70,7 +70,8 @@ const navigation = computed(() => {
 })
 
 function signIn() {
-  const url = `${import.meta.env.VITE_API_URL}/auth/web/login?redirect_to=${location.origin}`
+  //const url = `${import.meta.env.VITE_API_URL}/auth/web/login?redirect_to=${location.origin}`
+  const url = `https://himeneko.cn/user?refer=https://cs2kz.himeneko.cn`
   location.href = url
 }
 
