@@ -28,12 +28,12 @@ function goToCourse(name: string) {
     <div class="flex items-center">
       <TheImage
         class="hidden lg:block w-64 h-36 rounded-bl-md rounded-tl-md cursor-pointer"
-        :src="`https://github.com/kzglobalteam/cs2kz-images/raw/public/webp/medium/${map.name}/1.webp`"
+        :src="`https://hk.gh-proxy.org/https://github.com/kzglobalteam/cs2kz-images/raw/public/webp/medium/${map.name}/1.webp`"
         @click="goToCourse(map.courses[0].name)"
       />
       <div
         :style="{
-          backgroundImage: `url(https://github.com/kzglobalteam/cs2kz-images/raw/public/webp/medium/${map.name}/1.webp)`,
+          backgroundImage: `url(https://hk.gh-proxy.org/https://github.com/kzglobalteam/cs2kz-images/raw/public/webp/medium/${map.name}/1.webp)`,
         }"
         class="group w-[300px] h-36 px-2 pb-1 flex flex-col justify-between rounded-tr-md rounded-br-md relative bg-[length:200%_200%] bg-center before:content-[''] before:absolute before:inset-0 before:rounded-tr-md before:rounded-br-md before:bg-gradient-to-r before:from-[rgba(46,46,46,1)] before:to-[rgba(46,46,46,0.6)] before:z-0 before:transition-all"
       >

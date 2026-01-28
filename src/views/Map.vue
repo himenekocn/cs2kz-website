@@ -122,7 +122,7 @@ async function getMap() {
         <!-- TODO: use course index -->
         <TheImage
           class="rounded-md ring-1 ring-blue-600/40"
-          :src="`https://github.com/kzglobalteam/cs2kz-images/raw/public/webp/medium/${map.name}/${activeCourseNumber}.webp`"
+          :src="`https://hk.gh-proxy.org/https://github.com/kzglobalteam/cs2kz-images/raw/public/webp/medium/${map.name}/${activeCourseNumber}.webp`"
         />
 
         <div class="flex flex-col justify-between">

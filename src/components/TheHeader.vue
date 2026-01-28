@@ -46,10 +46,6 @@ const profileOptions = computed(() => [
 const navigation = computed(() => {
   const routes = [
     {
-      localePath: 'nav.servers',
-      path: '/servers',
-    },
-    {
       localePath: 'nav.records',
       path: '/records',
     },
@@ -57,10 +53,14 @@ const navigation = computed(() => {
       localePath: 'nav.maps',
       path: '/maps',
     },
+    {
+      localePath: 'nav.servers',
+      url: 'https://himeneko.cn/query',
+    },
   ]
 
   if (playerStore.player) {
-    routes.splice(2, 0, {
+    routes.push({
       localePath: 'nav.profile',
       path: `/profile/${playerStore.player.id}`,
     })
@@ -77,7 +77,7 @@ function signIn() {
 
 function signOut() {
   playerStore.player = null
-  api.get('/auth/web/logout')
+  api.get('https://himeneko.cn/user?logout')
 }
 </script>
 <template>
@@ -90,8 +90,11 @@ function signOut() {
       <!-- navigation -->
       <nav class="hidden lg:flex justify-center">
         <ol class="text-[1.125rem] flex gap-4 leading-5">
-          <li v-for="item in navigation" :key="item.path">
-            <UButton :variant="route.path === item.path ? 'solid' : 'ghost'" :to="item.path">
+          <li v-for="item in navigation" :key="item.path || item.url">
+            <UButton v-if="item.url" variant="ghost" :to="item.url" target="_blank">
+              {{ $t(item.localePath) }}
+            </UButton>
+            <UButton v-else :variant="route.path === item.path ? 'solid' : 'ghost'" :to="item.path">
               {{ $t(item.localePath) }}
             </UButton>
           </li>

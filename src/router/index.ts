@@ -5,7 +5,7 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      redirect: '/servers',
+      redirect: '/records',
     },
     {
       path: '/records',
@@ -26,11 +26,6 @@ const router = createRouter({
       path: '/profile/:steamId',
       name: 'Profile',
       component: () => import('@/views/Profile.vue'),
-    },
-    {
-      path: '/servers',
-      name: 'Servers',
-      component: () => import('@/views/Servers.vue'),
     },
   ],
 })

@@ -4,7 +4,8 @@ const open = defineModel<boolean>()
 defineProps<{
   navigation: {
     localePath: string
-    path: string
+    path?: string
+    url?: string
   }[]
 }>()
 </script>
@@ -19,8 +20,11 @@ defineProps<{
       <div class="container mx-auto px-2 flex flex-1 flex-col">
         <nav class="mt-2">
           <ul class="flex flex-col gap-2">
-            <li v-for="item in navigation" :key="item.path">
-              <UButton variant="ghost" :to="item.path" active-variant="solid" @click="open = false">
+            <li v-for="item in navigation" :key="item.path || item.url">
+              <UButton v-if="item.url" variant="ghost" :to="item.url" target="_blank" @click="open = false">
+                {{ $t(item.localePath) }}
+              </UButton>
+              <UButton v-else variant="ghost" :to="item.path" active-variant="solid" @click="open = false">
                 {{ $t(item.localePath) }}
               </UButton>
             </li>

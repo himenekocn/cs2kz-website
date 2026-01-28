@@ -1,8 +1,9 @@
 <script setup lang="ts">
+import { onMounted } from 'vue'
 import { RouterView } from 'vue-router'
 import Cookies from 'universal-cookie'
 import { usePlayerStore } from './stores/player'
-import { api } from './utils'
+import { api, getPlayerFromQuery, setPlayerFromQuery } from './utils'
 import TheHeader from './components/TheHeader.vue'
 import { useColorMode } from '@vueuse/core'
 
@@ -15,14 +16,27 @@ colorMode.value = 'dark'
 
 playerStore.player = cookies.get('kz-player') || null
 
+// 从 GET 接口设置 kz-player
+onMounted(async () => {
+  const player = await setPlayerFromQuery()
+  if (player) {
+    playerStore.player = player
+    cookies.set('kz-player', player)
+  }
+})
+
 if (playerStore.player) {
   verifySession()
 }
 
 async function verifySession() {
   try {
-    await api.get('/auth/web', { withCredentials: true })
-    setTimeout(verifySession, 1000 * 25)
+    const player = await getPlayerFromQuery()
+    if (player) {
+      playerStore.player = player
+      cookies.set('kz-player', player)
+    }
+    setTimeout(verifySession, 1000 * 30)
     /* eslint-disable */
   } catch (error: any) {
     /* eslint-enable */

@@ -1,11 +1,29 @@
 import axios from 'axios'
-import type { CourseInfo, Record as Run, RecordWithImproved, Tier, LeaderboardType } from '@/types'
+import type { CourseInfo, Record as Run, RecordWithImproved, Tier, LeaderboardType, PlayerSteam } from '@/types'
 import { format, formatDistanceToNowStrict } from 'date-fns'
 import { zhCN } from 'date-fns/locale'
 
 export const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
 })
+
+export async function getPlayerFromQuery() {
+  try {
+    const response = await api.get('https://himeneko.cn/user?GetLogInfo', { withCredentials: true })
+    return response.data as PlayerSteam
+  } catch (error) {
+    return null
+  }
+}
+
+export async function setPlayerFromQuery() {
+  try {
+    const response = await api.get('https://himeneko.cn/user?GetLogInfo', { withCredentials: true })
+    return response.data as PlayerSteam
+  } catch (error) {
+    return null
+  }
+}
 
 export function validQuery(query: Record<string, unknown>) {
   return Object.fromEntries(Object.entries(query).filter(([_, value]) => value !== '' && value !== null))
