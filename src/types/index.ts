@@ -29,6 +29,8 @@ export type CourseFilters = components['schemas']['CourseFilters']
 
 export type Course = components['schemas']['Course']
 
+export type Profile = components['schemas']['Player']
+
 export type LeaderboardType = 'overall' | 'pro'
 
 export interface MapQuery {
@@ -148,13 +150,6 @@ export interface GeoData {
   city: string | null
   region_name: string
   region_code: string
-}
-
-export interface Profile {
-  id: string
-  name: string
-  rating: number
-  first_joined_at: string
 }
 
 export interface ProfileQuery {

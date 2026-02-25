@@ -304,23 +304,6 @@ export interface paths {
     patch?: never
     trace?: never
   }
-  '/players/{player_id}/profile': {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    /** Returns a player's profile information. */
-    get: operations['get_player_profile']
-    put?: never
-    post?: never
-    delete?: never
-    options?: never
-    head?: never
-    patch?: never
-    trace?: never
-  }
   '/players/{player_id}/steam-profile': {
     parameters: {
       query?: never
@@ -446,23 +429,6 @@ export interface paths {
     patch?: never
     trace?: never
   }
-  '/jumpstats/{jumpstat_id}/replay': {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    /** Returns the replay file for a specific jumpstat. */
-    get: operations['get_jumpstat_replay']
-    put?: never
-    post?: never
-    delete?: never
-    options?: never
-    head?: never
-    patch?: never
-    trace?: never
-  }
   '/records': {
     parameters: {
       query?: never
@@ -489,23 +455,6 @@ export interface paths {
     }
     /** Returns the record with the specified ID. */
     get: operations['get_record']
-    put?: never
-    post?: never
-    delete?: never
-    options?: never
-    head?: never
-    patch?: never
-    trace?: never
-  }
-  '/records/{record_id}/replay': {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    /** Returns the replay file for a specific record. */
-    get: operations['get_record_replay']
     put?: never
     post?: never
     delete?: never
@@ -747,7 +696,6 @@ export interface components {
       deviation: number
       /** Format: float */
       average_width: number
-      submitted_at: components['schemas']['Timestamp']
     }
     /** Format: u-int64 */
     Limit: number
@@ -975,7 +923,6 @@ export interface components {
         deviation: number
         /** Format: float */
         average_width: number
-        submitted_at: components['schemas']['Timestamp']
       }[]
     }
     Paginated_Map: {
@@ -1032,6 +979,16 @@ export interface components {
         id: components['schemas']['SteamId']
         /** @description The player's name on Steam. */
         name: string
+        /**
+         * Format: double
+         * @description The player's VNL rating.
+         */
+        vnl_rating: number
+        /**
+         * Format: double
+         * @description The player's CKZ rating.
+         */
+        ckz_rating: number
         /** @description When this player first joined an approved CS2 server. */
         first_joined_at: components['schemas']['Timestamp']
       }[]
@@ -1073,8 +1030,8 @@ export interface components {
       total: number
       /** @description The values returned for this request. */
       values: {
-        /** Format: u-int32 */
-        id: number
+        /** Format: uuid */
+        id: string
         player: components['schemas']['PlayerInfo']
         server: components['schemas']['ServerInfo']
         map: components['schemas']['MapInfo']
@@ -1096,7 +1053,6 @@ export interface components {
         pro_rank?: number | null
         /** Format: double */
         pro_points?: number | null
-        submitted_at: components['schemas']['Timestamp']
       }[]
     }
     Paginated_Server: {
@@ -1156,6 +1112,16 @@ export interface components {
       id: components['schemas']['SteamId']
       /** @description The player's name on Steam. */
       name: string
+      /**
+       * Format: double
+       * @description The player's VNL rating.
+       */
+      vnl_rating: number
+      /**
+       * Format: double
+       * @description The player's CKZ rating.
+       */
+      ckz_rating: number
       /** @description When this player first joined an approved CS2 server. */
       first_joined_at: components['schemas']['Timestamp']
     }
@@ -1166,6 +1132,8 @@ export interface components {
       /** @description The player's name on Steam. */
       name: string
     }
+    /** @enum {string} */
+    Players_SortBy: 'join-date' | 'vnl-rating' | 'ckz-rating'
     PluginVersion: {
       /** Format: u-int16 */
       id: number
@@ -1185,8 +1153,8 @@ export interface components {
       plugin_version_id: number
     }
     Record: {
-      /** Format: u-int32 */
-      id: number
+      /** Format: uuid */
+      id: string
       player: components['schemas']['PlayerInfo']
       server: components['schemas']['ServerInfo']
       map: components['schemas']['MapInfo']
@@ -1208,14 +1176,11 @@ export interface components {
       pro_rank?: number | null
       /** Format: double */
       pro_points?: number | null
-      submitted_at: components['schemas']['Timestamp']
     }
     /** @enum {string} */
     Records_SortBy: 'submission-date' | 'time'
     /** @enum {string} */
     Records_SortOrder: 'ascending' | 'descending'
-    /** Format: binary */
-    ReplayFile: Record<string, never>
     Server: {
       /** Format: u-int16 */
       id: number
@@ -1979,6 +1944,8 @@ export interface operations {
       query?: {
         /** @description Only include players whose name matches this value. */
         name?: string
+        /** @description How to sort the results. */
+        sort_by?: components['schemas']['Players_SortBy']
         limit?: components['schemas']['Limit']
         offset?: components['schemas']['Offset']
       }
@@ -2012,43 +1979,6 @@ export interface operations {
       path: {
         /** @description a SteamID or name */
         player: components['schemas']['PlayerIdentifier']
-      }
-      cookie?: never
-    }
-    requestBody?: never
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown
-        }
-        content: {
-          'application/json': components['schemas']['Player']
-        }
-      }
-      /** @description invalid path parameters */
-      400: {
-        headers: {
-          [name: string]: unknown
-        }
-        content?: never
-      }
-      404: {
-        headers: {
-          [name: string]: unknown
-        }
-        content?: never
-      }
-    }
-  }
-  get_player_profile: {
-    parameters: {
-      query: {
-        mode: components['schemas']['Mode']
-      }
-      header?: never
-      path: {
-        /** @description the player's SteamID */
-        player_id: number
       }
       cookie?: never
     }
@@ -2415,40 +2345,6 @@ export interface operations {
       }
     }
   }
-  get_jumpstat_replay: {
-    parameters: {
-      query?: never
-      header?: never
-      path: {
-        jumpstat_id: number
-      }
-      cookie?: never
-    }
-    requestBody?: never
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown
-        }
-        content: {
-          'application/json': components['schemas']['ReplayFile']
-        }
-      }
-      /** @description invalid path parameters */
-      400: {
-        headers: {
-          [name: string]: unknown
-        }
-        content?: never
-      }
-      404: {
-        headers: {
-          [name: string]: unknown
-        }
-        content?: never
-      }
-    }
-  }
   get_records: {
     parameters: {
       query?: {
@@ -2507,7 +2403,7 @@ export interface operations {
       query?: never
       header?: never
       path: {
-        record_id: number
+        record_id: string
       }
       cookie?: never
     }
@@ -2519,40 +2415,6 @@ export interface operations {
         }
         content: {
           'application/json': components['schemas']['Record']
-        }
-      }
-      /** @description invalid path parameters */
-      400: {
-        headers: {
-          [name: string]: unknown
-        }
-        content?: never
-      }
-      404: {
-        headers: {
-          [name: string]: unknown
-        }
-        content?: never
-      }
-    }
-  }
-  get_record_replay: {
-    parameters: {
-      query?: never
-      header?: never
-      path: {
-        record_id: number
-      }
-      cookie?: never
-    }
-    requestBody?: never
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown
-        }
-        content: {
-          'application/json': components['schemas']['ReplayFile']
         }
       }
       /** @description invalid path parameters */

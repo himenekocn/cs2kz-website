@@ -61,17 +61,17 @@ async function getSteamProfile() {
           <div
             v-if="profile"
             :style="{
-              color: getRankByRating(profile.rating)[1],
-              backgroundColor: `${getRankByRating(profile.rating)[1]}20`,
-              border: `1px solid ${getRankByRating(profile.rating)[1]}`,
+              color: getRankByRating(query.mode === 'classic' ? profile.ckz_rating : profile.vnl_rating)[1],
+              backgroundColor: `${getRankByRating(query.mode === 'classic' ? profile.ckz_rating : profile.vnl_rating)[1]}20`,
+              border: `1px solid ${getRankByRating(query.mode === 'classic' ? profile.ckz_rating : profile.vnl_rating)[1]}`,
             }"
             class="flex justify-center items-center px-1 font-semibold text-sm rounded-md"
           >
-            {{ getRankByRating(profile.rating)[0] }}
+            {{ getRankByRating(query.mode === 'classic' ? profile.ckz_rating : profile.vnl_rating)[0] }}
           </div>
           <span class="text-gray-600">/</span>
           <span class="font-medium">
-            {{ profile ? seperateThousands(profile.rating) : '-' }}
+            {{ profile ? seperateThousands(query.mode === 'classic' ? profile.ckz_rating : profile.vnl_rating) : '-' }}
           </span>
         </div>
       </div>

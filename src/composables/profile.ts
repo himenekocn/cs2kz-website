@@ -12,8 +12,6 @@ export function useProfile(playerId: string) {
     player_id: playerId,
   })
 
-  watch(query, getProfile)
-
   styleStore.$subscribe((_mutation, state) => {
     query.mode = state.mode
   })
@@ -22,12 +20,10 @@ export function useProfile(playerId: string) {
 
   async function getProfile() {
     try {
-      const { data } = await api.get(`/players/${query.player_id}/profile`, {
-        params: { mode: query.mode },
-      })
+      const { data } = await api.get(`/players/${query.player_id}`)
 
       if (data) {
-        profile.value = { ...data, rating: data.rating * 0.1 }
+        profile.value = data
       }
     } catch (err) {
       console.log('[fetch error]', err)

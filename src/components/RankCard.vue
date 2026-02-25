@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue'
 import type { LeaderboardType, Record } from '@/types'
-import { api, formatTime, toLocal, toLocalDistance } from '@/utils'
+import { api, formatTime, uuidToLocal, uuidToLocalDistance } from '@/utils'
 import { useI18n } from 'vue-i18n'
 
 const props = defineProps<{
@@ -73,8 +73,8 @@ async function getAvatar(steamId: string) {
       <div>
         <p class="text-gray-300">{{ $t('records.title.date') }}</p>
         <p class="text-gray-200 italic whitespace-nowrap w-32">
-          <UTooltip :text="toLocal(record.submitted_at)">
-            {{ toLocalDistance(record.submitted_at, locale) }}
+          <UTooltip :text="uuidToLocal(record.id)">
+            {{ uuidToLocalDistance(record.id, locale) }}
           </UTooltip>
         </p>
       </div>
