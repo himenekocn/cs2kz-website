@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import type { Record } from '@/types'
-import { getTierColor, getTierNumber, formatTime, toLocal, seperateThousands, isNubRecord } from '@/utils'
+import { getTierColor, getTierNumber, formatTime, toLocal, seperateThousands, isNubRecord, uuidToLocal } from '@/utils'
 
 const filterTier = computed(() => {
   const key = isNubRecord(props.record) ? 'nub_tier' : 'pro_tier'
@@ -57,7 +57,7 @@ const props = defineProps<{
 
       <div class="grid-item col-span-2">
         <p class="item-key whitespace-nowrap">{{ $t('records.title.date') }}:</p>
-        <p class="whitespace-nowrap">{{ toLocal(record.submitted_at) }}</p>
+        <p class="whitespace-nowrap">{{ uuidToLocal(record.id) }}</p>
       </div>
 
       <div class="grid-item">
