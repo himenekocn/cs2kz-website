@@ -51,7 +51,7 @@
     "links": "Links",
     "tooltip": {
       "locale": "Switch language",
-      "login": "Login through Steam",
+      "login": "Login through HIME",
       "discord": "Discord",
       "github": "Github",
       "docs": "Documentation",

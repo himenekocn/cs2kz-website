@@ -118,7 +118,7 @@ async function getMap() {
     <div class="flex flex-col xl:flex-row items-start gap-4 mt-4">
       <TheImage
         class="rounded-md ring-2 ring-blue-600/40"
-        :src="`https://github.com/kzglobalteam/cs2kz-images/raw/public/webp/medium/${map.name}/${activeCourseNumber}.webp`"
+        :src="`https://hk.gh-proxy.org/https://github.com/kzglobalteam/cs2kz-images/raw/public/webp/medium/${map.name}/${activeCourseNumber}.webp`"
       />
 
       <div class="flex flex-col lg:h-[288px] lg:justify-between">

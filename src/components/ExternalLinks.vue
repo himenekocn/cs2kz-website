@@ -18,18 +18,8 @@ const items = computed(() => [
   {
     label: t('nav.tooltip.github'),
     icon: IconGithub,
-    href: 'https://github.com/KZGlobalTeam',
-  },
-  {
-    label: t('nav.tooltip.docs'),
-    icon: IconBook,
-    href: 'https://docs.cs2kz.org',
-  },
-  {
-    label: t('nav.tooltip.dashboard'),
-    icon: IconDashboard,
-    href: 'https://dashboard.cs2kz.org',
-  },
+    href: 'https://hk.gh-proxy.org/https://github.com/KZGlobalTeam',
+  }
 ])
 
 function goToLink(href: string) {

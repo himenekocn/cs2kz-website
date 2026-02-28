@@ -45,10 +45,6 @@ const profileOptions = computed(() => [
 
 const navigation = [
   {
-    localePath: 'nav.servers',
-    path: '/servers',
-  },
-  {
     localePath: 'nav.records',
     path: '/records',
   },
@@ -56,16 +52,20 @@ const navigation = [
     localePath: 'nav.maps',
     path: '/maps',
   },
+  {
+    localePath: 'nav.servers',
+    url: 'https://himeneko.cn/query',
+  },
 ]
 
 function signIn() {
-  const url = `${import.meta.env.VITE_API_URL}/auth/web/login?redirect_to=${location.origin}`
+  const url = `https://himeneko.cn/user?refer=https://cs2kz.himeneko.cn`
   location.href = url
 }
 
 function signOut() {
   playerStore.player = null
-  api.get('/auth/web/logout')
+  api.get('https://himeneko.cn/user?logout')
 }
 </script>
 <template>
@@ -78,8 +78,11 @@ function signOut() {
       <!-- navigation -->
       <nav class="hidden lg:flex justify-center">
         <ol class="text-[1.125rem] flex gap-4 leading-5">
-          <li v-for="item in navigation" :key="item.path">
-            <UButton :variant="route.path === item.path ? 'solid' : 'ghost'" :to="item.path">
+          <li v-for="item in navigation" :key="item.path || item.url">
+            <UButton v-if="item.url" variant="ghost" :to="item.url" target="_blank">
+              {{ $t(item.localePath) }}
+            </UButton>
+            <UButton v-else :variant="route.path === item.path ? 'solid' : 'ghost'" :to="item.path">
               {{ $t(item.localePath) }}
             </UButton>
           </li>
@@ -96,12 +99,9 @@ function signOut() {
           </UButton>
           <template #content>
             <div class="flex flex-col gap-2 p-1">
-              <div
-                v-for="option in localeOptions"
-                :key="option.value"
+              <div v-for="option in localeOptions" :key="option.value"
                 class="hover:bg-gray-700 text-sm pl-2 pr-3 py-1 rounded-sm cursor-pointer"
-                @click="locale = option.value"
-              >
+                @click="locale = option.value">
                 {{ option.label }}
               </div>
             </div>
@@ -115,12 +115,8 @@ function signOut() {
           </UButton>
           <template #content>
             <div class="flex flex-col gap-1 p-1">
-              <div
-                v-for="option in profileOptions"
-                :key="option.label"
-                @click="option.onSelect"
-                class="hover:bg-gray-700 text-sm pl-2 pr-3 py-1 rounded-sm cursor-pointer"
-              >
+              <div v-for="option in profileOptions" :key="option.label" @click="option.onSelect"
+                class="hover:bg-gray-700 text-sm pl-2 pr-3 py-1 rounded-sm cursor-pointer">
                 {{ option.label }}
               </div>
             </div>
